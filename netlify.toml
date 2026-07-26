@@ -1,6 +1,18 @@
 [build]
   publish = "."
 
+[[redirects]]
+  from = "https://align-n-integrate.com/*"
+  to = "https://alignmentandintegration.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.align-n-integrate.com/*"
+  to = "https://alignmentandintegration.com/:splat"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
