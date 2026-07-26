@@ -13,7 +13,7 @@
    --------------------------------------------------------------------------- */
 
 const DEMO_URLS = {
-  'small-business':       '',
+  'small-business':       'https://restaurant-ops-demo.netlify.app',
   'enterprise':           '',
   'community-safety':     '',
   'student-portal':       '',
