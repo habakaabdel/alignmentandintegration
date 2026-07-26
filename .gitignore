@@ -1,0 +1,7 @@
+.netlify/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+.verify/
+.impeccable/
