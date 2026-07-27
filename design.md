@@ -144,9 +144,14 @@ comes later.
 These are claim limits, not style preferences. They win over voice, and voice
 wins over design.
 
-- The hero line is verbatim and cannot be edited:
-  "I turn objective reality into ones and zeros and solve problems with software."
-- The claim paragraph under it is verbatim. Same rule.
+- The hero line is verbatim and cannot be edited (amended by Abdel 2026-07-26, we-voice):
+  "We turn objective reality into ones and zeros and solve problems with software."
+- The claim paragraph under it is verbatim. Same rule. Current canonical text:
+  "Software built specifically for you used to be out of reach. That is the only reason
+  organizations settle for tools that were never built for them. Not anymore."
+- Site voice is first person plural (we/us) everywhere, per the same amendment. No
+  "millions" phrasing anywhere; the cost claim stays qualitative until a measured
+  number exists.
 - Naming is locked: "the engine", "student portal", "pocket portal". Never "the
   Harness", "Pocket", or "Pocket Student". The engine's former product name was
   retired on 26 July 2026 and must not appear anywhere on this site in any form,
