@@ -16,7 +16,7 @@ const DEMO_URLS = {
   'small-business':   'demos/restaurant-ops/',
   'enterprise':       '',
   'community-safety': 'demos/bpss-ses/',
-  'student-portal':   'https://student-pal.netlify.app',
+  'student-portal':   'https://pocket-student.netlify.app',
   'pocket-portal':    '',
   'engine':           ''
 };
