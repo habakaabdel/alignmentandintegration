@@ -43,11 +43,21 @@
       <span class="brand-name">Alignment Integration</span>
     </a>
     <nav class="nav" aria-label="Sections">
-      <a href="#what-we-do">What we do</a>
-      <a href="#demos">Demos</a>
-      <a href="#how-it-works">How it works</a>
-      <a href="#what-is-built">What is built</a>
-      <a href="#contact" class="nav-cta">Contact</a>
+      <!-- On a phone this is a disclosure. From 48rem up the panel is held open
+           and reads as the single row it has always been. No script involved. -->
+      <details class="nav-disclosure">
+        <summary class="nav-toggle">
+          <span>menu</span>
+          <span class="nav-toggle-mark" aria-hidden="true"></span>
+        </summary>
+        <ul class="nav-list">
+          <li><a href="#what-we-do">What we do</a></li>
+          <li><a href="#demos">Demos</a></li>
+          <li><a href="#how-it-works">How it works</a></li>
+          <li><a href="#what-is-built">What is built</a></li>
+          <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </details>
     </nav>
   </div>
 </header>

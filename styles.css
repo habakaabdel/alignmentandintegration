@@ -111,6 +111,9 @@ a:hover { color: var(--mark-deep); }
   left: var(--s4);
   top: var(--s4);
   z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   padding: var(--s2) var(--s4);
   background: var(--ink);
   color: var(--paper);
@@ -137,7 +140,7 @@ a:hover { color: var(--mark-deep); }
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--s3) var(--s5);
+  gap: var(--s3) var(--s4);
   padding-block: var(--s3);
 }
 
@@ -147,6 +150,9 @@ a:hover { color: var(--mark-deep); }
   gap: var(--s3);
   color: var(--ink);
   text-decoration: none;
+  /* the row is 44px tall on a phone, so the brand's hit area is too. On a
+     desktop the row is its own height and this changes nothing. */
+  align-self: stretch;
 }
 
 .brand-name {
@@ -158,29 +164,81 @@ a:hover { color: var(--mark-deep); }
 .mono-ink { stroke: var(--ink); }
 .mono-mark { stroke: var(--mark); }
 
+/* Below 48rem the five links sit in a disclosure panel so the sticky masthead
+   stays one row tall. The desktop row is restored in the 48rem block. */
+
 .nav {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--s2) var(--s5);
   font-family: var(--mono);
   font-size: var(--t-label);
 }
 
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  padding-inline: var(--s3);
+  border: var(--hair) solid var(--line-strong);
+  border-radius: var(--radius);
+  color: var(--ink);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  list-style: none;
+}
+.nav-toggle::-webkit-details-marker { display: none; }
+.nav-disclosure[open] .nav-toggle { border-color: var(--ink); }
+
+/* the mark is a plus drawn in two hairlines. It loses its upright when open. */
+.nav-toggle-mark {
+  position: relative;
+  width: 11px;
+  height: 11px;
+}
+.nav-toggle-mark::before,
+.nav-toggle-mark::after {
+  content: "";
+  position: absolute;
+  background: var(--ink);
+}
+.nav-toggle-mark::before { left: 0; right: 0; top: 5px; height: var(--hair); }
+.nav-toggle-mark::after { top: 0; bottom: 0; left: 5px; width: var(--hair); }
+.nav-disclosure[open] .nav-toggle-mark::after { display: none; }
+
+/* the panel hangs off the masthead, so opening it moves nothing on the page */
+.nav-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  display: grid;
+  padding: var(--s2) var(--gutter) var(--s4);
+  background: color-mix(in srgb, var(--paper) 92%, white);
+  border-bottom: var(--hair) solid var(--line);
+}
+
+/* engines disagree about how a closed details hides its content, so say it */
+.nav-disclosure:not([open]) .nav-list { display: none; }
+
+.nav-list li + li { border-top: var(--hair) solid var(--line); }
+
 .nav a {
   position: relative;
-  padding-block: var(--s1);
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: var(--s3);
   color: var(--ink-muted);
   text-decoration: none;
 }
 
+/* current section: a solid mark rule, the same language a built row uses */
 .nav a::after {
   content: "";
   position: absolute;
   left: 0;
-  right: 0;
-  bottom: -2px;
-  height: 2px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
   background: var(--mark);
   opacity: 0;
   transition: opacity var(--fast) var(--ease);
@@ -191,21 +249,14 @@ a:hover { color: var(--mark-deep); }
 .nav a[aria-current="true"]::after { opacity: 1; }
 .nav a[aria-current="true"] { color: var(--ink); }
 
-.nav-cta {
-  padding-inline: var(--s3);
-  border: var(--hair) solid var(--line-strong);
-  border-radius: var(--radius);
-  color: var(--ink) !important;
-}
-.nav-cta::after { display: none; }
-.nav-cta:hover { background: var(--panel); }
+.nav-cta { color: var(--ink) !important; }
 
 /* ---------- section frame: the tick rule and the margin index ---------- */
 
 .section {
   padding-block: clamp(2.5rem, 6vw, var(--s9));
-  /* clears the sticky masthead, which is two rows tall on narrow screens */
-  scroll-margin-top: 7.5rem;
+  /* clears the sticky masthead, one row at every width */
+  scroll-margin-top: 5.5rem;
 }
 
 .section + .section { position: relative; }
@@ -299,6 +350,7 @@ a:hover { color: var(--mark-deep); }
 
 .btn {
   display: inline-block;
+  min-height: 44px;
   padding: 0.7rem 1.15rem;
   border: var(--hair) solid transparent;
   border-radius: var(--radius);
@@ -368,10 +420,15 @@ a:hover { color: var(--mark-deep); }
 
 .nodes rect { fill: var(--mark); }
 
+/* These are SVG user units on a 480 wide viewBox that scales with its column,
+   so the rendered size moves with the viewport. The 11px the sheet is drawn at
+   falls to about 7px on a phone, which is not readable. The clamp holds the
+   rendered size near 12px on a narrow screen and returns to 11 units at 640px
+   and above, where the figure is wide enough to carry it. */
 .plot-label,
 .plot-caption {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: clamp(11px, 33.35px - 3.71vw, 20px);
   fill: var(--ink-muted);
   letter-spacing: 0.06em;
 }
@@ -626,7 +683,8 @@ a:hover { color: var(--mark-deep); }
 .status-row {
   position: relative;
   display: grid;
-  gap: var(--s1) var(--s5);
+  /* the row gap only reads on a phone, where name and state stack */
+  gap: var(--s2) var(--s5);
   padding: var(--s4) 0 var(--s4) var(--s5);
   border-bottom: var(--hair) solid var(--line);
 }
@@ -649,8 +707,20 @@ a:hover { color: var(--mark-deep); }
 }
 
 .status-name {
+  position: relative;
   font-size: var(--t-small);
   max-width: 54ch;
+}
+
+/* the row name is a 19px line of text. The hit area is grown to 45px without
+   touching the type, so a thumb gets a target and the sheet stays quiet. */
+.status-name a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -13px;
+  bottom: -13px;
 }
 
 .status-state {
@@ -792,8 +862,19 @@ a:hover { color: var(--mark-deep); }
   color: var(--ink-muted);
 }
 
+.footer-top { position: relative; }
 .footer-top a { color: var(--ink-muted); }
 .footer-top a:hover { color: var(--mark-deep); }
+
+/* same hit area treatment as a status row name */
+.footer-top a::after {
+  content: "";
+  position: absolute;
+  left: -12px;
+  right: -12px;
+  top: -14px;
+  bottom: -14px;
+}
 
 /* ---------- wider viewports ---------- */
 
@@ -805,6 +886,47 @@ a:hover { color: var(--mark-deep); }
 }
 
 @media (min-width: 48rem) {
+  /* the nav returns to the single row it has always been: the panel is held
+     open, the toggle goes away, and the current mark goes back under the link */
+  .nav-disclosure::details-content { content-visibility: visible; block-size: auto; }
+  .nav-toggle { display: none; }
+
+  .nav-list,
+  .nav-disclosure:not([open]) .nav-list {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s2) var(--s5);
+    padding: 0;
+    background: none;
+    border-bottom: 0;
+  }
+  .nav-list li + li { border-top: 0; }
+
+  .nav a {
+    display: block;
+    min-height: 0;
+    padding: var(--s1) 0;
+  }
+  .nav a::after {
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: -2px;
+    width: auto;
+    height: 2px;
+  }
+
+  /* carries the link's own specificity so the padding reset above cannot win */
+  .nav a.nav-cta {
+    padding-inline: var(--s3);
+    border: var(--hair) solid var(--line-strong);
+    border-radius: var(--radius);
+  }
+  .nav-cta::after { display: none; }
+  .nav-cta:hover { background: var(--panel); }
+
   .section-head { grid-template-columns: 4rem 1fr; }
   .idea { grid-template-columns: 4rem 1fr; }
   .offer { grid-template-columns: 7.5rem 1fr; }
@@ -823,7 +945,6 @@ a:hover { color: var(--mark-deep); }
     grid-template-columns: 1.08fr 0.92fr;
     gap: var(--s7);
   }
-  .section { scroll-margin-top: 5.5rem; }
 }
 
 /* ---------- motion ---------- */

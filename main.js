@@ -71,6 +71,20 @@ function trackSections() {
   map.forEach(function (_link, section) { observer.observe(section); });
 }
 
+/* ---------- the sections panel closes behind you on a phone ----------
+   The disclosure works without this. It just stops the open panel sitting over
+   the section you asked for. On a desktop the panel is held open by CSS and
+   never carries the open attribute, so this is a no-op there. */
+
+function wireNav() {
+  const disclosure = document.querySelector('.nav-disclosure');
+  if (!disclosure) return;
+
+  disclosure.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener('click', function () { disclosure.open = false; });
+  });
+}
+
 /* ---------- the hero plot draws itself once ---------- */
 
 function drawPlot() {
@@ -134,5 +148,6 @@ function wireForm() {
 
 activateTiles();
 trackSections();
+wireNav();
 drawPlot();
 wireForm();

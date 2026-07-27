@@ -214,6 +214,60 @@ the h1 and the claim, the process, the two axes, then the menu.
 - No analytics, no cookies, no third party requests other than the two Google
   Fonts stylesheets.
 
+## Responsive verification, locked 2026-07-27
+
+This site is one responsive codebase. There is no separate mobile build. Every
+change, however small, accounts for both the phone and the desktop rendering of
+the page it touches, and is verified at both before it deploys:
+
+- Minimum check: 375px and 1280px, full-page, zero horizontal overflow
+  (`scrollWidth` equals `innerWidth`). Add 768px whenever a change lands near a
+  breakpoint.
+- Both screenshots accompany any change presented for approval.
+- Tap targets keep a hit area of at least 44px in their smallest dimension.
+- A change verified at only one viewport is an unfinished change.
+
+### The masthead nav on a phone
+
+Below 48rem the five links live in a `details` disclosure labelled "menu", so
+the sticky masthead stays one row and 69px tall instead of wrapping to two. The
+panel is absolutely positioned under the masthead, so opening it moves nothing
+on the page. From 48rem up the panel is held open with
+`::details-content { content-visibility: visible }`, the toggle is hidden, and
+the row is the same one it has always been: same widths, same positions, same
+56px masthead.
+
+Rules a future editor keeps:
+
+- No script is involved. `details` opens on its own. `main.js` only closes the
+  panel after a link is used, which is a convenience and not a requirement.
+- The toggle's mark is a plus drawn in two hairlines that loses its upright when
+  the panel opens. It does not rotate or slide. There is no drawer, no overlay
+  dim, and no shadow.
+- Inside the panel the current section is a solid 2px `--mark` rule down the
+  left edge of the row, which is the same marker a built status row uses. The
+  underline belongs to the desktop row.
+- The breakpoint is 48rem because that is where all five links plus the brand
+  fit on one line. Do not lower it without measuring.
+- Anything that resets a `.nav a` property at 48rem has to leave the CTA's own
+  padding and border alone, which is why that rule is written `.nav a.nav-cta`.
+
+### Tap targets
+
+44px is a hit area, not a visual box. Where the type is small and has to stay
+that way, the hit area grows with a transparent absolutely positioned `::after`
+on the link: status row names, and the back to top link in the footer. Nothing
+about the drawn sheet changes. Padding based growth is confined to the phone,
+because a desktop pointer does not need it and the row heights are load bearing.
+
+### The hero plot labels
+
+`.plot-label` and `.plot-caption` are SVG user units on a 480 wide viewBox that
+scales with its column, so their rendered size moves with the viewport. They are
+sized with a clamp that holds the rendered size near 12px on a phone and returns
+to the sheet's 11 units at 640px and above. Set a fixed size there again and the
+labels fall to about 7px on a phone.
+
 ## Adding a demo
 
 Open `main.js`, put the URL in `DEMO_URLS` against the tile's key, deploy. The
