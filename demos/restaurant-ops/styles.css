@@ -57,7 +57,9 @@
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-ui: "Inter", ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
 
-  --fs-micro: 0.6875rem;
+  /* micro is the floor of the scale and carries the chips, tags and meta rows.
+     It sits at 12px rather than 11 so nothing on the board reads under 12. */
+  --fs-micro: 0.75rem;
   --fs-xs: 0.75rem;
   --fs-sm: 0.8125rem;
   --fs-base: 0.9375rem;
@@ -124,6 +126,9 @@ a:hover { color: var(--ink); }
   position: absolute;
   left: var(--s3); top: -5rem;
   z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   padding: var(--s2) var(--s3);
   background: var(--cream);
   color: var(--green-deep);
@@ -850,6 +855,32 @@ a:hover { color: var(--ink); }
   .tile:nth-child(odd) { border-left: 0; padding-left: 0; }
   .tile:nth-last-child(-n + 2) { border-bottom: 1px solid var(--green-track); }
   .tile:last-child { border-bottom: 0; }
+}
+
+/* Touch widths. Every control on the board is worked with a thumb during
+   service, so the hit areas go to 44px. The buttons grow into it; the inline
+   toggle keeps its size and swaps its rule for an underline so the line stays
+   against the text instead of dropping to the bottom of a taller box. */
+@media (max-width: 768px) {
+  .btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .call__toggle {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    border-bottom: 0;
+    padding: 0;
+    text-decoration: underline;
+    text-decoration-color: var(--green-edge);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .call__toggle:hover { text-decoration-color: var(--ink-3); }
 }
 
 @media (min-width: 900px) {

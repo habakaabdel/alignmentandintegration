@@ -67,11 +67,13 @@
   .demo-bar{border-bottom:var(--hair) solid var(--line);background:var(--panel)}
   .demo-bar-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
     gap:var(--s3) var(--s5);padding-block:var(--s3)}
-  .brand{display:inline-flex;align-items:center;gap:var(--s3);color:var(--ink);text-decoration:none}
+  .brand{display:inline-flex;align-items:center;gap:var(--s3);color:var(--ink);text-decoration:none;
+    min-height:44px}
   .brand-name{font-size:var(--t-small);font-weight:600}
   .mono-ink{stroke:var(--ink)} .mono-mark{stroke:var(--mark)}
   .bar-right{display:inline-flex;align-items:center;gap:var(--s5);
     font-family:var(--mono);font-size:var(--t-label);letter-spacing:0.06em}
+  .bar-right a{display:inline-flex;align-items:center;min-height:44px}
   .bar-label{color:var(--ink-muted)}
 
   /* ---------- page frame ---------- */
@@ -86,25 +88,36 @@
     border-bottom:var(--hair) solid var(--line-strong)}
   .tab{background:none;border:none;border-bottom:2px solid transparent;color:var(--ink-muted);
     font-family:var(--mono);font-size:var(--t-label);letter-spacing:0.06em;
-    padding:var(--s3) var(--s4);cursor:pointer;margin-bottom:-1px}
+    padding:var(--s3) var(--s4);cursor:pointer;margin-bottom:-1px;min-height:44px}
   .tab:hover{color:var(--ink)}
   .tab.active{color:var(--ink);border-bottom-color:var(--mark)}
   .tab .n{color:var(--mark);margin-right:var(--s2)}
 
   .board{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,360px);gap:var(--s5);align-items:start}
-  @media (max-width:60rem){ .board{grid-template-columns:1fr} }
+  /* the figure cards scroll sideways below their drawn width, so the tracks and
+     the items both need a zero floor or the grid widens to the drawing instead */
+  .board > *{min-width:0}
+  @media (max-width:60rem){ .board{grid-template-columns:minmax(0,1fr)} }
   section[hidden]{display:none}
 
   .mapcard{background:var(--panel);border:var(--hair) solid var(--line-strong);
-    border-radius:var(--radius);padding:var(--s3) var(--s3) 0;position:relative}
+    border-radius:var(--radius);padding:var(--s3) var(--s3) 0;position:relative;overflow-x:auto;min-width:0}
   .mapcard svg{width:100%;height:auto;display:block;touch-action:manipulation}
+
+  /* Both figures are drawn in a fixed viewBox, so their labels are user units
+     that shrink with the column. 530 is the narrowest the figure column gets on
+     a desktop board, and the label sizes below are set so that at that width
+     nothing renders under 12px. Under 530 the card scrolls sideways rather than
+     squeezing the drawing past the point where it can be read. */
+  #map, #net{min-width:530px}
+
   .seg{cursor:pointer;transition:fill-opacity var(--fast) var(--ease)}
   .seg:hover{fill-opacity:1 !important}
   .seg.sel{stroke:var(--ink);stroke-width:2.5}
-  .dlabel{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:0.06em}
-  .goalTxt{font-size:13px;font-weight:600;fill:var(--ink)}
-  .goalSub{font-family:var(--mono);font-size:9.5px;fill:var(--ink-muted)}
-  .ringLbl{font-family:var(--mono);font-size:10px;fill:var(--ink-muted);letter-spacing:0.06em}
+  .dlabel{font-family:var(--mono);font-size:14px;font-weight:500;letter-spacing:0.06em}
+  .goalTxt{font-size:14px;font-weight:600;fill:var(--ink)}
+  .goalSub{font-family:var(--mono);font-size:14px;fill:var(--ink-muted)}
+  .ringLbl{font-family:var(--mono);font-size:14px;fill:var(--ink-muted);letter-spacing:0.06em}
 
   .side{position:sticky;top:var(--s4);display:flex;flex-direction:column;gap:var(--s4)}
   @media (max-width:60rem){ .side{position:static} }
@@ -142,7 +155,7 @@
   .nnode{cursor:pointer}
   .nedge{transition:opacity var(--fast) var(--ease)}
   .nedge.dim{opacity:.14} .nnode.dim{opacity:.3}
-  .nlabel{font-family:var(--mono);font-size:10px;fill:var(--ink);pointer-events:none;letter-spacing:0.02em}
+  .nlabel{font-family:var(--mono);font-size:15px;fill:var(--ink);pointer-events:none;letter-spacing:0.02em}
   .bar{height:6px;border-radius:var(--radius);background:var(--panel-deep);
     border:var(--hair) solid var(--line);overflow:hidden;margin-top:var(--s1)}
   .bar > i{display:block;height:100%}
@@ -188,7 +201,8 @@
   .gb-goal b{font-size:var(--t-h3);font-weight:600}
   .gb-edit{margin-left:auto;background:none;border:var(--hair) solid var(--line-strong);
     color:var(--ink);border-radius:var(--radius);padding:3px 12px;
-    font-family:var(--mono);font-size:var(--t-micro);cursor:pointer}
+    font-family:var(--mono);font-size:var(--t-micro);cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px}
   .gb-edit:hover{background:var(--panel-deep)}
   .gb-inds{display:flex;gap:var(--s2);flex-wrap:wrap;margin-top:var(--s2)}
   .gb-inds span{font-family:var(--mono);font-size:var(--t-micro);background:var(--paper);
@@ -408,8 +422,11 @@ const C = {
 
 /* ---------- TAB 1 RENDER (map) ---------- */
 const map=document.getElementById('map');
-const cx=300, cy=300, gap=1.6, goalR=56;
-const rings=[[62,110],[113,161],[164,212],[215,263]];
+/* The goal circle carries four lines of type at the readable size, so it is
+   drawn at 66 and the rings start at 72. That keeps the 6 unit gap the sheet
+   has always had and holds the outer edge where it was. */
+const cx=300, cy=300, gap=1.6, goalR=66;
+const rings=[[72,117],[120,165],[168,212],[215,259]];
 function polar(r,deg){const a=(deg-90)*Math.PI/180;return [cx+r*Math.cos(a), cy+r*Math.sin(a)];}
 function seg(rIn,rOut,a0,a1){
   const [xo0,yo0]=polar(rOut,a0),[xo1,yo1]=polar(rOut,a1);
@@ -448,12 +465,12 @@ function renderMapCenter(){
   const words=GOAL.name.split(' ');const lines=[];let cur='';
   words.forEach(w=>{ if((cur+' '+w).trim().length>13){if(cur)lines.push(cur.trim());cur=w;} else cur=(cur+' '+w).trim();});
   if(cur)lines.push(cur.trim());
-  const start=cy-((lines.length-1)*7.5)-10;
+  const start=cy-((lines.length-1)*9.5)-11;
   lines.forEach((ln,i)=>{const t=document.createElementNS(SVG,'text');
-    t.setAttribute('x',cx);t.setAttribute('y',start+i*15);t.setAttribute('text-anchor','middle');
+    t.setAttribute('x',cx);t.setAttribute('y',start+i*19);t.setAttribute('text-anchor','middle');
     t.setAttribute('class','goalTxt');t.textContent=ln;g.appendChild(t);});
   const h=document.createElementNS(SVG,'text');
-  h.setAttribute('x',cx);h.setAttribute('y',start+lines.length*15+1);h.setAttribute('text-anchor','middle');
+  h.setAttribute('x',cx);h.setAttribute('y',start+lines.length*19+4);h.setAttribute('text-anchor','middle');
   h.setAttribute('class','goalSub');h.textContent='set outcomes';g.appendChild(h);
 }
 LEVELS.forEach((lv,li)=>{
@@ -587,7 +604,7 @@ NODES.forEach(n=>{
     : [n.label];
   lines.forEach((ln,k)=>{
     const t=document.createElementNS(SVG,'text');
-    t.setAttribute('x',n.x);t.setAttribute('y',n.y+nodeR(n)+14+k*12);
+    t.setAttribute('x',n.x);t.setAttribute('y',n.y+nodeR(n)+17+k*20);
     t.setAttribute('text-anchor','middle');t.setAttribute('class','nlabel');t.textContent=ln;
     g.appendChild(t);
   });

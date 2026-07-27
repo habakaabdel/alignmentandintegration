@@ -424,7 +424,9 @@ a:hover { color: var(--mark-deep); }
    so the rendered size moves with the viewport. The 11px the sheet is drawn at
    falls to about 7px on a phone, which is not readable. The clamp holds the
    rendered size near 12px on a narrow screen and returns to 11 units at 640px
-   and above, where the figure is wide enough to carry it. */
+   and above, where the figure is single column and wide enough to carry it.
+   From 60rem the figure moves into the narrow hero column and the scale drops
+   back under 0.85, which is handled at the bottom of this sheet. */
 .plot-label,
 .plot-caption {
   font-family: var(--mono);
@@ -945,6 +947,15 @@ a:hover { color: var(--mark-deep); }
     grid-template-columns: 1.08fr 0.92fr;
     gap: var(--s7);
   }
+
+  /* The two column hero puts the figure in a 370 to 406px column, so the 480
+     unit viewBox renders at 0.77 to 0.85 and 11 unit labels land near 9px.
+     19 units carries them back to 14.7 to 16.1px rendered, which is the size
+     the single column figure already reads at just under this breakpoint.
+     19 is also the ceiling the drawing allows: the left label ends at 233
+     units, short of the split rule at 240. */
+  .plot-label,
+  .plot-caption { font-size: 19px; }
 }
 
 /* ---------- motion ---------- */
