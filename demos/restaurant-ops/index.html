@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fern &amp; Halyard, operations board</title>
+<meta name="description" content="Demonstration of a restaurant operations board by Alignment Integration">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0f2f23">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f2f23'/%3E%3Cg transform='translate(1.78 0.89) scale(0.8889)' fill='none' stroke-linecap='round' stroke-width='2.6'%3E%3Cpath d='M11.5 29V15.5C11.5 9.8 15.2 5.8 20.2 5.8C24.6 5.8 27 9.4 25.4 12.6C24.2 15 21 15.2 20.2 12.8' stroke='%23f0efe6'/%3E%3Cpath d='M11.5 26.4C8.3 26.2 5.7 24.6 4 21.6' stroke='%23f0efe6'/%3E%3Cpath d='M11.5 22.2C8.8 22 6.6 20.6 5.2 18' stroke='%23f0efe6'/%3E%3Cpath d='M11.6 18C9.4 17.8 7.6 16.6 6.5 14.4' stroke='%23f0efe6'/%3E%3Cpath d='M7.4 29H16.4' stroke='%23d8a24a'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,500..700&family=Inter:wght@400..700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#board">Skip to the board</a>
+
+<svg class="defs" aria-hidden="true" focusable="false" width="0" height="0">
+  <symbol id="fh-mark" viewBox="2.5 3.5 27 27">
+    <g fill="none" stroke-linecap="round" stroke-width="2.4">
+      <path class="fh-frond" d="M11.5 29V15.5C11.5 9.8 15.2 5.8 20.2 5.8C24.6 5.8 27 9.4 25.4 12.6C24.2 15 21 15.2 20.2 12.8"></path>
+      <path class="fh-frond" d="M11.5 26.4C8.3 26.2 5.7 24.6 4 21.6"></path>
+      <path class="fh-frond" d="M11.5 22.2C8.8 22 6.6 20.6 5.2 18"></path>
+      <path class="fh-frond" d="M11.6 18C9.4 17.8 7.6 16.6 6.5 14.4"></path>
+      <path class="fh-cleat" d="M7.4 29H16.4"></path>
+    </g>
+  </symbol>
+</svg>
+
+<div class="chrome">
+
+  <div class="strip">
+    <div class="strip__in">
+      <p class="strip__label">Demonstration. Fictional business, fictional data.</p>
+      <button type="button" class="btn btn--onDark btn--sm" data-action="reset">Reset demo</button>
+    </div>
+  </div>
+
+  <header class="head">
+    <div class="head__in">
+
+      <div class="head__brand">
+        <span class="logo logo--head" aria-hidden="true"><svg viewBox="2.5 3.5 27 27"><use href="#fh-mark"></use></svg></span>
+        <span class="head__id">
+          <h1 class="word">Fern <span class="amp">&amp;</span> Halyard</h1>
+          <p class="head__sub">Bistro and bar, 62 seats, Marlow Street</p>
+        </span>
+      </div>
+
+      <div class="head__day">
+        <p class="head__date">Thursday, March 13, 2025</p>
+        <p class="head__clock"><span class="num" id="clock">18:40</span></p>
+        <p class="head__clocklab">on the floor</p>
+      </div>
+
+      <div class="floor" id="floor"></div>
+
+      <div class="head__state">
+        <p class="head__line" id="serviceLine"></p>
+        <div class="pace">
+          <div class="pace__track"><span class="pace__fill" id="paceFill"></span></div>
+          <p class="pace__num num" id="paceNum"></p>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+</div>
+
+<main id="board" class="board">
+
+  <div class="col col--book">
+    <section class="panel panel--book" aria-labelledby="h-book">
+      <div class="panel__head">
+        <h2 id="h-book">Tonight's book</h2>
+        <p class="panel__note">Dinner service, 62 seats</p>
+      </div>
+      <div class="panel__body panel__body--flush">
+        <ol class="book" id="book"></ol>
+      </div>
+      <div class="panel__foot">
+        <p id="walkins"></p>
+      </div>
+    </section>
+  </div>
+
+  <div class="col col--call">
+    <section class="panel panel--call" aria-labelledby="h-call">
+      <div class="panel__head">
+        <h2 id="h-call">Your call</h2>
+        <p class="panel__note"><span id="callCount" class="num">0</span> waiting on you</p>
+      </div>
+      <div class="panel__body panel__body--flush">
+        <ul class="calls" id="calls"></ul>
+        <div class="empty empty--big" id="callsEmpty" hidden>
+          <span class="logo logo--empty" aria-hidden="true"><svg viewBox="2.5 3.5 27 27"><use href="#fh-mark"></use></svg></span>
+          <p class="empty__lead">Queue is clear.</p>
+          <p class="empty__sub">Nothing is waiting on you.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="h-done">
+      <div class="panel__head">
+        <h2 id="h-done">Done today</h2>
+        <p class="panel__note">Approved this shift</p>
+      </div>
+      <div class="panel__body">
+        <ul class="done" id="done"></ul>
+        <p class="empty" id="doneEmpty"><span class="amp amp--quiet" aria-hidden="true">&amp;</span> Nothing approved yet. Items you approve land here.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="col col--mid">
+    <section class="panel" aria-labelledby="h-roster">
+      <div class="panel__head">
+        <h2 id="h-roster">Shift roster</h2>
+        <p class="panel__note">Thursday, two services</p>
+      </div>
+      <div class="panel__body">
+        <div id="roster"></div>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="h-stock">
+      <div class="panel__head">
+        <h2 id="h-stock">Stock and 86 board</h2>
+        <p class="panel__note">Counted at 15:30</p>
+      </div>
+      <div class="panel__body">
+        <h3 class="mini">86'd tonight</h3>
+        <ul class="eighty" id="eighty"></ul>
+        <h3 class="mini mini--gap">Below par</h3>
+        <ul class="par" id="par"></ul>
+      </div>
+    </section>
+
+    <section class="panel panel--brief" aria-labelledby="h-brief">
+      <div class="panel__head">
+        <h2 id="h-brief">Overnight brief</h2>
+        <p class="panel__note">Put together before service, 06:00</p>
+      </div>
+      <div class="panel__body">
+        <ol class="brief" id="brief"></ol>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<footer class="foot">
+  <div class="foot__in">
+    <p class="foot__credit">Built by <a href="https://alignmentandintegration.com">Alignment Integration</a></p>
+    <span class="amp amp--foot" aria-hidden="true">&amp;</span>
+    <p class="foot__label">Demonstration. Fictional business, fictional data.</p>
+  </div>
+</footer>
+
+<dialog class="sheet" id="sheet" aria-labelledby="sheetTitle">
+  <div class="sheet__head">
+    <p class="sheet__kicker num" id="sheetKicker"></p>
+    <h2 class="sheet__title" id="sheetTitle"></h2>
+    <button type="button" class="btn btn--ghost btn--sm sheet__x" data-action="close-sheet" aria-label="Close details">Close</button>
+  </div>
+  <div class="sheet__body" id="sheetBody"></div>
+</dialog>
+
+<div class="toast" id="toast" aria-hidden="true" hidden>
+  <span class="logo logo--toast"><svg viewBox="2.5 3.5 27 27"><use href="#fh-mark"></use></svg></span>
+  <span class="toast__txt">
+    <span class="toast__head">Approved <span class="amp">&amp;</span> <span class="num" id="toastAt"></span></span>
+    <span class="toast__body" id="toastMsg"></span>
+  </span>
+</div>
+
+<p class="sr" role="status" aria-live="polite" id="live"></p>
+
+<script src="main.js"></script>
+</body>
+</html>
