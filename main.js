@@ -13,12 +13,12 @@
    --------------------------------------------------------------------------- */
 
 const DEMO_URLS = {
-  'small-business':       'https://restaurant-ops-demo.netlify.app',
-  'enterprise':           '',
-  'community-safety':     '',
-  'student-portal':       '',
-  'pocket-portal':        '',
-  'third-cortex-harness': ''
+  'small-business':   'https://restaurant-ops-demo.netlify.app',
+  'enterprise':       '',
+  'community-safety': 'demos/bpss-ses/',
+  'student-portal':   '',
+  'pocket-portal':    '',
+  'engine':           ''
 };
 
 const LIVE_LABEL = 'open demo';

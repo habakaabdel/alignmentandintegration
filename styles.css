@@ -419,6 +419,82 @@ a:hover { color: var(--mark-deep); }
   color: var(--ink-muted);
 }
 
+/* ---------- 01 the two axes ---------- */
+
+.axes {
+  display: grid;
+  gap: var(--s4);
+  margin-top: var(--s5);
+}
+
+.axis {
+  padding-left: var(--s4);
+  border-left: 2px solid var(--line-strong);
+}
+
+.axes dt {
+  font-family: var(--mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  color: var(--mark);
+}
+
+.axes dd {
+  margin: var(--s1) 0 0;
+  font-size: var(--t-small);
+}
+
+.axes-note {
+  margin-top: var(--s4);
+  max-width: 62ch;
+  font-size: var(--t-small);
+}
+
+/* ---------- 01 the service menu ---------- */
+
+.menu {
+  margin-top: var(--s7);
+  padding-top: var(--s5);
+  border-top: var(--hair) solid var(--line);
+}
+
+.offers {
+  display: grid;
+  gap: 0;
+  margin-top: var(--s4);
+  border-top: var(--hair) solid var(--line);
+}
+
+.offer {
+  display: grid;
+  gap: var(--s2) var(--s5);
+  padding-block: var(--s5);
+  border-bottom: var(--hair) solid var(--line);
+}
+
+.offer-no {
+  font-family: var(--mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  color: var(--mark);
+}
+
+.offer h3 { font-size: var(--t-h3); }
+
+.offer p:last-child {
+  margin-top: var(--s3);
+  max-width: 64ch;
+  font-size: var(--t-small);
+  color: var(--ink-muted);
+}
+
+.menu-note {
+  margin-top: var(--s4);
+  font-family: var(--mono);
+  font-size: var(--t-label);
+  color: var(--ink-muted);
+}
+
 /* ---------- 02 demo tiles ---------- */
 
 .tiles {
@@ -538,29 +614,58 @@ a:hover { color: var(--mark-deep); }
   color: var(--ink-muted);
 }
 
-/* ---------- 04 what is built ---------- */
+/* ---------- 04 the status grid ----------
+   Same state language as the demo tiles: a hatched band means in development,
+   a solid --mark bar means built. The state is also written in words. */
 
-.facts {
+.status {
   display: grid;
-  gap: var(--s4);
-  max-width: 68ch;
+  border-top: var(--hair) solid var(--line);
 }
 
-.facts li {
+.status-row {
   position: relative;
-  padding-left: var(--s5);
-  font-size: var(--t-small);
-  color: var(--ink-muted);
+  display: grid;
+  gap: var(--s1) var(--s5);
+  padding: var(--s4) 0 var(--s4) var(--s5);
+  border-bottom: var(--hair) solid var(--line);
 }
 
-.facts li::before {
+.status-row::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.62em;
-  width: 10px;
-  height: 1px;
+  top: var(--s4);
+  bottom: var(--s4);
+  width: 8px;
+  background: repeating-linear-gradient(45deg, var(--line-strong) 0 1.5px, transparent 1.5px 7px);
+  opacity: 0.8;
+}
+
+.status-row.is-built::before {
+  width: 3px;
   background: var(--mark);
+  opacity: 1;
+}
+
+.status-name {
+  font-size: var(--t-small);
+  max-width: 54ch;
+}
+
+.status-state {
+  font-family: var(--mono);
+  font-size: var(--t-label);
+  color: var(--ink-muted);
+}
+
+.status-row.is-built .status-state { color: var(--mark); }
+
+.status-note {
+  margin-top: var(--s5);
+  max-width: 68ch;
+  font-size: var(--t-small);
+  color: var(--ink-muted);
 }
 
 /* ---------- 05 contact ---------- */
@@ -693,7 +798,8 @@ a:hover { color: var(--mark-deep); }
 /* ---------- wider viewports ---------- */
 
 @media (min-width: 40rem) {
-  .steps { grid-template-columns: repeat(3, 1fr); gap: var(--s5); }
+  .steps { grid-template-columns: repeat(2, 1fr); gap: var(--s6) var(--s5); }
+  .axes { grid-template-columns: repeat(2, 1fr); gap: var(--s5); }
   .form { grid-template-columns: 1fr 1fr; column-gap: var(--s5); }
   .field-wide, .field-submit { grid-column: 1 / -1; }
 }
@@ -701,7 +807,15 @@ a:hover { color: var(--mark-deep); }
 @media (min-width: 48rem) {
   .section-head { grid-template-columns: 4rem 1fr; }
   .idea { grid-template-columns: 4rem 1fr; }
+  .offer { grid-template-columns: 7.5rem 1fr; }
   .steps { padding-top: var(--s7); }
+  .status-row { grid-template-columns: minmax(0, 1fr) 12rem; align-items: baseline; }
+  .status-state { text-align: right; }
+}
+
+@media (min-width: 64rem) {
+  .steps { grid-template-columns: repeat(4, 1fr); }
+  .status-row { grid-template-columns: minmax(0, 1fr) 19rem; }
 }
 
 @media (min-width: 60rem) {

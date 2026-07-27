@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnostic and intervention map | Alignment Integration</title>
+<meta name="description" content="A working demonstration. Four domains across four nested levels, mapped, connected, and scored to find where acting changes the most.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#edefee">
+<meta name="color-scheme" content="light">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23edefee'/%3E%3Cg fill='none' stroke-width='2.6' stroke-linecap='square'%3E%3Cpath d='M5 25 L12 7 L19 25 M8.4 19 H15.6' stroke='%23101d26'/%3E%3Cpath d='M27 7 V25' stroke='%230b5a44'/%3E%3Cpath d='M21.4 16 H24.2' stroke='%230b5a44'/%3E%3C/g%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Alignment Integration, demonstration page.
+     Same tokens, type, and border language as the main sheet. The only
+     addition is a four-hue category ramp, because a data visual needs hue
+     separation; the ramp is documented in design.md and lives only here. */
+
+  :root{
+    --paper:#edefee; --panel:#f6f7f7; --panel-deep:#e3e7e7;
+    --ink:#101d26; --ink-muted:#4a5a66;
+    --mark:#0b5a44; --mark-deep:#08402f; --second:#2f4e7a;
+    --line:#c3ccd1; --line-strong:#75838c;
+
+    /* category ramp: a dark hue for type and boundaries, a tint for area fill */
+    --bio:#0b5a44; --bio-fill:#cfe0d9;
+    --psy:#2f4e7a; --psy-fill:#d3dbe8;
+    --soc:#7d4a10; --soc-fill:#e7dcc6;
+    --spi:#6b3566; --spi-fill:#e0d3de;
+    --rein:#9c3b2c; --bal:#0b5a44;
+
+    --sans:"IBM Plex Sans",ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+
+    --t-micro:0.75rem; --t-label:0.8125rem; --t-small:0.9375rem; --t-body:1.0625rem;
+    --t-h3:clamp(1.125rem,1.02rem + 0.4vw,1.3125rem);
+    --t-h2:clamp(1.5rem,1.24rem + 1.05vw,2rem);
+
+    --s1:0.25rem; --s2:0.5rem; --s3:0.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem; --s7:3rem;
+    --radius:2px; --hair:1px;
+    --gutter:clamp(1.25rem,4vw,3rem);
+    --fast:140ms; --base:240ms; --ease:cubic-bezier(0.2,0,0,1);
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;overflow-x:clip}
+  body{margin:0;font-family:var(--sans);font-size:var(--t-body);line-height:1.55;
+    background:var(--paper);color:var(--ink)}
+  h1,h2,h3{margin:0;line-height:1.2;font-weight:600;letter-spacing:-0.01em}
+  p,ul,ol{margin:0}
+  ul,ol{padding:0;list-style:none}
+  [hidden]{display:none !important}
+  svg{max-width:100%}
+  a{color:var(--mark);text-decoration-thickness:1px;text-underline-offset:0.2em}
+  a:hover{color:var(--mark-deep)}
+  :focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  button{font-family:var(--sans)}
+
+  .wrap{width:100%;max-width:1100px;margin:0 auto;padding-inline:var(--gutter)}
+
+  /* ---------- the slim bar ---------- */
+
+  .demo-bar{border-bottom:var(--hair) solid var(--line);background:var(--panel)}
+  .demo-bar-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+    gap:var(--s3) var(--s5);padding-block:var(--s3)}
+  .brand{display:inline-flex;align-items:center;gap:var(--s3);color:var(--ink);text-decoration:none}
+  .brand-name{font-size:var(--t-small);font-weight:600}
+  .mono-ink{stroke:var(--ink)} .mono-mark{stroke:var(--mark)}
+  .bar-right{display:inline-flex;align-items:center;gap:var(--s5);
+    font-family:var(--mono);font-size:var(--t-label);letter-spacing:0.06em}
+  .bar-label{color:var(--ink-muted)}
+
+  /* ---------- page frame ---------- */
+
+  .sheet{padding-block:clamp(1.75rem,4vw,var(--s7))}
+  header.head{margin-bottom:var(--s5)}
+  .eyebrow{font-family:var(--mono);font-size:var(--t-label);letter-spacing:0.08em;color:var(--ink-muted)}
+  h1{font-size:var(--t-h2);margin-top:var(--s2);max-width:24ch}
+  .tag{font-size:var(--t-small);color:var(--ink-muted);max-width:68ch;margin-top:var(--s3)}
+
+  .tabs{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s5) 0 var(--s5);
+    border-bottom:var(--hair) solid var(--line-strong)}
+  .tab{background:none;border:none;border-bottom:2px solid transparent;color:var(--ink-muted);
+    font-family:var(--mono);font-size:var(--t-label);letter-spacing:0.06em;
+    padding:var(--s3) var(--s4);cursor:pointer;margin-bottom:-1px}
+  .tab:hover{color:var(--ink)}
+  .tab.active{color:var(--ink);border-bottom-color:var(--mark)}
+  .tab .n{color:var(--mark);margin-right:var(--s2)}
+
+  .board{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,360px);gap:var(--s5);align-items:start}
+  @media (max-width:60rem){ .board{grid-template-columns:1fr} }
+  section[hidden]{display:none}
+
+  .mapcard{background:var(--panel);border:var(--hair) solid var(--line-strong);
+    border-radius:var(--radius);padding:var(--s3) var(--s3) 0;position:relative}
+  .mapcard svg{width:100%;height:auto;display:block;touch-action:manipulation}
+  .seg{cursor:pointer;transition:fill-opacity var(--fast) var(--ease)}
+  .seg:hover{fill-opacity:1 !important}
+  .seg.sel{stroke:var(--ink);stroke-width:2.5}
+  .dlabel{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:0.06em}
+  .goalTxt{font-size:13px;font-weight:600;fill:var(--ink)}
+  .goalSub{font-family:var(--mono);font-size:9.5px;fill:var(--ink-muted)}
+  .ringLbl{font-family:var(--mono);font-size:10px;fill:var(--ink-muted);letter-spacing:0.06em}
+
+  .side{position:sticky;top:var(--s4);display:flex;flex-direction:column;gap:var(--s4)}
+  @media (max-width:60rem){ .side{position:static} }
+  .detail{background:var(--panel);border:var(--hair) solid var(--line-strong);
+    border-radius:var(--radius);padding:var(--s5);min-height:17rem}
+  .detail .crumbs{display:flex;align-items:center;gap:var(--s2);font-family:var(--mono);
+    font-size:var(--t-micro);letter-spacing:0.06em;color:var(--ink-muted);margin-bottom:var(--s3);flex-wrap:wrap}
+  .chip{display:inline-block;width:11px;height:11px;border-radius:var(--radius);border:1px solid var(--ink)}
+  .detail h2{font-size:var(--t-h3);margin-bottom:var(--s1)}
+  .detail .cell{font-family:var(--mono);font-size:var(--t-micro);color:var(--ink-muted);margin-bottom:var(--s4)}
+  .block{margin-bottom:var(--s4)}
+  .block .lbl{font-family:var(--mono);font-size:var(--t-label);letter-spacing:0.06em;margin-bottom:var(--s1)}
+  .block.dx .lbl{color:var(--second)}
+  .block.rx .lbl{color:var(--mark)}
+  .block p{font-size:var(--t-small)}
+  .pond{font-size:var(--t-small);color:var(--ink-muted);border-top:var(--hair) solid var(--line);
+    padding-top:var(--s3);margin-top:var(--s1)}
+  .empty{color:var(--ink-muted);font-size:var(--t-small);display:flex;align-items:center;
+    min-height:13rem;text-align:center;justify-content:center}
+
+  .legend{background:var(--panel);border:var(--hair) solid var(--line);border-radius:var(--radius);padding:var(--s5)}
+  .legend h3{font-family:var(--mono);font-size:var(--t-label);font-weight:400;letter-spacing:0.08em;
+    color:var(--ink-muted);margin-bottom:var(--s3)}
+  .lrow{display:flex;align-items:center;gap:var(--s2);font-size:var(--t-small);margin-bottom:var(--s2)}
+  .lrow .sw{width:14px;height:14px;border-radius:var(--radius);border:1px solid var(--ink);flex:0 0 auto}
+  .rings{font-size:var(--t-small);color:var(--ink-muted);margin-top:var(--s3);
+    border-top:var(--hair) solid var(--line);padding-top:var(--s3);line-height:1.5}
+  .core{font-size:var(--t-small);margin-top:var(--s4);padding-top:var(--s3);border-top:var(--hair) solid var(--line)}
+  .core b{color:var(--second)} .core i{color:var(--mark);font-style:normal;font-weight:500}
+  .formula{font-size:var(--t-small);margin-top:var(--s3);padding-top:var(--s3);
+    border-top:var(--hair) solid var(--line);color:var(--ink-muted)}
+  .formula code{background:var(--panel-deep);color:var(--ink);padding:1px 6px;
+    border-radius:var(--radius);font-family:var(--mono);font-size:var(--t-label)}
+
+  .nnode{cursor:pointer}
+  .nedge{transition:opacity var(--fast) var(--ease)}
+  .nedge.dim{opacity:.14} .nnode.dim{opacity:.3}
+  .nlabel{font-family:var(--mono);font-size:10px;fill:var(--ink);pointer-events:none;letter-spacing:0.02em}
+  .bar{height:6px;border-radius:var(--radius);background:var(--panel-deep);
+    border:var(--hair) solid var(--line);overflow:hidden;margin-top:var(--s1)}
+  .bar > i{display:block;height:100%}
+  .metric{margin-bottom:var(--s3)}
+  .metric .k{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:0.06em;color:var(--ink-muted)}
+  .metric .v{font-size:var(--t-small);font-weight:500}
+  .lev{display:inline-block;border:var(--hair) solid var(--ink);color:var(--ink);
+    font-family:var(--mono);font-size:var(--t-micro);letter-spacing:0.06em;
+    padding:3px 9px;border-radius:var(--radius);margin-top:var(--s1)}
+  .conns{list-style:none;margin-top:var(--s1)}
+  .conns li{font-size:var(--t-small);padding:var(--s1) 0;border-top:var(--hair) dashed var(--line);color:var(--ink-muted)}
+  .conns b{color:var(--ink);font-weight:500}
+
+  .simbtn{width:100%;margin-top:var(--s4);background:var(--mark);color:#ffffff;
+    border:var(--hair) solid transparent;border-radius:var(--radius);
+    padding:0.7rem 1.15rem;font-size:var(--t-small);font-weight:500;cursor:pointer;
+    transition:background var(--fast) var(--ease)}
+  .simbtn:hover{background:var(--mark-deep)}
+  .simbtn.reset{background:none;border-color:var(--line-strong);color:var(--ink);margin-top:var(--s2)}
+  .simbtn.reset:hover{background:var(--panel-deep)}
+  .meter{margin-top:var(--s4);padding-top:var(--s4);border-top:var(--hair) solid var(--line)}
+  .meter .top{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s3)}
+  .meter .top .k{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:0.06em;color:var(--ink-muted)}
+  .meter .top .v{font-size:var(--t-h3);font-weight:600;color:var(--mark)}
+  .meter .track{height:10px;border-radius:var(--radius);background:var(--panel-deep);
+    border:var(--hair) solid var(--line-strong);overflow:hidden;margin-top:var(--s2)}
+  .meter .fill{height:100%;background:var(--mark);width:0;transition:width .9s var(--ease)}
+  .simnote{font-size:var(--t-small);color:var(--ink-muted);margin-top:var(--s2)}
+  .simnote b{color:var(--ink);font-weight:500}
+  .rank{list-style:none;margin-top:var(--s4)}
+  .rank .rh{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:0.06em;
+    color:var(--ink-muted);margin-bottom:var(--s2)}
+  .rank li{display:flex;align-items:center;gap:var(--s2);font-size:var(--t-small);padding:2px 0}
+  .rank .rbar{height:8px;border-radius:var(--radius);border:1px solid var(--ink);flex:0 0 auto;min-width:6px}
+  .rank .rl{color:var(--ink-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rank li.win .rl{color:var(--ink);font-weight:500}
+  .halo{transition:opacity .7s var(--ease)}
+
+  .goalbar{background:var(--panel);border:var(--hair) solid var(--line-strong);
+    border-radius:var(--radius);padding:var(--s4);margin-bottom:var(--s4)}
+  .gb-goal{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap}
+  .gb-lbl{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:0.08em;color:var(--ink-muted)}
+  .gb-goal b{font-size:var(--t-h3);font-weight:600}
+  .gb-edit{margin-left:auto;background:none;border:var(--hair) solid var(--line-strong);
+    color:var(--ink);border-radius:var(--radius);padding:3px 12px;
+    font-family:var(--mono);font-size:var(--t-micro);cursor:pointer}
+  .gb-edit:hover{background:var(--panel-deep)}
+  .gb-inds{display:flex;gap:var(--s2);flex-wrap:wrap;margin-top:var(--s2)}
+  .gb-inds span{font-family:var(--mono);font-size:var(--t-micro);background:var(--paper);
+    border:var(--hair) solid var(--line);color:var(--ink);padding:3px 9px;border-radius:var(--radius)}
+  .gauge{margin-top:var(--s4)}
+  .gauge-track{position:relative;height:12px;border-radius:var(--radius);overflow:hidden;
+    background:var(--panel-deep);border:var(--hair) solid var(--line-strong)}
+  .gauge-fill{position:absolute;top:0;left:0;height:100%;width:50%;
+    background:var(--mark);transition:width .9s var(--ease)}
+  .gauge-fill.away{background:var(--second)}
+  .gauge-mid{position:absolute;top:0;left:50%;width:1px;height:100%;background:var(--ink)}
+  .gauge-cap{display:flex;justify-content:space-between;gap:var(--s3);
+    font-family:var(--mono);font-size:var(--t-micro);color:var(--ink-muted);margin-top:var(--s2)}
+  .gauge-cap b{color:var(--ink);font-weight:500}
+  .proj{color:var(--mark) !important;font-weight:600}
+
+  .modal{position:fixed;inset:0;background:rgba(16,29,38,.5);display:flex;align-items:center;
+    justify-content:center;z-index:50;padding:var(--s5)}
+  .modal[hidden]{display:none}
+  .modal-card{background:var(--panel);border:var(--hair) solid var(--line-strong);
+    border-radius:var(--radius);padding:var(--s5);max-width:27rem;width:100%}
+  .modal-card h3{font-size:var(--t-h3);margin-bottom:var(--s1)}
+  .modal-card .mp{font-size:var(--t-small);color:var(--ink-muted);margin-bottom:var(--s4)}
+  .modal-card label{display:block;font-family:var(--mono);font-size:var(--t-label);
+    letter-spacing:0.06em;color:var(--ink);margin:var(--s3) 0 var(--s1)}
+  .modal-card input{width:100%;background:var(--paper);border:var(--hair) solid var(--line-strong);
+    border-radius:var(--radius);padding:0.6rem 0.7rem;font-size:var(--t-body);color:var(--ink);font-family:var(--sans)}
+  .modal-card input:focus-visible{outline:2px solid var(--ink);outline-offset:1px;border-color:var(--ink)}
+  .modal-btns{display:flex;gap:var(--s3);justify-content:flex-end;margin-top:var(--s5)}
+  .mbtn{border:var(--hair) solid transparent;border-radius:var(--radius);padding:0.6rem 1.1rem;
+    font-size:var(--t-small);font-weight:500;cursor:pointer;background:var(--mark);color:#ffffff}
+  .mbtn:hover{background:var(--mark-deep)}
+  .mbtn.ghost{background:none;border-color:var(--line-strong);color:var(--ink)}
+  .mbtn.ghost:hover{background:var(--panel-deep)}
+  .goalNode{cursor:pointer}
+  .mapcap{font-size:var(--t-small);color:var(--ink-muted);text-align:center;
+    padding:var(--s3) var(--s2) var(--s4);line-height:1.5}
+  .mapcap b{color:var(--ink);font-weight:500}
+
+  footer{margin-top:var(--s6);font-size:var(--t-micro);color:var(--ink-muted);line-height:1.6;
+    border-top:var(--hair) solid var(--line-strong);padding-top:var(--s4);max-width:88ch}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:1ms !important;animation-iteration-count:1 !important;
+      transition-duration:1ms !important}
+  }
+</style>
+</head>
+<body>
+
+<header class="demo-bar">
+  <div class="wrap demo-bar-inner">
+    <a class="brand" href="../../" aria-label="Alignment Integration, back to the main page">
+      <svg class="monogram" viewBox="0 0 32 32" width="26" height="26" role="img" aria-label="A and I monogram">
+        <g fill="none" stroke-width="2.6" stroke-linecap="square">
+          <path d="M5 25 L12 7 L19 25 M8.4 19 H15.6" class="mono-ink"/>
+          <path d="M27 7 V25" class="mono-mark"/>
+          <path d="M21.4 16 H24.2" class="mono-mark"/>
+        </g>
+      </svg>
+      <span class="brand-name">Alignment Integration</span>
+    </a>
+    <p class="bar-right">
+      <a href="../../">Back to the main page</a>
+      <span class="bar-label">Demonstration</span>
+    </p>
+  </div>
+</header>
+
+<div class="wrap sheet">
+  <header class="head">
+    <p class="eyebrow">a model</p>
+    <h1>The BPSS-SES map</h1>
+    <p class="tag">One core, mapped two ways at once: four <b>domains</b> (body, mind, social, spirit) across four nested <b>levels</b> (self out to society). The <b>map</b> places every factor. The <b>network</b> connects them and finds where to act.</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="map"><span class="n">1</span>The map</button>
+    <button class="tab" data-tab="net"><span class="n">2</span>The network</button>
+  </div>
+
+  <!-- ================= TAB 1: MAP ================= -->
+  <section id="tab-map">
+    <div class="board">
+      <div class="mapcard">
+        <svg id="map" viewBox="0 0 600 600" role="img" aria-label="Four domains across four nested levels, an interactive map"></svg>
+        <div class="mapcap" id="mapCap"></div>
+      </div>
+      <div class="side">
+        <div class="detail" id="detail">
+          <div class="empty">Tap a segment of the map to see its diagnostic prompts and intervention moves.</div>
+        </div>
+        <div class="legend">
+          <h3>domains</h3>
+          <div class="lrow"><span class="sw" style="background:var(--bio-fill)"></span> Biological, the body</div>
+          <div class="lrow"><span class="sw" style="background:var(--psy-fill)"></span> Psychological, mind and meaning</div>
+          <div class="lrow"><span class="sw" style="background:var(--soc-fill)"></span> Social, relationships</div>
+          <div class="lrow"><span class="sw" style="background:var(--spi-fill)"></span> Spiritual, purpose and values</div>
+          <div class="rings"><b style="color:var(--ink)">Rings are levels</b>, inner to outer: self, family, community, society.</div>
+          <div class="core">
+            <b>Diagnosis</b> is finding where factors pull against each other.<br>
+            <i>Intervention</i> is building alignment so the system holds.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TAB 2: NETWORK ================= -->
+  <section id="tab-net" hidden>
+    <div class="board">
+      <div>
+        <div class="goalbar">
+          <div class="gb-goal"><span class="gb-lbl">Goal at the centre</span> <b id="goalName"></b>
+            <button class="gb-edit" id="editGoal">edit</button></div>
+          <div class="gb-inds" id="goalInds"></div>
+          <div class="gauge">
+            <div class="gauge-track"><div class="gauge-fill" id="gaugeFill"></div><div class="gauge-mid"></div></div>
+            <div class="gauge-cap"><span>pulling away</span><span id="gaugeVal">not yet scored</span><span>toward goal</span></div>
+          </div>
+        </div>
+        <div class="mapcard">
+          <svg id="net" viewBox="0 0 640 470" role="img" aria-label="Factor network graph"></svg>
+        </div>
+      </div>
+      <div class="side">
+        <div class="detail" id="ndetail">
+          <div class="empty">Tap a factor to see its centrality, modifiability, priority score, and connections. The ringed factor is the point of action.</div>
+        </div>
+        <div class="legend">
+          <h3>edges, how factors connect</h3>
+          <div class="lrow"><svg width="24" height="8" aria-hidden="true"><line x1="1" y1="4" x2="23" y2="4" stroke="var(--rein)" stroke-width="3"/></svg> Reinforcing, it amplifies</div>
+          <div class="lrow"><svg width="24" height="8" aria-hidden="true"><line x1="1" y1="4" x2="23" y2="4" stroke="var(--bal)" stroke-width="3" stroke-dasharray="4 3"/></svg> Balancing, it corrects</div>
+          <div class="rings">Each edge also carries a function: <b style="color:var(--ink)">likelihood</b>, whether it starts, or <b style="color:var(--ink)">severity</b>, how bad it gets. All edges are bidirectional feedback. The arrow shows the dominant push.</div>
+          <div class="formula">
+            <b style="color:var(--ink)">Point of action =</b><br>
+            <code>centrality × modifiability</code><br>
+            Target the changeable factor with the biggest network reach. Not the biggest factor, and never a central one you cannot move.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Grounded in validated lineage: Engel (BPSS), Sulmasy (the spiritual domain as constitutive), Bronfenbrenner and Ungar (nested systems and resilience), Borsboom and the network theory of psychopathology, systems-dynamics polarity (Sterman), risk versus prognostic epidemiology (Rose), narrative therapy, and two-eyed seeing (Etuaptmumk). Original moves: person-led factor elicitation (POND), network analysis to locate misalignment, and alignment rather than symptom reduction as the goal. The network on tab 2 is one worked illustration. Every real case is mapped from the person's own factors.
+  </footer>
+
+  <div class="modal" id="goalModal" hidden>
+    <div class="modal-card">
+      <h3>Goal at the centre</h3>
+      <p class="mp">Fix the goal and its outcome measures <b>before</b> intervening. That is the discipline that keeps the model falsifiable. Every factor is then judged by whether it moves these.</p>
+      <label for="mGoal">Goal</label><input id="mGoal" type="text" maxlength="60">
+      <label for="mInd1">Outcome measure 1</label><input id="mInd1" type="text" maxlength="60">
+      <label for="mInd2">Outcome measure 2</label><input id="mInd2" type="text" maxlength="60">
+      <div class="modal-btns"><button id="mCancel" class="mbtn ghost">Cancel</button><button id="mSave" class="mbtn">Save</button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SVG='http://www.w3.org/2000/svg';
+const DOMAINS = [
+  {key:'bio', name:'Biological',    color:'#0b5a44', fill:'#cfe0d9'},
+  {key:'psy', name:'Psychological', color:'#2f4e7a', fill:'#d3dbe8'},
+  {key:'soc', name:'Social',        color:'#7d4a10', fill:'#e7dcc6'},
+  {key:'spi', name:'Spiritual',     color:'#6b3566', fill:'#e0d3de'},
+];
+const COL ={bio:'#0b5a44',psy:'#2f4e7a',soc:'#7d4a10',spi:'#6b3566'};
+const FILL={bio:'#cfe0d9',psy:'#d3dbe8',soc:'#e7dcc6',spi:'#e0d3de'};
+const LEVELS = ['Self','Family','Community','Society'];
+
+/* ---------- TAB 1 DATA ---------- */
+const C = {
+ bio:[
+  {dx:"Sleep, pain, substance use, medication load, energy. What is the body carrying? Watch for care being over-weighted here while mind, social, and spirit go untouched.",
+   rx:"Right-size the biological: treat what genuinely needs treating, then deliberately re-balance toward the other three domains so the body stops crowding them out."},
+  {dx:"Inherited health patterns, caregiving load, and who in the household holds the body-work: meals, sleep, medication, appointments.",
+   rx:"Distribute the caregiving and align home routines so the body isn't fighting the household to get its needs met."},
+  {dx:"Access and distance to care, food and housing security. Is the body well-served by where this person actually lives?",
+   rx:"Connect to local biological supports (primary care, rapid access clinics, harm reduction) and close the access gaps that leave the body under-resourced."},
+  {dx:"Pharmaceuticalization: is the biological domain crowding out the other three because that is where the funding and the system point? (Abraham, Sismondo).",
+   rx:"Name the structural over-weighting and push for care that resources all four domains, not only the pill."},
+ ],
+ psy:[
+  {dx:"Thoughts, beliefs, and the patterns that keep returning. Not from a checklist. Surfaced by the person through POND.",
+   rx:"Separate the person from the problem (narrative), then align the inner story with the goal at the centre.",
+   pond:"POND: pause, observe, notice, name. Still water reflects, churning water does not."},
+  {dx:"Relational beliefs, roles, expectations, and intergenerational scripts running inside the family.",
+   rx:"Surface the family's meaning-making and realign the expectations that quietly pull against the person."},
+  {dx:"Stigma, belonging, and whether local supports actually fit this person's identity and language.",
+   rx:"Find psychologically safe spaces; align help with who the person is, not a generic pathway."},
+  {dx:"Cultural narratives about worth and mental illness. 'What is wrong with you' framings, sharpest in Arabic-speaking and Indigenous contexts.",
+   rx:"Contest the stigmatizing story; hold Western and Indigenous framings side by side through two-eyed seeing."},
+ ],
+ soc:[
+  {dx:"Isolation and relational capacity. Who does this person actually turn to, and how thin is that web?",
+   rx:"Build out the person's own relational web, strengthening the ties they name as meaningful."},
+  {dx:"Conflict and support in the home: kinship, roommates, reunification, who pulls toward recovery and who pulls away.",
+   rx:"Reinforce the household ties that move toward the goal; ease the ones that pull against it."},
+  {dx:"Fragmentation across agencies. Does the person fall between services with no shared story?",
+   rx:"'Every door is the right door': align partners around one shared care story, at system scale."},
+  {dx:"Income, housing, and policy structures that isolate people by design.",
+   rx:"Advocate for structural alignment: coordinated access, and funding that follows the person rather than the program."},
+ ],
+ spi:[
+  {dx:"Purpose, values, faith, what makes a life meaningful, treated as constitutive rather than optional (Sulmasy).",
+   rx:"Anchor the work to the person's own source of meaning and align daily action with their values."},
+  {dx:"Shared faith, ceremony, and cultural continuity carried, or broken, inside the home.",
+   rx:"Support the practices that carry meaning across the household rather than treating them as extras."},
+  {dx:"Ceremony, land, and cultural connection, measured as a co-equal outcome rather than a soft add-on.",
+   rx:"Connect to cultural and spiritual community; operationalize two-eyed seeing as real infrastructure."},
+  {dx:"Colonial rupture and whose spirituality the system even recognizes.",
+   rx:"Take a decolonizing stance. Cultural connection counts as a co-equal system outcome, defended, not decorative."},
+ ],
+};
+
+/* ---------- TAB 1 RENDER (map) ---------- */
+const map=document.getElementById('map');
+const cx=300, cy=300, gap=1.6, goalR=56;
+const rings=[[62,110],[113,161],[164,212],[215,263]];
+function polar(r,deg){const a=(deg-90)*Math.PI/180;return [cx+r*Math.cos(a), cy+r*Math.sin(a)];}
+function seg(rIn,rOut,a0,a1){
+  const [xo0,yo0]=polar(rOut,a0),[xo1,yo1]=polar(rOut,a1);
+  const [xi1,yi1]=polar(rIn,a1),[xi0,yi0]=polar(rIn,a0);
+  const lg=(a1-a0)<=180?0:1;
+  return `M${xo0},${yo0} A${rOut},${rOut} 0 ${lg} 1 ${xo1},${yo1} L${xi1},${yi1} A${rIn},${rIn} 0 ${lg} 0 ${xi0},${yi0} Z`;
+}
+const ringOpacity=[1,.85,.7,.55];
+DOMAINS.forEach((dom,di)=>{
+  const a0=di*90+gap, a1=(di+1)*90-gap;
+  rings.forEach((rg,li)=>{
+    const p=document.createElementNS(SVG,'path');
+    p.setAttribute('d',seg(rg[0],rg[1],a0,a1));
+    p.setAttribute('fill',dom.fill);p.setAttribute('fill-opacity',ringOpacity[li]);
+    p.setAttribute('stroke',dom.color);p.setAttribute('stroke-width','1');
+    p.setAttribute('class','seg');p.dataset.d=dom.key;p.dataset.l=li;
+    p.addEventListener('click',()=>selectMap(dom,li,p));
+    map.appendChild(p);
+  });
+  const mid=di*90+45;const [lx,ly]=polar(288,mid);
+  const t=document.createElementNS(SVG,'text');
+  t.setAttribute('x',lx);t.setAttribute('y',ly);t.setAttribute('text-anchor','middle');
+  t.setAttribute('dominant-baseline','middle');t.setAttribute('class','dlabel');t.setAttribute('fill',dom.color);
+  t.textContent=dom.name;map.appendChild(t);
+});
+const gc=document.createElementNS(SVG,'circle');
+gc.setAttribute('cx',cx);gc.setAttribute('cy',cy);gc.setAttribute('r',goalR);
+gc.setAttribute('fill','var(--paper)');gc.setAttribute('stroke','var(--ink)');gc.setAttribute('stroke-width','2');
+gc.setAttribute('class','goalNode');gc.addEventListener('click',openGoal);
+map.appendChild(gc);
+const goalTextG=document.createElementNS(SVG,'g');goalTextG.setAttribute('id','goalTextG');
+goalTextG.style.cursor='pointer';goalTextG.addEventListener('click',openGoal);
+map.appendChild(goalTextG);
+function renderMapCenter(){
+  const g=document.getElementById('goalTextG');while(g.firstChild)g.removeChild(g.firstChild);
+  const words=GOAL.name.split(' ');const lines=[];let cur='';
+  words.forEach(w=>{ if((cur+' '+w).trim().length>13){if(cur)lines.push(cur.trim());cur=w;} else cur=(cur+' '+w).trim();});
+  if(cur)lines.push(cur.trim());
+  const start=cy-((lines.length-1)*7.5)-10;
+  lines.forEach((ln,i)=>{const t=document.createElementNS(SVG,'text');
+    t.setAttribute('x',cx);t.setAttribute('y',start+i*15);t.setAttribute('text-anchor','middle');
+    t.setAttribute('class','goalTxt');t.textContent=ln;g.appendChild(t);});
+  const h=document.createElementNS(SVG,'text');
+  h.setAttribute('x',cx);h.setAttribute('y',start+lines.length*15+1);h.setAttribute('text-anchor','middle');
+  h.setAttribute('class','goalSub');h.textContent='set outcomes';g.appendChild(h);
+}
+LEVELS.forEach((lv,li)=>{
+  const midR=(rings[li][0]+rings[li][1])/2;
+  const t=document.createElementNS(SVG,'text');
+  t.setAttribute('x',cx+4);t.setAttribute('y',cy-midR);t.setAttribute('text-anchor','start');
+  t.setAttribute('class','ringLbl');t.textContent=lv;map.appendChild(t);
+});
+function selectMap(dom,li,el){
+  document.querySelectorAll('#map .seg.sel').forEach(s=>s.classList.remove('sel'));
+  el.classList.add('sel');
+  const d=C[dom.key][li];
+  document.getElementById('detail').innerHTML=`
+    <div class="crumbs"><span class="chip" style="background:${dom.fill}"></span>${dom.name} <span style="opacity:.5">×</span> ${LEVELS[li]}</div>
+    <h2>${dom.name} at the ${LEVELS[li]} level</h2>
+    <div class="cell">${dom.name} domain · ${LEVELS[li]} system</div>
+    <div class="block dx"><div class="lbl">Diagnose, find the misalignment</div><p>${d.dx}</p></div>
+    <div class="block rx"><div class="lbl">Intervene, build alignment</div><p>${d.rx}</p></div>
+    ${d.pond?`<div class="pond">${d.pond}</div>`:''}`;
+}
+
+/* ---------- TAB 2 DATA (worked example: person, substance use at center) ---------- */
+const NODES=[
+  {id:'sub',   label:'Substance use',        dom:'bio', lvl:0, mod:0.40, align:-0.90, x:325, y:210},
+  {id:'pain',  label:'Chronic pain',         dom:'bio', lvl:0, mod:0.50, align:-0.50, x:230, y:95},
+  {id:'gene',  label:'Genetic vulnerability',dom:'bio', lvl:0, mod:0.05, align:-0.30, x:100, y:150},
+  {id:'shame', label:'Shame / self-worth',   dom:'psy', lvl:0, mod:0.70, align:-0.80, x:495, y:120},
+  {id:'iso',   label:'Isolation',            dom:'soc', lvl:0, mod:0.80, align:-0.85, x:315, y:345},
+  {id:'fam',   label:'Family conflict',      dom:'soc', lvl:1, mod:0.60, align:-0.60, x:135, y:315},
+  {id:'house', label:'Housing instability',  dom:'soc', lvl:2, mod:0.55, align:-0.70, x:500, y:305},
+  {id:'cult',  label:'Cultural connection',  dom:'spi', lvl:2, mod:0.85, align:+0.70, x:575, y:210},
+  {id:'stig',  label:'Service stigma',       dom:'psy', lvl:3, mod:0.25, align:-0.60, x:470, y:415},
+];
+const EDGES=[
+  {a:'gene', b:'sub',  pol:'rein', kind:'likelihood'},
+  {a:'gene', b:'pain', pol:'rein', kind:'likelihood'},
+  {a:'pain', b:'sub',  pol:'rein', kind:'severity'},
+  {a:'shame',b:'sub',  pol:'rein', kind:'likelihood'},
+  {a:'sub',  b:'iso',  pol:'rein', kind:'severity'},
+  {a:'iso',  b:'shame',pol:'rein', kind:'likelihood'},
+  {a:'fam',  b:'iso',  pol:'rein', kind:'likelihood'},
+  {a:'house',b:'sub',  pol:'rein', kind:'severity'},
+  {a:'house',b:'fam',  pol:'rein', kind:'likelihood'},
+  {a:'cult', b:'shame',pol:'bal',  kind:'likelihood'},
+  {a:'cult', b:'sub',  pol:'bal',  kind:'severity'},
+  {a:'stig', b:'iso',  pol:'rein', kind:'likelihood'},
+  {a:'stig', b:'sub',  pol:'rein', kind:'severity'},
+];
+// compute degree centrality + priority
+const byId={}; NODES.forEach(n=>{n.deg=0; byId[n.id]=n;});
+EDGES.forEach(e=>{byId[e.a].deg++; byId[e.b].deg++;});
+const maxDeg=Math.max(...NODES.map(n=>n.deg));
+NODES.forEach(n=>{ n.cent=n.deg/maxDeg; n.prio=n.cent*n.mod; });
+const actionPoint=NODES.reduce((m,n)=>n.prio>m.prio?n:m,NODES[0]);
+
+// adjacency (feedback = undirected) + realized-impact via decayed reach
+const ADJ={}; NODES.forEach(n=>ADJ[n.id]=[]);
+EDGES.forEach(e=>{ADJ[e.a].push(e.b);ADJ[e.b].push(e.a);});
+function dists(src){const d={[src]:0},q=[src];while(q.length){const u=q.shift();ADJ[u].forEach(v=>{if(d[v]===undefined){d[v]=d[u]+1;q.push(v);}});}return d;}
+const DECAY=0.55;
+NODES.forEach(n=>{const d=dists(n.id);let s=0;for(const k in d)s+=Math.pow(DECAY,d[k]);n.reach=d;n.impact=n.mod*s;});
+const maxImpact=Math.max(...NODES.map(n=>n.impact));
+let simActive=null;
+
+// ---- Goal at the centre + alignment scoring ----
+const GOAL={name:'Stable recovery and connection',
+  ind:['Days substance-free (self-report)','Felt connectedness, 0 to 10, weekly']};
+// system alignment = centrality-weighted mean of each factor's pull on the goal (-1 away .. +1 toward)
+function baseAlign(){let num=0,den=0;NODES.forEach(n=>{num+=n.align*n.cent;den+=n.cent;});return num/den;}
+// projected alignment if we intervene at `id`: reachable factors' pull is realigned, decaying by distance × the target's modifiability
+function projAlign(id){const m=byId[id],d=m.reach;let num=0,den=0;
+  NODES.forEach(n=>{let a=n.align;
+    if(d[n.id]!==undefined){const relief=Math.pow(DECAY,d[n.id])*m.mod;
+      a = a<0 ? a*(1-0.85*relief) : a+(1-a)*relief;}
+    num+=a*n.cent;den+=n.cent;});
+  return num/den;}
+
+/* ---------- TAB 2 RENDER (network) ---------- */
+const net=document.getElementById('net');
+// arrow markers
+const defs=document.createElementNS(SVG,'defs');
+[['ar-rein','var(--rein)'],['ar-bal','var(--bal)']].forEach(([id,col])=>{
+  const m=document.createElementNS(SVG,'marker');
+  m.setAttribute('id',id);m.setAttribute('viewBox','0 0 10 10');m.setAttribute('refX','9');m.setAttribute('refY','5');
+  m.setAttribute('markerWidth','7');m.setAttribute('markerHeight','7');m.setAttribute('orient','auto-start-reverse');
+  const pa=document.createElementNS(SVG,'path');pa.setAttribute('d','M0,0 L10,5 L0,10 z');pa.setAttribute('fill',col);
+  m.appendChild(pa);defs.appendChild(m);
+});
+net.appendChild(defs);
+
+const edgeEls=[];
+EDGES.forEach((e,i)=>{
+  const A=byId[e.a],B=byId[e.b];
+  // shorten line to node edge (radius ~ from degree)
+  const rA=nodeR(A), rB=nodeR(B);
+  const dx=B.x-A.x, dy=B.y-A.y, len=Math.hypot(dx,dy), ux=dx/len, uy=dy/len;
+  const x1=A.x+ux*rA, y1=A.y+uy*rA, x2=B.x-ux*(rB+7), y2=B.y-uy*(rB+7);
+  const l=document.createElementNS(SVG,'line');
+  l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);
+  l.setAttribute('stroke',e.pol==='rein'?'var(--rein)':'var(--bal)');
+  l.setAttribute('stroke-width','2.4');
+  if(e.pol==='bal') l.setAttribute('stroke-dasharray','5 4');
+  l.setAttribute('marker-end', e.pol==='rein'?'url(#ar-rein)':'url(#ar-bal)');
+  l.setAttribute('class','nedge');l.dataset.a=e.a;l.dataset.b=e.b;
+  net.appendChild(l);edgeEls.push({el:l,e});
+});
+function nodeR(n){return 15+n.cent*15;} // 15..30 by centrality
+
+const simLayer=document.createElementNS(SVG,'g');simLayer.setAttribute('id','simlayer');net.appendChild(simLayer);
+
+const nodeEls=[];
+NODES.forEach(n=>{
+  const g=document.createElementNS(SVG,'g');g.setAttribute('class','nnode');
+  const c=document.createElementNS(SVG,'circle');
+  c.setAttribute('cx',n.x);c.setAttribute('cy',n.y);c.setAttribute('r',nodeR(n));
+  c.setAttribute('fill',FILL[n.dom]);c.setAttribute('fill-opacity','1');
+  c.setAttribute('stroke', n.align<0?'var(--rein)':'var(--bal)');
+  c.setAttribute('stroke-width','3');
+  g.appendChild(c);
+  if(n.id===actionPoint.id){
+    const ring=document.createElementNS(SVG,'circle');
+    ring.setAttribute('cx',n.x);ring.setAttribute('cy',n.y);ring.setAttribute('r',nodeR(n)+5);
+    ring.setAttribute('fill','none');ring.setAttribute('stroke','var(--ink)');
+    ring.setAttribute('stroke-width','3');ring.setAttribute('stroke-dasharray','3 3');
+    g.appendChild(ring);
+  }
+  // label below
+  const words=n.label.split(' ');
+  const lines = n.label.length>14 && words.length>1
+    ? [words.slice(0,Math.ceil(words.length/2)).join(' '), words.slice(Math.ceil(words.length/2)).join(' ')]
+    : [n.label];
+  lines.forEach((ln,k)=>{
+    const t=document.createElementNS(SVG,'text');
+    t.setAttribute('x',n.x);t.setAttribute('y',n.y+nodeR(n)+14+k*12);
+    t.setAttribute('text-anchor','middle');t.setAttribute('class','nlabel');t.textContent=ln;
+    g.appendChild(t);
+  });
+  g.addEventListener('click',()=>selectNode(n));
+  net.appendChild(g);nodeEls.push({g,n});
+});
+
+function selectNode(n){
+  resetSim();
+  // highlight
+  const inc=new Set();
+  edgeEls.forEach(({el,e})=>{
+    const on = e.a===n.id||e.b===n.id;
+    el.classList.toggle('dim',!on);
+    if(on) inc.add(e.a===n.id?e.b:e.a);
+  });
+  nodeEls.forEach(({g,n:m})=> g.classList.toggle('dim', m.id!==n.id && !inc.has(m.id)));
+  // connections list
+  const conns=EDGES.filter(e=>e.a===n.id||e.b===n.id).map(e=>{
+    const other = e.a===n.id? byId[e.b] : byId[e.a];
+    const dir = e.a===n.id? 'pushes' : 'pushed by';
+    return `<li>${dir} <b>${other.label}</b> · ${e.pol==='rein'?'reinforcing':'balancing'}, ${e.kind}</li>`;
+  }).join('');
+  const isTarget = n.id===actionPoint.id;
+  document.getElementById('ndetail').innerHTML=`
+    <div class="crumbs"><span class="chip" style="background:${FILL[n.dom]}"></span>${DOMAINS.find(d=>d.key===n.dom).name} <span style="opacity:.5">×</span> ${LEVELS[n.lvl]}</div>
+    <h2>${n.label}</h2>
+    ${isTarget?'<div class="lev">point of action</div>':''}
+    <div class="metric" style="margin-top:14px"><div class="k">Centrality (degree)</div>
+      <div class="v">${n.deg} connection${n.deg!==1?'s':''} · ${(n.cent*100|0)}% of max</div>
+      <div class="bar"><i style="width:${n.cent*100}%;background:${COL[n.dom]}"></i></div></div>
+    <div class="metric"><div class="k">Modifiability</div>
+      <div class="v">${(n.mod*100|0)}%, ${n.mod<0.2?'near-fixed':n.mod<0.5?'hard to move':n.mod<0.7?'workable':'highly changeable'}</div>
+      <div class="bar"><i style="width:${n.mod*100}%;background:var(--ink-muted)"></i></div></div>
+    <div class="metric"><div class="k">Priority = centrality × modifiability</div>
+      <div class="v">${n.cent.toFixed(2)} × ${n.mod.toFixed(2)} = <b style="color:${isTarget?'var(--mark)':'var(--ink)'}">${n.prio.toFixed(2)}</b></div></div>
+    <div class="block" style="margin-top:6px"><div class="lbl" style="color:var(--ink-muted)">Connections (bidirectional feedback)</div>
+      <ul class="conns">${conns}</ul></div>
+    ${isTarget
+      ? '<div class="pond">Highest network reach among the changeable factors, so nudging it ripples furthest per unit of effort. Not the most central factor, which is the symptom itself, and not a fixed one like genetics.</div>'
+      : (n.mod<0.2? '<div class="pond">Well-connected but near-unmodifiable, a poor target despite its size. Route around it.</div>':'')}
+    <button class="simbtn" id="simBtn">Simulate intervening here</button>
+    <div id="simOut"></div>`;
+  document.getElementById('simBtn').onclick=()=>simulate(n.id);
+}
+
+function clearHalos(){const l=document.getElementById('simlayer');while(l.firstChild)l.removeChild(l.firstChild);}
+function resetSim(){clearHalos();simActive=null;if(document.getElementById('gaugeFill'))setGauge(baseAlign(),null);}
+
+function simulate(id){
+  clearHalos();
+  simActive=id;
+  const src=byId[id], d=src.reach;
+  // draw relief halos on every reachable node, scaled by decayed distance
+  Object.keys(d).forEach(k=>{
+    const m=byId[k], relief=Math.pow(DECAY,d[k]);
+    const c=document.createElementNS(SVG,'circle');
+    c.setAttribute('cx',m.x);c.setAttribute('cy',m.y);
+    c.setAttribute('r', nodeR(m)+5+12*relief);
+    c.setAttribute('fill','none');c.setAttribute('stroke','var(--mark)');
+    c.setAttribute('stroke-width', k===id?4:2.5);
+    c.setAttribute('class','halo');c.setAttribute('opacity','0');
+    document.getElementById('simlayer').appendChild(c);
+    requestAnimationFrame(()=>c.setAttribute('opacity', (0.28+0.6*relief).toFixed(2)));
+  });
+  const gain=src.impact/maxImpact;
+  const eased=Object.keys(d).length-1;
+  const a0=baseAlign(), a1=projAlign(id);
+  setGauge(a0,a1);
+  const ranked=[...NODES].sort((a,b)=>b.impact-a.impact);
+  const rows=ranked.map(m=>{
+    const w=6+ (m.impact/maxImpact)*120;
+    return `<li class="${m.id===id?'win':''}"><span class="rbar" style="width:${w.toFixed(0)}px;background:${FILL[m.dom]}"></span><span class="rl">${m.label} · ${m.impact.toFixed(2)}</span></li>`;
+  }).join('');
+  document.getElementById('simOut').innerHTML=`
+    <div class="meter">
+      <div class="top"><span class="k">Realized system relief</span><span class="v">${(gain*100).toFixed(0)}%</span></div>
+      <div class="track"><div class="fill" id="simFill"></div></div>
+      <div class="simnote">Nudging <b>${src.label}</b> eases <b>${eased}</b> downstream factor${eased!==1?'s':''}, with the effect decaying by distance.</div>
+      <div class="simnote">Pull toward the goal: <b>${(a0*100).toFixed(0)}%</b> to <b class="proj">${(a1*100).toFixed(0)}%</b> on <b>${GOAL.name}</b>.</div>
+    </div>
+    <div class="rank">
+      <div class="rh">Best targets by system reach</div>
+      <ul style="list-style:none;padding:0;margin:0">${rows}</ul>
+    </div>
+    <button class="simbtn reset" id="simReset">Reset</button>`;
+  requestAnimationFrame(()=>{document.getElementById('simFill').style.width=(gain*100).toFixed(0)+'%';});
+  document.getElementById('simReset').onclick=()=>{clearHalos();simActive=null;document.getElementById('simOut').innerHTML='';};
+}
+
+/* ---------- GOAL AT THE CENTRE ---------- */
+function setGauge(a, proj){
+  const shown = proj!=null ? proj : a;
+  const fill=document.getElementById('gaugeFill');
+  fill.style.width=(((shown+1)/2)*100).toFixed(1)+'%';
+  fill.classList.toggle('away', shown<0);
+  const base=`Alignment <b>${(a*100).toFixed(0)}%</b>`;
+  const p = proj!=null ? ` to <span class="proj">${(proj*100).toFixed(0)}%</span>` : '';
+  document.getElementById('gaugeVal').innerHTML=base+p;
+}
+function renderGoal(){
+  document.getElementById('goalName').textContent=GOAL.name;
+  document.getElementById('goalInds').innerHTML=GOAL.ind.filter(Boolean).map(i=>`<span>${i}</span>`).join('');
+  const inds=GOAL.ind.filter(Boolean).map(i=>'<b>'+i+'</b>').join(' and ') || 'nothing yet';
+  document.getElementById('mapCap').innerHTML=`<b>Goal:</b> ${GOAL.name}, measured by ${inds}. Tap the centre to change.`;
+  setGauge(baseAlign(), null);
+  renderMapCenter();
+}
+function openGoal(){
+  document.getElementById('mGoal').value=GOAL.name;
+  document.getElementById('mInd1').value=GOAL.ind[0]||'';
+  document.getElementById('mInd2').value=GOAL.ind[1]||'';
+  document.getElementById('goalModal').hidden=false;
+}
+function closeGoal(){document.getElementById('goalModal').hidden=true;}
+function saveGoal(){
+  GOAL.name=(document.getElementById('mGoal').value.trim())||'(unnamed goal)';
+  GOAL.ind=[document.getElementById('mInd1').value.trim(),document.getElementById('mInd2').value.trim()].filter(Boolean);
+  closeGoal();resetSim();renderGoal();
+}
+document.getElementById('editGoal').onclick=openGoal;
+document.getElementById('mCancel').onclick=closeGoal;
+document.getElementById('mSave').onclick=saveGoal;
+document.getElementById('goalModal').addEventListener('click',e=>{if(e.target.id==='goalModal')closeGoal();});
+renderGoal();
+
+/* ---------- TABS + THEME ---------- */
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById('tab-map').hidden = b.dataset.tab!=='map';
+  document.getElementById('tab-net').hidden = b.dataset.tab!=='net';
+}));
+</script>
+</body>
+</html>

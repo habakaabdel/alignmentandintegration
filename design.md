@@ -35,7 +35,8 @@ Rules a future editor keeps:
 
 - Never put text on `--line` or `--line-strong`. They are boundary colours.
 - Two accents, and that is the ceiling. `--mark` is the company's colour and
-  `--second` exists so the plot can show two different kinds of line.
+  `--second` exists so the plot can show two different kinds of line. The one
+  documented exception is the category ramp on the demonstration page, below.
 - No gold. The previous deck was near black with warm gold and this identity is
   not an evolution of it.
 - Two looks are banned because they read as generated: cream ground with a high
@@ -96,6 +97,12 @@ The hatched band on a demo tile means in development. A solid 3px `--mark` bar
 means the tile is live. State is never carried by colour alone; the tile's footer
 label says which it is in words.
 
+Section 04 is a status grid and it reuses exactly that language, rotated: a
+hatched 8px band down the left edge of a row means in development, a solid 3px
+`--mark` rule means built. Every row still states its status in words in the
+right hand column, so the marker is a second channel and never the only one. A
+row that has something to open is a link on the row's name.
+
 ## Motion
 
 Two durations, `--fast` 140ms and `--base` 240ms, one curve,
@@ -140,13 +147,19 @@ wins over design.
 - The hero line is verbatim and cannot be edited:
   "I turn objective reality into ones and zeros and solve problems with software."
 - The claim paragraph under it is verbatim. Same rule.
-- Naming is locked: "Third Cortex harness", "student portal", "pocket portal".
-  Never "the Harness", "Pocket", or "Pocket Student".
+- Naming is locked: "the engine", "student portal", "pocket portal". Never "the
+  Harness", "Pocket", or "Pocket Student". The engine's former product name was
+  retired on 26 July 2026 and must not appear anywhere on this site in any form,
+  including comments and metadata. Refer to it in plain words: the engine.
+- The systems map has no brand name yet. Call it "the systems map" and nothing
+  else until one is decided.
 - No outcome numbers, no user counts, no "in use", no "trusted by". The deployed
   application is built and demonstrable. It is not running.
 - No client or employer names anywhere. Sectors only.
 - No pricing beyond the free initial consultation. No numbers, no ranges, no
-  "affordable".
+  "affordable". The service menu is deliberately unpriced and its three offers
+  are deliberately unordered: nothing in the copy may imply that one costs more
+  than another, or that they are tiers.
 - No future phases promised, no vendor or agency commentary.
 - Banned words anywhere in the deliverable, comments and metadata included: em
   dashes, "leverage", "seamless", "empower", "transform", "cutting-edge",
@@ -156,10 +169,30 @@ wins over design.
 - Test every new sentence against "is this measurably true today". If a sentence
   needs a banned claim to work, the sentence is wrong, not the rule.
 
+## The canonical content of section 01
+
+Section 01 carries four blocks in this order, and the order is load bearing:
+the h1 and the claim, the process, the two axes, then the menu.
+
+1. **The process, four beats.** Research and consultation, development and
+   planning, building, keeping it working. One heading and one short paragraph
+   each. The wording of the four beats is settled; do not re-cut them into three
+   or five.
+2. **The two axes.** Who you are, a small business or an enterprise. What you
+   buy, one of the three offers. They are decided separately and the copy says
+   so outright: a small business might buy only the map, an enterprise might buy
+   everything. Never present the axes as a single ladder.
+3. **The menu, three offers.** Diagnosis and intervention. The systems map. The
+   full build. Same measured language as the rest of the sheet. The menu lives
+   inside section 01 as its own labelled block. It never becomes a sixth nav
+   section, because five sections indexed 01 to 05 is a structure invariant.
+
 ## Structure invariants
 
-- Exactly one `h1`, the positioning line. Section headings are `h2`, items are
-  `h3`. Nothing skips a level.
+- Exactly one `h1` per page: the positioning line on the main page, the artifact
+  name on the demonstration page. Section headings are `h2`, items are `h3`.
+  Nothing skips a level. The demonstration page's `h1` uses `--t-h2`, because
+  `--t-h1` belongs to the positioning line alone.
 - Five sections in order, indexed 01 to 05 in the margin: what we do, demos, how
   it works, what is built, contact.
 - Section 3 states exactly three ideas. Not two, not four.
@@ -184,3 +217,50 @@ tile turns into a link, the band turns solid, and the footer label changes from
 `index.html`, which takes priority over the map. A tile that has no URL renders
 the in development state, which is the honest default and the reason a broken
 tile cannot ship by accident.
+
+Two tiles are live: `small-business` points at an external demo, and
+`community-safety` points at `demos/bpss-ses/`, which is served from this repo.
+When a demo lands, add its row to the section 04 status grid too, and link it.
+
+## The demonstration page, `demos/bpss-ses/`
+
+A working diagnostic and intervention map: two tabs, clickable segments, a live
+detail panel, and a small simulation. It was built elsewhere in a different
+visual language and was reskinned, not rebuilt. The interaction logic is
+untouched and should stay that way.
+
+What the reskin did, and what a future editor keeps doing:
+
+- Its custom properties were repointed to this sheet's tokens. `--bg` became
+  `--paper`, `--muted` became `--ink-muted`, `--accent` became `--ink`, and
+  `--gold` was removed outright because no gold appears on this site. The gold
+  jobs were reassigned: annotation rings and the point-of-action marker to
+  `--ink`, the primary button to `--mark`, meter fills to `--mark`, secondary
+  bars to `--ink-muted`.
+- Radius 18px to 2px, pills to 2px, IBM Plex in place of the system stack,
+  weights 700 and 800 down to 500 and 600, no gradients, no shadows, no
+  uppercase, sentence case throughout.
+- The dark theme and its toggle were removed. This site has one ground and it is
+  paper. `prefers-color-scheme` is not honoured anywhere here by design.
+- **The category ramp.** A data visual needs hue separation, so four categories
+  each carry a dark hue for type and boundaries and a light tint for area fill.
+  Areas are filled with the tint and outlined with the hue at 1px, which keeps
+  the wheel light like the rest of the sheet instead of turning it into a dark
+  mass. The ramp exists only on this page and never migrates to the main sheet.
+
+  | Category | Hue | Tint | Hue on panel |
+  |---|---|---|---|
+  | biological | `#0b5a44` (`--mark`) | `#cfe0d9` | 7.6:1 |
+  | psychological | `#2f4e7a` (`--second`) | `#d3dbe8` | 7.9:1 |
+  | social | `#7d4a10` | `#e7dcc6` | 6.8:1 |
+  | spiritual | `#6b3566` | `#e0d3de` | 8.4:1 |
+
+  Edge polarity reuses two of these: reinforcing `#9c3b2c`, balancing `--mark`.
+  Balancing edges are also dashed, so polarity never rests on hue alone.
+- The page carries the slim bar and nothing else: the monogram, the company
+  name, a link back to the main page, and the word "Demonstration". No nav, no
+  footer chrome beyond the source note.
+- The page predates the content rules, so it was swept for them. Em dashes are
+  gone. "Leverage point" became "point of action", because the banned word list
+  has no technical exemption. Named programs and agencies were removed and
+  replaced with sector language, per the no client or employer names rule.
