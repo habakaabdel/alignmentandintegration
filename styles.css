@@ -244,10 +244,13 @@ a:hover { color: var(--mark-deep); }
   transition: opacity var(--fast) var(--ease);
 }
 
+/* two sources of current: the observer sets aria-current="true" for an in view
+   section on the home page, and a segment page hard codes aria-current="page".
+   The attribute selector takes both rather than matching one value. */
 .nav a:hover { color: var(--ink); }
 .nav a:hover::after,
-.nav a[aria-current="true"]::after { opacity: 1; }
-.nav a[aria-current="true"] { color: var(--ink); }
+.nav a[aria-current]::after { opacity: 1; }
+.nav a[aria-current] { color: var(--ink); }
 
 .nav-cta { color: var(--ink) !important; }
 
@@ -887,9 +890,10 @@ a:hover { color: var(--mark-deep); }
   .field-wide, .field-submit { grid-column: 1 / -1; }
 }
 
-@media (min-width: 48rem) {
-  /* the nav returns to the single row it has always been: the panel is held
-     open, the toggle goes away, and the current mark goes back under the link */
+/* The nav carries six destinations now that each audience has its own page, so
+   the single row needs more width than the old five anchors did. Below 62rem it
+   stays a disclosure rather than wrapping the sticky masthead onto two lines. */
+@media (min-width: 62rem) {
   .nav-disclosure::details-content { content-visibility: visible; block-size: auto; }
   .nav-toggle { display: none; }
 
@@ -899,7 +903,7 @@ a:hover { color: var(--mark-deep); }
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--s2) var(--s5);
+    gap: var(--s2) var(--s4);
     padding: 0;
     background: none;
     border-bottom: 0;
@@ -928,7 +932,9 @@ a:hover { color: var(--mark-deep); }
   }
   .nav-cta::after { display: none; }
   .nav-cta:hover { background: var(--panel); }
+}
 
+@media (min-width: 48rem) {
   .section-head { grid-template-columns: 4rem 1fr; }
   .idea { grid-template-columns: 4rem 1fr; }
   .offer { grid-template-columns: 7.5rem 1fr; }
@@ -956,6 +962,246 @@ a:hover { color: var(--mark-deep); }
      units, short of the split rule at 240. */
   .plot-label,
   .plot-caption { font-size: 19px; }
+}
+
+/* ---------- segment grid: the row on the home page that sends you to your
+   own page. Same state language as a demo tile, so a segment whose build is
+   unfinished says so here too rather than only on its own page. ---------- */
+
+.segments {
+  display: grid;
+  gap: var(--s4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+}
+
+.segment {
+  position: relative;
+  background: var(--panel);
+  border: var(--hair) solid var(--line-strong);
+  border-radius: var(--radius);
+  transition: border-color var(--fast) var(--ease), translate var(--fast) var(--ease);
+}
+
+.segment::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--mark);
+}
+
+/* an unbuilt segment carries the hatched band, same as an in development tile */
+.segment.is-early::before {
+  height: 8px;
+  background: repeating-linear-gradient(45deg, var(--line-strong) 0 1.5px, transparent 1.5px 7px);
+  opacity: 0.8;
+}
+
+.segment > a {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--s5) var(--s5) var(--s4);
+  color: inherit;
+  text-decoration: none;
+}
+
+.segment:hover { border-color: var(--ink); translate: 0 -2px; }
+.segment:focus-within { border-color: var(--ink); }
+.segment:hover .segment-name { color: var(--mark-deep); }
+
+.segment-market {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+}
+
+.segment-name {
+  margin-top: var(--s2);
+  font-size: var(--t-h3);
+}
+
+.segment-body {
+  margin-top: var(--s3);
+  font-size: var(--t-small);
+  color: var(--ink-muted);
+}
+
+.segment-go {
+  margin-top: var(--s5);
+  padding-top: var(--s3);
+  border-top: var(--hair) solid var(--line);
+  font-family: var(--mono);
+  font-size: var(--t-label);
+  color: var(--mark);
+}
+
+.segment.is-early .segment-go { color: var(--ink-muted); }
+
+.segment-engine { background: var(--panel-deep); }
+.segment-engine .segment-market { color: var(--mark); }
+
+/* ---------- segment page: the per audience page ---------- */
+
+/* a shorter hero than the home page, because the visitor already chose */
+.section-segment-hero { padding-top: clamp(1.75rem, 4vw, var(--s7)); }
+
+.segment-lede {
+  margin-top: var(--s4);
+  font-size: var(--t-h1);
+  letter-spacing: -0.022em;
+  max-width: 20ch;
+}
+
+.segment-claim {
+  margin-top: var(--s5);
+  max-width: 56ch;
+  font-size: var(--t-lead);
+  color: var(--ink-muted);
+}
+
+/* the crumb back to the whole company, so a segment page is never a dead end */
+.crumb {
+  font-family: var(--mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+}
+.crumb a { color: var(--ink-muted); text-decoration: none; }
+.crumb a:hover { color: var(--mark-deep); text-decoration: underline; }
+
+/* what we build for you: a numbered list of concrete things, not benefits */
+.builds {
+  display: grid;
+  gap: 0;
+  border-top: var(--hair) solid var(--line);
+}
+
+.build {
+  display: grid;
+  gap: var(--s2) var(--s5);
+  padding-block: var(--s5);
+  border-bottom: var(--hair) solid var(--line);
+}
+
+.build-no {
+  font-family: var(--mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  color: var(--mark);
+}
+
+.build h3 { font-size: var(--t-h3); }
+
+.build p {
+  margin-top: var(--s3);
+  max-width: 64ch;
+  font-size: var(--t-small);
+  color: var(--ink-muted);
+}
+
+/* the proof panel: what exists for this segment today, stated plainly */
+.proof {
+  margin-top: var(--s6);
+  padding: clamp(1.25rem, 3vw, var(--s6));
+  background: var(--panel);
+  border: var(--hair) solid var(--line);
+  border-left: 3px solid var(--mark);
+  border-radius: var(--radius);
+}
+
+.proof.is-early { border-left-color: var(--line-strong); }
+
+.proof h3 { font-size: var(--t-h3); margin-top: var(--s2); }
+
+.proof p {
+  margin-top: var(--s3);
+  max-width: 64ch;
+  font-size: var(--t-small);
+  color: var(--ink-muted);
+}
+
+.proof .actions { margin-top: var(--s5); }
+
+/* the honest-state line, reused from the status grid vocabulary */
+.proof-state {
+  font-family: var(--mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.06em;
+  color: var(--mark);
+}
+.proof.is-early .proof-state { color: var(--ink-muted); }
+
+/* a short restatement of the method on a segment page, linking home for the
+   full version rather than repeating it in six places */
+.method-short {
+  display: grid;
+  gap: var(--s4);
+  margin-top: var(--s5);
+}
+
+.method-item {
+  padding-left: var(--s4);
+  border-left: 2px solid var(--line-strong);
+}
+
+.method-item dt {
+  font-family: var(--mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  color: var(--mark);
+}
+
+.method-item dd {
+  margin: var(--s1) 0 0;
+  font-size: var(--t-small);
+  color: var(--ink-muted);
+}
+
+/* the boundary note. Every segment page states what we are not claiming. */
+.bounds {
+  margin-top: var(--s6);
+  padding-top: var(--s4);
+  border-top: var(--hair) solid var(--line);
+  max-width: 68ch;
+  font-size: var(--t-small);
+  color: var(--ink-muted);
+}
+
+/* ---------- other segments, at the foot of a segment page ---------- */
+
+.also {
+  margin-top: var(--s6);
+  padding-top: var(--s5);
+  border-top: var(--hair) solid var(--line);
+}
+
+.also-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3) var(--s5);
+  margin-top: var(--s4);
+  font-family: var(--mono);
+  font-size: var(--t-label);
+}
+
+.also-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink-muted);
+  text-decoration: none;
+}
+.also-list a:hover { color: var(--mark-deep); text-decoration: underline; }
+
+@media (min-width: 40rem) {
+  .method-short { grid-template-columns: repeat(3, 1fr); gap: var(--s5); }
+}
+
+@media (min-width: 48rem) {
+  .build { grid-template-columns: 7.5rem 1fr; }
 }
 
 /* ---------- motion ---------- */

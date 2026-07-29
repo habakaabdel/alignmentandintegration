@@ -42,19 +42,21 @@
       </svg>
       <span class="brand-name">Alignment Integration</span>
     </a>
-    <nav class="nav" aria-label="Sections">
-      <!-- On a phone this is a disclosure. From 48rem up the panel is held open
-           and reads as the single row it has always been. No script involved. -->
+    <nav class="nav" aria-label="Who we build for">
+      <!-- On a phone this is a disclosure. From 62rem up the panel is held open
+           and reads as a single row. No script involved. The breakpoint moved
+           from 48rem when the nav went from five anchors to six destinations. -->
       <details class="nav-disclosure">
         <summary class="nav-toggle">
           <span>menu</span>
           <span class="nav-toggle-mark" aria-hidden="true"></span>
         </summary>
         <ul class="nav-list">
-          <li><a href="#what-we-do">What we do</a></li>
-          <li><a href="#demos">Demos</a></li>
-          <li><a href="#how-it-works">How it works</a></li>
-          <li><a href="#what-is-built">What is built</a></li>
+          <li><a href="/small-business/">Small business</a></li>
+          <li><a href="/community-social-services/">Community services</a></li>
+          <li><a href="/enterprise/">Enterprise</a></li>
+          <li><a href="/students/">Students</a></li>
+          <li><a href="/individuals/">Individuals</a></li>
           <li><a href="#contact" class="nav-cta">Contact</a></li>
         </ul>
       </details>
@@ -76,7 +78,7 @@
           <h1 class="lede" id="h-what-we-do">We turn objective reality into ones and zeros and solve problems with software.</h1>
           <p class="claim">Software built specifically for you used to be out of reach. That is the only reason organizations settle for tools that were never built for them. Not anymore.</p>
           <div class="actions">
-            <a class="btn btn-primary" href="#demos">See the demos</a>
+            <a class="btn btn-primary" href="#demos">See who we build for</a>
             <a class="btn btn-quiet" href="#contact">Start the conversation</a>
           </div>
         </div>
@@ -186,52 +188,64 @@
       <div class="section-head">
         <p class="index">02</p>
         <div>
-          <h2 id="h-demos">Demos</h2>
-          <p class="section-intro">Five markets, one engine underneath. Three are client-build patterns and two are packaged products. Tiles marked in development do not open yet, and they say so rather than pretending.</p>
+          <h2 id="h-demos">Who we build for</h2>
+          <p class="section-intro">Five audiences, one engine underneath. Three are client-build patterns and two are packaged products. Go to yours and the page talks about your work rather than everyone's. A hatched band means the build for that audience is not finished, and it says so rather than pretending.</p>
         </div>
       </div>
 
-      <ul class="tiles">
-        <li class="tile" data-demo="small-business">
-          <p class="tile-market">restaurant, salon</p>
-          <h3 class="tile-name">Small business operations board</h3>
-          <p class="tile-body">Covers, shifts, stock, bookings, no-shows. The handful of numbers a small operation actually runs on, in one place, readable on a phone behind the counter.</p>
-          <p class="tile-state" data-tile-state>in development</p>
+      <ul class="segments">
+        <li class="segment">
+          <a href="/small-business/">
+            <p class="segment-market">restaurant, salon, independent lot</p>
+            <h3 class="segment-name">Small business</h3>
+            <p class="segment-body">Covers, shifts, stock, bookings, no-shows. The handful of numbers a small operation actually runs on, in one place, readable on a phone behind the counter.</p>
+            <p class="segment-go">demo live</p>
+          </a>
         </li>
 
-        <li class="tile" data-demo="enterprise">
-          <p class="tile-market">retail, distribution</p>
-          <h3 class="tile-name">Enterprise operations</h3>
-          <p class="tile-body">Multi-site operations intelligence. What is happening across every location, described in terms the head office and the floor both recognise.</p>
-          <p class="tile-state" data-tile-state>in development</p>
+        <li class="segment">
+          <a href="/community-social-services/">
+            <p class="segment-market">health and social services</p>
+            <h3 class="segment-name">Community and social services</h3>
+            <p class="segment-body">Coordinated services and referral pathways. Where a person sits in the system, who is accountable for the next step, and what happens in the space between agencies.</p>
+            <p class="segment-go">demo live</p>
+          </a>
         </li>
 
-        <li class="tile" data-demo="community-safety">
-          <p class="tile-market">health and social services</p>
-          <h3 class="tile-name">Community safety and well-being</h3>
-          <p class="tile-body">Coordinated services and referral pathways. Where a person sits in the system, who is accountable for the next step, and what happens in the space between agencies. The live demo is one lens of the method: the whole-person health version.</p>
-          <p class="tile-state" data-tile-state>in development</p>
+        <li class="segment is-early">
+          <a href="/enterprise/">
+            <p class="segment-market">retail, distribution, multi-site</p>
+            <h3 class="segment-name">Enterprise</h3>
+            <p class="segment-body">Multi-site operations intelligence. What is happening across every location, described in terms the head office and the floor both recognise.</p>
+            <p class="segment-go">in development</p>
+          </a>
         </li>
 
-        <li class="tile" data-demo="student-portal">
-          <p class="tile-market">consumer, packaged product</p>
-          <h3 class="tile-name">Student portal</h3>
-          <p class="tile-body">Every course, every deadline, every note in one app you talk to. Hold the mic and ask what is due, have it explain a reading, or make it quiz you before the exam, answering from your material rather than the internet's.</p>
-          <p class="tile-state" data-tile-state>in development</p>
+        <li class="segment">
+          <a href="/students/">
+            <p class="segment-market">consumer, packaged product</p>
+            <h3 class="segment-name">Students</h3>
+            <p class="segment-body">Every course, every deadline, every note in one app you talk to. Ask what is due, have it explain a reading, or make it quiz you, answering from your material rather than the internet's.</p>
+            <p class="segment-go">demo live</p>
+          </a>
         </li>
 
-        <li class="tile" data-demo="pocket-portal">
-          <p class="tile-market">consumer, packaged product</p>
-          <h3 class="tile-name">Pocket portal</h3>
-          <p class="tile-body">The same idea sized for a pocket. For the parts of a day that happen away from a desk, where most of the useful detail gets lost.</p>
-          <p class="tile-state" data-tile-state>in development</p>
+        <li class="segment is-early">
+          <a href="/individuals/">
+            <p class="segment-market">consumer, packaged product</p>
+            <h3 class="segment-name">Individuals</h3>
+            <p class="segment-body">The same idea sized for a pocket. For the parts of a day that happen away from a desk, where most of the useful detail gets lost.</p>
+            <p class="segment-go">in development</p>
+          </a>
         </li>
 
-        <li class="tile tile-engine" data-demo="engine">
-          <p class="tile-market">the layer underneath</p>
-          <h3 class="tile-name">The engine</h3>
-          <p class="tile-body">The layer client builds run on. Each one is an instance of it rather than a one-off assembled from scratch, which is why a bespoke system does not start from nothing.</p>
-          <p class="tile-state" data-tile-state>in development</p>
+        <li class="segment segment-engine">
+          <a href="#how-it-works">
+            <p class="segment-market">the layer underneath</p>
+            <h3 class="segment-name">The engine</h3>
+            <p class="segment-body">The layer every client build runs on. Each one is an instance of it rather than a one-off assembled from scratch, which is why a bespoke system does not start from nothing.</p>
+            <p class="segment-go">how it works</p>
+          </a>
         </li>
       </ul>
     </div>
@@ -298,20 +312,24 @@
           <p class="status-name"><a href="demos/bpss-ses/">Diagnostic and intervention map</a></p>
           <p class="status-state">built and demonstrable</p>
         </li>
-        <li class="status-row">
-          <p class="status-name">Student portal</p>
-          <p class="status-state">in development</p>
+        <li class="status-row is-built">
+          <p class="status-name"><a href="/students/">Student portal</a></p>
+          <p class="status-state">demo live, build in progress</p>
         </li>
         <li class="status-row">
-          <p class="status-name">Pocket portal</p>
+          <p class="status-name"><a href="/individuals/">Pocket portal</a></p>
           <p class="status-state">in development</p>
         </li>
         <li class="status-row is-built">
-          <p class="status-name"><a href="#demos">Small business operations board</a></p>
-          <p class="status-state">demo live on this page</p>
+          <p class="status-name"><a href="/small-business/">Small business operations board</a></p>
+          <p class="status-state">demo live</p>
         </li>
         <li class="status-row">
-          <p class="status-name">Enterprise operations</p>
+          <p class="status-name"><a href="/community-social-services/">Coordinated services and referral pathways</a></p>
+          <p class="status-state">in development</p>
+        </li>
+        <li class="status-row">
+          <p class="status-name"><a href="/enterprise/">Enterprise operations</a></p>
           <p class="status-state">in development</p>
         </li>
       </ul>
