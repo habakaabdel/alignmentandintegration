@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Therapist workload, prototype</title>
+<meta name="description" content="Demonstration of a therapist workload board by Alignment Integration. Sample caseload, coded cards, no client names anywhere in it.">
+<meta name="theme-color" content="#edefee">
+<meta name="color-scheme" content="light">
+<link rel="canonical" href="https://alignmentandintegration.com/demos/therapist-workload/">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23edefee'/%3E%3Cg fill='none' stroke-width='2.6' stroke-linecap='square'%3E%3Cpath d='M5 25 L12 7 L19 25 M8.4 19 H15.6' stroke='%23101d26'/%3E%3Cpath d='M27 7 V25' stroke='%230b5a44'/%3E%3Cpath d='M21.4 16 H24.2' stroke='%230b5a44'/%3E%3C/g%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#app">Skip to the prototype</a>
+
+<header class="demo-bar">
+  <div class="wrap demo-bar-inner">
+    <a class="brand" href="../../" aria-label="Alignment Integration, back to the main page">
+      <svg class="monogram" viewBox="0 0 32 32" width="26" height="26" role="img" aria-label="A and I monogram">
+        <g fill="none" stroke-width="2.6" stroke-linecap="square">
+          <path d="M5 25 L12 7 L19 25 M8.4 19 H15.6" class="mono-ink"/>
+          <path d="M27 7 V25" class="mono-mark"/>
+          <path d="M21.4 16 H24.2" class="mono-mark"/>
+        </g>
+      </svg>
+      <span class="brand-name">Alignment Integration</span>
+    </a>
+    <p class="bar-right">
+      <a href="../../">Back to the main page</a>
+      <span class="bar-label">Demonstration</span>
+    </p>
+  </div>
+</header>
+
+<div class="wrap sheet">
+
+  <header class="head">
+    <p class="eyebrow">a packaged product, prototype</p>
+    <h1>Therapist workload</h1>
+    <p class="tag">One board for a therapist working two sites. What you owe, to whom, by when. Every client on it is a coded card: a nickname, an avatar, a number. Who they are stays in your head, not in here.</p>
+  </header>
+
+  <div class="lab">
+
+    <aside class="try" aria-label="What to try">
+      <p class="try-title">What to try</p>
+      <ol class="try-list">
+        <li>Open the 11:00 session. The board pulls what you need from that one card.</li>
+        <li>The finished 9:00 session is asking for its recap. Dictate it, confirm the items it pulled out, and watch the transcript go.</li>
+        <li>Open the caseload and tap Boat. The map holds only what bears on the reason for counselling. His spirit column is empty because nothing there is doing work yet.</li>
+        <li>One row is red. Only one thing on the board needs you to act, so only one thing is red.</li>
+      </ol>
+      <p class="try-note">Sample caseload, fictional throughout. Tuesday, March 10, 2026 on the board. Nothing you do here is stored.</p>
+    </aside>
+
+    <div class="stage">
+      <div class="phone" id="app">
+        <!-- app renders here -->
+        <noscript><p class="noscript">The prototype needs scripts on. With them off: the board lists the day's sessions and reports in time order, each opens to what it needs, and every client is a coded card with a map fenced to the reason for counselling.</p></noscript>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="source-note">
+    <p>Built by Alignment Integration on its engine. Sample data. No names, no notes, no recordings kept: dictation is read once for its action items and discarded.</p>
+  </footer>
+
+</div>
+
+<script src="main.js" defer></script>
+</body>
+</html>

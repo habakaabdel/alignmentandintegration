@@ -229,10 +229,10 @@ the page it touches, and is verified at both before it deploys:
 
 ### The masthead nav on a phone
 
-Below 48rem the five links live in a `details` disclosure labelled "menu", so
+Below 68rem the seven links live in a `details` disclosure labelled "menu", so
 the sticky masthead stays one row and 69px tall instead of wrapping to two. The
 panel is absolutely positioned under the masthead, so opening it moves nothing
-on the page. From 48rem up the panel is held open with
+on the page. From 68rem up the panel is held open with
 `::details-content { content-visibility: visible }`, the toggle is hidden, and
 the row is the same one it has always been: same widths, same positions, same
 56px masthead.
@@ -247,8 +247,10 @@ Rules a future editor keeps:
 - Inside the panel the current section is a solid 2px `--mark` rule down the
   left edge of the row, which is the same marker a built status row uses. The
   underline belongs to the desktop row.
-- The breakpoint is 48rem because that is where all five links plus the brand
-  fit on one line. Do not lower it without measuring.
+- The breakpoint is 68rem because that is where all seven links plus the brand
+  fit on one line, measured at 1088px with a 56px single-row masthead. It moved
+  from 48rem at five anchors, 62rem at six destinations, 68rem at seven. Do not
+  lower it without measuring.
 - Anything that resets a `.nav a` property at 48rem has to leave the CTA's own
   padding and border alone, which is why that rule is written `.nav a.nav-cta`.
 
@@ -319,6 +321,31 @@ What the reskin did, and what a future editor keeps doing:
 - The page carries the slim bar and nothing else: the monogram, the company
   name, a link back to the main page, and the word "Demonstration". No nav, no
   footer chrome beyond the source note.
+
+## The prototype page, `demos/therapist-workload/`
+
+A working prototype of the therapist workload board, added 29 July 2026 with
+the `/therapists/` audience page. Built directly in this sheet's language, not
+reskinned: same tokens, same motion vocabulary, the category ramp for the four
+map domains (the documented demo-page exception). Rules a future editor keeps:
+
+- The product has no brand name on the site. The audience page, the nav, and
+  the status grid say "Therapist workload" and "the board", descriptive words
+  only, until a name is decided. Same discipline as the systems map.
+- Every client in the sample data is a coded card: nickname, avatar, optional
+  number. No real names, no session notes, no recordings anywhere in the data,
+  markup, or comments. The dictation flow exists to demonstrate the contract
+  that the transcript is read once for action items and discarded.
+- Each card's map is fenced to the reason for counselling. At least one sample
+  card keeps an empty domain with the honest-empty line, because the fence is
+  the point.
+- One red row at most. Red means the reader must act, and the sample day is
+  built so exactly one thing qualifies.
+- `?frame=app` renders the app alone, full viewport; the walk frames on
+  `/therapists/` are captured from it at 430x900 and device scale 2, into
+  `media/walk/therapist-workload/`. Recapture after any visual change to the
+  prototype: the five states are `?frame=app`, `&open=boat-11`, `&view=recap`,
+  `&view=recap-done`, and `&view=client&client=boat`.
 - The page predates the content rules, so it was swept for them. Em dashes are
   gone. "Leverage point" became "point of action", because the banned word list
   has no technical exemption. Named programs and agencies were removed and
