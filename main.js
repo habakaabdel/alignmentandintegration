@@ -100,6 +100,71 @@ function drawPlot() {
   plot.parentElement.classList.add('plot-ready');
 }
 
+/* ---------- demo walkthroughs ----------
+   Cross-fades captured frames of a real running demo and swaps the caption with
+   them. Every frame is already in the markup with its caption on data-cap, so
+   with this file absent the visitor still sees the first frame and can read the
+   whole sequence in the .walk-list. The timer only runs while the figure is on
+   screen, and it never starts at all when the visitor asked for reduced motion. */
+
+function wireWalkthroughs() {
+  document.querySelectorAll('[data-walk]').forEach(function (walk) {
+    const frames = Array.from(walk.querySelectorAll('.walk-stage img'));
+    if (frames.length < 2) return;
+
+    const caption = walk.querySelector('[data-walk-cap]');
+    const dots = Array.from(walk.querySelectorAll('.walk-dots li'));
+    const button = walk.querySelector('[data-walk-toggle]');
+
+    let index = 0;
+    let timer = null;
+    let onScreen = false;
+    let playing = motionOK;
+
+    function show(next) {
+      frames[index].classList.remove('is-on');
+      if (dots[index]) dots[index].classList.remove('is-on');
+      index = next;
+      frames[index].classList.add('is-on');
+      if (dots[index]) dots[index].classList.add('is-on');
+      if (caption) caption.textContent = frames[index].dataset.cap || '';
+    }
+
+    function run() {
+      if (timer || !playing || !onScreen) return;
+      timer = window.setInterval(function () {
+        show((index + 1) % frames.length);
+      }, 2600);
+    }
+
+    function halt() {
+      if (!timer) return;
+      window.clearInterval(timer);
+      timer = null;
+    }
+
+    if (button) {
+      button.hidden = !motionOK;
+      button.addEventListener('click', function () {
+        playing = !playing;
+        button.textContent = playing ? 'pause' : 'play';
+        button.setAttribute('aria-pressed', playing ? 'false' : 'true');
+        if (playing) run(); else halt();
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        onScreen = entries[0].isIntersecting;
+        if (onScreen) run(); else halt();
+      }, { threshold: 0.25 }).observe(walk);
+    } else {
+      onScreen = true;
+      run();
+    }
+  });
+}
+
 /* ---------- contact form ---------- */
 
 function wireForm() {
@@ -150,4 +215,5 @@ activateTiles();
 trackSections();
 wireNav();
 drawPlot();
+wireWalkthroughs();
 wireForm();

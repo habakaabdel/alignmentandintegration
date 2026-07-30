@@ -75,6 +75,68 @@
         <a class="btn btn-primary" href="/demos/restaurant-ops/">Open the demo</a>
         <a class="btn btn-quiet" href="/#contact">Book the free consultation</a>
       </div>
+
+      <!-- Frames are screenshots of the real running demo, captured twice: once
+           at desktop width and once at phone width, because shrinking a 1360px
+           board into a phone column makes it unreadable. The phone set is the
+           demo's own mobile layout. See capture-demo.mjs in the
+           alignment-marketing-copy skill. -->
+      <figure class="walk" data-walk style="--ar: 1360 / 880; --ar-phone: 780 / 1560" role="group" aria-label="The operations board, running">
+        <div class="walk-stage">
+          <picture>
+            <source media="(max-width: 46rem)" srcset="/media/walk/restaurant-ops-phone/01.webp">
+            <img class="is-on" src="/media/walk/restaurant-ops/01.webp" width="1360" height="880" loading="eager" decoding="async"
+                 alt="The board on a Thursday evening: 55 covers booked, 11 seated, 6 finished, one table running late."
+                 data-cap="Thursday, 18:40. The whole night in one place.">
+          </picture>
+          <picture>
+            <source media="(max-width: 46rem)" srcset="/media/walk/restaurant-ops-phone/02.webp">
+            <img src="/media/walk/restaurant-ops/02.webp" width="1360" height="880" loading="lazy" decoding="async"
+                 alt="A Your call column listing five items waiting on a decision."
+                 data-cap="Five things are waiting on you.">
+          </picture>
+          <picture>
+            <source media="(max-width: 46rem)" srcset="/media/walk/restaurant-ops-phone/03.webp">
+            <img src="/media/walk/restaurant-ops/03.webp" width="1360" height="880" loading="lazy" decoding="async"
+                 alt="One item opened, showing the follow-up message drafted to the table that did not show."
+                 data-cap="Open one and it shows you why.">
+          </picture>
+          <picture>
+            <source media="(max-width: 46rem)" srcset="/media/walk/restaurant-ops-phone/04.webp">
+            <img src="/media/walk/restaurant-ops/04.webp" width="1360" height="880" loading="lazy" decoding="async"
+                 alt="The item approved, with a confirmation appearing at the foot of the screen."
+                 data-cap="Approve it.">
+          </picture>
+          <picture>
+            <source media="(max-width: 46rem)" srcset="/media/walk/restaurant-ops-phone/05.webp">
+            <img src="/media/walk/restaurant-ops/05.webp" width="1360" height="880" loading="lazy" decoding="async"
+                 alt="The queue count dropping from five to four as the approved item moves to Done today."
+                 data-cap="It lands in Done today.">
+          </picture>
+          <picture>
+            <source media="(max-width: 46rem)" srcset="/media/walk/restaurant-ops-phone/06.webp">
+            <img src="/media/walk/restaurant-ops/06.webp" width="1360" height="880" loading="lazy" decoding="async"
+                 alt="An empty queue reading Queue is clear, nothing is waiting on you, with the approvals listed under Done today."
+                 data-cap="Queue clear. Nothing is waiting on you.">
+          </picture>
+        </div>
+        <div class="walk-bar">
+          <p class="walk-cap" data-walk-cap aria-hidden="true">Thursday, 18:40. The whole night in one place.</p>
+          <ol class="walk-dots" aria-hidden="true">
+            <li class="is-on"></li><li></li><li></li><li></li><li></li><li></li>
+          </ol>
+          <button type="button" class="walk-btn" data-walk-toggle aria-pressed="false">pause</button>
+        </div>
+        <ol class="walk-list" aria-hidden="true">
+          <li>Thursday, 18:40. The whole night in one place.</li>
+          <li>Five things are waiting on you.</li>
+          <li>Open one and it shows you why.</li>
+          <li>Approve it.</li>
+          <li>It lands in Done today.</li>
+          <li>Queue clear. Nothing is waiting on you.</li>
+        </ol>
+        <p class="walk-note">Captured from the live demo. Fictional business, fictional data.</p>
+      </figure>
     </div>
   </section>
 

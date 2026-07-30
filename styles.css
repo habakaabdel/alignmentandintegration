@@ -1204,6 +1204,134 @@ a:hover { color: var(--mark-deep); }
   .build { grid-template-columns: 7.5rem 1fr; }
 }
 
+/* ---------- demo walkthrough ----------
+   Frames are screenshots of the REAL running demo, captured by
+   capture-demo.mjs in the alignment-marketing-copy skill. Rule 6 of that
+   skill forbids generated mockups of product UI here, because the site's
+   whole claim is that it will not show you something that does not run.
+
+   One frame cross-fades to the next every 2.6s, so a six-frame loop is
+   about 16 seconds. --ar is set per instance because the board demos and
+   the phone app have very different shapes; setting it on the container
+   reserves the space before the first frame decodes, so nothing jumps. */
+
+.walk { margin: var(--s6) 0 0; }
+
+.walk-stage {
+  position: relative;
+  aspect-ratio: var(--ar, 1360 / 880);
+  /* --ar-phone exists because the board demos are captured twice, once at
+     desktop and once at phone width. The frame sets have different shapes, so
+     the container has to change shape with them or object-fit would crop. */
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.walk-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 420ms linear;
+}
+
+.walk-stage img.is-on { opacity: 1; }
+
+/* the phone app is portrait, so cap it rather than let it fill the column */
+.walk--phone .walk-stage {
+  max-width: 20rem;
+  margin-inline: auto;
+}
+
+@media (max-width: 46rem) {
+  .walk-stage { aspect-ratio: var(--ar-phone, var(--ar, 1360 / 880)); }
+}
+
+.walk-bar {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s4);
+  margin-top: var(--s3);
+}
+
+.walk-cap {
+  flex: 1;
+  font-size: var(--t-small);
+  color: var(--ink);
+  margin: 0;
+  /* two lines of room so a longer caption never shifts the layout */
+  min-height: 2.9em;
+}
+
+.walk-dots {
+  display: flex;
+  gap: var(--s2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.walk-dots li {
+  width: 1.25rem;
+  height: 2px;
+  background: var(--line);
+}
+
+.walk-dots li.is-on { background: var(--mark); }
+
+.walk-btn {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  color: var(--ink-muted);
+  background: none;
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--s1) var(--s2);
+  cursor: pointer;
+  transition: border-color var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+
+.walk-btn:hover { color: var(--ink); border-color: var(--line-strong); }
+
+.walk-note {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  color: var(--ink-muted);
+  margin-top: var(--s2);
+}
+
+/* On a phone the dots and the button leave the caption about ninety pixels,
+   which wraps a one-line caption onto four. Give the caption its own row and
+   let the controls sit underneath it. */
+@media (max-width: 34rem) {
+  .walk-bar { flex-wrap: wrap; gap: var(--s2) var(--s4); }
+  .walk-cap { flex: 1 1 100%; min-height: 0; }
+  .walk-btn { margin-left: auto; }
+}
+
+/* Reduced motion gets the whole story as text instead of a loop it cannot
+   see. Not a fallback so much as the same content, held still. */
+.walk-list { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .walk-stage img { transition: none; }
+  .walk-bar { display: none; }
+  .walk-list {
+    display: block;
+    margin: var(--s3) 0 0;
+    padding-left: var(--s5);
+    font-size: var(--t-small);
+    color: var(--ink);
+  }
+  .walk-list li { margin-bottom: var(--s1); }
+}
+
 /* ---------- motion ---------- */
 
 @media (prefers-reduced-motion: no-preference) {
