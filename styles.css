@@ -890,10 +890,10 @@ a:hover { color: var(--mark-deep); }
   .field-wide, .field-submit { grid-column: 1 / -1; }
 }
 
-/* The nav carries six destinations now that each audience has its own page, so
-   the single row needs more width than the old five anchors did. Below 62rem it
-   stays a disclosure rather than wrapping the sticky masthead onto two lines. */
-@media (min-width: 62rem) {
+/* The nav carries seven destinations now that therapists have their own page,
+   so the single row needs more width again. Below 68rem it stays a disclosure
+   rather than wrapping the sticky masthead onto two lines. */
+@media (min-width: 68rem) {
   .nav-disclosure::details-content { content-visibility: visible; block-size: auto; }
   .nav-toggle { display: none; }
 
