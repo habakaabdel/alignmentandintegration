@@ -1332,6 +1332,145 @@ a:hover { color: var(--mark-deep); }
   .walk-list li { margin-bottom: var(--s1); }
 }
 
+/* ---------- fig. 01 with depth ----------
+   When motion is welcome and the canvas is available, main.js draws the same
+   figure in three dimensions and hides the flat SVG. The SVG remains the
+   rendering everywhere else, so nothing below ever depends on the canvas. */
+
+.plot--dim { position: relative; }
+.plot--dim svg { display: none; }
+
+.plot-3d {
+  display: block;
+  width: 100%;
+  aspect-ratio: 480 / 300;
+  touch-action: pan-y;
+}
+
+.plot-overlay {
+  position: absolute;
+  inset: var(--s4);
+  pointer-events: none;
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+.plot-ov { position: absolute; }
+.plot-ov-left { left: var(--s2); bottom: var(--s1); }
+.plot-ov-right { right: var(--s2); bottom: var(--s1); }
+.plot-ov-fig { right: var(--s2); top: var(--s1); color: var(--line-strong); }
+
+/* ---------- fig. 02, the engine end to end ----------
+   The schematic is complete in the markup and this is its resting state. The
+   replay below only runs when main.js adds .engine-live, which it only does
+   when motion is welcome, so reduced motion, print, and no JavaScript all see
+   the finished drawing. */
+
+.engine {
+  margin: 0 0 var(--s6);
+  padding: var(--s4);
+  background: var(--panel);
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius);
+}
+
+.engine svg { display: block; width: 100%; height: auto; }
+
+/* one schematic, two cuts: wide reads left to right, narrow reads down.
+   46rem matches the walkthrough figures' own phone cut. */
+.engine .engine-svg-v { display: none; }
+@media (max-width: 46rem) {
+  .engine .engine-svg-h { display: none; }
+  .engine .engine-svg-v { display: block; max-width: 22rem; margin: 0 auto; }
+}
+
+.engine-caption {
+  font-family: var(--mono);
+  font-size: 12px;
+  fill: var(--line-strong);
+  letter-spacing: 0.06em;
+}
+
+.engine-label {
+  font-family: var(--mono);
+  font-size: 13px;
+  fill: var(--ink-muted);
+  letter-spacing: 0.06em;
+}
+
+.engine-sep { stroke: var(--line-strong); stroke-width: 1; stroke-dasharray: 3 5; opacity: 0.6; }
+.engine-base { stroke: var(--line-strong); stroke-width: 1; opacity: 0.8; }
+.engine-tick { stroke: var(--line); stroke-width: 1; }
+.engine-drop { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 3; }
+.engine-funnel { stroke: var(--line-strong); stroke-width: 1; }
+
+.cap-sq { fill: none; stroke: var(--second); stroke-width: 1.4; }
+.noise-sq { fill: none; stroke: var(--line-strong); stroke-width: 1.2; opacity: 0.45; }
+.keep-sq { fill: var(--mark); }
+.conf-sq { fill: none; stroke: var(--ink); stroke-width: 1.4; }
+.conf-tick { fill: none; stroke: var(--mark); stroke-width: 2.2; stroke-linecap: square; }
+.rec-bar { fill: none; stroke: var(--line-strong); stroke-width: 1; }
+.rec-3 { fill: var(--mark); stroke: none; }
+
+/* ---------- the segment figures ----------
+   Each tile opens with a small drawing of its product's key screen, in the
+   sheet's own language: the small business bars, the community network, the
+   sites reporting to one desk, the student's cards and calendar, the coded
+   caseload rows, the pocket, and the engine's layers. Figures are numbered on
+   from the hero because the page is one sheet. Static by default; the hover
+   moves live at the bottom of this file with the rest of the motion. */
+
+.seg-viz {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: var(--s4);
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius);
+}
+
+.viz-grid { stroke: var(--line); stroke-width: 1; opacity: 0.45; }
+
+.viz-fig {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--line-strong);
+  letter-spacing: 0.06em;
+}
+
+.viz-base { stroke: var(--line-strong); stroke-width: 1; opacity: 0.8; }
+.viz-bar { fill: none; stroke: var(--line-strong); stroke-width: 1.2; }
+.viz-bar-on { fill: var(--mark); stroke: none; }
+
+.viz-edge { stroke: var(--line-strong); stroke-width: 1; opacity: 0.8; }
+.viz-edge-live { stroke: var(--mark); stroke-dasharray: 3 4; opacity: 1; }
+.viz-node { fill: var(--panel); stroke: var(--line-strong); stroke-width: 1.2; }
+.viz-node-on { fill: var(--mark); stroke: none; }
+
+.viz-hq { fill: var(--panel); stroke: var(--ink); stroke-width: 1.2; }
+.viz-hq-core { fill: var(--mark); }
+
+.viz-card { fill: var(--panel); stroke: var(--line-strong); stroke-width: 1; }
+.viz-card-line { stroke: var(--line-strong); stroke-width: 1.4; opacity: 0.7; }
+.viz-day { fill: none; stroke: var(--line-strong); stroke-width: 1; opacity: 0.8; }
+.viz-day-due { fill: var(--second); stroke: none; opacity: 1; }
+
+.viz-time { stroke: var(--line-strong); stroke-width: 1.2; }
+.viz-slot { fill: none; stroke: var(--line-strong); stroke-width: 1.1; }
+.viz-slot-done { fill: var(--mark); stroke: none; }
+.viz-slot-due { fill: var(--second); stroke: none; }
+.viz-avatar { fill: none; stroke: var(--line-strong); stroke-width: 1.2; }
+
+.viz-pocket { fill: none; stroke: var(--ink); stroke-width: 1.4; }
+.viz-held { fill: var(--mark); }
+.viz-drift { fill: none; stroke: var(--mark); stroke-width: 1.2; }
+
+.viz-strut { stroke: var(--line-strong); stroke-width: 1; opacity: 0.7; }
+.viz-plane { fill: none; stroke: var(--line-strong); stroke-width: 1.1; }
+.viz-plane-top { stroke: var(--mark); stroke-width: 1.4; }
+
 /* ---------- motion ---------- */
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1354,6 +1493,140 @@ a:hover { color: var(--mark-deep); }
 
   @keyframes draw { to { stroke-dashoffset: 0; } }
   @keyframes appear { to { opacity: 1; } }
+
+  /* fig. 02 replays its day each time it comes into view: the records land,
+     the sort holds the noise back, what mattered crosses, a person confirms,
+     and the record files. One authored sequence, then stillness. */
+
+  .engine-live .cap-sq { animation: eng-in 260ms var(--ease) backwards; }
+  .engine-live .cap-sq:nth-of-type(1) { animation-delay: 100ms; }
+  .engine-live .cap-sq:nth-of-type(2) { animation-delay: 200ms; }
+  .engine-live .cap-sq:nth-of-type(3) { animation-delay: 300ms; }
+  .engine-live .cap-sq:nth-of-type(4) { animation-delay: 400ms; }
+  .engine-live .cap-sq:nth-of-type(5) { animation-delay: 500ms; }
+  .engine-live .cap-sq:nth-of-type(6) { animation-delay: 600ms; }
+  .engine-live .cap-sq:nth-of-type(7) { animation-delay: 700ms; }
+
+  .engine-live .engine-drop {
+    stroke-dasharray: 70;
+    stroke-dashoffset: 70;
+    animation: draw 320ms var(--ease) 450ms forwards;
+  }
+
+  .engine-live .engine-funnel {
+    stroke-dasharray: 140;
+    stroke-dashoffset: 140;
+    animation: draw 420ms var(--ease) 850ms forwards;
+  }
+
+  .engine-live .noise-sq { animation: eng-noise 380ms var(--ease) backwards; }
+  .engine-live .noise-sq:nth-of-type(1) { animation-delay: 1050ms; }
+  .engine-live .noise-sq:nth-of-type(2) { animation-delay: 1130ms; }
+  .engine-live .noise-sq:nth-of-type(3) { animation-delay: 1210ms; }
+  .engine-live .noise-sq:nth-of-type(4) { animation-delay: 1290ms; }
+
+  .engine-live .keep-sq { animation: eng-keep 420ms var(--ease) backwards; }
+  .engine-live .keep-sq:nth-of-type(5) { animation-delay: 1300ms; }
+  .engine-live .keep-sq:nth-of-type(6) { animation-delay: 1450ms; }
+  .engine-live .keep-sq:nth-of-type(7) { animation-delay: 1600ms; }
+
+  .engine-live .conf-sq { animation: eng-in 240ms var(--ease) 1850ms backwards; }
+
+  .engine-live .conf-tick {
+    stroke-dasharray: 44;
+    stroke-dashoffset: 44;
+    animation: draw 320ms var(--ease) 2050ms forwards;
+  }
+
+  .engine-live .rec-bar { animation: eng-rec 300ms var(--ease) backwards; }
+  .engine-live .rec-1 { animation-delay: 2200ms; }
+  .engine-live .rec-2 { animation-delay: 2350ms; }
+  .engine-live .rec-3 { animation-delay: 2500ms; }
+
+  @keyframes eng-in { from { opacity: 0; } }
+  @keyframes eng-noise { from { opacity: 0; translate: 20px 0; } to { opacity: 0.45; } }
+  @keyframes eng-keep { from { opacity: 0; translate: -56px 0; } }
+  @keyframes eng-rec { from { opacity: 0; translate: 0 10px; } }
+
+  /* the segment figures answer the pointer: each tile's drawing performs its
+     one move when you consider it. Resting state is the finished drawing. */
+
+  .seg-viz rect, .seg-viz path, .seg-viz g { transform-box: fill-box; }
+
+  .segment:hover .viz-smb .viz-bar,
+  .segment:focus-within .viz-smb .viz-bar {
+    transform-origin: bottom;
+    animation: viz-grow 420ms var(--ease) backwards;
+  }
+  /* the first rect in the figure is the grid ground, so the bars run 2 to 9 */
+  .segment:hover .viz-smb .viz-bar:nth-of-type(3) { animation-delay: 40ms; }
+  .segment:hover .viz-smb .viz-bar:nth-of-type(4) { animation-delay: 80ms; }
+  .segment:hover .viz-smb .viz-bar:nth-of-type(5) { animation-delay: 120ms; }
+  .segment:hover .viz-smb .viz-bar:nth-of-type(6) { animation-delay: 160ms; }
+  .segment:hover .viz-smb .viz-bar:nth-of-type(7) { animation-delay: 200ms; }
+  .segment:hover .viz-smb .viz-bar:nth-of-type(8) { animation-delay: 240ms; }
+  .segment:hover .viz-smb .viz-bar:nth-of-type(9) { animation-delay: 280ms; }
+
+  .segment:hover .viz-community .viz-edge,
+  .segment:focus-within .viz-community .viz-edge {
+    stroke-dasharray: 90;
+    stroke-dashoffset: 90;
+    animation: draw 360ms var(--ease) forwards;
+  }
+  .segment:hover .viz-community .viz-edge:nth-of-type(2) { animation-delay: 90ms; }
+  .segment:hover .viz-community .viz-edge:nth-of-type(3) { animation-delay: 180ms; }
+  .segment:hover .viz-community .viz-edge:nth-of-type(4) { animation-delay: 270ms; }
+  .segment:hover .viz-community .viz-edge:nth-of-type(5) { animation-delay: 120ms; }
+  .segment:hover .viz-community .viz-node-on,
+  .segment:focus-within .viz-community .viz-node-on { animation: eng-in 240ms var(--ease) 480ms backwards; }
+
+  .segment:hover .viz-enterprise .viz-edge,
+  .segment:focus-within .viz-enterprise .viz-edge {
+    stroke-dasharray: 130;
+    stroke-dashoffset: 130;
+    animation: draw 380ms var(--ease) forwards;
+  }
+  .segment:hover .viz-enterprise .viz-edge:nth-of-type(2) { animation-delay: 60ms; }
+  .segment:hover .viz-enterprise .viz-edge:nth-of-type(3) { animation-delay: 120ms; }
+  .segment:hover .viz-enterprise .viz-edge:nth-of-type(4) { animation-delay: 90ms; }
+  .segment:hover .viz-enterprise .viz-edge:nth-of-type(5) { animation-delay: 150ms; }
+  .segment:hover .viz-enterprise .viz-edge:nth-of-type(6) { animation-delay: 210ms; }
+  .segment:hover .viz-enterprise .viz-hq-core,
+  .segment:focus-within .viz-enterprise .viz-hq-core { animation: eng-in 240ms var(--ease) 420ms backwards; }
+
+  .viz-card-front { transition: translate var(--base) var(--ease); }
+  .segment:hover .viz-card-front,
+  .segment:focus-within .viz-card-front { translate: 0 -4px; }
+  .segment:hover .viz-day-due,
+  .segment:focus-within .viz-day-due { animation: viz-flag 480ms var(--ease); }
+
+  .segment:hover .viz-therapists .viz-row,
+  .segment:focus-within .viz-therapists .viz-row { animation: viz-row 320ms var(--ease) backwards; }
+  .segment:hover .viz-therapists .viz-row:nth-of-type(2) { animation-delay: 70ms; }
+  .segment:hover .viz-therapists .viz-row:nth-of-type(3) { animation-delay: 140ms; }
+  .segment:hover .viz-therapists .viz-row:nth-of-type(4) { animation-delay: 210ms; }
+
+  .segment:hover .viz-individuals .viz-edge,
+  .segment:focus-within .viz-individuals .viz-edge {
+    stroke-dasharray: 120;
+    stroke-dashoffset: 120;
+    animation: draw 420ms var(--ease) forwards;
+  }
+  /* the pocket is the first path in the figure, so the edges run 2 to 4 */
+  .segment:hover .viz-individuals .viz-edge:nth-of-type(3) { animation-delay: 90ms; }
+  .segment:hover .viz-individuals .viz-edge:nth-of-type(4) { animation-delay: 180ms; }
+  .segment:hover .viz-individuals .viz-held,
+  .segment:focus-within .viz-individuals .viz-held { animation: eng-in 260ms var(--ease) 520ms backwards; }
+
+  .viz-layer { transition: translate var(--base) var(--ease); }
+  .segment:hover .viz-layer-top,
+  .segment:focus-within .viz-layer-top { translate: 0 -5px; }
+  .segment:hover .viz-layer-low,
+  .segment:focus-within .viz-layer-low { translate: 0 5px; }
+
+  @keyframes viz-grow { from { scale: 1 0.25; } }
+  @keyframes viz-flag { 50% { opacity: 0.3; } }
+  @keyframes viz-row { from { opacity: 0; translate: -8px 0; } }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1368,4 +1641,8 @@ a:hover { color: var(--mark-deep); }
   .masthead, .nav, .skip, .footer-top { display: none; }
   body { background: #ffffff; }
   .plot, .form-shell, .tile { background: #ffffff; }
+  /* paper gets the drawn sheet, not the canvas */
+  .plot--dim svg { display: block; }
+  .plot-3d, .plot-overlay { display: none; }
+  .engine { background: #ffffff; }
 }

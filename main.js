@@ -100,6 +100,212 @@ function drawPlot() {
   plot.parentElement.classList.add('plot-ready');
 }
 
+/* ---------- fig. 01 in three dimensions ----------
+   The same drawing as the SVG, given depth: the raw trace scatters in z, the
+   ordered staircase sits flat on the plane, and the camera answers the pointer
+   by a few degrees. Everything is drawn by hand on a canvas, no library. The
+   flat SVG stays in the markup and remains the rendering for reduced motion,
+   print, no JavaScript, and any failure in here. */
+
+function initPlot3D() {
+  const figure = document.querySelector('.plot');
+  if (!figure || !motionOK) return false;
+  const svg = figure.querySelector('svg');
+  if (!svg) return false;
+
+  const canvas = document.createElement('canvas');
+  canvas.className = 'plot-3d';
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return false;
+
+  /* the flat plot's own coordinates, lifted into x (width), y (height), z (depth) */
+  function lift(px, py, z) { return [px - 240, (300 - py) * 0.68, z]; }
+
+  const RAW2D = [[20, 236], [44, 198], [62, 248], [86, 180], [104, 226], [128, 166], [150, 240], [172, 190], [196, 214], [220, 172]];
+  const RAWZ = [-46, 30, -18, 44, -32, 22, -50, 12, -26, 38];
+  const raw = RAW2D.map(function (p, i) { return lift(p[0], p[1], RAWZ[i]); });
+
+  const CLEAN2D = [[240, 214], [274, 214], [274, 186], [308, 186], [308, 162], [342, 162], [342, 126], [376, 126], [376, 104], [410, 104], [410, 74], [452, 74]];
+  const clean = CLEAN2D.map(function (p) { return lift(p[0], p[1], 0); });
+
+  const nodes = [[274, 186], [308, 162], [342, 126], [376, 104], [410, 74], [452, 74]].map(function (p) { return lift(p[0], p[1], 0); });
+
+  const gridLines = [];
+  for (let gx = -240; gx <= 240; gx += 40) gridLines.push([[gx, 0, -70], [gx, 0, 70]]);
+  for (let gz = -70; gz <= 70; gz += 35) gridLines.push([[-240, 0, gz], [240, 0, gz]]);
+
+  const split = [[0, 0, -70], [0, 118, -70], [0, 118, 70], [0, 0, 70]];
+
+  const COLOR = {
+    line: '#c3ccd1', lineStrong: '#75838c',
+    raw: '#2f4e7a', clean: '#0b5a44', node: '#0b5a44'
+  };
+
+  let az = 0, el = 0, azT = 0, elT = 0;
+  let start = null, entered = false, visible = true, rafId = 0;
+  let dpr = 1, w = 0, h = 0, unit = 1;
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width) return;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = rect.width; h = rect.width * (300 / 480);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    unit = (w * dpr) / 480;
+  }
+
+  const BASE_AZ = 0.38, BASE_EL = 0.33, FOCAL = 780;
+
+  function project(p, wobble) {
+    const a = BASE_AZ + az + wobble, e = BASE_EL + el;
+    const ca = Math.cos(a), sa = Math.sin(a), ce = Math.cos(e), se = Math.sin(e);
+    const x1 = p[0] * ca + p[2] * sa;
+    const z1 = p[2] * ca - p[0] * sa;
+    const y1 = p[1] * ce - z1 * se;
+    const z2 = z1 * ce + p[1] * se;
+    const s = FOCAL / (FOCAL + z2);
+    return [240 * unit + x1 * s * unit * 1.08, 226 * unit - y1 * s * unit * 1.08];
+  }
+
+  function stroke(pts, color, width, alpha, dash, wobble, frac) {
+    const proj = pts.map(function (p) { return project(p, wobble); });
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width * unit;
+    ctx.globalAlpha = alpha;
+    ctx.setLineDash(dash ? dash.map(function (d) { return d * unit; }) : []);
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    if (frac === undefined || frac >= 1) {
+      proj.forEach(function (q, i) { i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); });
+    } else {
+      let total = 0;
+      const lens = [];
+      for (let i = 1; i < proj.length; i++) {
+        const d = Math.hypot(proj[i][0] - proj[i - 1][0], proj[i][1] - proj[i - 1][1]);
+        lens.push(d); total += d;
+      }
+      let budget = total * Math.max(0, frac);
+      ctx.moveTo(proj[0][0], proj[0][1]);
+      for (let i = 1; i < proj.length && budget > 0; i++) {
+        const d = lens[i - 1];
+        if (d <= budget) { ctx.lineTo(proj[i][0], proj[i][1]); budget -= d; }
+        else {
+          const t = budget / d;
+          ctx.lineTo(proj[i - 1][0] + (proj[i][0] - proj[i - 1][0]) * t,
+                     proj[i - 1][1] + (proj[i][1] - proj[i - 1][1]) * t);
+          budget = 0;
+        }
+      }
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function ease(t) { return 1 - Math.pow(1 - t, 3); }
+  function clamp01(v) { return Math.min(1, Math.max(0, v)); }
+
+  function frame(ts) {
+    rafId = 0;
+    if (start === null) start = ts;
+    const p = ease(clamp01((ts - start) / 1300));
+    if (p >= 1) entered = true;
+
+    az += (azT - az) * 0.06;
+    el += (elT - el) * 0.06;
+    const wobble = entered ? Math.sin(ts / 2400) * 0.012 : 0;
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const gridA = clamp01(p / 0.35);
+    gridLines.forEach(function (l) { stroke(l, COLOR.line, 1, 0.7 * gridA, null, wobble); });
+    stroke(split, COLOR.lineStrong, 1, 0.9 * gridA, [3, 5], wobble);
+
+    /* floor shadows first, so the traces read as standing above the plane */
+    const rawFrac = clamp01((p - 0.12) / 0.5);
+    const cleanFrac = clamp01((p - 0.48) / 0.5);
+    stroke(raw.map(function (q) { return [q[0], 0, q[2]]; }), COLOR.lineStrong, 1, 0.28 * rawFrac, null, wobble, rawFrac);
+    stroke(clean.map(function (q) { return [q[0], 0, q[2]]; }), COLOR.lineStrong, 1, 0.28 * cleanFrac, null, wobble, cleanFrac);
+
+    /* risers tie the raw trace to the plane it refuses to sit on */
+    raw.forEach(function (q, i) {
+      const a = 0.16 * clamp01(rawFrac * raw.length - i);
+      if (a > 0) stroke([[q[0], 0, q[2]], q], COLOR.raw, 1, a, [2, 4], wobble);
+    });
+
+    stroke(raw, COLOR.raw, 1.6, 0.85, null, wobble, rawFrac);
+    stroke(clean, COLOR.clean, 2.4, 1, null, wobble, cleanFrac);
+
+    nodes.forEach(function (q, i) {
+      const a = clamp01((p - 0.82 - i * 0.028) / 0.1);
+      if (a <= 0) return;
+      const s = project(q, wobble);
+      ctx.globalAlpha = a;
+      ctx.fillStyle = COLOR.node;
+      const r = 2.8 * unit;
+      ctx.fillRect(s[0] - r, s[1] - r, r * 2, r * 2);
+      ctx.globalAlpha = 1;
+    });
+
+    if (visible && !document.hidden) rafId = window.requestAnimationFrame(frame);
+  }
+
+  function run() { if (!rafId) rafId = window.requestAnimationFrame(frame); }
+  function halt() { if (rafId) { window.cancelAnimationFrame(rafId); rafId = 0; } }
+
+  const overlay = document.createElement('div');
+  overlay.className = 'plot-overlay';
+  overlay.setAttribute('aria-hidden', 'true');
+  overlay.innerHTML =
+    '<span class="plot-ov plot-ov-left">objective reality</span>' +
+    '<span class="plot-ov plot-ov-right">ones and zeros</span>' +
+    '<span class="plot-ov plot-ov-fig">fig. 01</span>';
+
+  figure.appendChild(canvas);
+  figure.appendChild(overlay);
+  figure.classList.add('plot--dim');
+  resize();
+
+  figure.addEventListener('pointermove', function (event) {
+    const rect = figure.getBoundingClientRect();
+    azT = ((event.clientX - rect.left) / rect.width - 0.5) * 0.17;
+    elT = ((event.clientY - rect.top) / rect.height - 0.5) * 0.11;
+  });
+  figure.addEventListener('pointerleave', function () { azT = 0; elT = 0; });
+
+  window.addEventListener('resize', resize);
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) halt(); else if (visible) run();
+  });
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      if (visible) run(); else halt();
+    }, { threshold: 0.1 }).observe(figure);
+  }
+
+  run();
+  return true;
+}
+
+/* ---------- fig. 02 runs once each time it is looked at ----------
+   The schematic in section 03 is complete in the markup. This only replays its
+   drawing when it comes into view, and only when motion is welcome. */
+
+function wireEngine() {
+  const engine = document.querySelector('.engine');
+  if (!engine || !motionOK || !('IntersectionObserver' in window)) return;
+
+  new IntersectionObserver(function (entries) {
+    const entry = entries[0];
+    if (entry.isIntersecting) engine.classList.add('engine-live');
+    else if (entry.intersectionRatio === 0) engine.classList.remove('engine-live');
+  }, { threshold: [0, 0.4] }).observe(engine);
+}
+
 /* ---------- demo walkthroughs ----------
    Cross-fades captured frames of a real running demo and swaps the caption with
    them. Every frame is already in the markup with its caption on data-cap, so
@@ -214,6 +420,11 @@ function wireForm() {
 activateTiles();
 trackSections();
 wireNav();
-drawPlot();
+
+let dimensional = false;
+try { dimensional = initPlot3D(); } catch (err) { dimensional = false; }
+if (!dimensional) drawPlot();
+
+wireEngine();
 wireWalkthroughs();
 wireForm();
