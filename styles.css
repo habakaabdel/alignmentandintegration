@@ -1471,6 +1471,40 @@ a:hover { color: var(--mark-deep); }
 .viz-plane { fill: none; stroke: var(--line-strong); stroke-width: 1.1; }
 .viz-plane-top { stroke: var(--mark); stroke-width: 1.4; }
 
+/* ---------- page figures on the audience pages ----------
+   Same sheet, page scale. Each audience page may carry one drawn figure that
+   proves its own headline. Static by design: the resting state is the claim. */
+
+.page-fig {
+  margin: var(--s6) 0 0;
+  padding: var(--s4);
+  background: var(--panel);
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius);
+}
+
+.page-fig svg { display: block; width: 100%; height: auto; }
+
+/* wide and stacked cuts, same rule as fig. 02 on the main page */
+.page-fig .pf-v { display: none; }
+@media (max-width: 46rem) {
+  .page-fig .pf-h { display: none; }
+  .page-fig .pf-v { display: block; max-width: 22rem; margin: 0 auto; }
+}
+
+.fig-site { fill: var(--paper); stroke: var(--line-strong); stroke-width: 1.1; }
+.fig-bar { fill: none; stroke: var(--line-strong); stroke-width: 1.1; }
+.fig-bar-on { fill: var(--mark); stroke: none; }
+.fig-bar-flag { fill: var(--second); stroke: none; }
+.fig-flow { stroke: var(--line-strong); stroke-width: 1; opacity: 0.4; }
+.fig-panel { fill: var(--paper); stroke: var(--ink); stroke-width: 1.2; }
+.fig-row { fill: none; stroke: var(--line-strong); stroke-width: 1.1; }
+.fig-row-on { fill: var(--mark); stroke: none; }
+.fig-row-flag { fill: var(--second); stroke: none; }
+.fig-moment { fill: none; stroke: var(--second); stroke-width: 1.4; }
+.fig-pocket { fill: none; stroke: var(--ink); stroke-width: 1.4; }
+.fig-kept { fill: var(--mark); }
+
 /* ---------- motion ---------- */
 
 @media (prefers-reduced-motion: no-preference) {

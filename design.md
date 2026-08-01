@@ -273,6 +273,45 @@ sized with a clamp that holds the rendered size near 12px on a phone and returns
 to the sheet's 11 units at 640px and above. Set a fixed size there again and the
 labels fall to about 7px on a phone.
 
+## The figures, added 1 August 2026
+
+The page became one numbered sheet of figures. Rules a future editor keeps:
+
+- **fig. 01 in three dimensions.** `initPlot3D()` in `main.js` draws the hero
+  plot on a canvas by hand, no library: the raw trace scatters in z, the
+  staircase sits flat on the plane, the camera answers the pointer by a few
+  degrees with a slow drift at rest. The flat SVG stays in the markup and is
+  the rendering for reduced motion, print, no JavaScript, and any failure in
+  the canvas path; `drawPlot()` remains as that fallback's entrance. The
+  rendering loop only runs while the figure is on screen and the document is
+  visible. Labels are HTML in `.plot-overlay`, not canvas text, so they stay
+  crisp and readable at every size.
+- **fig. 02, the engine schematic**, lives in section 03: capture, the
+  overnight funnel that holds noise back, the confirmation tick, the filed
+  record. Two cuts of the same drawing, `.engine-svg-h` wide and
+  `.engine-svg-v` stacked, switched at 46rem; the stacked cut exists because
+  SVG user-unit labels fall below readable size on a phone. The markup is the
+  complete resting drawing; `.engine-live` (added by `wireEngine()` on view,
+  motion permitting) replays it once. Raw records are `--second`, kept records
+  are `--mark`, noise is `--line-strong` at reduced opacity.
+- **figs 03 to 09, the segment figures.** Every tile in section 02 opens with
+  a small drawing of its product's key screen, on the shared `minigrid`
+  pattern (defined once in the first tile's SVG). Numbering continues from the
+  hero because the page is one sheet. Static resting state; each figure
+  performs one hover move, defined with the rest of the motion. Main-sheet
+  palette only: the two accents, ink, and the line colours. The category ramp
+  does not migrate here.
+- **Page figures on the audience pages** (`.page-fig`, currently enterprise
+  and individuals): one drawn figure that proves the page's own headline, in
+  the same two-cut pattern (`.pf-h` / `.pf-v` at 46rem). Static by design;
+  each audience page restarts its own figure numbering at fig. 01 because each
+  page is its own sheet. A page that gains a real product walkthrough should
+  prefer captured frames over a drawing, per the walk figures.
+- New figures reuse the drawing vocabulary that exists: `engine-base`,
+  `engine-tick`, `engine-drop`, `engine-label`, `engine-caption`, the square
+  record mark, hairline flows at reduced opacity. Do not invent a second
+  vocabulary.
+
 ## Adding a demo
 
 Open `main.js`, put the URL in `DEMO_URLS` against the tile's key, deploy. The
