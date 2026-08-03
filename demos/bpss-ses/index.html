@@ -139,7 +139,7 @@
     min-height:13rem;text-align:center;justify-content:center}
 
   .legend{background:var(--panel);border:var(--hair) solid var(--line);border-radius:var(--radius);padding:var(--s5)}
-  .legend h3{font-family:var(--mono);font-size:var(--t-label);font-weight:400;letter-spacing:0.08em;
+  .legend h2{font-family:var(--mono);font-size:var(--t-label);font-weight:400;letter-spacing:0.08em;
     color:var(--ink-muted);margin-bottom:var(--s3)}
   .lrow{display:flex;align-items:center;gap:var(--s2);font-size:var(--t-small);margin-bottom:var(--s2)}
   .lrow .sw{width:14px;height:14px;border-radius:var(--radius);border:1px solid var(--ink);flex:0 0 auto}
@@ -296,7 +296,7 @@
           <div class="empty">Tap a segment of the map to see its diagnostic prompts and intervention moves.</div>
         </div>
         <div class="legend">
-          <h3>domains</h3>
+          <h2>domains</h2>
           <div class="lrow"><span class="sw" style="background:var(--bio-fill)"></span> Biological, the body</div>
           <div class="lrow"><span class="sw" style="background:var(--psy-fill)"></span> Psychological, mind and meaning</div>
           <div class="lrow"><span class="sw" style="background:var(--soc-fill)"></span> Social, relationships</div>
@@ -333,7 +333,7 @@
           <div class="empty">Tap a factor to see its centrality, modifiability, priority score, and connections. The ringed factor is the point of action.</div>
         </div>
         <div class="legend">
-          <h3>edges, how factors connect</h3>
+          <h2>edges, how factors connect</h2>
           <div class="lrow"><svg width="24" height="8" aria-hidden="true"><line x1="1" y1="4" x2="23" y2="4" stroke="var(--rein)" stroke-width="3"/></svg> Reinforcing, it amplifies</div>
           <div class="lrow"><svg width="24" height="8" aria-hidden="true"><line x1="1" y1="4" x2="23" y2="4" stroke="var(--bal)" stroke-width="3" stroke-dasharray="4 3"/></svg> Balancing, it corrects</div>
           <div class="rings">Each edge also carries a function: <b style="color:var(--ink)">likelihood</b>, whether it starts, or <b style="color:var(--ink)">severity</b>, how bad it gets. All edges are bidirectional feedback. The arrow shows the dominant push.</div>
