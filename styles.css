@@ -6,21 +6,21 @@
 /* ---------- tokens ---------- */
 
 :root {
-  /* colour. Contrast ratios against --paper are noted in design.md. */
-  --paper:        #edefee;
-  --panel:        #f6f7f7;
-  --panel-deep:   #e3e7e7;
-  --ink:          #101d26;
-  --ink-muted:    #4a5a66;
-  --mark:         #0b5a44;
-  --mark-deep:    #08402f;
-  --second:       #2f4e7a;
-  --line:         #c3ccd1;
-  --line-strong:  #75838c;
+  /* Serene Organic Minimalist System: Warm Linen, Soft Charcoal, Deep Sage */
+  --paper:        #f7f6f2;
+  --panel:        #ffffff;
+  --panel-deep:   #f0eee7;
+  --ink:          #1c1d1c;
+  --ink-muted:    #5e605d;
+  --mark:         #2d4a3e;
+  --mark-deep:    #1d332a;
+  --second:       #3a5a40;
+  --line:         #d8d6ce;
+  --line-strong:  #717d76;
 
   /* type */
-  --sans: "IBM Plex Sans", ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --sans: "Plus Jakarta Sans", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
 
   --t-micro: 0.75rem;
   --t-label: 0.8125rem;
@@ -42,7 +42,8 @@
   --s8: 4rem;
   --s9: 6rem;
 
-  --radius: 2px;
+  --radius: 12px;
+  --radius-card: 16px;
   --radius-pill: 999px;
   --hair: 1px;
 
@@ -74,6 +75,23 @@ body {
   font-size: var(--t-body);
   line-height: 1.65;
   font-weight: 400;
+  position: relative;
+}
+
+/* Background Fluid Organic Canvas */
+#nature-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+main, header, footer, .masthead {
+  position: relative;
+  z-index: 1;
 }
 
 h1, h2, h3 {
@@ -1664,6 +1682,12 @@ a:hover { color: var(--mark-deep); }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  #nature-canvas {
+    display: none !important;
+  }
   *, *::before, *::after {
     animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;

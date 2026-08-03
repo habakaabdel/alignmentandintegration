@@ -428,3 +428,69 @@ if (!dimensional) drawPlot();
 wireEngine();
 wireWalkthroughs();
 wireForm();
+
+/* ---------- nature organic fluid wave canvas ---------- */
+function initNatureCanvas() {
+  if (!motionOK) return;
+
+  let canvas = document.getElementById('nature-canvas');
+  if (!canvas) {
+    canvas = document.createElement('canvas');
+    canvas.id = 'nature-canvas';
+    document.body.prepend(canvas);
+  }
+
+  const ctx = canvas.getContext('2d');
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+  let animId = null;
+
+  window.addEventListener('resize', function () {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  let step = 0;
+
+  function drawOrganicWaves() {
+    if (!motionOK) {
+      if (animId) cancelAnimationFrame(animId);
+      if (canvas && canvas.parentNode) canvas.parentNode.removeChild(canvas);
+      return;
+    }
+
+    ctx.clearRect(0, 0, width, height);
+    step += 0.005;
+
+    ctx.beginPath();
+    ctx.fillStyle = 'rgba(226, 232, 228, 0.4)';
+    ctx.moveTo(0, height * 0.45);
+    for (let x = 0; x <= width + 12; x += 12) {
+      const y = Math.sin(x * 0.002 + step) * 35 + Math.cos(x * 0.001 + step * 0.5) * 25 + height * 0.35;
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(width, height);
+    ctx.lineTo(0, height);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.fillStyle = 'rgba(212, 163, 115, 0.05)';
+    ctx.moveTo(0, height * 0.55);
+    for (let x = 0; x <= width + 12; x += 12) {
+      const y = Math.cos(x * 0.003 - step * 0.8) * 45 + Math.sin(x * 0.0015 + step) * 20 + height * 0.48;
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(width, height);
+    ctx.lineTo(0, height);
+    ctx.closePath();
+    ctx.fill();
+
+    animId = requestAnimationFrame(drawOrganicWaves);
+  }
+
+  drawOrganicWaves();
+}
+
+initNatureCanvas();
+
