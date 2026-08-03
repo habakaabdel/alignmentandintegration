@@ -199,6 +199,106 @@
     return c.name + (c.num ? ' <span class="num">' + c.num + '</span>' : '');
   }
 
+  /* ---------- the hours: the therapist's own professional record ----------
+     Nothing on this tab is client information. These are the registrant's
+     own hours, which is why this surface needs no health-privacy footing.
+     Targets are CRPO's clinical experience requirement for the move from
+     Registered Psychotherapist (Qualifying) to full registration:
+     450 direct client contact hours and 100 clinical supervision hours. */
+
+  var METERS = [
+    {
+      name: 'direct client contact',
+      done: 412, target: 450, unit: 'h',
+      pace: '34.5 h logged last month. 38 to go, so late April at that pace.'
+    },
+    {
+      name: 'clinical supervision',
+      done: 88, target: 100, unit: 'h',
+      pace: '6.0 h logged last month. 12 to go, so mid-May at that pace.',
+      binding: true
+    }
+  ];
+
+  var LEDGER = [
+    {
+      when: 'today', what: 'three sessions, clinic and hospital',
+      amt: '4.5 h', kindLabel: 'direct', pending: true,
+      from: 'from: today’s board. confirm and it posts'
+    },
+    {
+      when: 'today', what: 'supervision, hospital, 4:30',
+      amt: '1.0 h', kindLabel: 'supervision', pending: true,
+      from: 'from: today’s board. confirm and it posts'
+    },
+    {
+      when: 'Mar 7', what: 'four sessions, clinic',
+      amt: '5.0 h', kindLabel: 'direct',
+      from: 'posted from the board'
+    },
+    {
+      when: 'Mar 6', what: 'supervision, hospital',
+      amt: '1.0 h', kindLabel: 'supervision',
+      from: 'posted from the board'
+    },
+    {
+      when: 'Feb 28', what: 'trauma-informed practice, recorded webinar',
+      amt: '3.0 h', kindLabel: 'professional development',
+      from: 'entered by hand. the only kind that is'
+    }
+  ];
+
+  function hoursHTML() {
+    var meters = METERS.map(function (m) {
+      var pct = m.done / m.target;
+      return '<div class="meter">' +
+        '<div class="meter-head">' +
+          '<span class="meter-name">' + m.name + (m.binding ? ' <span class="meter-tag">the binding one</span>' : '') + '</span>' +
+          '<span class="meter-val">' + m.done + ' <span class="meter-of">of ' + m.target + m.unit + '</span></span>' +
+        '</div>' +
+        '<div class="meter-bar"><i data-w="' + pct.toFixed(3) + '"></i></div>' +
+        '<p class="meter-note">' + m.pace + '</p>' +
+      '</div>';
+    }).join('');
+
+    var led = LEDGER.map(function (l) {
+      return '<div class="led' + (l.pending ? ' is-pending' : '') + '">' +
+        '<span class="led-when">' + l.when + '</span>' +
+        '<span class="led-mid">' +
+          '<span class="led-what">' + l.what + '</span>' +
+          '<span class="led-from">' + l.from + '</span>' +
+        '</span>' +
+        '<span class="led-right">' +
+          '<span class="led-amt">' + l.amt + '</span>' +
+          '<span class="led-kind">' + l.kindLabel + '</span>' +
+        '</span>' +
+      '</div>';
+    }).join('');
+
+    return '<p class="case-note">Your record, not a client’s. Hours toward registration, logged off the same board that already knows the session happened.</p>' +
+
+      '<div class="panel-block"><p class="panel-title">toward full registration</p>' + meters +
+        '<p class="fence">Targets are the college’s clinical experience requirement: 450 direct client contact hours and 100 clinical supervision hours. Supervision is the binding one here, and it is the one nobody notices until it is late.</p>' +
+      '</div>' +
+
+      '<div class="panel-block"><p class="panel-title">the ledger</p>' +
+        '<div class="ledger">' + led + '</div>' +
+        (state.hoursPosted ? '' : '<div class="row-actions"><button class="btn btn-primary" data-post>Confirm today’s 5.5 hours</button></div>') +
+        '<p class="fence">Sessions post themselves, because the board already holds the appointment. Only the things the board cannot see, a webinar, a workshop, get typed in.</p>' +
+      '</div>' +
+
+      '<div class="panel-block"><p class="panel-title">what is on this tab</p>' +
+        '<p class="need-item">No coded card is named here. No presenting concern, no map, no session content. Hours, dates, and which of your two sites they happened at.<span class="need-from">this tab holds none of your clients’ information, only yours</span></p>' +
+      '</div>';
+  }
+
+  function hoursPostedHTML() {
+    return '<div class="kept">' +
+      '<p class="kept-line">5.5 hours posted.</p>' +
+      '<p class="kept-sub">Direct contact 416.5 of 450. Supervision 89.0 of 100. The college wants a signed log at the end, not a guess, and this is the log.</p>' +
+    '</div>';
+  }
+
   /* ---------- state ---------- */
 
   var app = document.getElementById('app');
@@ -206,7 +306,8 @@
     view: params.get('view') || 'today',
     client: params.get('client') || 'boat',
     open: params.get('open') || '',
-    recapDone: params.get('view') === 'recap-done'
+    recapDone: params.get('view') === 'recap-done',
+    hoursPosted: false
   };
   if (state.recapDone) state.view = 'recap';
 
@@ -224,6 +325,7 @@
       '<div class="app-tabs" role="tablist">' +
         '<button class="app-tab" role="tab" data-go="today" aria-selected="' + (tab === 'today') + '">today</button>' +
         '<button class="app-tab" role="tab" data-go="clients" aria-selected="' + (tab === 'clients') + '">caseload</button>' +
+        '<button class="app-tab" role="tab" data-go="hours" aria-selected="' + (tab === 'hours') + '">hours</button>' +
       '</div>' +
       '<div class="app-body">' + bodyHTML + '</div>' +
       '<p class="app-foot">sample caseload · coded cards only · nothing here identifies anyone</p>';
@@ -376,6 +478,7 @@
     var html;
     if (state.view === 'clients') html = chrome(clientsHTML(), 'clients');
     else if (state.view === 'client') html = chrome(clientHTML(state.client), 'clients');
+    else if (state.view === 'hours') html = chrome(hoursHTML() + (state.hoursPosted ? hoursPostedHTML() : ''), 'hours');
     else if (state.view === 'recap') html = chrome(recapHTML(state.recapDone ? 'done' : 'idle'), 'today');
     else html = chrome(todayHTML(), 'today');
 
@@ -384,11 +487,15 @@
   }
 
   function growBars() {
-    var bars = app.querySelectorAll('.node-bar i');
+    var bars = app.querySelectorAll('.node-bar i, .meter-bar i');
     if (!bars.length) return;
-    requestAnimationFrame(function () {
+    var fill = function () {
       bars.forEach(function (b) { b.style.width = (parseFloat(b.dataset.w) * 100) + '%'; });
-    });
+    };
+    /* rAF gives the grow animation; the timeout is the floor, because a
+       backgrounded tab throttles rAF and a bar stuck at zero reads as no data. */
+    requestAnimationFrame(fill);
+    window.setTimeout(fill, 60);
   }
 
   function typeTranscript(el, done) {
@@ -440,6 +547,21 @@
           if (t2) t2.textContent = TRANSCRIPT;
         });
       }, motionOK ? 500 : 0);
+      return;
+    }
+
+    var post = event.target.closest('[data-post]');
+    if (post) {
+      METERS[0].done = 416.5;
+      METERS[0].pace = '38.0 h logged this month. 33.5 to go, so late April at that pace.';
+      METERS[1].done = 89;
+      METERS[1].pace = '7.0 h logged this month. 11 to go, so mid-May at that pace.';
+      LEDGER[0].pending = false;
+      LEDGER[0].from = 'posted from the board';
+      LEDGER[1].pending = false;
+      LEDGER[1].from = 'posted from the board';
+      state.hoursPosted = true;
+      render();
       return;
     }
 
