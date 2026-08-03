@@ -34,4 +34,4 @@
 None. The placeholder purple (`#5a3d9e`) for the students page was implemented exactly as specified, passing 4.5:1 text contrast.
 
 ## Security & Secrets
-Confirmed: No secrets, keys, or credentials were added in this commit. No AI words ("leverage", "seamless", "empower", etc.) were added.
+Confirmed: no secrets, keys, or credentials were added in this commit, and the copy rules in the brief were followed.

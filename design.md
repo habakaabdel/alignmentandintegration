@@ -1,6 +1,6 @@
 # Alignment Integration, design system record
 
-The look in one sentence: a measured engineering sheet that adapts its visual tone to six distinct audience personas through a context-adaptive theme system, while maintaining a unified structural grid and typography. Structure carries the identity, not decoration. There are no shadows, no gradients, and one piece of data texture on the whole page.
+The look in one sentence: a serene organic sheet, warm linen ground with soft charcoal type and deep sage marks, that adapts its ground and accent to six audience pages through a `data-theme` token system while one grid, one type system, and one monogram hold it together. Structure carries the identity, not decoration. There are no shadows and no gradients.
 
 ---
 
@@ -21,9 +21,22 @@ The locked palette (measured, do not adjust):
 | `therapists` | `#f1f6f6` | `#1f5f5b` calm teal | 6.8 / 7.4 |
 | `individuals` | `#f9f5f3` | `#7d3650` deep rose | 7.7 / 8.3 |
 
-Global tokens that stay the same on every theme:
-- `--ink`: `#1c1d1c` (headings, body, focus ring)
-- `--ink-muted`: `#5e605d` (secondary prose, labels)
+The default tokens, carried by the home page, the demo pages, and any page without a `data-theme`:
+
+| Token | Value | Use |
+|---|---|---|
+| `--paper` | `#f7f6f2` | page ground, warm linen |
+| `--panel` | `#ffffff` | tiles, plot, form shell |
+| `--panel-deep` | `#f0eee7` | the engine tile only |
+| `--ink` | `#1c1d1c` | headings, body, focus ring |
+| `--ink-muted` | `#5e605d` | secondary prose, labels |
+| `--mark` | `#2d4a3e` | links, indices, primary button ground, live bars |
+| `--mark-deep` | `#1d332a` | hover state for the above |
+| `--second` | `#3a5a40` | form error text, figure strokes |
+| `--line` | `#d8d6ce` | decorative hairlines, section rules |
+| `--line-strong` | `#717d76` | tile borders, input borders, tick rules (3.95:1 boundary) |
+
+Global on every theme: `--ink` and `--ink-muted` never move. A theme block reassigns tokens only, never component rules; the two documented exceptions are the bordered-card treatment below.
 
 Rules a future editor keeps:
 - Never put text on `--line` or `--line-strong`. They are boundary colours.
@@ -42,12 +55,12 @@ The `students` and `therapists` pages additionally carry a WhatsApp-web-style su
 
 ## Type
 
-Two families, both IBM Plex, loaded from Google Fonts with `display=swap`.
+Two families, loaded from Google Fonts with `display=swap`.
 
-- `IBM Plex Sans` 400 / 500 / 600, all prose.
-- `IBM Plex Mono` 400 / 500, section indices, eyebrows, field labels, tile markets, plot labels, footer meta.
+- `Plus Jakarta Sans` 400 / 500 / 600 / 700, all prose, with `IBM Plex Sans` as fallback.
+- `IBM Plex Mono` 400 / 500, section indices, eyebrows, field labels, plot labels, footer meta.
 
-Why: Plex was drawn for engineering and machine contexts, and the sans and mono share skeletons, so using the mono strictly for measurement labels makes the page read as a drawn sheet rather than a brochure without introducing a second voice.
+Why: the sans is warm and open, which carries the serene ground, while the mono kept for measurement labels keeps the page reading as a drawn record rather than a brochure without introducing a second voice.
 
 Scale, fluid where it needs to be:
 
@@ -71,7 +84,7 @@ Sentence case everywhere, including headings and buttons. The only capitalised w
 
 4px base: `--s1` 4, `--s2` 8, `--s3` 12, `--s4` 16, `--s5` 24, `--s6` 32, `--s7` 48, `--s8` 64, `--s9` 96. Page gutter `clamp(1.25rem, 4vw, 3rem)`, container 1100px.
 
-Radius is 2px on everything except the focus ring, which is square. Corners stay near square because a drawn sheet has square corners.
+Radius is 12px on buttons, inputs, and tiles (`--radius`), 16px on the bordered cards of the students and therapists pages, and 999px on their pill buttons. The focus ring stays square: 2px `--ink` at 2px offset.
 
 Border language, in three weights:
 1. `1px --line`, quiet division inside a section.

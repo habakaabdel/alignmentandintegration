@@ -6,21 +6,21 @@
 /* ---------- tokens ---------- */
 
 :root {
-  /* colour. Contrast ratios against --paper are noted in design.md. */
-  --paper:        #edefee;
-  --panel:        #f6f7f7;
-  --panel-deep:   #e3e7e7;
+  /* Serene Organic Minimalist System: Warm Linen, Soft Charcoal, Deep Sage */
+  --paper:        #f7f6f2;
+  --panel:        #ffffff;
+  --panel-deep:   #f0eee7;
   --ink:          #1c1d1c;
   --ink-muted:    #5e605d;
-  --mark:         #0b5a44;
-  --mark-deep:    #08402f;
-  --second:       #2f4e7a;
-  --line:         #c3ccd1;
-  --line-strong:  #75838c;
+  --mark:         #2d4a3e;
+  --mark-deep:    #1d332a;
+  --second:       #3a5a40;
+  --line:         #d8d6ce;
+  --line-strong:  #717d76;
 
   /* type */
-  --sans: "IBM Plex Sans", ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --sans: "Plus Jakarta Sans", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
 
   --t-micro: 0.75rem;
   --t-label: 0.8125rem;
@@ -42,7 +42,8 @@
   --s8: 4rem;
   --s9: 6rem;
 
-  --radius: 2px;
+  --radius: 12px;
+  --radius-card: 16px;
   --radius-pill: 999px;
   --hair: 1px;
 
@@ -145,6 +146,7 @@ body[data-theme="therapists"] .btn-quiet:hover {
   color: var(--ink);
   border-color: var(--ink);
 }
+
 
 /* ---------- base ---------- */
 
@@ -665,6 +667,7 @@ a:hover { color: var(--mark-deep); }
   font-size: var(--t-label);
   color: var(--ink-muted);
 }
+
 
 /* ---------- 03 the three ideas ---------- */
 
