@@ -55,6 +55,99 @@
   --ease: cubic-bezier(0.2, 0, 0, 1);
 }
 
+/* ---------- 6 Audience Page Themes ---------- */
+
+body[data-theme="enterprise"] {
+  --paper:        #f2f4f5;
+  --mark:         #2f4e7a;
+  --mark-deep:    #1e3556;
+}
+
+body[data-theme="small-business"] {
+  --paper:        #ffffff;
+  --panel:        #fafaf9;
+  --mark:         #0b5a44;
+  --mark-deep:    #08402f;
+}
+
+body[data-theme="community"] {
+  --paper:        #f7f4ee;
+  --mark:         #2d4a3e;
+  --mark-deep:    #1d332a;
+}
+
+body[data-theme="students"] {
+  --paper:        #f5f4f9;
+  --mark:         #5a3d9e;
+  --mark-deep:    #432b78;
+}
+
+body[data-theme="therapists"] {
+  --paper:        #f1f6f6;
+  --mark:         #1f5f5b;
+  --mark-deep:    #14403d;
+}
+
+body[data-theme="individuals"] {
+  --paper:        #f9f5f3;
+  --mark:         #7d3650;
+  --mark-deep:    #592437;
+}
+
+/* ---------- Bordered-card surface treatment for students and therapists ---------- */
+
+body[data-theme="students"] .segment,
+body[data-theme="students"] .panel,
+body[data-theme="students"] .form-shell,
+body[data-theme="students"] .plot,
+body[data-theme="therapists"] .segment,
+body[data-theme="therapists"] .panel,
+body[data-theme="therapists"] .form-shell,
+body[data-theme="therapists"] .plot {
+  background: #ffffff;
+  border: 1px solid var(--ink);
+  border-radius: 16px;
+}
+
+body[data-theme="students"] .btn-primary {
+  background: #b9a7ec;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+}
+body[data-theme="students"] .btn-primary:hover {
+  background: #a894e5;
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+body[data-theme="therapists"] .btn-primary {
+  background: #1f5f5b;
+  color: #ffffff;
+  border: 1px solid #1f5f5b;
+  border-radius: 999px;
+}
+body[data-theme="therapists"] .btn-primary:hover {
+  background: #14403d;
+  color: #ffffff;
+  border-color: #14403d;
+}
+
+body[data-theme="students"] .btn-quiet,
+body[data-theme="therapists"] .btn-quiet {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+}
+body[data-theme="students"] .btn-quiet:hover,
+body[data-theme="therapists"] .btn-quiet:hover {
+  background: #ffffff;
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+
 /* ---------- base ---------- */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -575,93 +668,6 @@ a:hover { color: var(--mark-deep); }
   color: var(--ink-muted);
 }
 
-/* ---------- 02 demo tiles ---------- */
-
-.tiles {
-  display: grid;
-  gap: var(--s4);
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
-}
-
-.tile {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: var(--s5) var(--s5) var(--s4);
-  background: var(--panel);
-  border: var(--hair) solid var(--line-strong);
-  border-radius: var(--radius);
-}
-
-/* the in development band: hatched, so the state does not rely on colour */
-.tile::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 8px;
-  background: repeating-linear-gradient(45deg, var(--line-strong) 0 1.5px, transparent 1.5px 7px);
-  opacity: 0.8;
-}
-
-.tile-market {
-  font-family: var(--mono);
-  font-size: var(--t-micro);
-  letter-spacing: 0.1em;
-  color: var(--ink-muted);
-}
-
-.tile-name {
-  margin-top: var(--s2);
-  font-size: var(--t-h3);
-}
-
-.tile-body {
-  margin-top: var(--s3);
-  font-size: var(--t-small);
-  color: var(--ink-muted);
-}
-
-.tile-state {
-  margin-top: var(--s5);
-  padding-top: var(--s3);
-  border-top: var(--hair) solid var(--line);
-  font-family: var(--mono);
-  font-size: var(--t-label);
-  color: var(--ink-muted);
-}
-
-.tile-engine { background: var(--panel-deep); }
-.tile-engine .tile-market { color: var(--mark); }
-
-/* live state, applied by main.js when a demo URL exists */
-
-.tile-live {
-  padding: 0;
-  border-color: var(--line-strong);
-  transition: border-color var(--fast) var(--ease), translate var(--fast) var(--ease);
-}
-
-.tile-live::before {
-  background: var(--mark);
-  opacity: 1;
-  height: 3px;
-}
-
-.tile-live > a.tile-link {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: var(--s5) var(--s5) var(--s4);
-  color: inherit;
-  text-decoration: none;
-}
-
-.tile-live:hover { border-color: var(--ink); translate: 0 -2px; }
-.tile-live:hover .tile-name { color: var(--mark-deep); }
-.tile-live .tile-state { color: var(--mark); }
-.tile-live:focus-within { border-color: var(--ink); }
 
 /* ---------- 03 the three ideas ---------- */
 

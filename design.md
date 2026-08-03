@@ -1,58 +1,66 @@
 # Alignment Integration, design system record
 
-The look in one sentence: a measured engineering sheet, cool paper with ink slate
-type, spruce green marks, hairline tick rules and monospace coordinates in the
-margin.
-
-The identity is doing a job. The company turns operational reality into working
-software, so the page is built like the drawing that sits between those two
-states: measured, ruled, indexed, and plotted. Structure carries the identity,
-not decoration. There are no shadows, no gradients, no rounded cards, and one
-piece of data texture on the whole page.
+The look in one sentence: a serene organic sheet, warm linen ground with soft charcoal type and deep sage marks, that adapts its ground and accent to six audience pages through a `data-theme` token system while one grid, one type system, and one monogram hold it together. Structure carries the identity, not decoration. There are no shadows and no gradients.
 
 ---
 
-## Colour
+## Colour & Themes
 
-All ratios are measured against `--paper` (#edefee) unless noted. WCAG 2.2 AA
-needs 4.5:1 for body text, 3:1 for large text and for the boundary of a control
-that carries meaning.
+The site uses a context-adaptive theme system. The home page and demo pages use the serene default tokens. The six audience pages receive a tailored theme via a `data-theme` attribute on their `<body>` tag.
 
-| Token | Value | Use | Ratio on paper |
+All ratios are measured against `--paper` unless noted. WCAG 2.2 AA needs 4.5:1 for body text, 3:1 for large text and for the boundary of a control that carries meaning.
+
+The locked palette (measured, do not adjust):
+
+| Theme key | --paper | --mark (accent) | Measured |
 |---|---|---|---|
-| `--paper` | `#edefee` | page ground | n/a |
-| `--panel` | `#f6f7f7` | tiles, plot, form shell | n/a |
-| `--panel-deep` | `#e3e7e7` | the engine tile only | n/a |
-| `--ink` | `#101d26` | headings, body, focus ring | 14.8:1 |
-| `--ink-muted` | `#4a5a66` | secondary prose, labels | 6.1:1 (6.7:1 on panel) |
-| `--mark` | `#0b5a44` | links, indices, primary button ground, live tile bar | 7.1:1 (white on it: 8.2:1) |
-| `--mark-deep` | `#08402f` | hover state for the above | 9.6:1 |
-| `--second` | `#2f4e7a` | the raw trace in the plot, form error text | 7.3:1 |
-| `--line` | `#c3ccd1` | decorative hairlines, section rules | 1.4:1, decorative only |
-| `--line-strong` | `#75838c` | tile borders, input borders, tick rules | 3.4:1, clears the control boundary floor |
+| `enterprise` | `#f2f4f5` | `#2f4e7a` slate blue | accent as text 7.6, white on accent 8.4 |
+| `small-business` | `#ffffff` (panel `#fafaf9`) | `#0b5a44` emerald | 8.2 / 8.2 |
+| `community` | `#f7f4ee` | `#2d4a3e` sage (site default) | 8.9 / 9.7 |
+| `students` | `#f5f4f9` | `#5a3d9e` violet | 7.4 / 8.1 |
+| `therapists` | `#f1f6f6` | `#1f5f5b` calm teal | 6.8 / 7.4 |
+| `individuals` | `#f9f5f3` | `#7d3650` deep rose | 7.7 / 8.3 |
+
+The default tokens, carried by the home page, the demo pages, and any page without a `data-theme`:
+
+| Token | Value | Use |
+|---|---|---|
+| `--paper` | `#f7f6f2` | page ground, warm linen |
+| `--panel` | `#ffffff` | tiles, plot, form shell |
+| `--panel-deep` | `#f0eee7` | the engine tile only |
+| `--ink` | `#1c1d1c` | headings, body, focus ring |
+| `--ink-muted` | `#5e605d` | secondary prose, labels |
+| `--mark` | `#2d4a3e` | links, indices, primary button ground, live bars |
+| `--mark-deep` | `#1d332a` | hover state for the above |
+| `--second` | `#3a5a40` | form error text, figure strokes |
+| `--line` | `#d8d6ce` | decorative hairlines, section rules |
+| `--line-strong` | `#717d76` | tile borders, input borders, tick rules (3.95:1 boundary) |
+
+Global on every theme: `--ink` and `--ink-muted` never move. A theme block reassigns tokens only, never component rules; the two documented exceptions are the bordered-card treatment below.
 
 Rules a future editor keeps:
-
 - Never put text on `--line` or `--line-strong`. They are boundary colours.
-- Two accents, and that is the ceiling. `--mark` is the company's colour and
-  `--second` exists so the plot can show two different kinds of line. The one
-  documented exception is the category ramp on the demonstration page, below.
-- No gold. The previous deck was near black with warm gold and this identity is
-  not an evolution of it.
-- Two looks are banned because they read as generated: cream ground with a high
-  contrast serif and a terracotta accent, and near black with one acid accent.
+- No gold. The previous deck was near black with warm gold and this identity is not an evolution of it.
+- Two looks are banned because they read as generated: cream ground with a high contrast serif and a terracotta accent, and near black with one acid accent.
+
+## The bordered-card treatment
+
+The `students` and `therapists` pages additionally carry a WhatsApp-web-style surface language:
+- Cards/panels on these pages: `#ffffff` ground, `1px solid var(--ink)` border, `16px` radius.
+- Primary buttons become pills (`border-radius: 999px`) with a `1px` border:
+  - students: fill `#b9a7ec`, text `var(--ink)` (7.9:1), border `var(--ink)`.
+  - therapists: fill `#1f5f5b`, text `#ffffff` (7.4:1), border same as fill.
+- Quiet/secondary buttons on these two pages: transparent fill, `1px solid var(--ink)`, pill radius.
+- The other four pages keep the site's existing button and card styling; only their tokens move.
 
 ## Type
 
-Two families, both IBM Plex, loaded from Google Fonts with `display=swap`.
+Two families, loaded from Google Fonts with `display=swap`.
 
-- `IBM Plex Sans` 400 / 500 / 600, all prose.
-- `IBM Plex Mono` 400 / 500, section indices, eyebrows, field labels, tile
-  markets, plot labels, footer meta.
+- `Plus Jakarta Sans` 400 / 500 / 600 / 700, all prose, with `IBM Plex Sans` as fallback.
+- `IBM Plex Mono` 400 / 500, section indices, eyebrows, field labels, plot labels, footer meta.
 
-Why: Plex was drawn for engineering and machine contexts, and the sans and mono
-share skeletons, so using the mono strictly for measurement labels makes the page
-read as a drawn sheet rather than a brochure without introducing a second voice.
+Why: the sans is warm and open, which carries the serene ground, while the mono kept for measurement labels keeps the page reading as a drawn record rather than a brochure without introducing a second voice.
 
 Scale, fluid where it needs to be:
 
@@ -67,77 +75,44 @@ Scale, fluid where it needs to be:
 | `--t-h2` | clamp 1.5 to 2rem | section headings |
 | `--t-h1` | clamp 1.9375 to 3.375rem | the positioning line, once |
 
-Body line height 1.65, headings 1.2. Headings carry `-0.01em` tracking, the h1
-carries `-0.022em`. Mono labels carry positive tracking, 0.06em to 0.14em.
+Body line height 1.65, headings 1.2. Headings carry `-0.01em` tracking, the h1 carries `-0.022em`. Mono labels carry positive tracking, 0.06em to 0.14em.
 Measure caps: 22ch on the h1, 54ch on the claim, 62 to 68ch on prose.
 
-Sentence case everywhere, including headings and buttons. The only capitalised
-words are proper nouns.
+Sentence case everywhere, including headings and buttons. The only capitalised words are proper nouns.
 
 ## Space, border, radius
 
-4px base: `--s1` 4, `--s2` 8, `--s3` 12, `--s4` 16, `--s5` 24, `--s6` 32,
-`--s7` 48, `--s8` 64, `--s9` 96. Page gutter `clamp(1.25rem, 4vw, 3rem)`,
-container 1100px.
+4px base: `--s1` 4, `--s2` 8, `--s3` 12, `--s4` 16, `--s5` 24, `--s6` 32, `--s7` 48, `--s8` 64, `--s9` 96. Page gutter `clamp(1.25rem, 4vw, 3rem)`, container 1100px.
 
-Radius is 2px on everything except the focus ring, which is square. Corners stay
-near square because a drawn sheet has square corners. `--radius-pill` exists but
-is unused; if a status chip ever needs it, that is the only permitted use.
+Radius is 12px on buttons, inputs, and tiles (`--radius`), 16px on the bordered cards of the students and therapists pages, and 999px on their pill buttons. The focus ring stays square: 2px `--ink` at 2px offset.
 
 Border language, in three weights:
-
 1. `1px --line`, quiet division inside a section.
 2. `1px --line-strong`, anything with a boundary that matters: tiles, inputs.
-3. The tick rule between sections: a 1px `--line` line with a 5px row of
-   `--line-strong` ticks repeating every 9px under it, at 0.75 opacity. This is
-   the page's signature. Every section except the first carries one on its top
-   edge.
-
-The hatched band on a demo tile means in development. A solid 3px `--mark` bar
-means the tile is live. State is never carried by colour alone; the tile's footer
-label says which it is in words.
-
-Section 04 is a status grid and it reuses exactly that language, rotated: a
-hatched 8px band down the left edge of a row means in development, a solid 3px
-`--mark` rule means built. Every row still states its status in words in the
-right hand column, so the marker is a second channel and never the only one. A
-row that has something to open is a link on the row's name.
+3. The tick rule between sections: a 1px `--line` line with a 5px row of `--line-strong` ticks repeating every 9px under it, at 0.75 opacity. This is the page's signature. Every section except the first carries one on its top edge.
 
 ## Motion
 
-Two durations, `--fast` 140ms and `--base` 240ms, one curve,
-`cubic-bezier(0.2, 0, 0, 1)`. The vocabulary is three moves and nothing else:
+Two durations, `--fast` 140ms and `--base` 240ms, one curve, `cubic-bezier(0.2, 0, 0, 1)`. The vocabulary is three moves and nothing else:
 
 1. 1px lift on buttons, 2px on live tiles, plus a border darken.
 2. Nav underline fade for hover and the current section.
-3. The hero plot draws its two traces once on load, 900ms, then the step nodes
-   appear.
+3. The hero plot draws its two traces once on load, 900ms, then the step nodes appear.
 
-There is deliberately no fade up on scroll. The first build had one and it left
-every section below the hero invisible whenever the intersection callback did not
-run: full page rendering, print, and any context that does not scroll. Content
-that is only visible after a scroll event is a defect, so the page renders whole,
-always. Do not add it back.
+There is deliberately no fade up on scroll. The first build had one and it left every section below the hero invisible whenever the intersection callback did not run: full page rendering, print, and any context that does not scroll. Content that is only visible after a scroll event is a defect, so the page renders whole, always. Do not add it back.
 
-Motion uses the `translate` property, not a compound shorthand. Under
-`prefers-reduced-motion: reduce` every animation and transition collapses to
-1ms, smooth scrolling is off, and the plot renders complete and static. All of
-it is non-essential by construction: nothing is only legible after it moves.
+Motion uses the `translate` property, not a compound shorthand. Under `prefers-reduced-motion: reduce` every animation and transition collapses to 1ms, smooth scrolling is off, and the plot renders complete and static. All of it is non-essential by construction: nothing is only legible after it moves.
 
 ## The monogram
 
-Interim mark, an A and I with the ampersand rendered as a registration tick, so
-the join between the two letters is a measurement, not a flourish. A full logo
-comes later.
+Interim mark, an A and I with the ampersand rendered as a registration tick, so the join between the two letters is a measurement, not a flourish. One logo everywhere across all themes.
 
 - Grid `0 0 32 32`. Stroke 2.6, `stroke-linecap: square`, no fills.
 - A: `M5 25 L12 7 L19 25` with crossbar `M8.4 19 H15.6`, stroke `--ink`.
 - Tick: `M21.4 16 H24.2`, stroke `--mark`.
 - I: `M27 7 V25`, stroke `--mark`.
-- Header at 30px, footer at 24px. Below 24px the crossbar closes up, so do not
-  use it smaller.
-- The favicon is the same geometry as an inline SVG data URI in `index.html`,
-  with a `--paper` square behind it. Any change to the paths gets mirrored there.
+- Header at 30px, footer at 24px. Below 24px the crossbar closes up, so do not use it smaller.
+- The favicon is the same geometry as an inline SVG data URI in `index.html`, with a `--paper` square behind it. Any change to the paths gets mirrored there.
 
 ## Content rules that outlive this build
 

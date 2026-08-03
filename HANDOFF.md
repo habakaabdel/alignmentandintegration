@@ -1,19 +1,37 @@
-## What changed
-- Rebased redesign onto current `main` branch preserving all shipped work (`demos/index.html`, `Demos` nav item on all 7 pages, `therapist-workload/main.js` registration block, and `bpss-ses/index.html` heading fix).
-- Redesigned site design tokens in `styles.css` to Serene Organic Minimalist palette (`--paper: #f7f6f2`, `--panel: #ffffff`, `--ink: #1c1d1c`, `--mark: #2d4a3e`, `--line-strong: #717d76`).
-- Darkened `--line-strong` to `#717d76`, achieving a measured **3.95:1** contrast ratio against `--paper` (`#f7f6f2`), comfortably clearing the WCAG 3:1 boundary floor.
-- Removed all 3rd-party CDN dependencies (`cdnjs`, `jsdelivr`, Lenis, GSAP, Font Awesome). Built fluid organic wave canvas shader natively in Vanilla JS.
-- Added comprehensive reduced-motion handling under `@media (prefers-reduced-motion: reduce)` in CSS and `motionOK` JS checks to disable canvas animations and force static rendering.
-- Removed redundant `demos/showcase.html` demo file in favor of the live shipped `demos/index.html`.
+# Handoff: Audience Page Themes
 
-## What to verify before deploying
-- Load `index.html` and click through to `/demos/`, `/enterprise/`, `/small-business/`, `/community-social-services/`, `/students/`, `/therapists/`, and `/individuals/` to confirm font rendering and nav current-state indicators.
-- Test with `prefers-reduced-motion: reduce` enabled in browser devtools to verify that `#nature-canvas` is hidden and no smooth scroll or transform animations run.
-- Inspect network panel in browser devtools to verify zero 3rd-party CDN requests are made (only `fonts.googleapis.com` / `fonts.gstatic.com` requested).
-- Inspect mobile viewport at 375px width to verify no horizontal overflow occurs and container padding scales cleanly to `1.25rem`.
+**Branch:** `audience-page-themes`
 
-## What I could not do
-- Did not deploy to production (deployments are handled by reviewer / Claude Code).
+## Files Touched
+1. `styles.css`
+2. `enterprise/index.html`
+3. `small-business/index.html`
+4. `community-social-services/index.html`
+5. `students/index.html`
+6. `therapists/index.html`
+7. `individuals/index.html`
+8. `design.md`
+9. `HANDOFF.md`
 
-## Secrets check
-- Confirmed no API keys, tokens, or credentials were added to source or commit history.
+## Per-Page Data-Theme Keys
+- `/enterprise/index.html`: `data-theme="enterprise"`
+- `/small-business/index.html`: `data-theme="small-business"`
+- `/community-social-services/index.html`: `data-theme="community"`
+- `/students/index.html`: `data-theme="students"`
+- `/therapists/index.html`: `data-theme="therapists"`
+- `/individuals/index.html`: `data-theme="individuals"`
+
+*(Note: The home page and demo pages keep the default tokens untouched, without any data-theme attribute).*
+
+## Details & Execution
+- Added 6 `data-theme` blocks to `styles.css` assigning the specified WCAG 2.2 AA verified token values for `--paper`, `--mark`, and `--mark-deep`.
+- Global tokens (`--ink`, `--ink-muted`, typography, layout, monogram) were preserved across all themes.
+- Added the bordered-card treatment (`1px solid var(--ink)`, `border-radius: 16px`, pill buttons) for `data-theme="students"` and `data-theme="therapists"` in `styles.css`.
+- Deleted the dead `.tile` CSS block in `styles.css`.
+- Regenerated the visual half of `design.md` exactly per the brief, recording the palette table and the new two-treatment rule verbatim.
+
+## Deviations
+None. The placeholder purple (`#5a3d9e`) for the students page was implemented exactly as specified, passing 4.5:1 text contrast.
+
+## Security & Secrets
+Confirmed: no secrets, keys, or credentials were added in this commit, and the copy rules in the brief were followed.
