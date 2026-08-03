@@ -5,3 +5,10 @@ Desktop.ini
 *.log
 .verify/
 .impeccable/
+
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
