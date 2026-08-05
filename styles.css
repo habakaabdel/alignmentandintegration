@@ -43,6 +43,7 @@
   --s9: 6rem;
 
   --radius: 12px;
+  --radius-leaf: 24px 4px 24px 4px;
   --radius-card: 16px;
   --radius-pill: 999px;
   --hair: 1px;
@@ -489,12 +490,13 @@ a:hover { color: var(--mark-deep); }
 
 .btn-quiet {
   background: transparent;
-  border-color: var(--line-strong);
-  color: var(--ink);
+  border-color: var(--mark);
+  color: var(--mark);
 }
 .btn-quiet:hover {
   background: var(--panel);
-  color: var(--ink);
+  border-color: var(--mark-deep);
+  color: var(--mark-deep);
   translate: 0 -1px;
 }
 
@@ -505,7 +507,7 @@ a:hover { color: var(--mark-deep); }
   padding: var(--s4);
   background: var(--panel);
   border: var(--hair) solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-leaf);
 }
 
 .plot svg { display: block; width: 100%; height: auto; }
@@ -533,7 +535,7 @@ a:hover { color: var(--mark-deep); }
   stroke-linejoin: miter;
 }
 
-.nodes rect { fill: var(--mark); }
+.nodes rect { fill: var(--second); }
 
 /* These are SVG user units on a 480 wide viewBox that scales with its column,
    so the rendered size moves with the viewport. The 11px the sheet is drawn at
@@ -723,16 +725,16 @@ a:hover { color: var(--mark-deep); }
   content: "";
   position: absolute;
   left: 0;
-  top: var(--s4);
-  bottom: var(--s4);
-  width: 8px;
-  background: repeating-linear-gradient(45deg, var(--line-strong) 0 1.5px, transparent 1.5px 7px);
+  top: 1.45em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--line-strong);
   opacity: 0.8;
 }
 
 .status-row.is-built::before {
-  width: 3px;
-  background: var(--mark);
+  background: var(--second);
   opacity: 1;
 }
 
@@ -774,7 +776,7 @@ a:hover { color: var(--mark-deep); }
   padding: clamp(1.25rem, 3vw, var(--s6));
   background: var(--panel);
   border: var(--hair) solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-leaf);
 }
 
 .form {
@@ -1003,7 +1005,7 @@ a:hover { color: var(--mark-deep); }
   position: relative;
   background: var(--panel);
   border: var(--hair) solid var(--line-strong);
-  border-radius: var(--radius);
+  border-radius: var(--radius-leaf);
   transition: border-color var(--fast) var(--ease), translate var(--fast) var(--ease);
 }
 
@@ -1134,7 +1136,7 @@ a:hover { color: var(--mark-deep); }
   background: var(--panel);
   border: var(--hair) solid var(--line);
   border-left: 3px solid var(--mark);
-  border-radius: var(--radius);
+  border-radius: var(--radius-leaf);
 }
 
 .proof.is-early { border-left-color: var(--line-strong); }
@@ -1249,7 +1251,7 @@ a:hover { color: var(--mark-deep); }
      desktop and once at phone width. The frame sets have different shapes, so
      the container has to change shape with them or object-fit would crop. */
   border: var(--hair) solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-leaf);
   background: var(--panel);
   overflow: hidden;
 }
@@ -1398,7 +1400,7 @@ a:hover { color: var(--mark-deep); }
   padding: var(--s4);
   background: var(--panel);
   border: var(--hair) solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-leaf);
 }
 
 .engine svg { display: block; width: 100%; height: auto; }
@@ -1505,7 +1507,7 @@ a:hover { color: var(--mark-deep); }
   padding: var(--s4);
   background: var(--panel);
   border: var(--hair) solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-leaf);
 }
 
 .page-fig svg { display: block; width: 100%; height: auto; }

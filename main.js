@@ -138,7 +138,7 @@ function initPlot3D() {
 
   const COLOR = {
     line: '#c3ccd1', lineStrong: '#75838c',
-    raw: '#2f4e7a', clean: '#0b5a44', node: '#0b5a44'
+    raw: '#3a5a40', clean: '#2d4a3e', node: '#3a5a40'
   };
 
   let az = 0, el = 0, azT = 0, elT = 0;

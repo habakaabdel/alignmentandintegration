@@ -39,3 +39,10 @@ The Apple touch icon and OG/social share image are still open as they require a 
 Render check at real header size (30px, all six themed pages) showed the mark as a solid filled blob, not the sprout/leaf/ring shape — confirmed in headless Chrome screenshots, not just static diff review. Cause: SVG presentation attributes (`fill="none"` on the ring-arc and stem paths) lose to CSS class rules by specificity, so `.mono-mark { fill: var(--mark) }` filled every stroke-only path solid instead of only the intended solid leaf.
 
 Fix: split the class in two. `.mono-mark` stays stroke-only (`fill: none`); a new `.mono-mark-fill` carries `fill: var(--mark)` and is applied only to the one solid-leaf `<path>` (`class="mono-mark mono-mark-fill"`), in all 18 occurrences across the 10 HTML files plus the three stylesheet locations (`styles.css`, `demos/therapist-workload/styles.css`, `demos/bpss-ses/index.html` inline style). Re-rendered home and students (violet theme) after the fix — mark reads correctly at 30px and at 16px favicon scale in both. Re-checked the 375px harness: `horizontal-overflow=false`, no distortion.
+
+## Aesthetic Enhancements (Sprout & Lens Vibe Rework)
+Implemented user-selected aesthetic adjustments to integrate the brand mark's design language across the site:
+- **Leaf-like Asymmetrical Radius:** Highlight cards and containers (`.plot`, `.form-shell`, `.segment`, `.proof`, `.walk-stage`, `.engine`, and `.page-fig`) restyled with an organic leaf-like border-radius (`24px 4px 24px 4px`).
+- **Quiet Button Duality:** Refined `.btn-quiet` secondary actions to use `border-color: var(--mark); color: var(--mark);` (transparent background) to echo the open leaf/solid leaf design duality.
+- **Node-Style Circle Lists:** Substituted the block-style status list bars with 6px circular coordinate node markers (`border-radius: 50%`) that use `var(--second)` (global sage) on built rows.
+- **Hero Plot Node Color:** Restyled the hero plot node dots (on both the flat SVG and 3D canvas rendering in `main.js`) to use the node accent color (`var(--second)`, global sage `#3a5a40`) instead of the primary color.
