@@ -96,7 +96,8 @@ button { font: inherit; color: inherit; }
   font-weight: 500;
   font-size: var(--t-small);
 }
-.mono-mark { stroke: var(--mark); fill: var(--mark); }
+.mono-mark { stroke: var(--mark); fill: none; }
+.mono-mark-fill { fill: var(--mark); }
 .mono-node { fill: var(--second); }
 
 .bar-right {

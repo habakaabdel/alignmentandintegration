@@ -34,3 +34,8 @@ Confirmed: no secrets or credentials were added.
 
 ## Deferred Items
 The Apple touch icon and OG/social share image are still open as they require a rendered PNG, which is a design-tool job rather than a code change.
+
+## Review fix (Claude Code, 2026-08-05)
+Render check at real header size (30px, all six themed pages) showed the mark as a solid filled blob, not the sprout/leaf/ring shape — confirmed in headless Chrome screenshots, not just static diff review. Cause: SVG presentation attributes (`fill="none"` on the ring-arc and stem paths) lose to CSS class rules by specificity, so `.mono-mark { fill: var(--mark) }` filled every stroke-only path solid instead of only the intended solid leaf.
+
+Fix: split the class in two. `.mono-mark` stays stroke-only (`fill: none`); a new `.mono-mark-fill` carries `fill: var(--mark)` and is applied only to the one solid-leaf `<path>` (`class="mono-mark mono-mark-fill"`), in all 18 occurrences across the 10 HTML files plus the three stylesheet locations (`styles.css`, `demos/therapist-workload/styles.css`, `demos/bpss-ses/index.html` inline style). Re-rendered home and students (violet theme) after the fix — mark reads correctly at 30px and at 16px favicon scale in both. Re-checked the 375px harness: `horizontal-overflow=false`, no distortion.
