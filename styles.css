@@ -15,6 +15,10 @@
   --mark:         #2d4a3e;
   --mark-deep:    #1d332a;
   --second:       #3a5a40;
+  /* the raw half of fig. 01 only. A separate hue from --mark on purpose: the
+     figure's whole point is the messy trace turning into the clean one, and
+     two shades of the same green collapse that into a single line. */
+  --trace-raw:    #2f4e7a;
   --line:         #d8d6ce;
   --line-strong:  #717d76;
 
@@ -108,6 +112,17 @@ body[data-theme="therapists"] .plot {
   background: #ffffff;
   border: 1px solid var(--ink);
   border-radius: 16px;
+}
+
+/* These two themes carry the bordered-card treatment above, which pins the card
+   corner at --radius-card. The leaf radius on .proof and .walk-stage would put a
+   second corner language on the same page, so they follow the card here.
+   Radius only — .proof keeps its own accent border. */
+body[data-theme="students"] .proof,
+body[data-theme="students"] .walk-stage,
+body[data-theme="therapists"] .proof,
+body[data-theme="therapists"] .walk-stage {
+  border-radius: var(--radius-card);
 }
 
 body[data-theme="students"] .btn-primary {
@@ -516,7 +531,7 @@ a:hover { color: var(--mark-deep); }
 .plot-frame { stroke: var(--line-strong); stroke-width: 1; opacity: 0.5; }
 
 .trace-raw {
-  stroke: var(--second);
+  stroke: var(--trace-raw);
   stroke-width: 1.6;
   stroke-linejoin: round;
   opacity: 0.85;
@@ -535,7 +550,8 @@ a:hover { color: var(--mark-deep); }
   stroke-linejoin: miter;
 }
 
-.nodes rect { fill: var(--second); }
+/* the nodes sit on the clean trace, so they carry its colour */
+.nodes rect { fill: var(--mark); }
 
 /* These are SVG user units on a 480 wide viewBox that scales with its column,
    so the rendered size moves with the viewport. The 11px the sheet is drawn at
@@ -704,8 +720,10 @@ a:hover { color: var(--mark-deep); }
 }
 
 /* ---------- 04 the status grid ----------
-   Same state language as the demo tiles: a hatched band means in development,
-   a solid --mark bar means built. The state is also written in words. */
+   An open ring means in development, a filled dot means built — the same open
+   leaf / solid leaf duality the brand mark uses, so the state survives being
+   printed in grey. Colour is never the only cue: the state is also written in
+   words at the end of every row. */
 
 .status {
   display: grid;
@@ -726,15 +744,17 @@ a:hover { color: var(--mark-deep); }
   position: absolute;
   left: 0;
   top: 1.45em;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--line-strong);
+  background: transparent;
+  border: 1.5px solid var(--line-strong);
   opacity: 0.8;
 }
 
 .status-row.is-built::before {
   background: var(--second);
+  border-color: var(--second);
   opacity: 1;
 }
 

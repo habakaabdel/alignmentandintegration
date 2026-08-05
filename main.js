@@ -138,7 +138,11 @@ function initPlot3D() {
 
   const COLOR = {
     line: '#c3ccd1', lineStrong: '#75838c',
-    raw: '#3a5a40', clean: '#2d4a3e', node: '#3a5a40'
+    /* these mirror --trace-raw and --mark in styles.css so the canvas and the
+       flat SVG fallback draw the same figure. The raw trace is a different hue,
+       not a different shade: "objective reality" and "ones and zeros" are the
+       two halves of the figure and have to read apart at a glance. */
+    raw: '#2f4e7a', clean: '#2d4a3e', node: '#2d4a3e'
   };
 
   let az = 0, el = 0, azT = 0, elT = 0;
