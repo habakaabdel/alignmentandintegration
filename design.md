@@ -105,14 +105,11 @@ Motion uses the `translate` property, not a compound shorthand. Under `prefers-r
 
 ## The monogram
 
-Interim mark, an A and I with the ampersand rendered as a registration tick, so the join between the two letters is a measurement, not a flourish. One logo everywhere across all themes.
+Sprout & Lens mark, representing a two-leaf sprout where one leaf is solid and one leaf is an open line, with a coordinate node at each leaf tip, enclosed within a thin outer ring that extends to a coordinate point in the upper right. One logo used across all themed and demo pages.
 
-- Grid `0 0 32 32`. Stroke 2.6, `stroke-linecap: square`, no fills.
-- A: `M5 25 L12 7 L19 25` with crossbar `M8.4 19 H15.6`, stroke `--ink`.
-- Tick: `M21.4 16 H24.2`, stroke `--mark`.
-- I: `M27 7 V25`, stroke `--mark`.
-- Header at 30px, footer at 24px. Below 24px the crossbar closes up, so do not use it smaller.
-- The favicon is the same geometry as an inline SVG data URI in `index.html`, with a `--paper` square behind it. Any change to the paths gets mirrored there.
+- Grid `0 0 48 48`.
+- Class bindings: `.mono-mark` controls the leaves and ring (using `stroke` and/or `fill` mapped to `var(--mark)`), and `.mono-node` controls the node dots (using `fill` mapped to `var(--second)`).
+- Favicon matches this geometry in an inline SVG data URI scaled to `32x32` with a rounded square background filled with the `#f7f6f2` (`--paper`) color.
 
 ## Content rules that outlive this build
 

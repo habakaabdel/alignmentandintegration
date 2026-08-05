@@ -1,37 +1,41 @@
-# Handoff: Audience Page Themes
+# Handoff: Brand Mark Rollout (Sprout & Lens)
 
-**Branch:** `audience-page-themes`
+**Branch:** `brand-mark-rollout`
 
 ## Files Touched
 1. `styles.css`
-2. `enterprise/index.html`
-3. `small-business/index.html`
-4. `community-social-services/index.html`
-5. `students/index.html`
-6. `therapists/index.html`
-7. `individuals/index.html`
-8. `design.md`
-9. `HANDOFF.md`
+2. `demos/therapist-workload/styles.css`
+3. `index.html`
+4. `small-business/index.html`
+5. `enterprise/index.html`
+6. `individuals/index.html`
+7. `students/index.html`
+8. `therapists/index.html`
+9. `community-social-services/index.html`
+10. `demos/index.html`
+11. `demos/therapist-workload/index.html`
+12. `demos/bpss-ses/index.html`
+13. `design.md`
+14. `HANDOFF.md`
 
-## Per-Page Data-Theme Keys
-- `/enterprise/index.html`: `data-theme="enterprise"`
-- `/small-business/index.html`: `data-theme="small-business"`
-- `/community-social-services/index.html`: `data-theme="community"`
-- `/students/index.html`: `data-theme="students"`
-- `/therapists/index.html`: `data-theme="therapists"`
-- `/individuals/index.html`: `data-theme="individuals"`
-
-*(Note: The home page and demo pages keep the default tokens untouched, without any data-theme attribute).*
-
-## Details & Execution
-- Added 6 `data-theme` blocks to `styles.css` assigning the specified WCAG 2.2 AA verified token values for `--paper`, `--mark`, and `--mark-deep`.
-- Global tokens (`--ink`, `--ink-muted`, typography, layout, monogram) were preserved across all themes.
-- Added the bordered-card treatment (`1px solid var(--ink)`, `border-radius: 16px`, pill buttons) for `data-theme="students"` and `data-theme="therapists"` in `styles.css`.
-- Deleted the dead `.tile` CSS block in `styles.css`.
-- Regenerated the visual half of `design.md` exactly per the brief, recording the palette table and the new two-treatment rule verbatim.
+## Details
+- Replaced the placeholder monogram with the official Sprout & Lens SVG mark in all headers and footers (where applicable).
+- Updated the inline favicon data URIs in all 9 pages using the new SVG scaled to 32x32 within a rounded square background of `#f7f6f2`.
+- Updated global styles (`styles.css`), therapist-workload styles (`demos/therapist-workload/styles.css`), and bpss-ses styles (`demos/bpss-ses/index.html` style block) to bind `.mono-mark` to `var(--mark)` (stroke and fill) and `.mono-node` to `var(--second)` (fill). Retired the unused `.mono-ink` class.
+- Verified that the brand mark renders correctly across all six themed audience pages (each with its custom `--mark` color).
+- Confirmed responsive layout is preserved and does not distort or clip at 375px masthead width.
+- Updated `design.md` section describing the monogram details (structure, bindings, favicon note) for Sprout & Lens.
 
 ## Deviations
-None. The placeholder purple (`#5a3d9e`) for the students page was implemented exactly as specified, passing 4.5:1 text contrast.
+None.
 
 ## Security & Secrets
-Confirmed: no secrets, keys, or credentials were added in this commit, and the copy rules in the brief were followed.
+Confirmed: no secrets or credentials were added.
+
+## Deferred Items
+The Apple touch icon and OG/social share image are still open as they require a rendered PNG, which is a design-tool job rather than a code change.
+
+## Review fix (Claude Code, 2026-08-05)
+Render check at real header size (30px, all six themed pages) showed the mark as a solid filled blob, not the sprout/leaf/ring shape — confirmed in headless Chrome screenshots, not just static diff review. Cause: SVG presentation attributes (`fill="none"` on the ring-arc and stem paths) lose to CSS class rules by specificity, so `.mono-mark { fill: var(--mark) }` filled every stroke-only path solid instead of only the intended solid leaf.
+
+Fix: split the class in two. `.mono-mark` stays stroke-only (`fill: none`); a new `.mono-mark-fill` carries `fill: var(--mark)` and is applied only to the one solid-leaf `<path>` (`class="mono-mark mono-mark-fill"`), in all 18 occurrences across the 10 HTML files plus the three stylesheet locations (`styles.css`, `demos/therapist-workload/styles.css`, `demos/bpss-ses/index.html` inline style). Re-rendered home and students (violet theme) after the fix — mark reads correctly at 30px and at 16px favicon scale in both. Re-checked the 375px harness: `horizontal-overflow=false`, no distortion.
