@@ -272,8 +272,8 @@ a:hover { color: var(--mark-deep); }
   letter-spacing: 0.01em;
 }
 
-.mono-ink { stroke: var(--ink); }
-.mono-mark { stroke: var(--mark); }
+.mono-mark { stroke: var(--mark); fill: var(--mark); }
+.mono-node { fill: var(--second); }
 
 /* Below 48rem the five links sit in a disclosure panel so the sticky masthead
    stays one row tall. The desktop row is restored in the 48rem block. */
