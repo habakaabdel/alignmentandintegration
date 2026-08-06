@@ -6,7 +6,7 @@ Desktop.ini
 .verify/
 .impeccable/
 
-# Secrets — never commit
+# Secrets - never commit
 .env
 .env.*
 !.env.example

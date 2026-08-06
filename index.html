@@ -21,12 +21,10 @@
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f7f6f2'/%3E%3Cg transform='scale(0.6667)'%3E%3Cpath d='M35.5 6.4 A21 21 0 1 0 44.1 18.5' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='41' cy='11.7' r='2.6' fill='%233a5a40'/%3E%3Cpath d='M24 38 C24 30 24 27 24 23' fill='none' stroke='%232d4a3e' stroke-width='2.7' stroke-linecap='round'/%3E%3Cpath d='M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z' fill='%232d4a3e'/%3E%3Cpath d='M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='2.4' fill='%233a5a40'/%3E%3C/g%3E%3C/svg%3E">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<script>document.documentElement.classList.add('js')</script>
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -74,112 +72,126 @@
   <span id="top"></span>
 
   <!-- 01 -->
-  <section class="section section-hero" id="what-we-do" aria-labelledby="h-what-we-do">
+  <section class="hero" id="what-we-do">
     <div class="wrap">
-      <div class="hero">
-        <div class="hero-copy">
-          <p class="index">01</p>
-          <p class="eyebrow">What we do</p>
-          <h1 class="lede" id="h-what-we-do">We build software shaped like the way your operation already works.</h1>
-          <p class="claim">Software built specifically for you used to be out of reach. That is the only reason organizations settle for tools that were never built for them. Not anymore.</p>
-          <div class="actions">
-            <a class="btn btn-primary" href="#demos">See who we build for</a>
-            <a class="btn btn-quiet" href="#contact">Start the conversation</a>
+      <h1 class="hero-title rise" id="h-what-we-do">We build software shaped like the way your operation already works.</h1>
+      <div class="hero-grid">
+        <div class="rise" style="transition-delay:80ms">
+          <p class="hero-claim">Software built specifically for you used to be out of reach. That is the only reason organizations settle for tools that were never built for them. Not anymore.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">
+              Start the conversation
+              <span class="btn-well" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg>
+              </span>
+            </a>
+            <a class="btn btn-quiet" href="#demos">See who we build for</a>
           </div>
         </div>
 
-        <figure class="plot" aria-hidden="true">
-          <svg viewBox="0 0 480 300" width="480" height="300" preserveAspectRatio="xMidYMid meet">
-            <defs>
-              <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
-                <path d="M24 0 V24 M0 24 H24" class="grid-line" fill="none"/>
-              </pattern>
-            </defs>
-            <rect x="0" y="0" width="480" height="300" fill="url(#grid)"/>
-            <path d="M0 0 H480 V300 H0 Z" class="plot-frame" fill="none"/>
-            <polyline class="trace-raw" fill="none" points="20,236 44,198 62,248 86,180 104,226 128,166 150,240 172,190 196,214 220,172"/>
-            <path class="plot-split" fill="none" d="M240 36 V266"/>
-            <path class="trace-clean" fill="none" d="M240 214 H274 V186 H308 V162 H342 V126 H376 V104 H410 V74 H452"/>
-            <g class="nodes">
-              <rect x="272" y="184" width="5" height="5"/>
-              <rect x="306" y="160" width="5" height="5"/>
-              <rect x="340" y="124" width="5" height="5"/>
-              <rect x="374" y="102" width="5" height="5"/>
-              <rect x="408" y="72" width="5" height="5"/>
-              <rect x="449" y="72" width="5" height="5"/>
-            </g>
-            <text class="plot-label" x="20" y="286">objective reality</text>
-            <text class="plot-label" x="460" y="286" text-anchor="end">ones and zeros</text>
-            <text class="plot-caption" x="460" y="26" text-anchor="end">fig. 01</text>
-          </svg>
-        </figure>
-      </div>
-
-      <ol class="steps">
-        <li class="step">
-          <p class="step-no">step one</p>
-          <h2>Research and consultation</h2>
-          <p>It starts with a conversation about how the work actually runs. Where it stalls, and which spreadsheet is quietly holding it together.</p>
-        </li>
-        <li class="step">
-          <p class="step-no">step two</p>
-          <h2>Development and planning</h2>
-          <p>Then the shape of the work on paper: what gets built, what stays, in what order. You see the plan before a line is written.</p>
-        </li>
-        <li class="step">
-          <p class="step-no">step three</p>
-          <h2>Building</h2>
-          <p>Software shaped like that, built on top of what you already have. Nothing gets ripped out to make room.</p>
-        </li>
-        <li class="step">
-          <p class="step-no">step four</p>
-          <h2>Keeping it working</h2>
-          <p>Software is not furniture. Operations change, funders change their reporting, staff turn over. Someone who knows how it was built has to be there.</p>
-        </li>
-      </ol>
-
-      <div class="audience">
-        <p class="h-quiet">Who this is for</p>
-        <p>Organizations running on tools that were never built for them. Health and social services came first, because that is the work we know from the inside. It is not the only fit.</p>
-      </div>
-
-      <div class="menu">
-        <p class="h-quiet">What you can buy</p>
-
-        <ol class="offers">
-          <li class="offer">
-            <p class="offer-no">offer one</p>
-            <div>
-              <h2>Diagnosis and intervention</h2>
-              <p>A consultation that maps how the work runs, then a plan. Before you commit, you see what each step is meant to move.</p>
+        <div class="bezel rise" style="transition-delay:120ms">
+          <div class="bezel-core figure-core">
+            <div class="figure-head">
+              <span class="mono">fig. 01</span>
             </div>
-          </li>
-          <li class="offer">
-            <p class="offer-no">offer two</p>
-            <div>
-              <h2>The systems map</h2>
-              <p>One way of reading any system: its layers, what sits in each, and how they connect. It stays with you and takes your corrections in plain words.</p>
+            <canvas class="figure-canvas" id="plot" width="800" height="600" role="img"
+              aria-label="A scattered blue trace of how an operation actually runs, resolving into a single clean green line."></canvas>
+            <div class="figure-key">
+              <span class="key"><i style="background:var(--trace-raw)"></i> how it actually runs</span>
+              <span class="key"><i style="background:var(--mark)"></i> what we build</span>
             </div>
-          </li>
-          <li class="offer">
-            <p class="offer-no">offer three</p>
-            <div>
-              <h2>The full build</h2>
-              <p>The engine running on your operation. Capture, overnight sorting, a person governing what becomes the record, and someone keeping it working after it ships.</p>
-            </div>
-          </li>
-        </ol>
-
-        <p class="menu-note">The initial consultation is free. A small business might buy only the map. An enterprise might buy everything.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- 2. CLAIM. Editorial band. One statement, nothing else. -->
+  <section class="claim">
+    <div class="wrap claim-inner rise">
+      <span class="mono">who this is for</span>
+      <p>Organizations running on tools that were never built for them. Health and social services came first, because that is <strong>the work we know from the inside.</strong> It is not the only fit.</p>
+    </div>
+  </section>
+
+  <!-- 3. PROCESS. Sticky rail. Numbering earns its place: this is a real sequence. -->
+  <section class="band" id="how-it-works">
+    <div class="wrap process-grid">
+      <div class="process-aside rise">
+        <h2 id="h-how">Four things happen, in this order.</h2>
+        <p>Every build runs the same way. You see the plan before a line is written, and someone stays after it ships.</p>
+      </div>
+      <ol class="steps rise" style="transition-delay:100ms">
+        <li class="step">
+          <span class="step-n" aria-hidden="true"></span>
+          <div>
+            <h3>Research and consultation</h3>
+            <p>It starts with a conversation about how the work actually runs. Where it stalls, and which spreadsheet is quietly holding it together.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-n" aria-hidden="true"></span>
+          <div>
+            <h3>Development and planning</h3>
+            <p>Then the shape of the work on paper: what gets built, what stays, in what order. You see the plan before a line is written.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-n" aria-hidden="true"></span>
+          <div>
+            <h3>Building</h3>
+            <p>Software shaped like that, built on top of what you already have. Nothing gets ripped out to make room.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-n" aria-hidden="true"></span>
+          <div>
+            <h3>Keeping it working</h3>
+            <p>Software is not furniture. Operations change, funders change their reporting, staff turn over. Someone who knows how it was built has to be there.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- 4. OFFERS. Asymmetric bento: one lead, two stacked. Not three equal cards. -->
+  <section class="band">
+    <div class="wrap">
+      <div class="offers-head rise">
+        <h2 id="h-method">What you can buy</h2>
+        <p>Three ways in. They stack, but none of them requires the next one.</p>
+      </div>
+      <div class="bento rise" style="transition-delay:100ms">
+        <article class="offer offer-lead">
+          <span class="offer-tag">the full build</span>
+          <div class="offer-body">
+            <h3>The engine running on your operation.</h3>
+            <p>Capture, overnight sorting, a person governing what becomes the record, and someone keeping it working after it ships.</p>
+          </div>
+        </article>
+        <article class="offer">
+          <span class="offer-tag">start here</span>
+          <h3>Diagnosis and intervention</h3>
+          <p>A consultation that maps how the work runs, then a plan. Before you commit, you see what each step is meant to move.</p>
+        </article>
+        <article class="offer">
+          <span class="offer-tag">stands alone</span>
+          <h3>The systems map</h3>
+          <p>One way of reading any system: its layers, what sits in each, and how they connect. It stays with you and takes your corrections in plain words.</p>
+        </article>
+      </div>
+      <p class="offer-price rise">The initial consultation is free. A small business might buy only the map. An enterprise might buy everything.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
 
   <!-- 02 -->
   <section class="section section-demos" id="demos" aria-labelledby="h-demos">
     <div class="wrap">
       <div class="section-head">
-        <p class="index">02</p>
         <div>
           <h2 id="h-demos">Who we build for</h2>
           <p class="section-intro">Six audiences, one engine underneath. Go to yours and the page talks about your work rather than everyone's.</p>
@@ -384,142 +396,43 @@
     </div>
   </section>
 
-  <!-- 03 -->
-  <section class="section section-how" id="how-it-works" aria-labelledby="h-how">
+  <!-- 7. ENGINE. Three beats of the mechanism. -->
+  <section class="band engine">
     <div class="wrap">
-      <div class="section-head">
-        <p class="index">03</p>
-        <div>
-          <h2 id="h-how">How it works</h2>
-          <p class="section-intro">The engine that runs client builds. Three ideas cover it.</p>
+      <div class="engine-head rise">
+        <h2 id="h-build">How the engine works</h2>
+        <p>The same three beats underneath every build, whatever the operation is.</p>
+      </div>
+      <div class="beats rise" style="transition-delay:100ms">
+        <div class="beat">
+          <div class="beat-glyph" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none" stroke="var(--mark)" stroke-width="1.4" stroke-linecap="round">
+              <path d="M4 32c5 0 5-14 10-14s5 20 10 20 5-26 10-26 5 12 6 12"/>
+            </svg>
+          </div>
+          <h3>It captures what happens as it happens</h3>
+          <p>Not a form somebody fills in later. The record forms while the work is going on.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-glyph" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none" stroke="var(--mark)" stroke-width="1.4" stroke-linecap="round">
+              <circle cx="12" cy="14" r="3"/><circle cx="30" cy="10" r="3"/><circle cx="22" cy="26" r="3"/><circle cx="34" cy="30" r="3"/>
+              <path d="M15 14.8 27 11M23.6 23.3 28.6 12.8M25 26.6 31 29.2"/>
+            </svg>
+          </div>
+          <h3>Overnight it works out what is worth keeping</h3>
+          <p>The noise settles out. What is left is the part that carries meaning tomorrow.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-glyph" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none" stroke="var(--mark)" stroke-width="1.4" stroke-linecap="round">
+              <path d="M8 30h28M8 30V16M36 30V16"/><circle cx="22" cy="12" r="4"/><path d="M22 16v14"/>
+            </svg>
+          </div>
+          <h3>A person governs what becomes the record</h3>
+          <p>Nothing enters the record on its own. Someone accountable decides, and the decision is visible.</p>
         </div>
       </div>
-
-      <figure class="engine" aria-hidden="true">
-        <svg class="engine-svg-h" viewBox="0 36 760 184" width="760" height="184" preserveAspectRatio="xMidYMid meet">
-          <text class="engine-caption" x="740" y="58" text-anchor="end">fig. 02</text>
-
-          <path class="engine-sep" d="M252 32 V192"/>
-          <path class="engine-sep" d="M508 32 V192"/>
-
-          <!-- capture: the day leaves a record while it happens -->
-          <g class="eng-capture">
-            <path class="engine-base" d="M20 168 H236"/>
-            <path class="engine-tick" d="M44 168 V173 M68 168 V173 M92 168 V173 M116 168 V173 M140 168 V173 M164 168 V173 M188 168 V173 M212 168 V173"/>
-            <path class="engine-drop" d="M61.5 132 V168"/>
-            <path class="engine-drop" d="M121.5 112 V168"/>
-            <path class="engine-drop" d="M181.5 140 V168"/>
-            <rect class="cap-sq" x="30" y="154" width="7" height="7"/>
-            <rect class="cap-sq" x="58" y="125" width="7" height="7"/>
-            <rect class="cap-sq" x="88" y="154" width="7" height="7"/>
-            <rect class="cap-sq" x="118" y="105" width="7" height="7"/>
-            <rect class="cap-sq" x="146" y="154" width="7" height="7"/>
-            <rect class="cap-sq" x="178" y="133" width="7" height="7"/>
-            <rect class="cap-sq" x="206" y="154" width="7" height="7"/>
-            <text class="engine-label" x="20" y="206">as it happens</text>
-          </g>
-
-          <!-- overnight: the noise is held back, what mattered continues -->
-          <g class="eng-sort">
-            <path class="engine-funnel" d="M264 112 L392 149"/>
-            <path class="engine-funnel" d="M264 196 L392 159"/>
-            <path class="engine-base" d="M392 154 H496"/>
-            <rect class="noise-sq" x="298" y="130" width="7" height="7"/>
-            <rect class="noise-sq" x="318" y="162" width="7" height="7"/>
-            <rect class="noise-sq" x="340" y="144" width="7" height="7"/>
-            <rect class="noise-sq" x="358" y="168" width="7" height="7"/>
-            <rect class="keep-sq" x="404" y="147" width="7" height="7"/>
-            <rect class="keep-sq" x="434" y="147" width="7" height="7"/>
-            <rect class="keep-sq" x="464" y="147" width="7" height="7"/>
-            <text class="engine-label" x="264" y="206">overnight, sorted</text>
-          </g>
-
-          <!-- confirmation: someone with authority makes it the record -->
-          <g class="eng-confirm">
-            <rect class="conf-sq" x="532" y="144" width="14" height="14"/>
-            <path class="conf-tick" d="M527 149 L534 157 L551 137"/>
-            <path class="engine-base" d="M560 151 H636"/>
-            <rect class="rec-bar rec-1" x="648" y="156" width="64" height="10"/>
-            <rect class="rec-bar rec-2" x="648" y="142" width="64" height="10"/>
-            <rect class="rec-bar rec-3" x="648" y="128" width="64" height="10"/>
-            <text class="engine-label" x="520" y="206">a person confirms the record</text>
-          </g>
-        </svg>
-
-        <!-- the same schematic stacked for a narrow screen, so the labels stay
-             readable. One of the two renders at a time; see the stylesheet. -->
-        <svg class="engine-svg-v" viewBox="0 0 340 424" width="340" height="424" preserveAspectRatio="xMidYMid meet">
-          <text class="engine-caption" x="328" y="22" text-anchor="end">fig. 02</text>
-
-          <g class="eng-capture">
-            <path class="engine-base" d="M20 118 H320"/>
-            <path class="engine-tick" d="M50 118 V123 M80 118 V123 M110 118 V123 M140 118 V123 M170 118 V123 M200 118 V123 M230 118 V123 M260 118 V123 M290 118 V123"/>
-            <path class="engine-drop" d="M65.5 82 V118"/>
-            <path class="engine-drop" d="M129.5 62 V118"/>
-            <path class="engine-drop" d="M193.5 90 V118"/>
-            <rect class="cap-sq" x="30" y="104" width="7" height="7"/>
-            <rect class="cap-sq" x="62" y="75" width="7" height="7"/>
-            <rect class="cap-sq" x="94" y="104" width="7" height="7"/>
-            <rect class="cap-sq" x="126" y="55" width="7" height="7"/>
-            <rect class="cap-sq" x="158" y="104" width="7" height="7"/>
-            <rect class="cap-sq" x="190" y="83" width="7" height="7"/>
-            <rect class="cap-sq" x="222" y="104" width="7" height="7"/>
-            <text class="engine-label" x="20" y="148">as it happens</text>
-          </g>
-
-          <path class="engine-sep" d="M20 162 H320"/>
-
-          <g class="eng-sort">
-            <path class="engine-funnel" d="M20 186 L150 216"/>
-            <path class="engine-funnel" d="M20 262 L150 226"/>
-            <path class="engine-base" d="M150 221 H320"/>
-            <rect class="noise-sq" x="58" y="200" width="7" height="7"/>
-            <rect class="noise-sq" x="76" y="238" width="7" height="7"/>
-            <rect class="noise-sq" x="100" y="214" width="7" height="7"/>
-            <rect class="noise-sq" x="118" y="244" width="7" height="7"/>
-            <rect class="keep-sq" x="180" y="217" width="7" height="7"/>
-            <rect class="keep-sq" x="224" y="217" width="7" height="7"/>
-            <rect class="keep-sq" x="268" y="217" width="7" height="7"/>
-            <text class="engine-label" x="20" y="292">overnight, sorted</text>
-          </g>
-
-          <path class="engine-sep" d="M20 306 H320"/>
-
-          <g class="eng-confirm">
-            <rect class="conf-sq" x="30" y="330" width="14" height="14"/>
-            <path class="conf-tick" d="M25 335 L32 343 L49 323"/>
-            <path class="engine-base" d="M60 337 H240"/>
-            <rect class="rec-bar rec-1" x="252" y="342" width="64" height="10"/>
-            <rect class="rec-bar rec-2" x="252" y="328" width="64" height="10"/>
-            <rect class="rec-bar rec-3" x="252" y="314" width="64" height="10"/>
-            <text class="engine-label" x="20" y="408">a person confirms the record</text>
-          </g>
-        </svg>
-      </figure>
-
-      <ol class="ideas">
-        <li class="idea">
-          <p class="idea-no">one</p>
-          <div>
-            <h3>It captures what happens as it happens</h3>
-            <p>The work leaves a record while it is being done. Nobody has to remember Tuesday on Friday afternoon.</p>
-          </div>
-        </li>
-        <li class="idea">
-          <p class="idea-no">two</p>
-          <div>
-            <h3>Overnight it works out what is worth keeping</h3>
-            <p>Between one day and the next, the noise gets separated from what mattered. What you read in the morning is short.</p>
-          </div>
-        </li>
-        <li class="idea">
-          <p class="idea-no">three</p>
-          <div>
-            <h3>A person governs what becomes the record</h3>
-            <p>Nothing is filed as true on its own. Someone with authority over the work confirms it, and that confirmation is the record.</p>
-          </div>
-        </li>
-      </ol>
     </div>
   </section>
 
@@ -527,7 +440,6 @@
   <section class="section section-built" id="what-is-built" aria-labelledby="h-built">
     <div class="wrap">
       <div class="section-head">
-        <p class="index">04</p>
         <div>
           <h2 id="h-built">What is built</h2>
           <p class="section-intro">The honest state of it, today.</p>
@@ -577,20 +489,17 @@
     </div>
   </section>
 
-  <!-- 05 -->
-  <section class="section section-contact" id="contact" aria-labelledby="h-contact">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="index">05</p>
-        <div>
-          <h2 id="h-contact">Contact</h2>
-          <p class="section-intro">Tell us what is not working. The initial consultation is free, and it is a conversation about your operation, not a sales call with slides.</p>
-        </div>
+  <!-- 8. CONTACT -->
+  <section class="band contact" id="contact">
+    <div class="wrap contact-grid">
+      <div class="rise">
+        <h2 id="h-contact">Tell us what is <em>not working</em>.</h2>
+        <p class="contact-note" style="margin-top:var(--s5)">The initial consultation is free. It is a conversation about how your work actually runs, and you get a plan out of it whether or not you build anything with us.</p>
       </div>
-
-      <div class="form-shell">
+      <div style="position:relative">
         <form
-          class="form"
+          class="form rise"
+          style="transition-delay:100ms"
           id="contact-form"
           name="contact"
           method="POST"
@@ -608,25 +517,27 @@
             <label for="name">Name</label>
             <input id="name" name="name" type="text" autocomplete="name" required>
           </div>
-
-          <div class="field">
-            <label for="organization">Organization</label>
-            <input id="organization" name="organization" type="text" autocomplete="organization" required>
-          </div>
-
-          <div class="field field-wide">
-            <label for="what-is-not-working">What is not working</label>
-            <textarea id="what-is-not-working" name="what-is-not-working" rows="5" required></textarea>
-            <p class="hint">A few sentences is plenty. The detail comes out in the conversation.</p>
-          </div>
-
           <div class="field">
             <label for="email">Email</label>
             <input id="email" name="email" type="email" autocomplete="email" required>
           </div>
-
-          <div class="field field-submit">
-            <button class="btn btn-primary" type="submit" data-submit>Start the conversation</button>
+          <div class="field">
+            <label for="organization">Organization</label>
+            <input id="organization" name="organization" type="text" autocomplete="organization" required>
+          </div>
+          <div class="field">
+            <label for="what-is-not-working">What is not working</label>
+            <textarea id="what-is-not-working" name="what-is-not-working" placeholder="The part of the day that takes longer than it should." required></textarea>
+            <span class="field-help">A sentence is enough. We will ask the rest.</span>
+          </div>
+          
+          <div class="field-submit">
+            <button class="btn btn-primary" type="submit" data-submit>
+              Start the conversation
+              <span class="btn-well" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg>
+              </span>
+            </button>
             <p class="form-error" data-form-error hidden>That did not send. Try once more.</p>
           </div>
         </form>
@@ -667,5 +578,160 @@
 </footer>
 
 <script src="main.js" defer></script>
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Entry reveals. IntersectionObserver, never a scroll listener. */
+  var rises = document.querySelectorAll('.rise');
+  if (reduce || !('IntersectionObserver' in window)) {
+    rises.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -4% 0px' });
+    rises.forEach(function (el) { io.observe(el); });
+    /* Safety net. On a very tall viewport a section can sit inside the
+       bottom margin at rest and never fire. Nothing may stay invisible. */
+    setTimeout(function () {
+      rises.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight) el.classList.add('in');
+      });
+    }, 2200);
+  }
+
+  /* fig. 01. A raw trace of how an operation actually runs, resolving
+     into the single clean line that gets built. This is the thesis, so
+     it is drawn rather than illustrated. */
+  var cv = document.getElementById('plot');
+  if (!cv) return;
+  var ctx = cv.getContext('2d');
+
+  function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+  function size() {
+    var r = cv.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = Math.max(1, Math.round(r.width * dpr));
+    cv.height = Math.max(1, Math.round(r.height * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { w: r.width, h: r.height };
+  }
+
+  /* Deterministic pseudo-noise so the figure is identical on every load. */
+  function noise(i) {
+    var x = Math.sin(i * 12.9898) * 43758.5453;
+    return (x - Math.floor(x)) * 2 - 1;
+  }
+
+  var N = 150;
+  function clean(t, w, h) {
+    var padX = w * 0.1, padY = h * 0.14;
+    var x = padX + t * (w - padX * 2);
+    var e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    var y = (h - padY) - e * (h - padY * 2);
+    return [x, y];
+  }
+
+  function draw(progress) {
+    var d = size(), w = d.w, h = d.h;
+    ctx.clearRect(0, 0, w, h);
+
+    var line = css('--line-soft') || css('--line');
+    var inkFaint = css('--ink-faint') || css('--ink-muted');
+    var trace = css('--trace-raw') || css('--trace');
+    var mark = css('--mark');
+
+    /* axes: the two labels that survive from the original plot */
+    ctx.strokeStyle = line; ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(w * 0.1, h * 0.08); ctx.lineTo(w * 0.1, h * 0.86);
+    ctx.lineTo(w * 0.94, h * 0.86);
+    ctx.stroke();
+
+    ctx.fillStyle = inkFaint;
+    ctx.font = '500 10px ' + css('--mono').split(',')[0].replace(/"/g, '');
+    ctx.fillText('OBJECTIVE REALITY', w * 0.1, h * 0.955);
+    ctx.save();
+    ctx.translate(w * 0.062, h * 0.86);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText('ONES AND ZEROS', 0, 0);
+    ctx.restore();
+
+    /* the raw trace, drawn in full, faint */
+    ctx.strokeStyle = trace;
+    ctx.globalAlpha = 0.42;
+    ctx.lineWidth = 1.4;
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    for (var i = 0; i <= N; i++) {
+      var t = i / N, p = clean(t, w, h);
+      var amp = h * 0.13 * Math.sin(Math.PI * t);
+      var x = p[0] + noise(i * 3.1) * (w * 0.012);
+      var y = p[1] + noise(i) * amp + noise(i * 7.7) * (h * 0.03);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    /* the clean line, drawn to `progress` */
+    ctx.strokeStyle = mark;
+    ctx.lineWidth = 2.6;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    var upto = Math.max(1, Math.round(N * progress));
+    for (var j = 0; j <= upto; j++) {
+      var q = clean(j / N, w, h);
+      j === 0 ? ctx.moveTo(q[0], q[1]) : ctx.lineTo(q[0], q[1]);
+    }
+    ctx.stroke();
+
+    /* the head of the line */
+    var head = clean(upto / N, w, h);
+    ctx.fillStyle = mark;
+    ctx.beginPath();
+    ctx.arc(head[0], head[1], 4, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  var started = false;
+  function run() {
+    if (started) return;
+    started = true;
+    if (reduce) { draw(1); return; }
+    var t0 = null;
+    function frame(ts) {
+      if (t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / 1800);
+      var eased = 1 - Math.pow(1 - p, 3);
+      draw(eased);
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* The hero is above the fold, so this runs on load. Waiting on an
+     observer risks the figure sitting empty on first paint. */
+  draw(0);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { setTimeout(run, 220); });
+  } else {
+    setTimeout(run, 220);
+  }
+  window.addEventListener('load', run);
+
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () { draw(started ? 1 : 0); }, 140);
+  });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+    draw(started ? 1 : 0);
+  });
+})();
+</script>
 </body>
 </html>
