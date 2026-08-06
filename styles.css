@@ -862,7 +862,6 @@ body[data-theme="dark"] .offer:hover {
 /* ---------- wider viewports ---------- */
 
 @media (min-width: 40rem) {
-  .steps { grid-template-columns: repeat(2, 1fr); gap: var(--s6) var(--s5); }
   .axes { grid-template-columns: repeat(2, 1fr); gap: var(--s5); }
   .form { grid-template-columns: 1fr 1fr; column-gap: var(--s5); }
   .field-wide, .field-submit { grid-column: 1 / -1; }
@@ -913,7 +912,10 @@ body[data-theme="dark"] .offer:hover {
 }
 
 @media (min-width: 48rem) {
-  .section-head { grid-template-columns: 4rem 1fr; }
+  /* The 4rem track carries the section index numeral. The home page dropped its
+     numerals in the recomposition, so the track is conditional on one being
+     there - otherwise the header's only child lands in a 64px column. */
+  .section-head:has(.index) { grid-template-columns: 4rem 1fr; }
   .idea { grid-template-columns: 4rem 1fr; }
   .offer { grid-template-columns: 7.5rem 1fr; }
   .steps { padding-top: var(--s7); }
@@ -922,7 +924,6 @@ body[data-theme="dark"] .offer:hover {
 }
 
 @media (min-width: 64rem) {
-  .steps { grid-template-columns: repeat(4, 1fr); }
   .status-row { grid-template-columns: minmax(0, 1fr) 19rem; }
 }
 
@@ -1341,28 +1342,12 @@ body[data-theme="dark"] .offer:hover {
 .plot-ov-fig { right: var(--s2); top: var(--s1); color: var(--line-strong); }
 
 /* ---------- fig. 02, the engine end to end ----------
-   The schematic is complete in the markup and this is its resting state. The
-   replay below only runs when main.js adds .engine-live, which it only does
-   when motion is welcome, so reduced motion, print, and no JavaScript all see
-   the finished drawing. */
-
-.engine {
-  margin: 0 0 var(--s6);
-  padding: var(--s4);
-  background: var(--panel);
-  border: var(--hair) solid var(--line);
-  border-radius: var(--radius-leaf);
-}
-
-.engine svg { display: block; width: 100%; height: auto; }
-
-/* one schematic, two cuts: wide reads left to right, narrow reads down.
-   46rem matches the walkthrough figures' own phone cut. */
-.engine .engine-svg-v { display: none; }
-@media (max-width: 46rem) {
-  .engine .engine-svg-h { display: none; }
-  .engine .engine-svg-v { display: block; max-width: 22rem; margin: 0 auto; }
-}
+   The schematic parts below are drawn inside the audience pages' .page-fig
+   figures. The old .engine figure wrapper they used to sit in is gone: the
+   only .engine left is the home page's beats band, which wants none of that
+   panel chrome and whose 44px glyphs were being blown up to full column width
+   by the wrapper's `svg { width: 100% }`. The schematic is complete in the
+   markup and this is its resting state. */
 
 .engine-caption {
   font-family: var(--mono);
