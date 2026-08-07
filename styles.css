@@ -439,12 +439,23 @@ a:hover { color: var(--mark-deep); }
 
 .nav-sub-disclosure:not([open]) .nav-sub { display: none; }
 .nav-sub { display: grid; }
-.nav-sub a { padding-inline: var(--s5); }
+/* .nav a is flex below the breakpoint, which eats the space between the label
+   and its coming soon tag. Above it the link is block and this gap is inert. */
+.nav-sub a { padding-inline: var(--s5); gap: var(--s2); }
 
 /* Students, Therapists and Individuals live inside the group now, so on those
    three pages the current marker would sit in a closed panel and the masthead
    would claim you are nowhere. The trigger carries it instead. */
 .nav-group:has(.nav-sub a[aria-current]) .nav-sub-toggle { color: var(--ink); }
+
+/* Personal Pal is named before it is built, so the row says so rather than
+   letting the label imply something a visitor can open. */
+.nav-sub-soon {
+  font-size: var(--t-micro);
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+  opacity: 0.75;
+}
 
 /* ---------- section frame: the tick rule and the margin index ---------- */
 
