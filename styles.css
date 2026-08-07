@@ -407,6 +407,40 @@ a:hover { color: var(--mark-deep); }
 
 .nav-cta { color: var(--ink) !important; }
 
+/* ---------- PAL Products: a group inside the nav ----------
+   Below 68rem it is a disclosure nested in the menu disclosure, so the phone
+   gets a plain indented sublist and no script. The 68rem block turns it into a
+   hover and focus panel. Same no-script rule as the parent menu. */
+
+.nav-sub-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  padding-inline: var(--s3);
+  color: var(--ink-muted);
+  cursor: pointer;
+  list-style: none;
+}
+.nav-sub-toggle::-webkit-details-marker { display: none; }
+.nav-sub-disclosure[open] .nav-sub-toggle { color: var(--ink); }
+
+/* a chevron in two hairlines, matching the plus on the parent toggle. It turns
+   rather than losing a stroke, because a group that is open still has a name. */
+.nav-sub-mark {
+  width: 7px;
+  height: 7px;
+  border-right: var(--hair) solid currentColor;
+  border-bottom: var(--hair) solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform var(--fast) var(--ease);
+}
+.nav-sub-disclosure[open] .nav-sub-mark { transform: translateY(1px) rotate(225deg); }
+
+.nav-sub-disclosure:not([open]) .nav-sub { display: none; }
+.nav-sub { display: grid; }
+.nav-sub a { padding-inline: var(--s5); }
+
 /* ---------- section frame: the tick rule and the margin index ---------- */
 
 .section {
@@ -815,10 +849,12 @@ a:hover { color: var(--mark-deep); }
   .field-wide, .field-submit { grid-column: 1 / -1; }
 }
 
-/* The nav carries seven destinations now that therapists have their own page,
-   so the single row needs more width again. Below 68rem it stays a disclosure
-   rather than wrapping the sticky masthead onto two lines. */
-@media (min-width: 68rem) {
+/* The nav carries nine destinations now that PAL Products has a slot, so the
+   single row needs more width again. Measured: the row clears at 1200px with
+   the tightened gap and the 1240px masthead, so 76rem holds 16px of headroom
+   for font loading. Below it the nav stays a disclosure rather than wrapping
+   the sticky masthead onto two lines. */
+@media (min-width: 76rem) {
   .nav-disclosure::details-content { content-visibility: visible; block-size: auto; }
   .nav-toggle { display: none; }
 
@@ -828,7 +864,9 @@ a:hover { color: var(--mark-deep); }
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--s2) var(--s4);
+    /* was --s4. Nine destinations do not fit a 1rem rhythm, and 0.75rem is the
+       cheapest 32px to find before labels or the breakpoint start paying. */
+    gap: var(--s2) var(--s3);
     padding: 0;
     background: none;
     border-bottom: 0;
@@ -855,8 +893,82 @@ a:hover { color: var(--mark-deep); }
     border: var(--hair) solid var(--line-strong);
     border-radius: var(--radius);
   }
+  /* --measure is the reading width for prose. The masthead is a bar, not a
+     column of text, and at nine destinations the row needs about 44px more than
+     1100px leaves it. Widening the bar keeps every label at full length instead
+     of trading "Community services" or "PAL Products" down to fit. */
+  .masthead .wrap { max-width: 1240px; }
+
   .nav-cta::after { display: none; }
   .nav-cta:hover { background: var(--panel); }
+
+  /* PAL Products becomes a panel hanging off its own row. Held in the layout by
+     the same details-content override the parent menu uses, then hidden by
+     opacity so hover and focus-within can reveal it without script. */
+  .nav-group { position: relative; }
+  .nav-sub-disclosure::details-content {
+    content-visibility: visible;
+    block-size: auto;
+    overflow: visible;
+  }
+
+  .nav-sub-toggle {
+    min-height: 0;
+    padding: var(--s1) 0;
+    color: var(--ink-muted);
+  }
+  .nav-group:hover .nav-sub-toggle,
+  .nav-group:focus-within .nav-sub-toggle { color: var(--ink); }
+  .nav-group:hover .nav-sub-mark,
+  .nav-group:focus-within .nav-sub-mark { transform: translateY(1px) rotate(225deg); }
+
+  .nav-sub,
+  .nav-sub-disclosure:not([open]) .nav-sub {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: grid;
+    min-width: 12rem;
+    margin-top: var(--s3);
+    padding: var(--s2);
+    background: var(--panel);
+    border: var(--hair) solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 2px rgba(29,51,42,0.04), 0 12px 32px -12px rgba(29,51,42,0.12);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity var(--fast) var(--ease), transform var(--fast) var(--ease), visibility var(--fast) var(--ease);
+  }
+
+  /* the margin above the panel is dead space the pointer has to cross, and a
+     dropped hover halfway there closes it. This bridges the gap. */
+  .nav-sub::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--s3) * -1);
+    height: var(--s3);
+  }
+
+  .nav-group:hover .nav-sub,
+  .nav-group:focus-within .nav-sub {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .nav-sub li + li { border-top: 0; }
+  .nav-sub a {
+    padding: var(--s2) var(--s3);
+    border-radius: calc(var(--radius) - 3px);
+    white-space: nowrap;
+  }
+  .nav-sub a::after { display: none; }
+  .nav-sub a:hover { background: var(--panel-deep); color: var(--ink); }
 }
 
 @media (min-width: 48rem) {

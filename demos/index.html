@@ -42,7 +42,7 @@
       </svg>
       <span class="brand-name">Alignment Integration</span>
     </a>
-    <nav class="nav" aria-label="Who we build for">
+    <nav class="nav" aria-label="Main">
       <details class="nav-disclosure">
         <summary class="nav-toggle">
           <span>menu</span>
@@ -55,6 +55,19 @@
           <li><a href="/students/">Students</a></li>
           <li><a href="/therapists/">Therapists</a></li>
           <li><a href="/individuals/">Individuals</a></li>
+          <li class="nav-group">
+            <details class="nav-sub-disclosure">
+              <summary class="nav-sub-toggle">
+                <span>PAL Products</span>
+                <span class="nav-sub-mark" aria-hidden="true"></span>
+              </summary>
+              <ul class="nav-sub">
+                <li><a href="https://student-pal.netlify.app" rel="noopener">Student Pal</a></li>
+                <li><a href="/demos/therapist-workload/">Therapist Pal</a></li>
+                <li><a href="/demos/#resident-pal">Resident Pal</a></li>
+              </ul>
+            </details>
+          </li>
           <li><a href="/demos/" aria-current="page">Demos</a></li>
           <li><a href="/#contact" class="nav-cta">Contact</a></li>
         </ul>
@@ -113,7 +126,7 @@
         </div>
       </div>
 
-      <div class="proof">
+      <div class="proof" id="student-pal">
         <p class="proof-state">in build</p>
         <h3>Student Pal</h3>
         <p>Course outlines in, a term of dated work out. The parser runs today; the rest of the product is being built around it.</p>
@@ -122,7 +135,7 @@
         </div>
       </div>
 
-      <div class="proof">
+      <div class="proof" id="resident-pal">
         <p class="proof-state">in build</p>
         <h3>Resident Pal</h3>
         <p>The intake questionnaire that sets up a residency workload. The intake is live and taking answers; the board it feeds is next.</p>
