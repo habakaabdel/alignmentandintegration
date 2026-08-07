@@ -88,7 +88,12 @@
         <a class="btn btn-quiet" href="/#contact">Ask about it</a>
       </div>
 
-      <figure class="walk" data-walk style="--ar: 1360 / 880" role="group" aria-label="Student Pal, running on a course outline">
+      <div class="app-embed">
+        <iframe src="https://student-pal.netlify.app/?theme=light" title="Student Pal, the live build. Paste a course outline and read what comes back." loading="lazy"></iframe>
+        <p class="walk-note">The live build, running in this page. Paste an outline, or load the sample and press organize.</p>
+      </div>
+
+      <figure class="walk walk--app-fallback" data-walk style="--ar: 1360 / 880" role="group" aria-label="Student Pal, running on a course outline">
         <div class="walk-stage">
           <img class="is-on" src="/media/walk/student-pal/01.webp" width="1360" height="880" loading="eager" decoding="async"
                alt="The paste box holding a real course outline: a grading table listing a reading response at ten percent, a midterm at twenty five, a research paper at thirty, and a final exam at thirty five."
@@ -112,7 +117,7 @@
           <li>Every graded item in order, and what it could not be sure of.</li>
           <li>A table per course, and anything undated kept in its own list.</li>
         </ol>
-        <p class="walk-note">Captured from the live build, running on the sample outline.</p>
+        <p class="walk-note">Captured from the live build. Open it above to run your own outline.</p>
       </figure>
     </div>
   </section>

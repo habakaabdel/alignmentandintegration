@@ -1276,6 +1276,26 @@ a:hover { color: var(--mark-deep); }
 
 .walk { margin: var(--s6) 0 0; }
 
+/* ---------- the live Student Pal embed on /students/ ----------
+   From 48rem up the page holds the real app in a frame, pinned to its light
+   theme so it sits on this paper without a mode seam. Below 48rem the frame
+   would be a cramped app inside a cramped page, so a phone gets the captured
+   walkthrough instead. */
+.app-embed { display: none; }
+@media (min-width: 48rem) {
+  .app-embed { display: block; margin-top: var(--s6); }
+  .app-embed iframe {
+    display: block;
+    width: 100%;
+    height: 46rem;
+    border: var(--hair) solid var(--line);
+    border-radius: var(--radius-leaf);
+    background: #f5f6fa;
+  }
+  .app-embed .walk-note { margin-top: var(--s3); }
+  .walk--app-fallback { display: none; }
+}
+
 .walk-stage {
   position: relative;
   aspect-ratio: var(--ar, 1360 / 880);
