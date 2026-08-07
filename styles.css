@@ -441,6 +441,11 @@ a:hover { color: var(--mark-deep); }
 .nav-sub { display: grid; }
 .nav-sub a { padding-inline: var(--s5); }
 
+/* Students, Therapists and Individuals live inside the group now, so on those
+   three pages the current marker would sit in a closed panel and the masthead
+   would claim you are nowhere. The trigger carries it instead. */
+.nav-group:has(.nav-sub a[aria-current]) .nav-sub-toggle { color: var(--ink); }
+
 /* ---------- section frame: the tick rule and the margin index ---------- */
 
 .section {
@@ -849,12 +854,11 @@ a:hover { color: var(--mark-deep); }
   .field-wide, .field-submit { grid-column: 1 / -1; }
 }
 
-/* The nav carries nine destinations now that PAL Products has a slot, so the
-   single row needs more width again. Measured: the row clears at 1200px with
-   the tightened gap and the 1240px masthead, so 76rem holds 16px of headroom
-   for font loading. Below it the nav stays a disclosure rather than wrapping
-   the sticky masthead onto two lines. */
-@media (min-width: 76rem) {
+/* The nav is back to six destinations: PAL Products absorbed Students,
+   Therapists and Individuals, so the row is shorter than it was at seven and
+   the 68rem breakpoint has room again. Below it the nav stays a disclosure
+   rather than wrapping the sticky masthead onto two lines. */
+@media (min-width: 68rem) {
   .nav-disclosure::details-content { content-visibility: visible; block-size: auto; }
   .nav-toggle { display: none; }
 
@@ -864,9 +868,7 @@ a:hover { color: var(--mark-deep); }
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    /* was --s4. Nine destinations do not fit a 1rem rhythm, and 0.75rem is the
-       cheapest 32px to find before labels or the breakpoint start paying. */
-    gap: var(--s2) var(--s3);
+    gap: var(--s2) var(--s4);
     padding: 0;
     background: none;
     border-bottom: 0;
@@ -893,12 +895,6 @@ a:hover { color: var(--mark-deep); }
     border: var(--hair) solid var(--line-strong);
     border-radius: var(--radius);
   }
-  /* --measure is the reading width for prose. The masthead is a bar, not a
-     column of text, and at nine destinations the row needs about 44px more than
-     1100px leaves it. Widening the bar keeps every label at full length instead
-     of trading "Community services" or "PAL Products" down to fit. */
-  .masthead .wrap { max-width: 1240px; }
-
   .nav-cta::after { display: none; }
   .nav-cta:hover { background: var(--panel); }
 
@@ -913,9 +909,22 @@ a:hover { color: var(--mark-deep); }
   }
 
   .nav-sub-toggle {
+    position: relative;
     min-height: 0;
     padding: var(--s1) 0;
     color: var(--ink-muted);
+  }
+
+  /* the same underline a current top level link draws, so the group reads as
+     current from the closed state */
+  .nav-group:has(.nav-sub a[aria-current]) .nav-sub-toggle::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    background: var(--mark);
   }
   .nav-group:hover .nav-sub-toggle,
   .nav-group:focus-within .nav-sub-toggle { color: var(--ink); }
