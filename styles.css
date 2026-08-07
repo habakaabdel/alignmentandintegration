@@ -545,16 +545,6 @@ a:hover { color: var(--mark-deep); }
   color: var(--ink);
   padding-right: 1.25rem;
 }
-@media (prefers-color-scheme: dark) {
-  .btn-quiet {
-    --shell:      rgba(255,255,255,0.035);
-    --shell-ring: rgba(255,255,255,0.09);
-  }
-}
-body[data-theme="dark"] .btn-quiet {
-  --shell:      rgba(255,255,255,0.035);
-  --shell-ring: rgba(255,255,255,0.09);
-}
 .btn-quiet:hover { background: var(--shell); border-color: var(--shell-ring); }
 
 /* ---------- section rhythm ---------- */
