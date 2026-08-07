@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PAL Products — Parent Mark Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { background: #f7f6f2; color: #1c1d1c; font-family: 'Plus Jakarta Sans', sans-serif; padding: 2rem; }
+    h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.8125rem; color: #5e605d; margin-bottom: 2rem; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+    .panel { background: #ffffff; border: 1px solid #717d76; border-radius: 16px; padding: 2rem; }
+    .panel.dark { background: #1c1d1c; color: #f7f6f2; border-color: #333; }
+    .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #5e605d; margin-bottom: 1.5rem; }
+    .dark .label { color: #888; }
+    .row { display: flex; align-items: center; gap: 2rem; margin-bottom: 1.5rem; }
+    .item { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; }
+    .wm-preview { border-top: 1px solid #d8d6ce; padding-top: 1.5rem; margin-top: 1.5rem; }
+    .dark .wm-preview { border-top-color: #333; }
+  </style>
+</head>
+<body>
+  <h1>PAL Products Family Mark (Parent)</h1>
+  <div class="meta">Asset: brand/pal/ | Hue: #1c1d1c Ink / Neutral</div>
+
+  <div class="grid">
+    <div class="panel">
+      <div class="label">Light Surface (#f7f6f2)</div>
+      <div class="row">
+        <div class="item"><img src="favicon.svg" width="16" height="16" alt="16px"><span>16px</span></div>
+        <div class="item"><img src="mark.svg" width="32" height="32" alt="32px"><span>32px</span></div>
+        <div class="item"><img src="mark.svg" width="48" height="48" alt="48px"><span>48px</span></div>
+        <div class="item"><img src="mark.svg" width="200" height="200" alt="200px"><span>200px</span></div>
+      </div>
+      <div class="wm-preview">
+        <div class="label">Wordmark</div>
+        <img src="wordmark.svg" width="240" height="48" alt="Wordmark">
+      </div>
+    </div>
+
+    <div class="panel dark">
+      <div class="label">Dark Surface (#1c1d1c)</div>
+      <div class="row">
+        <div class="item"><img src="mark-dark.svg" width="16" height="16" alt="16px"><span>16px</span></div>
+        <div class="item"><img src="mark-dark.svg" width="32" height="32" alt="32px"><span>32px</span></div>
+        <div class="item"><img src="mark-dark.svg" width="48" height="48" alt="48px"><span>48px</span></div>
+        <div class="item"><img src="mark-dark.svg" width="200" height="200" alt="200px"><span>200px</span></div>
+      </div>
+      <div class="wm-preview">
+        <div class="label">Single Ink Mono</div>
+        <img src="mark-mono.svg" width="48" height="48" alt="Mono">
+      </div>
+    </div>
+  </div>
+</body>
+</html>
