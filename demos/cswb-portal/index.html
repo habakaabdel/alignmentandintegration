@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Safety and Well-Being Portal, demonstration</title>
+<meta name="description" content="Demonstration of a community safety and well-being service directory and plan progress portal, by Alignment Integration. Fictional municipality, fictional agencies, fictional data.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0f766e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f766e'/%3E%3Cpath d='M16 7l7 3.5v6c0 4.4-2.9 7.6-7 8.9-4.1-1.3-7-4.5-7-8.9v-6L16 7z' fill='none' stroke='%23ccfbf1' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<!-- Phosphor Icons, self-hosted. Decorative only, every icon is aria-hidden and paired with text. -->
+<link rel="stylesheet" type="text/css" href="vendor/phosphor/style.css">
+
+<!-- Custom Stylesheet -->
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<div class="demo-banner">
+  <div class="container demo-banner-inner">
+    <i class="ph ph-info" aria-hidden="true"></i>
+    <span>DEMONSTRATION. FICTIONAL AGENCIES, FICTIONAL DATA. Built by Alignment Integration to show how a municipal service directory and plan tracker can work on one page.</span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="logo-area">
+      <span class="header-eyebrow">City of Alderport</span>
+      <h1 class="site-title">Community Safety <span class="text-accent">and</span> Well-Being</h1>
+    </div>
+  </div>
+</header>
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <div class="container breadcrumb-inner">
+    <a href="#find-services" class="breadcrumb-link">Home</a>
+    <i class="ph ph-caret-right breadcrumb-sep" aria-hidden="true"></i>
+    <span id="breadcrumb-current">Find Services</span>
+  </div>
+</nav>
+
+<div class="tabs-container">
+  <div class="container tabs-inner">
+    <div role="tablist" class="tab-nav" aria-label="Portal Sections">
+      <button role="tab" type="button" class="tab-link" id="tab-find-services" data-tab="find-services" aria-selected="true" aria-controls="find-services" tabindex="0">
+        <i class="ph ph-magnifying-glass" aria-hidden="true"></i> Find Services
+      </button>
+      <button role="tab" type="button" class="tab-link" id="tab-plan-progress" data-tab="plan-progress" aria-selected="false" aria-controls="plan-progress" tabindex="-1">
+        <i class="ph ph-chart-bar" aria-hidden="true"></i> Plan Progress
+      </button>
+      <button role="tab" type="button" class="tab-link" id="tab-about-plan" data-tab="about-plan" aria-selected="false" aria-controls="about-plan" tabindex="-1">
+        <i class="ph ph-book-open" aria-hidden="true"></i> About The Plan
+      </button>
+    </div>
+  </div>
+</div>
+
+<main id="main-content">
+  <div class="container">
+    <!-- Tab 1: Find Services -->
+    <section id="find-services" class="view tab-panel" role="tabpanel" aria-labelledby="tab-find-services" tabindex="-1">
+      <div class="view-header">
+        <h2 class="view-heading">Find Services</h2>
+        <p class="view-intro">Every door is the right door. Search once, and call directly.</p>
+      </div>
+
+      <div class="search-wrap">
+        <div class="search-container">
+          <label for="service-search" class="visually-hidden">Search services by name, description, or need</label>
+          <input type="search" id="service-search" class="search-input" placeholder="Search by name, service, or need, for example housing, crisis, employment" autocomplete="off">
+          <i class="ph ph-magnifying-glass search-icon" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="filters-container">
+        <div class="filter-section" role="group" aria-labelledby="filter-need-heading">
+          <h3 class="filter-heading" id="filter-need-heading">Filter By Need</h3>
+          <div id="need-chips" class="chip-row"></div>
+        </div>
+
+        <div class="filter-section" role="group" aria-labelledby="filter-org-heading">
+          <h3 class="filter-heading" id="filter-org-heading">Filter By Organization Type</h3>
+          <div class="chip-row">
+            <button type="button" class="filter-chip filter-chip-indigenous" id="indigenous-chip" aria-pressed="false">
+              <i class="ph ph-users" aria-hidden="true"></i> Indigenous-led and Indigenous-serving organizations
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-meta">
+        <p id="result-count" class="result-count" aria-live="polite"></p>
+      </div>
+
+      <ul id="results-list" class="results-list"></ul>
+
+      <div id="empty-state" class="empty-state" hidden>
+        <div class="empty-state-icon">
+          <i class="ph ph-info" aria-hidden="true"></i>
+        </div>
+        <h3>No services found</h3>
+        <p>No services match these filters. Try removing a filter or a search term. No wrong doors, just try another way in.</p>
+        <button type="button" id="clear-filters-btn" class="btn-secondary">
+          <i class="ph ph-arrow-counter-clockwise" aria-hidden="true"></i> Clear filters
+        </button>
+      </div>
+    </section>
+
+    <!-- Tab 2: Plan Progress -->
+    <section id="plan-progress" class="view tab-panel" role="tabpanel" aria-labelledby="tab-plan-progress" tabindex="-1" hidden>
+      <div class="view-header">
+        <h2 class="view-heading">Plan Progress</h2>
+        <p class="view-intro">Progress on the City of Alderport's Community Safety and Well-Being Plan, by priority area.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-inner">
+            <span class="stat-number">7</span>
+            <span class="stat-label">Priority areas</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-inner">
+            <span class="stat-number">15</span>
+            <span class="stat-label">Recommendations</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-inner">
+            <span class="stat-number">48</span>
+            <span class="stat-label">Actions</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-inner">
+            <span class="stat-number">Year 1 of 10</span>
+            <span class="stat-label">Plan horizon</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="priority-grid">
+        <article class="priority-card">
+          <div class="priority-card-inner">
+            <div class="priority-badge">Priority One</div>
+            <h3 class="priority-name">Collaboration and Communication</h3>
+            <p class="priority-goal">Foster greater collaboration across the community, enhancing engagement and maximizing resources.</p>
+            <div class="priority-footer">
+              <span class="priority-actions">5 actions</span>
+              <div class="progress-row">
+                <div class="progress-track" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Actions started, priority area one, Collaboration and Communication">
+                  <div class="progress-fill" style="width: 80%;"></div>
+                </div>
+                <span class="progress-pct">80% actions started</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="priority-card">
+          <div class="priority-card-inner">
+            <div class="priority-badge">Priority Two</div>
+            <h3 class="priority-name">Children, Youth, and Families</h3>
+            <p class="priority-goal">Reduce the number of children and youth who are at risk of harm to self or others.</p>
+            <div class="priority-footer">
+              <span class="priority-actions">13 actions</span>
+              <div class="progress-row">
+                <div class="progress-track" role="progressbar" aria-valuenow="38" aria-valuemin="0" aria-valuemax="100" aria-label="Actions started, priority area two, Children, Youth, and Families">
+                  <div class="progress-fill" style="width: 38%;"></div>
+                </div>
+                <span class="progress-pct">38% actions started</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="priority-card">
+          <div class="priority-card-inner">
+            <div class="priority-badge">Priority Three</div>
+            <h3 class="priority-name">Downtown and Community Spaces</h3>
+            <p class="priority-goal">Enhance safety and inclusivity in the downtown core, the heart of the community, as well as in surrounding neighbourhoods.</p>
+            <div class="priority-footer">
+              <span class="priority-actions">10 actions</span>
+              <div class="progress-row">
+                <div class="progress-track" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Actions started, priority area three, Downtown and Community Spaces">
+                  <div class="progress-fill" style="width: 80%;"></div>
+                </div>
+                <span class="progress-pct">80% actions started</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="priority-card">
+          <div class="priority-card-inner">
+            <div class="priority-badge">Priority Four</div>
+            <h3 class="priority-name">Belonging and Engagement</h3>
+            <p class="priority-goal">Increase the share of residents who report feeling welcome and a sense of belonging by 25% within five years.</p>
+            <div class="priority-footer">
+              <span class="priority-actions">5 actions</span>
+              <div class="progress-row">
+                <div class="progress-track" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" aria-label="Actions started, priority area four, Belonging and Engagement">
+                  <div class="progress-fill" style="width: 20%;"></div>
+                </div>
+                <span class="progress-pct">20% actions started</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="priority-card">
+          <div class="priority-card-inner">
+            <div class="priority-badge">Priority Five</div>
+            <h3 class="priority-name">Housing Along the Continuum</h3>
+            <p class="priority-goal">Increase the housing stock across the housing continuum within the plan horizon.</p>
+            <div class="priority-footer">
+              <span class="priority-actions">5 actions</span>
+              <div class="progress-row">
+                <div class="progress-track" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" aria-label="Actions started, priority area five, Housing Along the Continuum">
+                  <div class="progress-fill" style="width: 20%;"></div>
+                </div>
+                <span class="progress-pct">20% actions started</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="priority-card">
+          <div class="priority-card-inner">
+            <div class="priority-badge">Priority Six</div>
+            <h3 class="priority-name">Prevention of Interpersonal Violence</h3>
+            <p class="priority-goal">Reduce interpersonal violence across the community by 25% over the life of the plan.</p>
+            <div class="priority-footer">
+              <span class="priority-actions">4 actions</span>
+              <div class="progress-row">
+                <div class="progress-track" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="Actions started, priority area six, Prevention of Interpersonal Violence">
+                  <div class="progress-fill" style="width: 25%;"></div>
+                </div>
+                <span class="progress-pct">25% actions started</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="priority-card">
+          <div class="priority-card-inner">
+            <div class="priority-badge">Priority Seven</div>
+            <h3 class="priority-name">Mental Health and Problematic Substance Use (including Alcohol)</h3>
+            <p class="priority-goal">Strengthen individual and community well-being in the areas of mental health and addictions.</p>
+            <div class="priority-footer">
+              <span class="priority-actions">6 actions</span>
+              <div class="progress-row">
+                <div class="progress-track" role="progressbar" aria-valuenow="17" aria-valuemin="0" aria-valuemax="100" aria-label="Actions started, priority area seven, Mental Health and Problematic Substance Use">
+                  <div class="progress-fill" style="width: 17%;"></div>
+                </div>
+                <span class="progress-pct">17% actions started</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="source-info-section">
+        <p class="source-line"><i class="ph ph-info" aria-hidden="true"></i> Every figure on this screen is invented for the demonstration. In a live build these numbers come from the municipality's own plan progress tracker, which is a living document receiving regular updates.</p>
+        <a class="btn-primary plan-link" href="#about-plan">
+          <span>How the plan is structured</span>
+          <i class="ph ph-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- Tab 3: About The Plan -->
+    <section id="about-plan" class="view tab-panel" role="tabpanel" aria-labelledby="tab-about-plan" tabindex="-1" hidden>
+      <div class="view-header">
+        <h2 class="view-heading">About The Plan</h2>
+        <p class="view-intro">Background, development timeline, and the contact for the fictional City of Alderport Community Safety and Well-Being Plan.</p>
+      </div>
+
+      <div class="about-content">
+        <div class="about-text-column">
+          <p class="about-para">Municipalities are required to develop a Community Safety and Well-Being Plan. Alderport's plan, covering <strong>a ten year horizon</strong>, was released after a period of community consultation and data collection. It sets out <strong>7 priority areas, 15 recommendations, and 48 actions</strong> aimed at strengthening safety and well-being across the community.</p>
+          <p class="about-para">A plan document on its own is difficult for a resident to act on. This portal puts the two useful halves in one place: the services a person can call today, and honest progress on what the municipality committed to. Both halves sit on the same page, so nobody has to know which department owns which piece.</p>
+        </div>
+
+        <div class="about-timeline-column">
+          <h3 class="about-subheading"><i class="ph ph-clock" aria-hidden="true"></i> Development Timeline</h3>
+          <ul class="timeline-list">
+            <li>
+              <div class="timeline-dot" aria-hidden="true"></div>
+              <div class="timeline-content-inner">
+                <span class="timeline-date">Year 0, autumn</span>
+                <span class="timeline-desc">Project start</span>
+              </div>
+            </li>
+            <li>
+              <div class="timeline-dot" aria-hidden="true"></div>
+              <div class="timeline-content-inner">
+                <span class="timeline-date">Years 0 to 1</span>
+                <span class="timeline-desc">Data collection and community engagement</span>
+              </div>
+            </li>
+            <li>
+              <div class="timeline-dot-active" aria-hidden="true"></div>
+              <div class="timeline-content-inner">
+                <span class="timeline-date">Year 1, spring</span>
+                <span class="timeline-desc">Plan released</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="contact-section">
+        <h3 class="about-subheading"><i class="ph ph-user-circle" aria-hidden="true"></i> Plan Contact</h3>
+        <div class="contact-card">
+          <div class="contact-card-inner">
+            <div class="contact-avatar" aria-hidden="true">
+              <i class="ph ph-user" aria-hidden="true"></i>
+            </div>
+            <div class="contact-details">
+              <p class="contact-name">Dana Whitlock (fictional)</p>
+              <p class="contact-title">Community Safety and Well-Being Coordinator</p>
+              <div class="contact-actions">
+                <a href="tel:+15555550142" class="btn-primary">
+                  <i class="ph ph-phone" aria-hidden="true"></i>
+                  <span>Call 555-555-0142</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-disclaimer">
+        <p><i class="ph ph-shield-warning" aria-hidden="true"></i> Demonstration built by Alignment Integration. The municipality, the agencies, the staff, the phone numbers, and every figure shown here are invented. Nothing on this page describes a real organization or a real person.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>A demonstration by <a href="/">Alignment Integration</a></p>
+  </div>
+</footer>
+
+<noscript>
+  <div class="container noscript-notice">
+    <i class="ph ph-warning" aria-hidden="true"></i>
+    <p>This directory needs scripting turned on to search and filter services. The Plan Progress and About The Plan sections above read fine without it.</p>
+  </div>
+</noscript>
+
+<script src="data.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

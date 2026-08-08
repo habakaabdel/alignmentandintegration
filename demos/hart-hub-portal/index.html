@@ -1,0 +1,2400 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>HART Hub portal, guided demonstration</title>
+  <meta name="description" content="Demonstration of a multi-tenant HART Hub portal by Alignment Integration. Fictional agencies, fictional data.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1C1917">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237F228D'/%3E%3Cg fill='none' stroke='%23FAF9F6' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M9 22V10'/%3E%3Cpath d='M23 22V10'/%3E%3Cpath d='M9 16h14'/%3E%3C/g%3E%3C/svg%3E">
+
+  <style>
+    /* Design tokens */
+    :root {
+      --font-serif: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+      --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+      --bg-warm: #FAF9F6;
+      --bg-pure: #FFFFFF;
+      --primary-purple: #7F228D;
+      --primary-hover: #9E35AD;
+      --primary-active: #671A73;
+      --text-main: #1C1917;
+      --text-muted: #625D58;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-accent: rgba(127, 34, 141, 0.18);
+      --accent-green: #15803D;
+      --bg-accent-green: rgba(21, 128, 61, 0.08);
+      --accent-amber: #92400E;
+      --bg-accent-amber: #FFFBEB;
+      --border-accent-amber: #FDE68A;
+
+      --shadow-flat: 0 1px 2px rgba(0, 0, 0, 0.02);
+      --shadow-premium:
+        0 12px 30px -10px rgba(127, 34, 141, 0.05),
+        0 1px 3px rgba(0, 0, 0, 0.02),
+        0 24px 48px -12px rgba(0, 0, 0, 0.04);
+      --spring-transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 100px; /* space for the floating tour nav */
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Toast notifications */
+    .hh-toast {
+      position: fixed;
+      bottom: 85px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1C1917;
+      color: #FFFFFF;
+      padding: 0.75rem 1.5rem;
+      border-radius: 99px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2000;
+      pointer-events: none;
+      text-align: center;
+      max-width: 90vw;
+    }
+    .hh-toast.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Demonstration banner */
+    .demobar {
+      background: #1C1917;
+      color: #FAF9F6;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+      padding: 0.5rem 1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .demobar span {
+      display: block;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0.01em;
+      opacity: 0.75;
+      font-size: 0.75rem;
+    }
+
+    /* Header */
+    header {
+      background: rgba(250, 249, 246, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.8rem 2rem;
+    }
+
+    .header-in {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    .demo-pill {
+      background: rgba(127, 34, 141, 0.1);
+      color: var(--primary-purple);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Main layout */
+    main {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+
+    .sc-sec {
+      display: none; /* controlled by the active tour step */
+      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .sc-sec.sc-open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+
+    .sc-kicker {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary-purple);
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 3.25rem;
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 2.25rem;
+      font-weight: 600;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
+
+    .sc-lede {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin-bottom: 2.5rem;
+    }
+
+    .sc-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 750px;
+      margin-bottom: 2rem;
+    }
+
+    .partner-strip {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary-purple);
+      background: rgba(127, 34, 141, 0.05);
+      border: 1px solid var(--border-accent);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+    }
+
+    /* Principle cards */
+    .sc-quotes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .sc-quote {
+      border-left: 3px solid var(--primary-purple);
+      background: var(--bg-pure);
+      padding: 1.5rem;
+      border-radius: 0 12px 12px 0;
+      box-shadow: var(--shadow-flat);
+    }
+
+    .sc-quote p {
+      font-weight: 500;
+      font-size: 1.05rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    /* Stats */
+    .sc-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .sc-stat {
+      background: var(--bg-pure);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-flat);
+    }
+
+    .sc-stat-v {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-purple);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .sc-stat-l {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Segmented controls */
+    .segmented-control {
+      position: relative;
+      display: inline-flex;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+      padding: 3px;
+      border: 1px solid rgba(0,0,0,0.01);
+      max-width: 100%;
+    }
+
+    .segmented-control .slider-backdrop {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      height: calc(100% - 6px);
+      background: var(--bg-pure);
+      border-radius: 7px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      transition: var(--spring-transition);
+      z-index: 1;
+    }
+
+    .segmented-control button {
+      position: relative;
+      background: none;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      z-index: 2;
+      transition: color 0.2s ease;
+      border-radius: 7px;
+      white-space: nowrap;
+    }
+
+    .segmented-control button.active {
+      color: var(--text-main);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.75rem;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      user-select: none;
+      transition: var(--spring-transition);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-purple);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px -2px rgba(127, 34, 141, 0.2);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px -4px rgba(127, 34, 141, 0.35);
+    }
+    .btn-primary:active {
+      transform: translateY(1px) scale(0.97);
+      background-color: var(--primary-active);
+    }
+    .btn-primary:disabled {
+      background-color: rgba(127, 34, 141, 0.3) !important;
+      color: rgba(255, 255, 255, 0.85) !important;
+      transform: none !important;
+      box-shadow: none !important;
+      cursor: not-allowed;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+    .btn-outline:hover {
+      border-color: var(--text-main);
+      transform: translateY(-1px);
+    }
+    .btn-outline:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    .btn-ghost-sm {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+      transition: var(--spring-transition);
+    }
+    .btn-ghost-sm:hover {
+      border-color: var(--primary-purple);
+      color: var(--primary-purple);
+      background: rgba(127, 34, 141, 0.03);
+    }
+    .btn-ghost-sm:active {
+      transform: scale(0.97);
+    }
+    .btn-ghost-sm.reported {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+      background: var(--bg-accent-green);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--primary-purple);
+      outline-offset: 2px;
+    }
+
+    /* 1. On the floor */
+    .scenarios-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .chip {
+      background: var(--bg-pure);
+      border: 1px solid var(--border-color);
+      padding: 0.5rem 1.25rem;
+      border-radius: 20px;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--spring-transition);
+      user-select: none;
+    }
+    .chip:hover {
+      border-color: var(--text-main);
+      transform: translateY(-1px);
+    }
+    .chip.active {
+      background: var(--primary-purple);
+      color: #FFFFFF;
+      border-color: var(--primary-purple);
+      box-shadow: 0 2px 8px -2px rgba(127, 34, 141, 0.3);
+    }
+    .chip.active:hover {
+      background: var(--primary-hover);
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-pure);
+      padding: 1.25rem;
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      color: var(--text-main);
+      outline: none;
+      resize: none;
+      box-shadow: var(--shadow-flat);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    textarea:focus {
+      border-color: var(--primary-purple);
+      box-shadow: 0 0 0 3px rgba(127, 34, 141, 0.08);
+    }
+
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.25rem 0;
+    }
+
+    .actions-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Results */
+    .sc-result-box {
+      margin-top: 2.5rem;
+      background: var(--bg-pure);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow-premium);
+    }
+
+    .result-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary-purple);
+      margin-bottom: 0.5rem;
+    }
+
+    .result-block {
+      margin-bottom: 2rem;
+    }
+    .result-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .result-block h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .result-desc {
+      font-size: 1.05rem;
+      color: var(--text-main);
+    }
+
+    .result-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .result-card {
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem;
+      transition: var(--spring-transition);
+      background: var(--bg-warm);
+    }
+    .result-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-premium);
+    }
+
+    .res-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .res-card-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .res-card-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: rgba(0,0,0,0.04);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .res-card-body {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    /* 2. Referral pathway */
+    .sc-path-visual {
+      background: var(--bg-pure);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      margin: 2.5rem 0;
+      box-shadow: var(--shadow-flat);
+    }
+
+    .sc-path-outer {
+      display: grid;
+      grid-template-columns: 1fr 60px 1.2fr 60px 1.2fr;
+      align-items: center;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .sc-path-column {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .sc-path-column h3 {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .path-node {
+      background: var(--bg-warm);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: center;
+      transition: var(--spring-transition);
+    }
+    .path-node:hover {
+      transform: scale(1.02);
+      border-color: var(--text-main);
+    }
+
+    .path-node.highlight-purple {
+      background: rgba(127, 34, 141, 0.04);
+      border: 1.5px solid var(--primary-purple);
+      padding: 1.25rem;
+    }
+    .path-node.highlight-purple .node-title {
+      font-weight: 700;
+      color: var(--primary-purple);
+      font-size: 1.05rem;
+    }
+
+    .path-node.highlight-green {
+      background: var(--bg-accent-green);
+      border: 1.5px solid var(--accent-green);
+      padding: 1.25rem;
+    }
+    .path-node.highlight-green .node-title {
+      font-weight: 700;
+      color: var(--accent-green);
+      font-size: 1.05rem;
+    }
+
+    .node-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin: 0.25rem 0;
+    }
+
+    .node-sla {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+      border-top: 1px solid var(--border-color);
+      padding-top: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .path-arrow-col {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .path-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .sc-doors {
+      margin-top: 3rem;
+    }
+    .sc-doors h3 {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .sc-doors .meta {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .sc-door-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .sc-door {
+      background: var(--bg-pure);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-flat);
+      transition: var(--spring-transition);
+    }
+    .sc-door:hover {
+      border-color: var(--primary-purple);
+      transform: translateY(-1px);
+    }
+
+    /* 3. Living registry and review queue */
+    .loop-interactive-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2.5rem;
+      margin: 2.5rem 0;
+    }
+
+    .loop-block-left h3, .loop-block-right h3 {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+    .meta-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .loop-services-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .loop-svc-card {
+      background: var(--bg-pure);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-flat);
+      transition: var(--spring-transition);
+    }
+    .loop-svc-card:hover {
+      border-color: var(--border-accent);
+      box-shadow: var(--shadow-premium);
+      transform: translateY(-2px);
+    }
+
+    .svc-header {
+      font-size: 1.05rem;
+      margin-bottom: 0.25rem;
+    }
+    .meta-agency {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .svc-body-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+    .svc-contact-line {
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .admin-queue-inbox {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .queue-card {
+      background: var(--bg-pure);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-flat);
+    }
+
+    .queue-badge-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .queue-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+    }
+    .queue-badge.question {
+      background: rgba(127, 34, 141, 0.08);
+      color: var(--primary-purple);
+    }
+    .queue-badge.correction {
+      background: rgba(146, 64, 14, 0.08);
+      color: var(--accent-amber);
+    }
+
+    .corroborate-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .queue-content p {
+      font-size: 0.9rem;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+    }
+
+    .queue-diff {
+      background: var(--bg-warm);
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.85rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      margin-bottom: 0.75rem;
+      overflow-wrap: anywhere;
+    }
+    .queue-diff s {
+      color: #B91C1C;
+    }
+    .queue-diff .diff-to {
+      color: var(--text-muted);
+      margin: 0 0.25rem;
+      font-family: var(--font-sans);
+    }
+    .queue-diff b {
+      color: var(--accent-green);
+    }
+
+    .reports-audit {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .reports-audit ul {
+      margin-left: 1.25rem;
+      margin-top: 0.25rem;
+    }
+
+    /* 4. Data surface */
+    .sc-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 2.5rem 0;
+    }
+
+    .sc-kpi {
+      background: var(--bg-pure);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: var(--shadow-flat);
+    }
+
+    .sc-kpi-l {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      line-height: 1.3;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .sc-kpi-v {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .sc-kpi-c {
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-weight: 500;
+    }
+    .sc-kpi-c.good {
+      color: var(--accent-green);
+    }
+    .sc-kpi-c.neutral {
+      color: var(--text-muted);
+    }
+    .sc-kpi-c.warning {
+      color: var(--accent-amber);
+    }
+
+    .sc-trend-arrow {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      flex-shrink: 0;
+    }
+    .sc-trend-arrow.down {
+      transform: rotate(180deg);
+    }
+
+    .sc-seven-contexts-timeline {
+      background: var(--bg-pure);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin: 3rem 0;
+      box-shadow: var(--shadow-flat);
+    }
+
+    .sc-seven-contexts-timeline h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+    .sc-seven-contexts-timeline .meta {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .sc-seven-indicator-chip {
+      background: var(--primary-purple);
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: inline-block;
+      padding: 0.4rem 1.25rem;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+    }
+
+    .timeline-trail {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .timeline-node-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: var(--bg-warm);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      transition: var(--spring-transition);
+    }
+    .timeline-node-wrap:hover {
+      transform: scale(1.01) translateY(-2px);
+      border-color: var(--border-accent);
+      box-shadow: var(--shadow-premium);
+    }
+
+    .timeline-marker {
+      background: rgba(127, 34, 141, 0.08);
+      color: var(--primary-purple);
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1.35rem;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .timeline-bubble {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .timeline-bubble-label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .timeline-bubble-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .sc-unknown {
+      background: var(--bg-accent-amber);
+      border: 1px solid var(--border-accent-amber);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-top: 2rem;
+    }
+
+    .sc-unknown h3 {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-amber);
+      margin-bottom: 0.5rem;
+    }
+    .sc-unknown p {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      max-width: 100%;
+    }
+
+    /* 5. Network map */
+    .network-viz-container {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+      margin: 2.5rem 0;
+      background: var(--bg-pure);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow-flat);
+    }
+
+    .sc-hubgrid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.75rem;
+      width: 250px;
+      flex-shrink: 0;
+    }
+
+    .sc-hubdot-node {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: rgba(0,0,0,0.04);
+      cursor: pointer;
+      transition: var(--spring-transition);
+    }
+    .sc-hubdot-node:hover {
+      background: rgba(127, 34, 141, 0.3);
+      transform: scale(1.15);
+    }
+    .sc-hubdot-node.selected {
+      background: var(--primary-purple);
+      border-color: var(--primary-purple);
+      box-shadow: 0 0 10px rgba(127, 34, 141, 0.4);
+    }
+
+    .network-info-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      flex-grow: 1;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .network-info-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary-purple);
+      margin-bottom: 0.35rem;
+    }
+
+    .sc-netcols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .sc-netcol h3 {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.25rem;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.5rem;
+    }
+
+    .sc-netitem {
+      margin-bottom: 1.25rem;
+    }
+    .sc-netitem b {
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+    .sc-netitem span {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* 6. Scaling proof */
+    .sc-identity {
+      background: var(--bg-pure);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow-flat);
+    }
+    .sc-identity h3 {
+      font-family: var(--font-sans);
+      font-size: 1.15rem;
+      margin-bottom: 0.25rem;
+    }
+    .sc-identity p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .sc-slots {
+      background: var(--bg-pure);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 2rem 0;
+      box-shadow: var(--shadow-flat);
+    }
+
+    .sc-slots-head {
+      background: rgba(0,0,0,0.02);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      padding: 1rem 1.5rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+    .sc-slots-head span {
+      width: 50%;
+    }
+
+    .sc-slot {
+      display: flex;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .sc-slot:last-child {
+      border-bottom: none;
+    }
+
+    .sc-slot-l {
+      width: 50%;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .sc-slot-c-val {
+      width: 50%;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .sc-localize {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .sc-localize ul {
+      margin-left: 1.25rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .sc-close {
+      text-align: center;
+      margin: 4rem 0;
+    }
+    .sc-close-line {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .sc-close .meta {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    /* Honest edge notes */
+    .sc-honest {
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text-muted);
+      border-top: 1px dashed var(--border-color);
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-warm);
+    }
+    footer p + p {
+      margin-top: 0.5rem;
+    }
+    footer a {
+      color: var(--primary-purple);
+    }
+
+    /* Floating tour nav */
+    .sc-tour {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: 700px;
+      background: rgba(28, 25, 23, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 99px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 1rem;
+      z-index: 1000;
+      color: #FAF9F6;
+    }
+
+    .sc-tour-btn {
+      background: transparent;
+      border: none;
+      color: #FAF9F6;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 0.5rem 1.25rem;
+      border-radius: 99px;
+      transition: var(--spring-transition);
+      font-family: var(--font-sans);
+    }
+    .sc-tour-btn:hover {
+      background: rgba(255,255,255,0.08);
+    }
+    .sc-tour-btn:active {
+      transform: scale(0.95);
+    }
+    .sc-tour-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      background: transparent !important;
+      transform: none !important;
+    }
+    .sc-tour-btn.primary {
+      background: var(--primary-purple);
+    }
+    .sc-tour-btn.primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .sc-tour-mid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.15rem;
+    }
+
+    .sc-dots {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .sc-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: var(--spring-transition);
+    }
+    .sc-dot:hover {
+      background: rgba(255,255,255,0.6);
+    }
+    .sc-dot.active {
+      background: #C46BD1;
+      transform: scale(1.35);
+      box-shadow: 0 0 8px var(--primary-purple);
+    }
+
+    .sc-tour-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      opacity: 0.8;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 0.8rem 1rem;
+      }
+      .header-in {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      main {
+        margin: 1.5rem auto;
+        padding: 0 1rem;
+      }
+      h1 {
+        font-size: 2.25rem;
+      }
+      h2 {
+        font-size: 1.75rem;
+      }
+      .sc-quotes,
+      .sc-stats,
+      .loop-interactive-grid,
+      .sc-netcols,
+      .sc-localize,
+      .result-cards {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      .sc-kpis {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+      }
+      .sc-path-outer {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .path-arrow-col {
+        height: 40px;
+        transform: rotate(90deg);
+      }
+      .sc-path-visual,
+      .sc-result-box,
+      .sc-seven-contexts-timeline {
+        padding: 1.5rem;
+      }
+      .network-viz-container {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.5rem;
+      }
+      .sc-hubgrid {
+        width: 100%;
+        justify-content: center;
+      }
+      .sc-tour {
+        width: calc(100% - 24px);
+        padding: 0.5rem 0.75rem;
+      }
+      .sc-tour-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+      }
+      .segmented-control button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+      }
+      body {
+        padding-bottom: 110px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sc-kpis {
+        grid-template-columns: 1fr;
+      }
+      h1 {
+        font-size: 1.85rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+      .sc-stat-v {
+        font-size: 2rem;
+      }
+      .sc-slots-head span,
+      .sc-slot-l,
+      .sc-slot-c-val {
+        font-size: 0.85rem;
+      }
+      .timeline-node-wrap {
+        gap: 0.9rem;
+        padding: 0.85rem 1rem;
+      }
+      .sc-hubgrid {
+        gap: 0.5rem;
+      }
+      .sc-hubdot-node {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="hh-toast" class="hh-toast" role="status" aria-live="polite"></div>
+
+  <div class="demobar">
+    Demonstration. Fictional agencies, fictional data.
+    <span>Every agency, service, number and figure on this page is invented for the walkthrough.</span>
+  </div>
+
+  <header>
+    <div class="header-in">
+      <div class="brand-group">
+        <span class="brand-title">HART Hub Portal</span>
+        <span class="demo-pill">demo</span>
+      </div>
+
+      <div class="segmented-control" id="tenant-toggle-header" role="group" aria-label="Choose a demonstration hub">
+        <div class="slider-backdrop" id="header-slider"></div>
+        <button type="button" class="active" onclick="setHub(0)">Lakeside</button>
+        <button type="button" onclick="setHub(1)">Your hub</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Step 1: the ask -->
+    <section class="sc-sec sc-open" data-step="0" aria-labelledby="h-open">
+      <p class="sc-kicker">HART Hub Portal</p>
+      <h1 id="h-open">One portal for each hub. Connective tissue between them.</h1>
+      <p class="sc-lede">This portal standardizes how a person is read and how outcomes are defined. Every hub keeps its own services, partners, and culture.</p>
+
+      <div class="sc-quotes">
+        <div class="sc-quote">
+          <p>What should the portal be? Core principles, and standardizing outcomes, not programs.</p>
+        </div>
+        <div class="sc-quote">
+          <p>One portal for each hub, with connective tissue between them.</p>
+        </div>
+      </div>
+
+      <div class="sc-stats">
+        <div class="sc-stat">
+          <span class="sc-stat-v">24</span>
+          <span class="sc-stat-l">hubs in this fictional demonstration network</span>
+        </div>
+        <div class="sc-stat">
+          <span class="sc-stat-v">4 + 1</span>
+          <span class="sc-stat-l">need domains plus a macro layer, the same in every hub</span>
+        </div>
+        <div class="sc-stat">
+          <span class="sc-stat-v">1</span>
+          <span class="sc-stat-l">shared structure, filled per region</span>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary" onclick="setStep(1)">Walk through it</button>
+    </section>
+
+    <!-- Step 2: on the floor -->
+    <section class="sc-sec" data-step="1" aria-labelledby="h-floor">
+      <p class="sc-kicker">The frontline moment</p>
+      <h2 id="h-floor">Describe the situation. Get the next moves.</h2>
+      <p class="sc-sub" id="frontline-sub"></p>
+
+      <div class="scenarios-row">
+        <button type="button" class="chip" id="scenario-small" onclick="loadScenario('small')">A small ask</button>
+        <button type="button" class="chip" id="scenario-complex" onclick="loadScenario('complex')">A complex walk-in</button>
+      </div>
+
+      <label class="sr-only" for="situation-input">Describe the situation</label>
+      <textarea id="situation-input" oninput="onInputText()" placeholder="Or type your own. For example: someone just walked in, no housing, using, and in crisis."></textarea>
+
+      <div class="tags-container" id="tags-group">
+        <button type="button" class="chip" id="tag-bio" onclick="toggleTag('bio')">Biological</button>
+        <button type="button" class="chip" id="tag-psych" onclick="toggleTag('psych')">Psychological</button>
+        <button type="button" class="chip" id="tag-soc" onclick="toggleTag('soc')">Social</button>
+        <button type="button" class="chip" id="tag-spir" onclick="toggleTag('spir')">Spiritual</button>
+      </div>
+
+      <div class="actions-row">
+        <button type="button" class="btn btn-primary" id="get-moves-btn" onclick="getMoves()" disabled>Get the moves</button>
+        <button type="button" class="btn btn-outline" id="clear-btn" onclick="clearForm()" style="display:none;">Clear</button>
+      </div>
+
+      <div class="sc-result-box" id="result-box" style="display:none;">
+        <span class="result-badge" id="res-badge">System decision</span>
+        <h3 id="res-title" style="margin-bottom:1rem;">Results</h3>
+
+        <div class="result-block" id="decision-block" style="display:none;">
+          <h4 style="color:var(--primary-purple);">System decision context</h4>
+          <p class="result-desc" id="decision-text" style="font-size:0.95rem; font-style:italic; margin-top:0.25rem; border-left:2px solid var(--primary-purple); padding-left:1rem;"></p>
+        </div>
+
+        <div class="result-block">
+          <h4>Do now</h4>
+          <p class="result-desc" id="do-now-text">Stay with them. Warm introduction to a person, not a phone number on a card.</p>
+        </div>
+
+        <div class="result-block">
+          <h4>Refer, with forms one tap away</h4>
+          <div class="result-cards" id="refer-cards-container"></div>
+        </div>
+
+        <div class="result-block" id="assess-block" style="display:none;">
+          <h4>Assess</h4>
+          <p class="result-desc" id="assess-text"></p>
+        </div>
+
+        <div class="result-block">
+          <h4>Talk to</h4>
+          <p class="result-desc" id="talk-to-text">Central Intake, to assign case management.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 3: the referral pathway -->
+    <section class="sc-sec" data-step="2" aria-labelledby="h-path">
+      <p class="sc-kicker">The referral pathway</p>
+      <h2 id="h-path">A relationship map, not a form chain.</h2>
+      <p class="sc-sub">One front door for navigation, and a small set of doors kept deliberately open, because barriers kill referrals. The design goal: every referral lands on a named role, not an inbox.</p>
+
+      <div class="partner-strip" id="funded-partner-line"></div>
+
+      <div class="sc-path-visual">
+        <div class="sc-path-outer">
+          <div class="sc-path-column">
+            <h3>Any way in</h3>
+            <div class="path-node">Walk-in</div>
+            <div class="path-node">Partner agency</div>
+            <div class="path-node">Community call</div>
+            <div class="path-node">Self referral</div>
+          </div>
+
+          <div class="path-arrow-col">
+            <svg class="path-svg" viewBox="0 0 100 160" aria-hidden="true" focusable="false">
+              <path d="M 10 20 Q 50 20, 90 80" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="2" stroke-dasharray="4 4"></path>
+              <path d="M 10 60 Q 50 60, 90 80" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="2" stroke-dasharray="4 4"></path>
+              <path d="M 10 100 Q 50 100, 90 80" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="2" stroke-dasharray="4 4"></path>
+              <path d="M 10 140 Q 50 140, 90 80" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="2" stroke-dasharray="4 4"></path>
+            </svg>
+          </div>
+
+          <div class="sc-path-column">
+            <h3>One front door</h3>
+            <div class="path-node highlight-purple">
+              <div class="node-title">Central Intake</div>
+              <div class="node-subtitle">Intake coordinator</div>
+              <div class="node-sla">Design target: every referral acknowledged by a person the same day.</div>
+            </div>
+          </div>
+
+          <div class="path-arrow-col">
+            <svg class="path-svg" viewBox="0 0 100 160" aria-hidden="true" focusable="false">
+              <path d="M 10 80 H 90" fill="none" stroke="var(--primary-purple)" stroke-width="2"></path>
+            </svg>
+          </div>
+
+          <div class="sc-path-column">
+            <h3>Lands on a person</h3>
+            <div class="path-node highlight-green">
+              <div class="node-title">A named worker</div>
+              <div class="node-subtitle">Warm handoff, plan attached</div>
+              <div class="node-sla">Not a shared inbox</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sc-doors">
+        <h3>Doors that stay open <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:none; letter-spacing:normal;">(illustrative sample configuration)</span></h3>
+        <p class="meta">No wrong door only works if the doors that need to stay open, stay open. These skip intake on purpose, because barriers kill referrals.</p>
+        <div class="sc-door-row" id="open-doors-row"></div>
+      </div>
+    </section>
+
+    <!-- Step 4: the living registry -->
+    <section class="sc-sec" data-step="3" aria-labelledby="h-loop">
+      <p class="sc-kicker">The living registry</p>
+      <h2 id="h-loop">A registry that rots is worse than no registry.</h2>
+      <p class="sc-sub">Numbers change, programs close, eligibility shifts. Here, every staff member is a sensor: one tap flags what is wrong, the review queue clusters the reports, and a person approves the fix before anything changes.</p>
+
+      <div class="loop-interactive-grid">
+        <div class="loop-block-left">
+          <h3>The registry, as the floor sees it</h3>
+          <p class="meta-text">Tap Report an issue on any card to play the frontline side.</p>
+          <div class="loop-services-list" id="registry-services-list"></div>
+        </div>
+
+        <div class="loop-block-right">
+          <h3>The review queue, as the admin sees it</h3>
+          <p class="meta-text">One queue for corrections and questions. Same box, same human gate.</p>
+          <div class="admin-queue-inbox">
+            <div class="queue-card">
+              <div class="queue-badge-row">
+                <span class="queue-badge question">question</span>
+              </div>
+              <div class="queue-content">
+                <p>Question from the floor: who can take a youth referral this week? Asked by the outreach lead.</p>
+                <button type="button" class="btn-ghost-sm" onclick="routeQuestion(this)">Route to the coordinator</button>
+              </div>
+            </div>
+
+            <div class="queue-card" id="correction-admin-card">
+              <div class="queue-badge-row">
+                <span class="queue-badge correction">correction</span>
+                <span class="corroborate-badge" id="corroborate-badge-text">Awaiting corroboration, 2 of 3</span>
+              </div>
+              <div class="queue-content">
+                <p><strong>Proposed edit:</strong> update the contact details for <span id="queue-service-target"></span></p>
+                <div class="queue-diff">
+                  <s id="diff-original"></s> <span class="diff-to">to</span> <b id="diff-target"></b>
+                </div>
+                <div class="reports-audit">
+                  <strong>Source reports:</strong>
+                  <ul id="source-reports-list">
+                    <li>Frontline, evening shift</li>
+                    <li>Outreach, next morning</li>
+                  </ul>
+                </div>
+                <button type="button" class="btn btn-primary" id="corroborate-btn" style="padding:0.4rem 1rem; font-size:0.8rem; width:100%;" disabled onclick="approveCorrection()">Waiting for corroboration</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="sc-honest">Honest edge: staff catch decay on the services they actually use. The long tail gets a scheduled verification sweep instead. Distributed detection on the hot path, a periodic check on the tail. Not "it maintains itself."</p>
+    </section>
+
+    <!-- Step 5: the data surface -->
+    <section class="sc-sec" data-step="4" aria-labelledby="h-data">
+      <p class="sc-kicker">The data surface <span class="demo-pill" style="font-size:0.65rem; padding:0.1rem 0.4rem;">sample data</span></p>
+      <h2 id="h-data">Every number carries a comparison. The surface admits what it does not know.</h2>
+      <p class="sc-sub">Pulled from contact notes, not from extra paperwork. If a metric does not change a decision, it does not get a tile.</p>
+
+      <div class="sc-kpis" id="kpi-grid"></div>
+
+      <div class="sc-seven-contexts-timeline">
+        <h3>Little things matter. Paint the full picture.</h3>
+        <p class="meta">One indicator, seven contexts, all read from contact notes that were written anyway.</p>
+        <div class="sc-seven-indicator-chip">One evening contact with one person</div>
+
+        <div class="timeline-trail">
+          <div class="timeline-node-wrap">
+            <div class="timeline-marker">1</div>
+            <div class="timeline-bubble">
+              <span class="timeline-bubble-label">Outreach patrol log</span>
+              <span class="timeline-bubble-note">third contact this month (sample entry)</span>
+            </div>
+          </div>
+          <div class="timeline-node-wrap">
+            <div class="timeline-marker">2</div>
+            <div class="timeline-bubble">
+              <span class="timeline-bubble-label">Shelter sign-in</span>
+              <span class="timeline-bubble-note">bed used the same night</span>
+            </div>
+          </div>
+          <div class="timeline-node-wrap">
+            <div class="timeline-marker">3</div>
+            <div class="timeline-bubble">
+              <span class="timeline-bubble-label">Naloxone kit issued</span>
+              <span class="timeline-bubble-note">second kit this quarter</span>
+            </div>
+          </div>
+          <div class="timeline-node-wrap">
+            <div class="timeline-marker">4</div>
+            <div class="timeline-bubble">
+              <span class="timeline-bubble-label">Referral opened</span>
+              <span class="timeline-bubble-note">addiction medicine clinic, next open day</span>
+            </div>
+          </div>
+          <div class="timeline-node-wrap">
+            <div class="timeline-marker">5</div>
+            <div class="timeline-bubble">
+              <span class="timeline-bubble-label">Care plan update</span>
+              <span class="timeline-bubble-note">case manager notified by morning</span>
+            </div>
+          </div>
+          <div class="timeline-node-wrap">
+            <div class="timeline-marker">6</div>
+            <div class="timeline-bubble">
+              <span class="timeline-bubble-label">Follow-up booked</span>
+              <span class="timeline-bubble-note">patrol returns later that week</span>
+            </div>
+          </div>
+          <div class="timeline-node-wrap">
+            <div class="timeline-marker">7</div>
+            <div class="timeline-bubble">
+              <span class="timeline-bubble-label">Transport arranged</span>
+              <span class="timeline-bubble-note">ride to the clinic booked same day (sample rule)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sc-unknown">
+        <h3>What this surface does not know</h3>
+        <p>Unique individuals across agencies is shown as a soft count. The cross agency deduplication rule is not settled yet, so this portal says so instead of pretending. Measurement honesty is a feature, not a disclaimer.</p>
+      </div>
+    </section>
+
+    <!-- Step 6: connective tissue -->
+    <section class="sc-sec" data-step="5" aria-labelledby="h-net">
+      <p class="sc-kicker">The connective tissue</p>
+      <h2 id="h-net">Many hubs. One structure. Local everything else.</h2>
+      <p class="sc-sub">Hubs on the shared structure can learn from each other without sharing what must never be shared. Here is exactly what travels, and exactly what stays home.</p>
+
+      <div class="network-viz-container">
+        <div class="sc-hubgrid" id="network-map-grid" role="group" aria-label="Demonstration hub network"></div>
+        <div class="network-info-card" role="status">
+          <span class="network-info-label" id="net-info-title">What this dot shares</span>
+          <p id="net-info-text">Select any hub in the grid to inspect its data exchange profile.</p>
+        </div>
+      </div>
+
+      <div class="sc-netcols">
+        <div class="sc-netcol travels">
+          <h3>Travels between hubs</h3>
+          <div class="sc-netitem">
+            <b>A shared vocabulary of needs</b>
+            <span>the same words mean the same things in every hub</span>
+          </div>
+          <div class="sc-netitem">
+            <b>Outcome definitions</b>
+            <span>referral to first contact is measured the same way everywhere</span>
+          </div>
+          <div class="sc-netitem">
+            <b>Suggested corrections to shared services</b>
+            <span>a fix caught in one hub surfaces as a suggestion in its neighbours</span>
+          </div>
+        </div>
+
+        <div class="sc-netcol stays">
+          <h3>Never travels</h3>
+          <div class="sc-netitem">
+            <b>Client records of any kind</b>
+            <span>this portal carries service knowledge, never client health data</span>
+          </div>
+          <div class="sc-netitem">
+            <b>Your service registry</b>
+            <span>which services exist, and who to call, is yours alone</span>
+          </div>
+          <div class="sc-netitem">
+            <b>Your cultural content</b>
+            <span>what fills the spiritual and macro slots belongs to your community</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="sc-honest">Warm handoffs of a person between regions would need a consent and privacy exchange layer on top of this. That is a later build, and it is named here so nobody assumes it exists.</p>
+    </section>
+
+    <!-- Step 7: scaling proof -->
+    <section class="sc-sec" data-step="6" aria-labelledby="h-adapt">
+      <p class="sc-kicker">The scaling proof</p>
+      <h2 id="h-adapt">Switch the hub. Watch what changes, and what never does.</h2>
+      <p class="sc-sub">The structure is the product. The content is yours. Flip between the two demonstration hubs and every service, name, and cultural slot changes while the frame stays put.</p>
+
+      <div class="segmented-control" id="tenant-toggle-bottom" role="group" aria-label="Choose a demonstration hub" style="margin-bottom:1.5rem;">
+        <div class="slider-backdrop" id="bottom-slider"></div>
+        <button type="button" class="active" onclick="setHub(0)">Lakeside district hub</button>
+        <button type="button" onclick="setHub(1)">Your HART Hub</button>
+      </div>
+
+      <div class="sc-identity" id="scaling-identity">
+        <h3></h3>
+        <p></p>
+      </div>
+
+      <div class="sc-slots">
+        <div class="sc-slots-head">
+          <span>The structure<br><em>never changes</em></span>
+          <span>The content<br><em>always does</em></span>
+        </div>
+        <div class="sc-slot">
+          <span class="sc-slot-l">Biological</span>
+          <span class="sc-slot-c-val" id="slot-bio"></span>
+        </div>
+        <div class="sc-slot">
+          <span class="sc-slot-l">Psychological</span>
+          <span class="sc-slot-c-val" id="slot-psych"></span>
+        </div>
+        <div class="sc-slot">
+          <span class="sc-slot-l">Social</span>
+          <span class="sc-slot-c-val" id="slot-soc"></span>
+        </div>
+        <div class="sc-slot">
+          <span class="sc-slot-l">Spiritual and cultural</span>
+          <span class="sc-slot-c-val" id="slot-spir"></span>
+        </div>
+        <div class="sc-slot">
+          <span class="sc-slot-l">Macro layer</span>
+          <span class="sc-slot-c-val" id="slot-macro"></span>
+        </div>
+      </div>
+
+      <div class="sc-localize">
+        <div class="sc-netcol">
+          <h3>Arrives standard</h3>
+          <ul>
+            <li>The need taxonomy, four domains plus the macro layer</li>
+            <li>The interaction model: describe a situation, get the next moves</li>
+            <li>The prioritization rules, including case management as the holding function</li>
+            <li>The feedback loop and its human approval gate</li>
+            <li>The outcome definitions on the data surface</li>
+          </ul>
+        </div>
+
+        <div class="sc-netcol">
+          <h3>You supply</h3>
+          <ul>
+            <li>Your service registry and every referral edge in it</li>
+            <li>Your partner table and named roles</li>
+            <li>Which doors stay open as direct doors</li>
+            <li>Your cultural content, in the slots the structure holds for it</li>
+            <li>Your response norms and hours</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sc-close">
+        <p class="sc-close-line">The structure is ready. The content is yours.</p>
+        <p class="meta">Step back to the floor with the other hub selected. Same ask, different local answer, same moves.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Demonstration. Fictional agencies, fictional data. Every name, number, and figure on this page is invented.</p>
+    <p>This portal carries service knowledge, never client health data.</p>
+    <p>Built by <a href="https://alignmentandintegration.com">Alignment Integration</a></p>
+  </footer>
+
+  <nav class="sc-tour" aria-label="Demonstration tour">
+    <button type="button" class="sc-tour-btn" id="tour-back" onclick="navigateStep(-1)" disabled>Back</button>
+    <div class="sc-tour-mid">
+      <div class="sc-dots" id="tour-dots-container"></div>
+      <span class="sc-tour-label" id="tour-active-label">The ask</span>
+    </div>
+    <button type="button" class="sc-tour-btn primary" id="tour-next" onclick="navigateStep(1)">Next</button>
+  </nav>
+
+  <script>
+    // Application state
+    var currentStep = 0;
+    var currentHub = 0; // 0 = Lakeside district hub, 1 = Your hub
+    var selectedTags = { bio: false, psych: false, soc: false, spir: false };
+    var activeReportSvcIdx = null;
+
+    var steps = [
+      { id: 0, label: "The ask" },
+      { id: 1, label: "On the floor" },
+      { id: 2, label: "The pathway" },
+      { id: 3, label: "The living registry" },
+      { id: 4, label: "The data surface" },
+      { id: 5, label: "The network" },
+      { id: 6, label: "Make it yours" }
+    ];
+
+    var HUB_COUNT = 24;
+    var HOME_HUB_DOT = 8;
+
+    // Fictional tenant data. No real agency, community, or person appears here.
+    var hubConfig = {
+      0: {
+        name: "Lakeside district hub",
+        fullName: "Riverbend Family Services community-led HART Hub",
+        desc: "A fictional community-led program operating in the Lakeside district. Cultural practice runs through the whole model, and the pathway runs on relationships with communities, not just forms.",
+        frontlineSub: "A worker types what is in front of them, in plain language. The portal answers with Do now, Refer, Assess, and Talk to, with forms one tap away. Answering from the Riverbend Family Services registry, sample data, in the fictional Lakeside district.",
+        partners: "Funded partner agencies: Riverbend Family Services (lead), Cedarline Health Alliance, Harbourlight Housing Support, Northgate Community Living, and Pinegrove District Services.",
+        doors: ["Crisis support", "Harbourlight emergency shelter"],
+        registry: [
+          { name: "HART Hub case management (sample)", role: "Hub team (sample)", desc: "One person holds the whole plan. The holding function for high need clients.", contact: "Via intake" },
+          { name: "Rapid Access Addiction Medicine (RAAM) clinic", role: "Cedarline Health Alliance", desc: "Walk-in addiction medicine through a partner clinic. Description illustrative.", contact: "555-0101 (sample)" },
+          { name: "Crisis support", role: "Hub team", desc: "Crisis support without an appointment. A door that stays open.", contact: "Walk in" }
+        ],
+        kpis: [
+          { label: "Referral to first contact", val: "2.1 days", trend: "down from 3.4 last period", type: "good" },
+          { label: "Warm handoffs completed", val: "18", trend: "up from 12 last period", type: "good" },
+          { label: "Active shared care plans", val: "9", trend: "up from 7 last period", type: "good" },
+          { label: "Corrections resolved", val: "14 of 16", trend: "2 open, oldest 3 days", type: "warning" }
+        ],
+        slots: {
+          bio: "RAAM clinic, harm reduction, transitional beds",
+          psych: "Trauma-informed counselling, crisis stabilization",
+          soc: "Emergency shelter, supportive housing",
+          spir: "Ceremony, land based healing, Elders",
+          macro: "Cultural framing across the model, local district context"
+        },
+        diffFrom: "555-0101 (sample)",
+        diffTo: "555-0199 (sample)",
+        diffService: "Rapid Access Addiction Medicine (RAAM) clinic"
+      },
+      1: {
+        name: "Your HART Hub",
+        fullName: "Your HART Hub",
+        desc: "The same structure, filled with your region. Your services, your partners, your community.",
+        frontlineSub: "A worker types what is in front of them, in plain language. The portal answers with Do now, Refer, Assess, and Talk to, with forms one tap away. Answering from your own service registry, shown here with placeholder sample data.",
+        partners: "Funded partner agencies: your local partner agencies.",
+        doors: ["Crisis support", "Emergency shelter"],
+        registry: [
+          { name: "Case management (sample)", role: "Your hub team (sample)", desc: "One person holds the whole plan. The holding function for high need clients.", contact: "Via intake" },
+          { name: "Withdrawal management", role: "Your health partner", desc: "Medical withdrawal support with a warm path into treatment.", contact: "Your number here" },
+          { name: "Crisis support", role: "Your hub team", desc: "Crisis support without an appointment. Decide which doors stay open in your region.", contact: "Walk in" }
+        ],
+        kpis: [
+          { label: "Referral to first contact", val: "2.8 days", trend: "down from 4.1 last period", type: "good" },
+          { label: "Warm handoffs completed", val: "11", trend: "up from 9 last period", type: "good" },
+          { label: "Active shared care plans", val: "6", trend: "flat against last period", type: "neutral" },
+          { label: "Corrections resolved", val: "8 of 9", trend: "1 open, oldest 2 days", type: "warning" }
+        ],
+        slots: {
+          bio: "Withdrawal management, primary care, harm reduction",
+          psych: "Counselling, crisis supports, peer support",
+          soc: "Shelter, housing, income navigation",
+          spir: "Your community assets and local Elders",
+          macro: "Your local context and regional safety plan"
+        },
+        diffFrom: "Your number here",
+        diffTo: "555-0199 (sample)",
+        diffService: "Withdrawal management"
+      }
+    };
+
+    function showToast(msg) {
+      var toast = document.getElementById('hh-toast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(function () {
+        toast.classList.remove('show');
+      }, 3200);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      buildTourNavigation();
+      buildNetworkVisualizer();
+      renderHubData();
+
+      window.addEventListener('resize', updateSliders);
+      updateSliders();
+      setTimeout(updateSliders, 100);
+    });
+
+    function buildTourNavigation() {
+      var container = document.getElementById('tour-dots-container');
+      container.innerHTML = '';
+      steps.forEach(function (step, index) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'sc-dot' + (index === currentStep ? ' active' : '');
+        dot.setAttribute('aria-label', step.label);
+        dot.onclick = function () { setStep(index); };
+        container.appendChild(dot);
+      });
+    }
+
+    function setStep(stepIndex) {
+      if (stepIndex < 0 || stepIndex >= steps.length) return;
+      currentStep = stepIndex;
+
+      var sections = document.querySelectorAll('.sc-sec');
+      Array.prototype.forEach.call(sections, function (sec) {
+        sec.classList.remove('sc-open');
+        if (parseInt(sec.getAttribute('data-step'), 10) === currentStep) {
+          sec.classList.add('sc-open');
+        }
+      });
+
+      var dots = document.querySelectorAll('.sc-dots .sc-dot');
+      Array.prototype.forEach.call(dots, function (dot, index) {
+        if (index === currentStep) dot.classList.add('active');
+        else dot.classList.remove('active');
+      });
+
+      document.getElementById('tour-active-label').textContent = steps[currentStep].label;
+      document.getElementById('tour-back').disabled = (currentStep === 0);
+      document.getElementById('tour-next').disabled = (currentStep === steps.length - 1);
+
+      setTimeout(updateSliders, 50);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function navigateStep(direction) {
+      setStep(currentStep + direction);
+    }
+
+    function updateSliders() {
+      var headerBtns = document.querySelectorAll('#tenant-toggle-header button');
+      var bottomBtns = document.querySelectorAll('#tenant-toggle-bottom button');
+      var headerSlider = document.getElementById('header-slider');
+      var bottomSlider = document.getElementById('bottom-slider');
+
+      if (headerBtns[currentHub] && headerSlider) {
+        var activeHeaderBtn = headerBtns[currentHub];
+        headerSlider.style.width = activeHeaderBtn.offsetWidth + 'px';
+        headerSlider.style.transform = 'translateX(' + (activeHeaderBtn.offsetLeft - 3) + 'px)';
+      }
+
+      if (bottomBtns[currentHub] && bottomSlider && bottomBtns[currentHub].offsetWidth > 0) {
+        var activeBottomBtn = bottomBtns[currentHub];
+        bottomSlider.style.width = activeBottomBtn.offsetWidth + 'px';
+        bottomSlider.style.transform = 'translateX(' + (activeBottomBtn.offsetLeft - 3) + 'px)';
+      }
+    }
+
+    function setHub(hubIndex) {
+      currentHub = hubIndex;
+
+      var headerBtns = document.querySelectorAll('#tenant-toggle-header button');
+      var bottomBtns = document.querySelectorAll('#tenant-toggle-bottom button');
+
+      Array.prototype.forEach.call(headerBtns, function (btn, i) {
+        btn.className = (i === currentHub ? 'active' : '');
+      });
+      Array.prototype.forEach.call(bottomBtns, function (btn, i) {
+        btn.className = (i === currentHub ? 'active' : '');
+      });
+
+      updateSliders();
+      renderHubData();
+      clearForm();
+    }
+
+    function renderHubData() {
+      var data = hubConfig[currentHub];
+
+      document.getElementById('frontline-sub').textContent = data.frontlineSub;
+      document.getElementById('funded-partner-line').textContent = data.partners;
+
+      var doorsRow = document.getElementById('open-doors-row');
+      doorsRow.innerHTML = '';
+      data.doors.forEach(function (door) {
+        var el = document.createElement('span');
+        el.className = 'sc-door';
+        el.textContent = door;
+        doorsRow.appendChild(el);
+      });
+
+      renderRegistryList();
+
+      var kpiGrid = document.getElementById('kpi-grid');
+      kpiGrid.innerHTML = '';
+      data.kpis.forEach(function (kpi) {
+        var card = document.createElement('div');
+        card.className = 'sc-kpi';
+
+        var arrow = '';
+        if (kpi.trend.indexOf('up') === 0 || kpi.trend.indexOf(' up ') > -1 || kpi.trend.indexOf('up from') > -1) {
+          arrow = '<svg class="sc-trend-arrow up" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 10 L8 4 L14 10" stroke="currentColor" stroke-width="2" fill="none"></path></svg>';
+        } else if (kpi.trend.indexOf('down') > -1) {
+          arrow = '<svg class="sc-trend-arrow down" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 10 L8 4 L14 10" stroke="currentColor" stroke-width="2" fill="none"></path></svg>';
+        }
+
+        card.innerHTML =
+          '<span class="sc-kpi-l"></span>' +
+          '<span class="sc-kpi-v"></span>' +
+          '<span class="sc-kpi-c ' + kpi.type + '">' + arrow + '<span class="sc-kpi-t"></span></span>';
+        card.querySelector('.sc-kpi-l').textContent = kpi.label;
+        card.querySelector('.sc-kpi-v').textContent = kpi.val;
+        card.querySelector('.sc-kpi-t').textContent = kpi.trend;
+        kpiGrid.appendChild(card);
+      });
+
+      var identity = document.getElementById('scaling-identity');
+      identity.querySelector('h3').textContent = data.fullName;
+      identity.querySelector('p').textContent = data.desc;
+      document.getElementById('slot-bio').textContent = data.slots.bio;
+      document.getElementById('slot-psych').textContent = data.slots.psych;
+      document.getElementById('slot-soc').textContent = data.slots.soc;
+      document.getElementById('slot-spir').textContent = data.slots.spir;
+      document.getElementById('slot-macro').textContent = data.slots.macro;
+
+      resetAdminQueue();
+    }
+
+    function renderRegistryList() {
+      var data = hubConfig[currentHub];
+      var registryList = document.getElementById('registry-services-list');
+      registryList.innerHTML = '';
+
+      data.registry.forEach(function (svc, index) {
+        var card = document.createElement('div');
+        card.className = 'loop-svc-card';
+        card.innerHTML =
+          '<div class="svc-header"><strong class="svc-name"></strong></div>' +
+          '<div class="meta-agency"></div>' +
+          '<div class="svc-body-text"></div>' +
+          '<div class="svc-contact-line">Contact: <span id="contact-val-' + index + '"></span></div>' +
+          '<button type="button" class="btn-ghost-sm" id="report-btn-' + index + '">Report an issue</button>';
+        card.querySelector('.svc-name').textContent = svc.name;
+        card.querySelector('.meta-agency').textContent = svc.role;
+        card.querySelector('.svc-body-text').textContent = svc.desc;
+        card.querySelector('#contact-val-' + index).textContent = svc.contact;
+        card.querySelector('#report-btn-' + index).onclick = function () { reportIssue(index); };
+        registryList.appendChild(card);
+      });
+    }
+
+    function buildNetworkVisualizer() {
+      var grid = document.getElementById('network-map-grid');
+      grid.innerHTML = '';
+      for (var i = 1; i <= HUB_COUNT; i++) {
+        (function (idx) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'sc-hubdot-node' + (idx === HOME_HUB_DOT ? ' selected' : '');
+          btn.setAttribute('aria-label', idx === HOME_HUB_DOT ? 'Your hub' : 'Hub ' + idx);
+          btn.onclick = function () { selectNetworkHub(idx); };
+          grid.appendChild(btn);
+        })(i);
+      }
+    }
+
+    function selectNetworkHub(idx) {
+      var nodes = document.querySelectorAll('#network-map-grid .sc-hubdot-node');
+      Array.prototype.forEach.call(nodes, function (node, i) {
+        if (i === idx - 1) node.classList.add('selected');
+        else node.classList.remove('selected');
+      });
+
+      var title = document.getElementById('net-info-title');
+      var text = document.getElementById('net-info-text');
+
+      if (idx === HOME_HUB_DOT) {
+        title.textContent = "What this dot shares (your hub)";
+        text.textContent = "Your hub. It shares the need vocabulary and outcome definitions with the network. Client records stay home.";
+      } else {
+        title.textContent = "What this dot shares (hub " + idx + ")";
+        text.textContent = "Hub " + idx + ". Shares network-level metrics and taxonomy classifications only. Client identities never enter the portal; it carries service knowledge, not client records.";
+      }
+    }
+
+    function onInputText() {
+      var val = document.getElementById('situation-input').value.trim();
+      var getMovesBtn = document.getElementById('get-moves-btn');
+      var clearBtn = document.getElementById('clear-btn');
+
+      if (val.length > 0) {
+        getMovesBtn.disabled = false;
+        clearBtn.style.display = 'inline-flex';
+      } else {
+        getMovesBtn.disabled = true;
+        clearBtn.style.display = 'none';
+      }
+    }
+
+    function loadScenario(type) {
+      var input = document.getElementById('situation-input');
+      var scenarioSmall = document.getElementById('scenario-small');
+      var scenarioComplex = document.getElementById('scenario-complex');
+
+      scenarioSmall.classList.remove('active');
+      scenarioComplex.classList.remove('active');
+
+      if (type === 'small') {
+        scenarioSmall.classList.add('active');
+        input.value = "Someone needs a ride to a medical appointment tomorrow morning.";
+        setTagsActive({ bio: false, psych: false, soc: true, spir: false });
+      } else {
+        scenarioComplex.classList.add('active');
+        input.value = "Someone just walked in. Years without housing, using opioids and alcohol, possible brain injury, nobody involved in their care.";
+        setTagsActive({ bio: true, psych: true, soc: true, spir: true });
+      }
+
+      onInputText();
+    }
+
+    function toggleTag(tagKey) {
+      selectedTags[tagKey] = !selectedTags[tagKey];
+      var el = document.getElementById('tag-' + tagKey);
+      if (selectedTags[tagKey]) el.classList.add('active');
+      else el.classList.remove('active');
+    }
+
+    function setTagsActive(config) {
+      selectedTags = {
+        bio: !!config.bio, psych: !!config.psych, soc: !!config.soc, spir: !!config.spir
+      };
+      Object.keys(selectedTags).forEach(function (key) {
+        var el = document.getElementById('tag-' + key);
+        if (selectedTags[key]) el.classList.add('active');
+        else el.classList.remove('active');
+      });
+    }
+
+    function clearForm() {
+      document.getElementById('situation-input').value = '';
+      setTagsActive({ bio: false, psych: false, soc: false, spir: false });
+
+      document.getElementById('scenario-small').classList.remove('active');
+      document.getElementById('scenario-complex').classList.remove('active');
+
+      document.getElementById('result-box').style.display = 'none';
+      onInputText();
+    }
+
+    function buildReferCard(title, tag, body) {
+      var wrap = document.createElement('div');
+      wrap.className = 'result-card';
+      wrap.innerHTML =
+        '<div class="res-card-header">' +
+          '<span class="res-card-title"></span>' +
+          '<span class="res-card-tag"></span>' +
+        '</div>' +
+        '<div class="res-card-body"></div>' +
+        '<button type="button" class="btn btn-primary" style="padding:0.4rem 0.8rem; font-size:0.75rem;">Refer in one tap</button>';
+      wrap.querySelector('.res-card-title').textContent = title;
+      wrap.querySelector('.res-card-tag').textContent = tag;
+      wrap.querySelector('.res-card-body').textContent = body;
+      wrap.querySelector('button').onclick = function () { handleReferralClick(this); };
+      return wrap;
+    }
+
+    function getMoves() {
+      var val = document.getElementById('situation-input').value.trim().toLowerCase();
+      var resultBox = document.getElementById('result-box');
+      var resTitle = document.getElementById('res-title');
+      var doNow = document.getElementById('do-now-text');
+      var talkTo = document.getElementById('talk-to-text');
+      var cardsContainer = document.getElementById('refer-cards-container');
+      var decisionBlock = document.getElementById('decision-block');
+      var decisionText = document.getElementById('decision-text');
+      var assessBlock = document.getElementById('assess-block');
+      var assessText = document.getElementById('assess-text');
+      var data = hubConfig[currentHub];
+
+      cardsContainer.innerHTML = '';
+
+      if (val.indexOf('medical') > -1 || val.indexOf('ride') > -1 || val.indexOf('appointment') > -1) {
+        resTitle.textContent = "Ride to an appointment";
+        doNow.textContent = "Book the ride. Sample rule: medical transportation takes same day requests before a daily cutoff.";
+        talkTo.textContent = "The transportation desk, or book it yourself through any worker.";
+        decisionBlock.style.display = "none";
+        assessBlock.style.display = "none";
+
+        cardsContainer.appendChild(buildReferCard(
+          "Medical transportation",
+          "Access",
+          "Rides to appointments, court dates, and treatment intakes. Same day when booked early (sample rule)."
+        ));
+        cardsContainer.appendChild(buildReferCard(
+          "Crisis walk-in",
+          "Direct care",
+          "Crisis support without an appointment. A door that stays open."
+        ));
+      } else {
+        resTitle.textContent = "Complex walk-in, no worker attached";
+        doNow.textContent = "Stay with them. Warm introduction to a person, not a phone number on a card.";
+        talkTo.textContent = "Central Intake, to assign case management as the holding function.";
+
+        decisionBlock.style.display = "block";
+        decisionText.textContent = "Broad, multi domain need with no case management attached. Case management becomes the holding function and the priority referral, before anything else is layered on.";
+
+        assessBlock.style.display = "block";
+        assessText.textContent = "Once immediate needs settle, screen for acquired brain injury and read across all four domains. Complexity is matched through integration, not through more forms.";
+
+        cardsContainer.appendChild(buildReferCard(
+          data.registry[0].name,
+          "Coordination",
+          data.registry[0].desc
+        ));
+        cardsContainer.appendChild(buildReferCard(
+          "Central Intake",
+          "Coordination",
+          "One front door for navigation. Triage, assignment, and follow through by a named coordinator."
+        ));
+      }
+
+      resultBox.style.display = 'block';
+      resultBox.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function handleReferralClick(btn) {
+      if (!btn) return;
+      var origText = btn.textContent;
+      btn.textContent = 'Referral submitted';
+      btn.style.backgroundColor = 'var(--accent-green)';
+      btn.disabled = true;
+      showToast('Referral submitted. Sample flow, design target.');
+      setTimeout(function () {
+        btn.textContent = origText;
+        btn.style.backgroundColor = '';
+        btn.disabled = false;
+      }, 3000);
+    }
+
+    function routeQuestion(btn) {
+      if (!btn) return;
+      btn.textContent = 'Routed to the coordinator';
+      btn.disabled = true;
+      btn.style.color = 'var(--accent-green)';
+      btn.style.borderColor = 'var(--accent-green)';
+      showToast('Question routed to the intake coordinator.');
+    }
+
+    function reportIssue(svcIdx) {
+      var data = hubConfig[currentHub];
+      var targetSvc = data.registry[svcIdx];
+      if (!targetSvc) return;
+
+      activeReportSvcIdx = svcIdx;
+
+      var btn = document.getElementById('report-btn-' + svcIdx);
+      if (btn) {
+        btn.textContent = 'Issue reported';
+        btn.classList.add('reported');
+      }
+
+      document.getElementById('queue-service-target').textContent = targetSvc.name;
+      document.getElementById('diff-original').textContent = targetSvc.contact;
+      var isPhone = /\d{3}/.test(targetSvc.contact);
+      document.getElementById('diff-target').textContent = isPhone
+        ? '555-0199 (sample)'
+        : targetSvc.contact + ', hours updated (sample)';
+
+      var badge = document.getElementById('corroborate-badge-text');
+      var corroborateBtn = document.getElementById('corroborate-btn');
+
+      badge.textContent = "Corroborated, 3 of 3. Ready for approval";
+      badge.style.color = "var(--accent-green)";
+
+      corroborateBtn.disabled = false;
+      corroborateBtn.textContent = "Approve the proposed correction";
+
+      showToast('Report logged for ' + targetSvc.name + '. Ready for admin corroboration.');
+    }
+
+    function approveCorrection() {
+      var data = hubConfig[currentHub];
+      var targetIdx = activeReportSvcIdx !== null ? activeReportSvcIdx : 1;
+
+      var valEl = document.getElementById('contact-val-' + targetIdx);
+      if (valEl) {
+        valEl.textContent = "555-0199 (sample)";
+        valEl.style.color = "var(--accent-green)";
+        valEl.style.fontWeight = "700";
+      }
+
+      var svcName = data.registry[targetIdx] ? data.registry[targetIdx].name : 'the service';
+      showToast('Correction approved. Registry updated for ' + svcName + '.');
+      resetAdminQueue();
+    }
+
+    function resetAdminQueue() {
+      activeReportSvcIdx = null;
+      var data = hubConfig[currentHub];
+
+      document.getElementById('queue-service-target').textContent = data.diffService;
+      document.getElementById('diff-original').textContent = data.diffFrom;
+      document.getElementById('diff-target').textContent = data.diffTo;
+
+      var badge = document.getElementById('corroborate-badge-text');
+      var btn = document.getElementById('corroborate-btn');
+
+      badge.textContent = "Awaiting corroboration, 2 of 3";
+      badge.style.color = "var(--text-muted)";
+
+      btn.disabled = true;
+      btn.textContent = "Waiting for corroboration";
+    }
+  </script>
+</body>
+</html>
