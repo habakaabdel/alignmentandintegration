@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alignment Integration &amp; PAL Products — Logo System Master Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f6f2;
+      --panel: #ffffff;
+      --panel-deep: #f0eee7;
+      --ink: #1c1d1c;
+      --ink-muted: #5e605d;
+      --mark: #2d4a3e;
+      --line: #d8d6ce;
+      --line-strong: #717d76;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.5;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--mark);
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .lead {
+      color: var(--ink-muted);
+      font-size: 1.0625rem;
+      margin-top: 0.5rem;
+      max-width: 70ch;
+    }
+
+    .meta-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      background: var(--panel-deep);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line-strong);
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+    }
+
+    .card.dark {
+      background: #1c1d1c;
+      color: #f7f6f2;
+      border-color: #333;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 1.25rem;
+    }
+
+    .card-hue {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      margin-top: 0.25rem;
+    }
+
+    .dark .card-hue {
+      color: #999;
+    }
+
+    .scales {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      width: 100%;
+    }
+
+    .dark .scales {
+      border-top-color: #333;
+    }
+
+    .scale-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--ink-muted);
+    }
+
+    .dark .scale-box {
+      color: #888;
+    }
+
+    .section-head {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.9375rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 3rem 0 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--line-strong);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .wordmark-strip {
+      background: var(--panel);
+      border: 1px solid var(--line-strong);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div>
+      <div class="eyebrow">Alignment Integration &amp; PAL Products</div>
+      <h1>Logo System Master Gallery</h1>
+      <p class="lead">Complete brand mark family: Alignment Integration master mark, PAL product line parent mark, and child product marks (Student Pal, Therapist Pal, Personal Pal).</p>
+    </div>
+    <div class="meta-tag">Branch: brand-logo-system</div>
+  </header>
+
+  <!-- LIGHT SURFACE GALLERY -->
+  <div class="section-head">
+    <span>01. Light Surface System (#f7f6f2 / #ffffff)</span>
+    <span>5 Marks Side-by-Side</span>
+  </div>
+
+  <div class="gallery-grid">
+    <!-- A&I Master -->
+    <div class="card">
+      <img src="alignmentandintegration/mark.svg" width="80" height="80" alt="Alignment Integration">
+      <div class="card-title">Alignment Integration</div>
+      <div class="card-hue">#2d4a3e Spruce / Master</div>
+      <div class="scales">
+        <div class="scale-box"><img src="alignmentandintegration/favicon.svg" width="16" height="16" alt="16"><span>16px</span></div>
+        <div class="scale-box"><img src="alignmentandintegration/mark.svg" width="32" height="32" alt="32"><span>32px</span></div>
+        <div class="scale-box"><img src="alignmentandintegration/mark.svg" width="48" height="48" alt="48"><span>48px</span></div>
+      </div>
+    </div>
+
+    <!-- PAL Parent -->
+    <div class="card">
+      <img src="pal/mark.svg" width="80" height="80" alt="PAL Products">
+      <div class="card-title">PAL Products</div>
+      <div class="card-hue">#1c1d1c Ink / Parent</div>
+      <div class="scales">
+        <div class="scale-box"><img src="pal/favicon.svg" width="16" height="16" alt="16"><span>16px</span></div>
+        <div class="scale-box"><img src="pal/mark.svg" width="32" height="32" alt="32"><span>32px</span></div>
+        <div class="scale-box"><img src="pal/mark.svg" width="48" height="48" alt="48"><span>48px</span></div>
+      </div>
+    </div>
+
+    <!-- Student Pal -->
+    <div class="card">
+      <img src="student-pal/mark.svg" width="80" height="80" alt="Student Pal">
+      <div class="card-title">Student Pal</div>
+      <div class="card-hue">#5a3d9e Violet</div>
+      <div class="scales">
+        <div class="scale-box"><img src="student-pal/favicon.svg" width="16" height="16" alt="16"><span>16px</span></div>
+        <div class="scale-box"><img src="student-pal/mark.svg" width="32" height="32" alt="32"><span>32px</span></div>
+        <div class="scale-box"><img src="student-pal/mark.svg" width="48" height="48" alt="48"><span>48px</span></div>
+      </div>
+    </div>
+
+    <!-- Therapist Pal -->
+    <div class="card">
+      <img src="therapist-pal/mark.svg" width="80" height="80" alt="Therapist Pal">
+      <div class="card-title">Therapist Pal</div>
+      <div class="card-hue">#1f5f5b Calm Teal</div>
+      <div class="scales">
+        <div class="scale-box"><img src="therapist-pal/favicon.svg" width="16" height="16" alt="16"><span>16px</span></div>
+        <div class="scale-box"><img src="therapist-pal/mark.svg" width="32" height="32" alt="32"><span>32px</span></div>
+        <div class="scale-box"><img src="therapist-pal/mark.svg" width="48" height="48" alt="48"><span>48px</span></div>
+      </div>
+    </div>
+
+    <!-- Personal Pal -->
+    <div class="card">
+      <img src="personal-pal/mark.svg" width="80" height="80" alt="Personal Pal">
+      <div class="card-title">Personal Pal</div>
+      <div class="card-hue">#7d3650 Deep Rose</div>
+      <div class="scales">
+        <div class="scale-box"><img src="personal-pal/favicon.svg" width="16" height="16" alt="16"><span>16px</span></div>
+        <div class="scale-box"><img src="personal-pal/mark.svg" width="32" height="32" alt="32"><span>32px</span></div>
+        <div class="scale-box"><img src="personal-pal/mark.svg" width="48" height="48" alt="48"><span>48px</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- DARK SURFACE GALLERY -->
+  <div class="section-head">
+    <span>02. Dark Surface System (#1c1d1c)</span>
+    <span>Dark Surface Variants</span>
+  </div>
+
+  <div class="gallery-grid">
+    <!-- A&I Master Dark -->
+    <div class="card dark">
+      <img src="alignmentandintegration/mark-dark.svg" width="80" height="80" alt="Alignment Integration Dark">
+      <div class="card-title">Alignment Integration</div>
+      <div class="card-hue">#f7f6f2 Cream / #a4c2b4 Node</div>
+      <div class="scales">
+        <div class="scale-box"><img src="alignmentandintegration/mark-dark.svg" width="16" height="16" alt="16"><span>16px</span></div>
+        <div class="scale-box"><img src="alignmentandintegration/mark-dark.svg" width="32" height="32" alt="32"><span>32px</span></div>
+        <div class="scale-box"><img src="alignmentandintegration/mark-dark.svg" width="48" height="48" alt="48"><span>48px</span></div>
+      </div>
+    </div>
+
+    <!-- PAL Parent Dark -->
+    <div class="card dark">
+      <img src="pal/mark-dark.svg" width="80" height="80" alt="PAL Products Dark">
+      <div class="card-title">PAL Products</div>
+      <div class="card-hue">#f7f6f2 Light Cream</div>
+      <div class="scales">
+        <div class="scale-box"><img src="pal/mark-dark.svg" width="16" height="16" alt="16"><span>16px</span></div>
+        <div class="scale-box"><img src="pal/mark-dark.svg" width="32" height="32" alt="32"><span>32px</span></div>
+        <div class="scale-box"><img src="pal/mark-dark.svg" width="48" height="48" alt="48"><span>48px</span></div>
+      </div>
+    </div>
+
+    <!-- Student Pal Dark -->
+    <div class="card dark">
+      <img src="student-pal/mark-dark.svg" width="80" height="80" alt="Student Pal Dark">
+      <div class="card-title">Student Pal</div>
+      <div class="card-hue">#b9a7ec Light Violet</div>
+      <div class="scales">
+        <div class="scale-box"><img src="student-pal/mark-dark.svg" width="16" height="16" alt="16"><span>16px</span></div>
+        <div class="scale-box"><img src="student-pal/mark-dark.svg" width="32" height="32" alt="32"><span>32px</span></div>
+        <div class="scale-box"><img src="student-pal/mark-dark.svg" width="48" height="48" alt="48"><span>48px</span></div>
+      </div>
+    </div>
+
+    <!-- Therapist Pal Dark -->
+    <div class="card dark">
+      <img src="therapist-pal/mark-dark.svg" width="80" height="80" alt="Therapist Pal Dark">
+      <div class="card-title">Therapist Pal</div>
+      <div class="card-hue">#66b5af Light Teal</div>
+      <div class="scales">
+        <div class="scale-box"><img src="therapist-pal/mark-dark.svg" width="16" height="16" alt="16"><span>16px</span></div>
+        <div class="scale-box"><img src="therapist-pal/mark-dark.svg" width="32" height="32" alt="32"><span>32px</span></div>
+        <div class="scale-box"><img src="therapist-pal/mark-dark.svg" width="48" height="48" alt="48"><span>48px</span></div>
+      </div>
+    </div>
+
+    <!-- Personal Pal Dark -->
+    <div class="card dark">
+      <img src="personal-pal/mark-dark.svg" width="80" height="80" alt="Personal Pal Dark">
+      <div class="card-title">Personal Pal</div>
+      <div class="card-hue">#df87a4 Light Rose</div>
+      <div class="scales">
+        <div class="scale-box"><img src="personal-pal/mark-dark.svg" width="16" height="16" alt="16"><span>16px</span></div>
+        <div class="scale-box"><img src="personal-pal/mark-dark.svg" width="32" height="32" alt="32"><span>32px</span></div>
+        <div class="scale-box"><img src="personal-pal/mark-dark.svg" width="48" height="48" alt="48"><span>48px</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- WORDMARKS SECTION -->
+  <div class="section-head">
+    <span>03. Wordmarks (Plus Jakarta Sans)</span>
+    <span>Mark + Type Outlines</span>
+  </div>
+
+  <div class="wordmark-strip">
+    <img src="alignmentandintegration/wordmark.svg" height="40" alt="Alignment Integration Wordmark">
+    <img src="pal/wordmark.svg" height="40" alt="PAL Products Wordmark">
+    <img src="student-pal/wordmark.svg" height="40" alt="Student Pal Wordmark">
+    <img src="therapist-pal/wordmark.svg" height="40" alt="Therapist Pal Wordmark">
+    <img src="personal-pal/wordmark.svg" height="40" alt="Personal Pal Wordmark">
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -28,6 +28,11 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
+<!-- The ecosystem. A field of organic motes that assembles into one calm
+     structure as the page is scrolled. Purely decorative: aria-hidden, and
+     the page is complete without it. -->
+<canvas id="eco" aria-hidden="true"></canvas>
+
 <header class="masthead">
   <div class="wrap masthead-inner">
     <a class="brand" href="#top" aria-label="Alignment Integration, back to top">
@@ -83,9 +88,9 @@
   <span id="top"></span>
 
   <!-- 01 -->
-  <section class="hero" id="what-we-do">
+  <section class="hero" id="what-we-do" data-eco>
     <div class="wrap">
-      <h1 class="hero-title rise" id="h-what-we-do">We build software shaped like the way your operation already works.</h1>
+      <h1 class="hero-title rise wsplit" id="h-what-we-do">We build software shaped like the way your operation already works.</h1>
       <div class="hero-grid">
         <div class="rise" style="transition-delay:80ms">
           <p class="hero-claim">Software built specifically for you used to be out of reach. That is the only reason organizations settle for tools that were never built for them. Not anymore.</p>
@@ -118,7 +123,7 @@
   </section>
 
   <!-- 2. CLAIM. Editorial band. One statement, nothing else. -->
-  <section class="claim">
+  <section class="claim" data-eco>
     <div class="wrap claim-inner rise">
       <span class="mono">who this is for</span>
       <p>Organizations running on tools that were never built for them. Health and social services came first, because that is <strong>the work we know from the inside.</strong> It is not the only fit.</p>
@@ -126,13 +131,13 @@
   </section>
 
   <!-- 3. PROCESS. Sticky rail. Numbering earns its place: this is a real sequence. -->
-  <section class="band" id="how-it-works">
+  <section class="band" id="how-it-works" data-eco>
     <div class="wrap process-grid">
-      <div class="process-aside rise">
+      <div class="process-aside rise island">
         <h2 id="h-how">Four things happen, in this order.</h2>
         <p>Every build runs the same way. You see the plan before a line is written, and someone stays after it ships.</p>
       </div>
-      <ol class="steps rise" style="transition-delay:100ms">
+      <ol class="steps rise island" style="transition-delay:100ms">
         <li class="step">
           <span class="step-n" aria-hidden="true"></span>
           <div>
@@ -170,7 +175,7 @@
   <!-- 4. OFFERS. Asymmetric bento: one lead, two stacked. Not three equal cards. -->
   <section class="band">
     <div class="wrap">
-      <div class="offers-head rise">
+      <div class="offers-head rise island">
         <h2 id="h-method">What you can buy</h2>
         <p>Three ways in. They stack, but none of them requires the next one.</p>
       </div>
@@ -200,16 +205,16 @@
   <hr class="rule">
 
   <!-- 02 -->
-  <section class="section section-demos" id="demos" aria-labelledby="h-demos">
+  <section class="section section-demos" id="demos" aria-labelledby="h-demos" data-eco>
     <div class="wrap">
       <div class="section-head">
-        <div>
+        <div class="island">
           <h2 id="h-demos">Who we build for</h2>
           <p class="section-intro">Six audiences, one engine underneath. Go to yours and the page talks about your work rather than everyone's.</p>
         </div>
       </div>
 
-      <ul class="segments">
+      <ul class="segments rise">
         <li class="segment">
           <a href="/small-business/">
             <svg class="seg-viz viz-smb" viewBox="0 0 220 96" aria-hidden="true">
@@ -408,13 +413,13 @@
   </section>
 
   <!-- 7. ENGINE. Three beats of the mechanism. -->
-  <section class="band engine">
+  <section class="band engine" data-eco>
     <div class="wrap">
-      <div class="engine-head rise">
+      <div class="engine-head rise island">
         <h2 id="h-build">How the engine works</h2>
         <p>The same three beats underneath every build, whatever the operation is.</p>
       </div>
-      <div class="beats rise" style="transition-delay:100ms">
+      <div class="beats rise island" style="transition-delay:100ms">
         <div class="beat">
           <div class="beat-glyph" aria-hidden="true">
             <svg viewBox="0 0 44 44" fill="none" stroke="var(--mark)" stroke-width="1.4" stroke-linecap="round">
@@ -451,13 +456,13 @@
   <section class="section section-built" id="what-is-built" aria-labelledby="h-built">
     <div class="wrap">
       <div class="section-head">
-        <div>
+        <div class="island">
           <h2 id="h-built">What is built</h2>
           <p class="section-intro">The honest state of it, today.</p>
         </div>
       </div>
 
-      <ul class="status">
+      <ul class="status rise island">
         <li class="status-row is-built">
           <p class="status-name">The engine</p>
           <p class="status-state">built, and we can show it to you</p>
@@ -501,9 +506,9 @@
   </section>
 
   <!-- 8. CONTACT -->
-  <section class="band contact" id="contact">
+  <section class="band contact" id="contact" data-eco>
     <div class="wrap contact-grid">
-      <div class="rise">
+      <div class="rise island">
         <h2 id="h-contact">Tell us what is <em>not working</em>.</h2>
         <p class="contact-note" style="margin-top:var(--s5)">The initial consultation is free. It is a conversation about how your work actually runs, and you get a plan out of it whether or not you build anything with us.</p>
       </div>
@@ -589,9 +594,43 @@
 </footer>
 
 <script src="main.js" defer></script>
+<script type="module" src="/eco.js"></script>
 <script>
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Word reveal on the two above-the-fold statements. Plain spans, so the
+     accessible text is untouched. Words rise in sequence on load. */
+  if (!reduce) {
+    document.querySelectorAll('.wsplit').forEach(function (el) {
+      var idx = 0;
+      function split(node) {
+        Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+          if (child.nodeType === 3) {
+            var frag = document.createDocumentFragment();
+            child.textContent.split(/(\s+)/).forEach(function (piece) {
+              if (!piece) return;
+              if (/^\s+$/.test(piece)) { frag.appendChild(document.createTextNode(piece)); return; }
+              var s = document.createElement('span');
+              s.className = 'w';
+              s.style.setProperty('--wi', idx++);
+              s.textContent = piece;
+              frag.appendChild(s);
+            });
+            node.replaceChild(frag, child);
+          } else if (child.nodeType === 1) {
+            split(child);
+          }
+        });
+      }
+      split(el);
+    });
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        document.querySelectorAll('.wsplit').forEach(function (el) { el.classList.add('win'); });
+      });
+    });
+  }
 
   /* Entry reveals. IntersectionObserver, never a scroll listener. */
   var rises = document.querySelectorAll('.rise');
