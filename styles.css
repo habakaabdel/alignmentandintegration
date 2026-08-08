@@ -212,8 +212,10 @@ body {
   position: relative;
 }
 
-/* Background Fluid Organic Canvas */
-#nature-canvas {
+/* The two background canvases: the fluid ground (main.js) and the ecosystem
+   (eco.js). Fixed behind everything; content stacks above. */
+#nature-canvas,
+#eco {
   position: fixed;
   top: 0;
   left: 0;
@@ -1743,15 +1745,101 @@ a:hover { color: var(--mark-deep); }
   html {
     scroll-behavior: auto !important;
   }
-  #nature-canvas {
-    display: none !important;
-  }
+  /* Under reduced motion the ecosystem renders one settled still frame;
+     it stays visible but never animates. */
   *, *::before, *::after {
     animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 1ms !important;
   }
 }
+
+/* ---------- the ecosystem: motion choreography ---------- */
+
+/* Word reveal on the above-the-fold statements. Spans are plain, so the
+   accessible text is untouched; under reduced motion the split never runs. */
+.js .wsplit .w {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.55em);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .wsplit .w {
+    transition: opacity 640ms var(--ease), transform 640ms var(--ease);
+    transition-delay: calc(var(--wi, 0) * 42ms);
+  }
+}
+.js .wsplit.win .w { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .wsplit .w { opacity: 1; transform: none; transition: none; }
+}
+
+/* Children of a rising group arrive in sequence, not as one slab. The hidden
+   parent covers the pre-entrance state, and an animation (not a transition)
+   carries the stagger so hover transitions on the cards are never delayed. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .rise.in > .step,
+  .js .rise.in > .offer,
+  .js .rise.in > .segment,
+  .js .rise.in > .beat,
+  .js .rise.in > .status-row {
+    animation: child-rise 680ms var(--ease) backwards;
+  }
+  .js .rise.in > :nth-child(2) { animation-delay: 75ms; }
+  .js .rise.in > :nth-child(3) { animation-delay: 150ms; }
+  .js .rise.in > :nth-child(4) { animation-delay: 225ms; }
+  .js .rise.in > :nth-child(5) { animation-delay: 300ms; }
+  .js .rise.in > :nth-child(6) { animation-delay: 375ms; }
+  .js .rise.in > :nth-child(7) { animation-delay: 440ms; }
+  .js .rise.in > :nth-child(8) { animation-delay: 500ms; }
+  .js .rise.in > :nth-child(9) { animation-delay: 555ms; }
+  @keyframes child-rise {
+    from { opacity: 0; transform: translateY(22px); }
+  }
+}
+
+/* The hero figure breathes, slowly. The entrance transition lives on the
+   outer .bezel, so the loop sits on the core and never fights it. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero .bezel-core { animation: eco-float 7s ease-in-out infinite alternate; }
+  @keyframes eco-float {
+    from { transform: translateY(0); }
+    to { transform: translateY(-8px); }
+  }
+}
+
+/* Section rules draw themselves in as they enter the viewport.
+   Scroll-driven animation, harmless where unsupported. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .rule {
+      transform-origin: left center;
+      animation: rule-grow linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+    @keyframes rule-grow {
+      from { scale: 0 1; }
+      to { scale: 1 1; }
+    }
+  }
+}
+
+/* Islands: prose that used to sit directly on the field now sits on a
+   bordered sheet of frosted paper, so the ecosystem flows behind the words
+   rather than through them. Same surface language as the offer cards. */
+.island {
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: var(--s6);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+/* The two deep bands let the world show through faintly, so the structure
+   assembling behind the engine section stays part of the story. */
+.claim, .engine { background: color-mix(in srgb, var(--panel-deep) 70%, transparent); }
 
 @media print {
   .masthead, .nav, .skip, .footer-top { display: none; }
