@@ -410,45 +410,48 @@ function wireReveals() {
 /* ---------- contact form ---------- */
 
 function wireForm() {
-  const form = document.getElementById('contact-form');
-  const confirmation = document.getElementById('contact-confirm');
-  if (!form || !confirmation) return;
+  document.querySelectorAll('form[data-netlify][data-confirm]').forEach(function (form) {
+    const confirmation = document.querySelector(form.getAttribute('data-confirm'));
+    if (!confirmation) return;
 
-  const error = form.querySelector('[data-form-error]');
-  const button = form.querySelector('[data-submit]');
-  let sending = false;
+    const error = form.querySelector('[data-form-error]');
+    const button = form.querySelector('[data-submit]');
+    const idle = button ? button.innerHTML : '';
+    const busy = form.getAttribute('data-sending') || 'Sending';
+    let sending = false;
 
-  form.addEventListener('submit', function (event) {
-    if (typeof window.fetch !== 'function' || !form.reportValidity()) return;
+    form.addEventListener('submit', function (event) {
+      if (typeof window.fetch !== 'function' || !form.reportValidity()) return;
 
-    event.preventDefault();
-    if (sending) return;
-    sending = true;
+      event.preventDefault();
+      if (sending) return;
+      sending = true;
 
-    if (error) error.hidden = true;
-    if (button) {
-      button.disabled = true;
-      button.textContent = 'Starting';
-    }
-
-    const body = new URLSearchParams(new FormData(form)).toString();
-
-    window.fetch(form.getAttribute('action') || window.location.pathname, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: body
-    }).then(function (response) {
-      if (!response.ok) throw new Error('rejected');
-      form.hidden = true;
-      confirmation.hidden = false;
-      confirmation.focus && confirmation.focus();
-    }).catch(function () {
-      sending = false;
+      if (error) error.hidden = true;
       if (button) {
-        button.disabled = false;
-        button.textContent = 'Start the conversation';
+        button.disabled = true;
+        button.textContent = busy;
       }
-      if (error) error.hidden = false;
+
+      const body = new URLSearchParams(new FormData(form)).toString();
+
+      window.fetch(form.getAttribute('action') || window.location.pathname, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body
+      }).then(function (response) {
+        if (!response.ok) throw new Error('rejected');
+        form.hidden = true;
+        confirmation.hidden = false;
+        confirmation.focus && confirmation.focus();
+      }).catch(function () {
+        sending = false;
+        if (button) {
+          button.disabled = false;
+          button.innerHTML = idle;
+        }
+        if (error) error.hidden = false;
+      });
     });
   });
 }

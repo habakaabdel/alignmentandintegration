@@ -255,6 +255,44 @@
         </div>
       </div>
 
+      <div class="proof" data-reveal>
+        <p class="proof-state">waitlist</p>
+        <h3>Hear when the full build ships</h3>
+        <p>Leave an email and you get one message when the rest of Student Pal is ready. Nothing else gets sent.</p>
+        <form
+          class="form"
+          id="waitlist-form"
+          name="student-pal-waitlist"
+          method="POST"
+          data-netlify="true"
+          data-confirm="#waitlist-confirm"
+          data-sending="Joining"
+          netlify-honeypot="referral-source">
+
+          <input type="hidden" name="form-name" value="student-pal-waitlist">
+
+          <p class="offscreen-field">
+            <label for="wl-referral-source">Leave this field empty</label>
+            <input id="wl-referral-source" name="referral-source" type="text" tabindex="-1" autocomplete="off">
+          </p>
+
+          <div class="field">
+            <label for="wl-email">Email</label>
+            <input id="wl-email" name="email" type="email" autocomplete="email" required>
+          </div>
+
+          <div class="field-submit">
+            <button class="btn btn-primary" type="submit" data-submit>Join the waitlist</button>
+            <p class="form-error" data-form-error hidden>That did not send. Try once more.</p>
+          </div>
+        </form>
+
+        <div class="confirm" id="waitlist-confirm" role="status" tabindex="-1" hidden>
+          <h3>You are on the list</h3>
+          <p>One message when it ships, to the address you gave.</p>
+        </div>
+      </div>
+
       <p class="bounds" data-reveal>What we are not claiming: this does not write your assignments and it is not built to. It organizes what your outline already says, and where the outline says nothing it tells you so rather than filling the gap. Check the result against the outline your instructor gave you. Academic integrity is your school's rule, and we do not help you around it. No price on this page yet.</p>
 
       <div class="also">

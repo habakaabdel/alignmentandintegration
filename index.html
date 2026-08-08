@@ -511,6 +511,10 @@
       <div class="rise island">
         <h2 id="h-contact">Tell us what is <em>not working</em>.</h2>
         <p class="contact-note" style="margin-top:var(--s5)">The initial consultation is free. It is a conversation about how your work actually runs, and you get a plan out of it whether or not you build anything with us.</p>
+        <div class="actions" style="margin-top:var(--s5)">
+          <a class="btn btn-primary" href="https://cal.com/align-integrate-l8uyvp/30min" rel="noopener">Book the call</a>
+        </div>
+        <p class="contact-note" style="margin-top:var(--s2)">Thirty minutes, at a time you pick. If you would rather write first, the form works too.</p>
       </div>
       <div style="position:relative">
         <form
@@ -520,6 +524,8 @@
           name="contact"
           method="POST"
           data-netlify="true"
+          data-confirm="#contact-confirm"
+          data-sending="Starting"
           netlify-honeypot="referral-source">
 
           <input type="hidden" name="form-name" value="contact">
