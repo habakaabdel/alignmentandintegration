@@ -1,5 +1,6 @@
 /* Personal Pal, prototype. Same sheet as the main page: paper ground,
-   ink slate type, spruce marks, hairlines, square corners. */
+   ink slate type, hairlines, square corners. Marks use the individuals
+   page's own rose accent rather than the shared /demos/ spruce green. */
 
 :root {
   --paper: #edefee;
@@ -7,8 +8,8 @@
   --panel-deep: #e3e7e7;
   --ink: #101d26;
   --ink-muted: #4a5a66;
-  --mark: #0b5a44;
-  --mark-deep: #08402f;
+  --mark: #7d3650;
+  --mark-deep: #592437;
   --second: #2f4e7a;
   --line: #c3ccd1;
   --line-strong: #75838c;
