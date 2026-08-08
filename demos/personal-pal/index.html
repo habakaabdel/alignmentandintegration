@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personal Pal (Aura), prototype</title>
+<meta name="description" content="Interactive prototype of Personal Pal (Aura) by Alignment Integration. Optimizing everyday life with a personal assistant that adapts and keeps your cognitive privacy.">
+<meta name="theme-color" content="#edefee">
+<meta name="color-scheme" content="light">
+<link rel="canonical" href="https://alignmentandintegration.com/demos/personal-pal/">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f7f6f2'/%3E%3Cg transform='scale(0.6667)'%3E%3Cpath d='M35.5 6.4 A21 21 0 1 0 44.1 18.5' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='41' cy='11.7' r='2.6' fill='%233a5a40'/%3E%3Cpath d='M24 38 C24 30 24 27 24 23' fill='none' stroke='%232d4a3e' stroke-width='2.7' stroke-linecap='round'/%3E%3Cpath d='M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z' fill='%232d4a3e'/%3E%3Cpath d='M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='2.4' fill='%233a5a40'/%3E%3C/g%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#app">Skip to the prototype</a>
+
+<header class="demo-bar">
+  <div class="wrap demo-bar-inner">
+    <a class="brand" href="../../" aria-label="Alignment Integration, back to the main page">
+      <svg class="monogram" viewBox="0 0 48 48" width="26" height="26" role="img" aria-label="A and I monogram">
+        <g>
+          <path class="mono-mark" d="M35.5 6.4 A21 21 0 1 0 44.1 18.5" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+          <circle class="mono-node" cx="41" cy="11.7" r="2.6"/>
+          <path class="mono-mark" d="M24 38 C24 30 24 27 24 23" fill="none" stroke-width="2.7" stroke-linecap="round"/>
+          <path class="mono-mark mono-mark-fill" d="M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z"/>
+          <path class="mono-mark" d="M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle class="mono-node" cx="12" cy="12" r="2.4"/>
+        </g>
+      </svg>
+      <span class="brand-name">Alignment Integration</span>
+    </a>
+    <p class="bar-right">
+      <a href="../../">Back to the main page</a>
+      <span class="bar-label">Demonstration</span>
+    </p>
+  </div>
+</header>
+
+<div class="wrap sheet">
+
+  <header class="head">
+    <p class="eyebrow">a packaged product, prototype</p>
+    <h1>Personal Pal: Aura</h1>
+    <p class="tag">An adaptive personal assistant for your pocket. Talk to it to capture thoughts, routine updates, or schedule changes. It updates your life map, extracts action items, and shreds the raw transcript to protect your cognitive privacy.</p>
+  </header>
+
+  <div class="lab">
+
+    <aside class="try" aria-label="What to try">
+      <p class="try-title">What to try</p>
+      <ol class="try-list">
+        <li><strong>Choose a scenario below</strong> in the simulator controls to dictate a life update.</li>
+        <li>Observe the real-time transcription as Aura listens.</li>
+        <li>Review the structured items Aura pulls out (rescheduling, task additions, or energy shifts).</li>
+        <li>Tap <strong>"Keep items and shred raw input"</strong> to commit the adjustments and watch the raw recording dissolve.</li>
+        <li>Navigate between <strong>today's timeline</strong> and your <strong>life map</strong> tabs to see the updates applied.</li>
+      </ol>
+
+      <div class="scenarios-control">
+        <p class="try-title" style="margin-top: 24px;">Simulate voice dictation</p>
+        <div class="scenario-buttons">
+          <button class="btn btn-scenario" data-scenario="exhausted">
+            <span>Scenario A: Exhausted schedule change</span>
+            <small>"I'm exhausted and need to reschedule my run."</small>
+          </button>
+          <button class="btn btn-scenario" data-scenario="sarah">
+            <span>Scenario B: Coffee connection & opportunity</span>
+            <small>"Met Sarah for coffee, she mentioned a job opening at her company."</small>
+          </button>
+          <button class="btn btn-scenario" data-scenario="meditation">
+            <span>Scenario C: Mindful reflection</span>
+            <small>"Had a great meditation session, feeling very centered."</small>
+          </button>
+        </div>
+      </div>
+
+      <p class="try-note">Interactive simulation. Warm linen palette. No personal data is stored or leaves this browser session.</p>
+    </aside>
+
+    <div class="stage">
+      <div class="phone" id="app">
+        <!-- app renders here -->
+        <noscript><p class="noscript">The prototype needs scripts enabled. Once loaded, you will see a mobile timeline and life map that responds to dictated life scenarios.</p></noscript>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="source-note">
+    <p>Built by Alignment Integration. All data processing is simulated locally in the browser. Voice notes are analyzed to extract structured data, then the transcript and voice file are destroyed completely.</p>
+  </footer>
+
+</div>
+
+<script src="main.js" defer></script>
+</body>
+</html>

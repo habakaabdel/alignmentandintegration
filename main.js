@@ -17,7 +17,7 @@ const DEMO_URLS = {
   'enterprise':       '',
   'community-safety': '/demos/bpss-ses/',
   'student-portal':   'https://pocket-student.netlify.app',
-  'pocket-portal':    '',
+  'pocket-portal':    '/demos/personal-pal/',
   'engine':           ''
 };
 
