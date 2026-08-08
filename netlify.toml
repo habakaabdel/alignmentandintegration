@@ -13,6 +13,11 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/demos/emhware-portal/*"
+  to = "/demos/emr-portal/:splat"
+  status = 301
+
 [[headers]]
   for = "/*"
   [headers.values]

@@ -132,7 +132,7 @@
         '<a href="#/" class="brand">' +
           '<div class="brand-logo">' + LOGO + '</div>' +
           '<div class="brand-text">' +
-            '<div class="brand-title">EMHware <span style="color:var(--accent-deep)">·</span> Staff Portal</div>' +
+            '<div class="brand-title">EMR <span style="color:var(--accent-deep)">·</span> Staff Portal</div>' +
             '<div class="brand-sub">' + esc(AGENCY.name) + '</div>' +
           '</div>' +
         '</a>' +
@@ -143,7 +143,7 @@
           '<button class="theme-toggle" data-theme-toggle title="' + THEME_LABEL[themeMode] + ', click to change" aria-label="' + THEME_LABEL[themeMode] + ', click to change">' +
             '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + THEME_ICON[themeMode] + '</svg>' +
           '</button>' +
-          '<button class="btn btn-primary" data-signin>Sign in<span class="hide-narrow"> to EMHware</span> ' + icon('ArrowRight', 16) + '</button>' +
+          '<button class="btn btn-primary" data-signin>Sign in<span class="hide-narrow"> to the EMR</span> ' + icon('ArrowRight', 16) + '</button>' +
           '<button class="nav-toggle" data-navtoggle aria-label="Open menu" aria-expanded="false">' +
             '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>' +
           '</button>' +
@@ -181,13 +181,13 @@
             '<li><a href="#/news">What changed recently</a></li>' +
           '</ul></div>' +
           '<div class="footer-col"><h4>About this demo</h4><ul>' +
-            '<li><a href="#/program-guides">How EMHware works</a></li>' +
+            '<li><a href="#/program-guides">How the EMR works</a></li>' +
             '<li><a href="../../">Alignment Integration</a></li>' +
           '</ul></div>' +
         '</div>' +
         '<div class="footer-bottom">' +
           '<div>Demonstration build · fictional agency · no live data</div>' +
-          '<div>EMHware staff portal pattern</div>' +
+          '<div>EMR staff portal pattern</div>' +
         '</div>' +
       '</div>' +
     '</footer>';
@@ -297,7 +297,7 @@
       { icon: 'Paperclip', label: 'Add an attachment', href: mine ? '#/program-guides/' + mine.slug + '/attachments' : '#/program-guides' },
       { icon: 'BookOpen', label: mine ? 'Open the ' + mine.title.replace(/\s*\(.*\)$/, '') + ' guide' : 'Find my program guide', href: mine ? '#/program-guides/' + mine.slug : '#/program-guides' },
       { icon: 'AlertTriangle', label: 'Fix a problem', href: '#/troubleshoot' },
-      { icon: 'KeyRound', label: 'Sign in to EMHware', signin: true },
+      { icon: 'KeyRound', label: 'Sign in to the EMR', signin: true },
     ];
 
     return '' +
@@ -306,7 +306,7 @@
       '<div class="container"><div class="hero-grid">' +
         '<div>' +
           '<div class="eyebrow" style="margin-bottom:18px">Welcome, team</div>' +
-          '<h1 class="display-xl">Everything <span class="hero-ani">EMHware</span>, in one place.</h1>' +
+          '<h1 class="display-xl">Everything <span class="hero-ani">EMR</span>, in one place.</h1>' +
           '<p class="lede" style="margin-top:20px;max-width:560px">Program guides, videos, and step by step help for the case management system. The working reference for every Riverbend program.</p>' +
           '<div style="margin-top:28px;max-width:600px">' + searchBar(true, 'Try "contact note" or "referral"…') + '</div>' +
           '<div style="margin-top:18px;display:flex;gap:20px;align-items:center;font-size:13px;color:var(--ink-mute);flex-wrap:wrap">' +
@@ -319,7 +319,7 @@
         '<div><div class="signin-card">' +
           '<div style="display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1">' +
             '<div>' +
-              '<div class="signin-label">Riverbend EMHware</div>' +
+              '<div class="signin-label">Riverbend EMR</div>' +
               '<div class="signin-date">Live across<br>all programs</div>' +
             '</div>' +
             '<div style="width:72px;height:72px;flex-shrink:0">' + LOGO + '</div>' +
@@ -328,7 +328,7 @@
             '<div style="font-family:var(--ff-display);font-size:24px;font-weight:500;color:#fff;margin-bottom:6px">One sign in</div>' +
             '<div style="font-size:13px;color:rgba(255,255,255,0.75)">Use your Riverbend work account.</div>' +
           '</div>' +
-          '<button class="btn btn-primary" data-signin style="margin-top:16px;width:100%;justify-content:center">' + icon('KeyRound', 18) + ' Sign in to EMHware</button>' +
+          '<button class="btn btn-primary" data-signin style="margin-top:16px;width:100%;justify-content:center">' + icon('KeyRound', 18) + ' Sign in to the EMR</button>' +
           '<div class="signin-note">' + icon('Sparkles', 16, 'color:var(--accent);flex-shrink:0') +
             '<span>This portal is the working reference: program guides, videos, FAQ, and support.</span></div>' +
         '</div></div>' +
@@ -369,7 +369,7 @@
       '<div class="card" style="padding:0;overflow:hidden;background:var(--surface-subtle);border:1px solid var(--border);max-width:680px;margin:0 auto">' +
         '<div style="padding:24px 28px">' +
           '<div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;margin-bottom:8px">Fastest path</div>' +
-          '<div style="font-family:var(--ff-display);font-size:22px;font-weight:700;margin-bottom:14px;line-height:1.2;color:var(--ink-heading)">New to EMHware? Start here.</div>' +
+          '<div style="font-family:var(--ff-display);font-size:22px;font-weight:700;margin-bottom:14px;line-height:1.2;color:var(--ink-heading)">New to the EMR? Start here.</div>' +
           '<div style="display:flex;flex-direction:column;gap:2px">' +
           [['1', 'Sign in with your Riverbend work account', '#/faq/0'],
            ['2', 'Watch the first four training modules', '#/videos'],
@@ -436,8 +436,8 @@
 
     return pageHeader({
       breadcrumb: [{ label: 'Home', href: '#/' }, { label: 'Program Guides' }],
-      eyebrow: 'EMHware · how it works',
-      title: 'How EMHware Works',
+      eyebrow: 'The EMR · how it works',
+      title: 'How the EMR Works',
       lede: 'Twenty one programs are really eight streams of the same handful of services, separated mostly by who funds them. Staff deliver one service to a client, the system records it once and reports it to each funder. Pick your program below to open its guide.',
     }) +
     '<section class="section"><div class="container">' +
@@ -528,7 +528,7 @@
 
       '<div style="background:linear-gradient(100deg,#0F4152,#17566B);border-radius:var(--r-lg);padding:24px 28px;color:#fff">' +
         '<div style="font-family:var(--ff-display);font-size:21px;font-weight:800;line-height:1.3">Staff deliver one service, not twenty one.</div>' +
-        '<div style="font-size:15px;margin-top:8px;color:#CFE6EE;line-height:1.55;max-width:880px">The programs differ mostly by funder, not by what a worker actually does in the room. EMHware lets a worker deliver one service to one person, then splits the data underneath so every funder gets its report.</div>' +
+        '<div style="font-size:15px;margin-top:8px;color:#CFE6EE;line-height:1.55;max-width:880px">The programs differ mostly by funder, not by what a worker actually does in the room. The EMR lets a worker deliver one service to one person, then splits the data underneath so every funder gets its report.</div>' +
       '</div>' +
 
     '</div></section>';
@@ -766,7 +766,7 @@
                 '<span style="color:var(--ink-mute)">' + r[0] + '</span>' +
                 '<span style="font-weight:600;color:var(--ink-heading)">' + r[1] + '</span></div>').join('') +
             '<div style="height:1px;background:var(--border)"></div>' +
-            '<button data-signin style="font-size:13px;color:var(--primary);font-weight:600;display:inline-flex;align-items:center;gap:4px;padding:0">Sign in to EMHware ' + icon('ArrowRight', 16) + '</button>' +
+            '<button data-signin style="font-size:13px;color:var(--primary);font-weight:600;display:inline-flex;align-items:center;gap:4px;padding:0">Sign in to the EMR ' + icon('ArrowRight', 16) + '</button>' +
           '</div>' +
         '</aside>' +
 
@@ -861,7 +861,7 @@
     return pageHeader({
       breadcrumb: [{ label: 'Home', href: '#/' }, { label: 'Onboarding & Offboarding' }],
       eyebrow: 'People · IT · intake, internal process',
-      title: 'EMHware account onboarding and offboarding',
+      title: 'EMR account onboarding and offboarding',
       lede: 'What happens when a staff member arrives or leaves. Twenty one programs, 84 staff with access in this fictional agency.',
     }) +
     '<section class="section"><div class="container">' +
@@ -872,7 +872,7 @@
           '<div class="process-step"><h4>The people team hears first</h4>' +
             '<p style="color:var(--ink-soft);font-size:14px;line-height:1.6;margin:0">Human resources is the first to know that someone is arriving or leaving. They own the trigger for the whole process, which is why nothing here starts with IT.</p></div>' +
           '<div class="process-step"><h4>Check the role guide</h4>' +
-            '<p style="color:var(--ink-soft);font-size:14px;line-height:1.6;margin:0 0 10px">The role guide decides whether the role needs an EMHware account at all.</p>' +
+            '<p style="color:var(--ink-soft);font-size:14px;line-height:1.6;margin:0 0 10px">The role guide decides whether the role needs an EMR account at all.</p>' +
             '<ul style="font-size:13px;color:var(--ink-soft);padding-left:16px;margin:0;line-height:1.5">' +
               '<li><strong>No</strong>, the standard IT account setup runs on its own.</li>' +
               '<li><strong>Yes</strong>, two parallel requests go out: IT for single sign on, support desk for the account.</li>' +
