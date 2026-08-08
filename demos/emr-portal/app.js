@@ -143,7 +143,7 @@
           '<button class="theme-toggle" data-theme-toggle title="' + THEME_LABEL[themeMode] + ', click to change" aria-label="' + THEME_LABEL[themeMode] + ', click to change">' +
             '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + THEME_ICON[themeMode] + '</svg>' +
           '</button>' +
-          '<button class="btn btn-primary" data-signin>Sign in<span class="hide-narrow"> to the EMR</span> ' + icon('ArrowRight', 16) + '</button>' +
+          '<button class="btn btn-primary" data-signin><span>Sign in<span class="hide-narrow"> to the EMR</span></span> ' + icon('ArrowRight', 16) + '</button>' +
           '<button class="nav-toggle" data-navtoggle aria-label="Open menu" aria-expanded="false">' +
             '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>' +
           '</button>' +
