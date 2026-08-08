@@ -1891,3 +1891,14 @@ html.reveal-ready [data-reveal].reveal-in {
     animation: none;
   }
 }
+
+/* ---------- segment marks ----------
+   Each audience page carries its own derivative of the Sprout & Lens mark
+   above the breadcrumb: same open ring and coordinate node, its own interior
+   figure, its own accent. Files live in /brand/<segment>/mark.svg. */
+.segment-mark {
+  display: block;
+  width: 44px;
+  height: 44px;
+  margin-bottom: var(--s4);
+}

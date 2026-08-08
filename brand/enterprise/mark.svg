@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Enterprise Mark">
+  <path d="M35.5 6.4 A21 21 0 1 0 44.1 18.5" fill="none" stroke="#2f4e7a" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="41" cy="11.7" r="2.6" fill="#1e3556"/>
+  <circle cx="24" cy="14.5" r="2.4" fill="#2f4e7a"/>
+  <path d="M24 17 V21.5 M16.5 21.5 H31.5 M16.5 21.5 V26.5 M31.5 21.5 V26.5 M24 21.5 V26.5" fill="none" stroke="#2f4e7a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="14.4" y="28" width="4.2" height="4.2" fill="#2f4e7a"/>
+  <rect x="21.9" y="28" width="4.2" height="4.2" fill="#2f4e7a"/>
+  <rect x="29.4" y="28" width="4.2" height="4.2" fill="#2f4e7a"/>
+</svg>
