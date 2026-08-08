@@ -1,8 +1,8 @@
 /* Riverbend Family Services staff portal - demonstration data.
    Every agency, program, person, number and date below is invented for this
    demonstration. Nothing here comes from a real client record, a real staff
-   roster, or a real service file. EMHware is a commercial case management
-   product name and is used generically. */
+   roster, or a real service file. The EMR named throughout is generic and
+   stands in for whichever record system an agency already runs. */
 
 /* ---------- Icons (inline, no icon font, no network) ---------- */
 const ICON = {
@@ -41,7 +41,7 @@ const AGENCY = {
 /* ---------- Homepage tiles ---------- */
 const SECTIONS = [
   { id: 'program-guides', icon: 'BookOpen', accent: 'red', title: 'Program Guides',
-    desc: 'How EMHware works, plus every program. Pick yours for its client journey, activities, forms, and reports.',
+    desc: 'How the EMR works, plus every program. Pick yours for its client journey, activities, forms, and reports.',
     meta: 'all programs', href: '#/program-guides' },
   { id: 'videos', icon: 'Video', accent: 'red', title: 'Video Tutorials',
     desc: 'Short walkthroughs recorded during the rollout training sessions.',
@@ -50,7 +50,7 @@ const SECTIONS = [
     desc: 'The people and systems process when a staff member arrives or leaves.',
     meta: 'People / IT', href: '#/onboarding' },
   { id: 'faq', icon: 'HelpCircle', accent: 'dark', title: 'FAQ',
-    desc: 'Answers to the questions staff ask most often about EMHware.',
+    desc: 'Answers to the questions staff ask most often about the EMR.',
     meta: 'questions', href: '#/faq' },
   { id: 'news', icon: 'Megaphone', accent: 'dark', title: 'News & Updates',
     desc: 'Announcements, system updates, and what the field is telling us.',
@@ -79,11 +79,11 @@ const NEWS = [
     title: 'Documentation guidance: worker roles and conference types',
     excerpt: 'Two rules to follow. First, the Primary Worker on a client is always their main worker, and the program supervisor is always added under Support Workers so both keep visibility. Programs sharing a client load add the other team members as Support Workers too, set in Program History. Second, log a Team Conference when the conversation stays inside your program team, and a Case Conference when it includes an outside provider or the client.' },
   { date: 'Jun 17, 2027', tag: 'Announcement',
-    title: 'EMHware is live across all Riverbend programs',
-    excerpt: 'EMHware is now the case management system for every Riverbend health and wellness program. Sign in with your Riverbend work account. Paper notes written during the two week transition window are being back entered, so check with your supervisor if you still have some on your desk.' },
+    title: 'The new EMR is live across all Riverbend programs',
+    excerpt: 'The new EMR is now the case management system for every Riverbend health and wellness program. Sign in with your Riverbend work account. Paper notes written during the two week transition window are being back entered, so check with your supervisor if you still have some on your desk.' },
   { date: 'Jun 17, 2027', tag: 'Support',
     title: 'Drop in support desk, Wednesday and Thursday',
-    excerpt: 'The rollout team is in the main boardroom from 9 to 4 on Wednesday and Thursday for sign in help, first contact notes, and anything else EMHware. Bring your laptop, no appointment needed.' },
+    excerpt: 'The rollout team is in the main boardroom from 9 to 4 on Wednesday and Thursday for sign in help, first contact notes, and anything else about the new EMR. Bring your laptop, no appointment needed.' },
   { date: 'Jun 03, 2027', tag: 'Update',
     title: 'Nine new activity codes added for the wellness streams',
     excerpt: 'Nine activity codes were added so promotion and community wellness work can be recorded without forcing it into a counselling code. Program leads reviewed the list. If your program needs one more, send it to the support desk and it goes in the next configuration window.' },
@@ -91,22 +91,22 @@ const NEWS = [
 
 /* ---------- FAQ (fictional) ---------- */
 const FAQ = [
-  { q: 'Where do I sign in to EMHware?', a: 'EMHware is reached from the Sign in button at the top of this portal. Bookmark it. In this demonstration the button is decorative and opens a notice instead.' },
+  { q: 'Where do I sign in to the EMR?', a: 'The EMR is reached from the Sign in button at the top of this portal. Bookmark it. In this demonstration the button is decorative and opens a notice instead.' },
   { q: 'Which browser should I use?', a: 'Use a current version of Chrome or Edge. Older browsers may not render the case note editor correctly.' },
   { q: 'I got an error when signing in. What now?', a: 'Confirm you are using your Riverbend work account rather than a personal account. If the error repeats, tell your supervisor and send a note to the portal support desk with the exact wording of the message.' },
   { q: 'Do I write contact notes in first or third person?', a: 'Always third person. Use "the writer" rather than "I". For example: the writer met with the client to review the discharge plan.' },
   { q: 'What does it mean to authenticate a note?', a: 'Authentication locks the note as final and complete, and it is required on every contact note. You are prompted for your password. Once authenticated the note cannot be edited, so an unlock has to be requested from a system administrator.' },
   { q: 'What is the maximum file size for an attachment?', a: '256 MB per file. Hold Ctrl or Shift while selecting to upload several files at once.' },
-  { q: 'How do I get a new staff member into EMHware?', a: 'The people team sends two parallel requests once the role guide confirms the role needs access: one to IT for single sign on, one to the portal support desk to create the account and program access. Both have to finish before the person can sign in.' },
+  { q: 'How do I get a new staff member into the EMR?', a: 'The people team sends two parallel requests once the role guide confirms the role needs access: one to IT for single sign on, one to the portal support desk to create the account and program access. Both have to finish before the person can sign in.' },
   { q: 'What happens when a staff member leaves?', a: 'The people team owns the trigger. The same two request process runs in reverse: IT deactivates single sign on and the support desk closes the account and removes program access.' },
   { q: 'Where can I share feedback about the system?', a: 'Tell your supervisor, or send it to the portal support desk. Nothing is too small. Most of the configuration changes made this year started as one worker saying a field did not fit the work.' },
   { q: 'What if the client is not associated with my selected program?', a: 'Do not click past the warning. Flag it with your supervisor the same day so program access and chart routing get corrected.' },
   { q: 'Who is the Primary Worker, and who goes under Support Workers?', a: 'The Primary Worker is the client\'s main worker. The program supervisor is always added under Support Workers so both keep visibility. If two programs share the client, add the other team members as Support Workers as well. This is set in the client\'s Program History.' },
   { q: 'When do I log a Team Conference instead of a Case Conference?', a: 'Team Conference when the conversation stays inside your program team. Case Conference when it includes an outside provider or the client themselves.' },
   { q: 'How do I request an unlock after authenticating a note?', a: 'Send the request to the portal support desk with the client identifier, the date of service, and the reason for the correction. A system administrator unlocks it and the edit is tracked.' },
-  { q: 'Does every role need an EMHware account?', a: 'No. The role guide decides. Roles with no client contact and no reporting duty are set up with IT only. Your supervisor can confirm which side your role falls on.' },
+  { q: 'Does every role need an EMR account?', a: 'No. The role guide decides. Roles with no client contact and no reporting duty are set up with IT only. Your supervisor can confirm which side your role falls on.' },
   { q: 'Are there drop in sessions for help?', a: 'Yes, Wednesday and Thursday mornings in the main boardroom for the first month after go live. After that, the support desk answers within one business day.' },
-  { q: 'What about paper notes from the transition window?', a: 'They get back entered into EMHware. Work with your supervisor so nothing sits in a drawer past month end, since the month end reports read from the system and not from paper.' },
+  { q: 'What about paper notes from the transition window?', a: 'They get back entered into the EMR. Work with your supervisor so nothing sits in a drawer past month end, since the month end reports read from the system and not from paper.' },
   { q: 'Who is behind the support desk?', a: 'The central intake team runs it. They monitor the queue, route configuration changes, set up accounts, and answer reporting questions. Central intake is the system owner.' },
   { q: 'Can I see a client from another program?', a: 'Only if you are named on that client\'s Program History as Primary or Support Worker. Access follows the program, not the building.' },
 ];
