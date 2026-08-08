@@ -212,10 +212,12 @@ body {
   position: relative;
 }
 
-/* The two background canvases: the fluid ground (main.js) and the ecosystem
-   (eco.js). Fixed behind everything; content stacks above. */
+/* The background canvases: the fluid ground (main.js), the ecosystem
+   (eco.js, home only), and each audience page's own scene (scene.js,
+   one per page). Fixed behind everything; content stacks above. */
 #nature-canvas,
-#eco {
+#eco,
+#page-scene {
   position: fixed;
   top: 0;
   left: 0;
@@ -1849,4 +1851,43 @@ a:hover { color: var(--mark-deep); }
   .plot--dim svg { display: block; }
   .plot-3d, .plot-overlay { display: none; }
   .engine { background: #ffffff; }
+}
+
+/* ---------- shared reveal grammar (all pages) ----------
+   Elements tagged data-reveal rise into place the first time they are seen.
+   The hidden state only exists once main.js confirms JavaScript, motion is
+   welcome, and IntersectionObserver is present (html.reveal-ready), so the
+   page is complete with any of those absent. Stagger with --rv on the
+   element: transition-delay = --rv x 70ms. */
+
+html.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+/* The rise is a one-shot animation rather than a transition, for two load
+   bearing reasons: entering the hidden state stays instant (content must
+   never be seen fading out on load), and the element's own transition
+   property stays free for each page's hover and press work. */
+html.reveal-ready [data-reveal].reveal-in {
+  opacity: 1;
+  transform: none;
+  animation: reveal-rise 0.7s var(--ease) both;
+  animation-delay: calc(var(--rv, 0) * 70ms);
+}
+
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.reveal-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
 }

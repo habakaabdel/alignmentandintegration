@@ -375,6 +375,38 @@ function wireWalkthroughs() {
   });
 }
 
+/* ---------- shared reveals ----------
+   Elements tagged data-reveal rise into place the first time they are seen.
+   The hidden state in styles.css is scoped under html.reveal-ready, which is
+   only set here once motion is welcome and IntersectionObserver exists, so
+   nothing is ever hidden without a way to reveal it. */
+
+function wireReveals() {
+  const tagged = document.querySelectorAll('[data-reveal]');
+  if (!tagged.length || !motionOK || !('IntersectionObserver' in window)) return;
+
+  document.documentElement.classList.add('reveal-ready');
+
+  const observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('reveal-in');
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
+
+  tagged.forEach(function (el) {
+    const rect = el.getBoundingClientRect();
+    /* anything already in view, or above it after a deep link or restored
+       scroll, arrives settled, not late; only what is still below waits */
+    if (rect.top < window.innerHeight * 0.9) {
+      el.classList.add('reveal-in');
+    } else {
+      observer.observe(el);
+    }
+  });
+}
+
 /* ---------- contact form ---------- */
 
 function wireForm() {
@@ -424,6 +456,7 @@ function wireForm() {
 activateTiles();
 trackSections();
 wireNav();
+wireReveals();
 
 let dimensional = false;
 try { dimensional = initPlot3D(); } catch (err) { dimensional = false; }

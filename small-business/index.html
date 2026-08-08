@@ -22,8 +22,145 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f7f6f2'/%3E%3Cg transform='scale(0.6667)'%3E%3Cpath d='M35.5 6.4 A21 21 0 1 0 44.1 18.5' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='41' cy='11.7' r='2.6' fill='%233a5a40'/%3E%3Cpath d='M24 38 C24 30 24 27 24 23' fill='none' stroke='%232d4a3e' stroke-width='2.7' stroke-linecap='round'/%3E%3Cpath d='M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z' fill='%232d4a3e'/%3E%3Cpath d='M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='2.4' fill='%233a5a40'/%3E%3C/g%3E%3C/svg%3E">
 
 <link rel="stylesheet" href="/styles.css">
+
+<style>
+/* Page-scoped micro-interactions for the small business sheet. Nothing here is
+   load bearing: every rule below is a hover, focus or reveal state, so the page
+   reads the same when none of them ever fire. The vocabulary is the site's own,
+   a 2px --mark rule down the left edge of a row, a 1px lift, a hairline that
+   draws in. No shadows beyond the ones the buttons already carry, no glow. */
+
+  /* the whisper of tint a row takes when the pointer is on it */
+  body[data-theme="small-business"] { --row-tint: rgba(11, 90, 68, 0.03); }
+
+  /* Each build row answers the pointer with the same marker the nav uses for
+     the current section: a solid 2px rule down its left edge, growing from the
+     top. It sits in the page gutter, which is never narrower than 20px. */
+  .builds .build {
+    position: relative;
+    transition: background-color var(--base) var(--ease);
+  }
+  .builds .build::before {
+    content: "";
+    position: absolute;
+    left: -12px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--mark);
+    scale: 1 0;
+    transform-origin: 50% 0;
+    transition: scale var(--base) var(--ease);
+  }
+  .builds .build:hover,
+  .builds .build:focus-within { background-color: var(--row-tint); }
+  .builds .build:hover::before,
+  .builds .build:focus-within::before { scale: 1 1; }
+  .builds .build .build-no { transition: color var(--fast) var(--ease); }
+  .builds .build:hover .build-no { color: var(--mark-deep); }
+
+  /* the proof panel lifts by one pixel and darkens its boundary, nothing more */
+  .proof {
+    transition:
+      translate var(--base) var(--ease),
+      border-color var(--base) var(--ease);
+  }
+  .proof:hover,
+  .proof:focus-within {
+    translate: 0 -1px;
+    border-color: var(--line-strong);
+  }
+
+  /* the three method rules carry the accent while they are being read */
+  .method-item {
+    transition: border-left-color var(--base) var(--ease);
+  }
+  .method-item:hover { border-left-color: var(--mark); }
+  .method-item dt { transition: color var(--fast) var(--ease); }
+  .method-item:hover dt { color: var(--mark-deep); }
+
+  /* Underlines are drawn rather than switched on. The mono links at the foot of
+     the page get theirs from a hairline that grows out of the left edge, because
+     their hit area is 44px tall and a text underline would sit far below them. */
+  .also-list a { position: relative; }
+  .also-list a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    margin-top: 0.66em;
+    height: 1px;
+    background: currentColor;
+    scale: 0 1;
+    transform-origin: 0 50%;
+    transition: scale var(--base) var(--ease);
+  }
+  .also-list a:hover { text-decoration: none; }
+  .also-list a:hover::after,
+  .also-list a:focus-visible::after { scale: 1 1; }
+
+  .crumb a,
+  .section-intro a {
+    text-decoration: none;
+    background-image: linear-gradient(var(--mark-deep), var(--mark-deep));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    padding-bottom: 0.14em;
+    transition: background-size var(--base) var(--ease), color var(--fast) var(--ease);
+  }
+  .crumb a:hover,
+  .section-intro a:hover { text-decoration: none; background-size: 100% 1px; }
+
+  /* The one page-specific drawing: under each section index, a short row of
+     tally ticks strokes itself out, the same marks the background field is made
+     of. It rests complete, and only starts hidden once the shared reveal system
+     has confirmed it can show it again. */
+  .section-head .index { position: relative; }
+  .section-head .index::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: calc(100% + 6px);
+    width: 30px;
+    height: 5px;
+    background-image: repeating-linear-gradient(90deg, var(--mark) 0 1px, transparent 1px 7px);
+    opacity: 0.55;
+    scale: 1 1;
+    transform-origin: 0 50%;
+  }
+  html.reveal-ready .section-head[data-reveal] .index::after {
+    scale: 0 1;
+    transition: scale 620ms var(--ease) 160ms;
+  }
+  html.reveal-ready .section-head[data-reveal].reveal-in .index::after { scale: 1 1; }
+
+  /* the walkthrough controls answer a press physically, not with a colour flash */
+  .walk-btn { transition: color var(--fast) var(--ease), border-color var(--fast) var(--ease), translate var(--fast) var(--ease); }
+  .walk-btn:active { translate: 0 1px; }
+  .walk-dots li { transition: background-color var(--base) var(--ease); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .builds .build,
+    .builds .build::before,
+    .builds .build .build-no,
+    .proof,
+    .method-item,
+    .method-item dt,
+    .also-list a::after,
+    .crumb a,
+    .section-intro a,
+    .walk-btn,
+    .walk-dots li { transition: none; }
+    .builds .build::before { scale: 1 0; }
+    .section-head .index::after { scale: 1 1; }
+  }
+</style>
 </head>
 <body data-theme="small-business">
+
+<canvas id="page-scene" aria-hidden="true"></canvas>
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -83,8 +220,8 @@
       <p class="crumb"><a href="/">Alignment Integration</a> / small business</p>
       <p class="eyebrow">restaurant, salon, independent lot</p>
       <h1 class="segment-lede" id="h-seg">The numbers you actually run on, in one place.</h1>
-      <p class="segment-claim">You know your operation better than any dashboard will. What is missing is one place to see it, without opening four things at eleven at night.</p>
-      <div class="actions">
+      <p class="segment-claim" data-reveal style="--rv: 1">You know your operation better than any dashboard will. What is missing is one place to see it, without opening four things at eleven at night.</p>
+      <div class="actions" data-reveal style="--rv: 2">
         <a class="btn btn-primary" href="/demos/restaurant-ops/">Open the demo</a>
         <a class="btn btn-quiet" href="/#contact">Book the free consultation</a>
       </div>
@@ -94,7 +231,7 @@
            board into a phone column makes it unreadable. The phone set is the
            demo's own mobile layout. See capture-demo.mjs in the
            alignment-marketing-copy skill. -->
-      <figure class="walk" data-walk style="--ar: 1360 / 880; --ar-phone: 780 / 1560" role="group" aria-label="The operations board, running">
+      <figure class="walk" data-walk data-reveal style="--ar: 1360 / 880; --ar-phone: 780 / 1560; --rv: 3" role="group" aria-label="The operations board, running">
         <div class="walk-stage">
           <picture>
             <source media="(max-width: 46rem)" srcset="/media/walk/restaurant-ops-phone/01.webp">
@@ -155,7 +292,7 @@
 
   <section class="section" aria-labelledby="h-build">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <p class="index">01</p>
         <div>
           <h2 id="h-build">What we build for a small operation</h2>
@@ -164,28 +301,28 @@
       </div>
 
       <ol class="builds">
-        <li class="build">
+        <li class="build" data-reveal style="--rv: 1">
           <p class="build-no">one</p>
           <div>
             <h3>One board instead of four tabs</h3>
             <p>Covers, shifts, stock, bookings, no-shows. The numbers your day turns on, on one screen, readable on a phone with one hand free.</p>
           </div>
         </li>
-        <li class="build">
+        <li class="build" data-reveal style="--rv: 2">
           <p class="build-no">two</p>
           <div>
             <h3>Built on how your shop already works</h3>
             <p>Your booking system, your supplier, your spreadsheet stay where they are. The software wraps what exists instead of replacing it.</p>
           </div>
         </li>
-        <li class="build">
+        <li class="build" data-reveal style="--rv: 3">
           <p class="build-no">three</p>
           <div>
             <h3>The quiet questions, answered</h3>
             <p>Which nights make money once staffing is counted, which no-show pattern costs you a shift, which stock is going missing. Your records already hold the answers.</p>
           </div>
         </li>
-        <li class="build">
+        <li class="build" data-reveal style="--rv: 4">
           <p class="build-no">four</p>
           <div>
             <h3>Someone there when it changes</h3>
@@ -194,7 +331,7 @@
         </li>
       </ol>
 
-      <div class="proof">
+      <div class="proof" data-reveal>
         <p class="proof-state">demo live</p>
         <h3>Small business operations board</h3>
         <p>A working demo, not a screenshot. Built on a restaurant, because it has the most moving parts on the thinnest margin. The same board reads a salon.</p>
@@ -207,7 +344,7 @@
 
   <section class="section" aria-labelledby="h-method">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <p class="index">02</p>
         <div>
           <h2 id="h-method">How it works underneath</h2>
@@ -216,23 +353,23 @@
       </div>
 
       <dl class="method-short">
-        <div class="method-item">
+        <div class="method-item" data-reveal style="--rv: 1">
           <dt>one</dt>
           <dd>It captures what happens as it happens, so nobody has to remember Tuesday on Friday afternoon.</dd>
         </div>
-        <div class="method-item">
+        <div class="method-item" data-reveal style="--rv: 2">
           <dt>two</dt>
           <dd>Overnight it separates the noise from what mattered, so the morning read is short.</dd>
         </div>
-        <div class="method-item">
+        <div class="method-item" data-reveal style="--rv: 3">
           <dt>three</dt>
           <dd>You govern what becomes the record. Nothing is filed as fact on its own.</dd>
         </div>
       </dl>
 
-      <p class="bounds">What we are not claiming: this is not an accounting system and it does not replace your point of sale. We will not promise you savings before we have seen how your shop runs. The initial consultation is free, and it is a conversation, not a sales call.</p>
+      <p class="bounds" data-reveal>What we are not claiming: this is not an accounting system and it does not replace your point of sale. We will not promise you savings before we have seen how your shop runs. The initial consultation is free, and it is a conversation, not a sales call.</p>
 
-      <div class="also">
+      <div class="also" data-reveal>
         <p class="h-quiet">Not what you came for</p>
         <ul class="also-list">
           <li><a href="/community-social-services/">Community and social services</a></li>
@@ -268,5 +405,6 @@
 </footer>
 
 <script src="/main.js" defer></script>
+<script type="module" src="./scene.js" defer></script>
 </body>
 </html>

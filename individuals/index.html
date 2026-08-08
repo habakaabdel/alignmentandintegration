@@ -21,8 +21,168 @@
 
 <link class="icon" rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f7f6f2'/%3E%3Cg transform='scale(0.6667)'%3E%3Cpath d='M35.5 6.4 A21 21 0 1 0 44.1 18.5' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='41' cy='11.7' r='2.6' fill='%233a5a40'/%3E%3Cpath d='M24 38 C24 30 24 27 24 23' fill='none' stroke='%232d4a3e' stroke-width='2.7' stroke-linecap='round'/%3E%3Cpath d='M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z' fill='%232d4a3e'/%3E%3Cpath d='M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='2.4' fill='%233a5a40'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="stylesheet" href="/styles.css">
+
+<style>
+/* Page-scoped motion for the individuals sheet. The background scene's own
+   vocabulary, small marks settling into concentric rings around one centre, is
+   carried into the page marks and the hover states. Everything here is
+   decoration over a page that is already complete without it. */
+
+/* The orbit mark: one drawn glyph per intent, gaining a ring each time, so the
+   four rows read as a life gathering rather than as a list. Complete at rest;
+   it only draws itself in where the shared reveal system is running. */
+.orbit-mark {
+  display: block;
+  width: 34px;
+  height: 34px;
+  margin-top: var(--s3);
+  overflow: visible;
+  opacity: 0.55;
+  transition: opacity var(--base) var(--ease);
+}
+
+.orbit-ring {
+  fill: none;
+  stroke: var(--mark);
+  stroke-width: 1;
+}
+
+.orbit-core { fill: var(--mark); }
+
+.build:hover .orbit-mark,
+.build:focus-within .orbit-mark { opacity: 1; }
+
+html.reveal-ready .orbit-ring {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+html.reveal-ready .orbit-core { opacity: 0; }
+
+html.reveal-ready .build.reveal-in .orbit-ring {
+  animation: orbit-draw 900ms var(--ease) forwards;
+}
+
+html.reveal-ready .build.reveal-in .orbit-ring:nth-of-type(2) { animation-delay: 140ms; }
+html.reveal-ready .build.reveal-in .orbit-ring:nth-of-type(3) { animation-delay: 280ms; }
+html.reveal-ready .build.reveal-in .orbit-ring:nth-of-type(4) { animation-delay: 420ms; }
+
+html.reveal-ready .build.reveal-in .orbit-core {
+  animation: orbit-core-in var(--base) var(--ease) 620ms forwards;
+}
+
+@keyframes orbit-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes orbit-core-in {
+  to { opacity: 1; }
+}
+
+/* The intent rows. The tint and the left bar are the same two moves the proof
+   panel already makes, borrowed down a level. */
+.builds {
+  padding-inline: var(--s3);
+  margin-inline: calc(var(--s3) * -1);
+}
+
+.build {
+  position: relative;
+  padding-inline: var(--s3);
+  margin-inline: calc(var(--s3) * -1);
+  transition: background var(--base) var(--ease);
+}
+
+.build::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--mark);
+  scale: 1 0;
+  opacity: 0;
+  transition: scale var(--base) var(--ease), opacity var(--base) var(--ease);
+}
+
+.build:hover,
+.build:focus-within { background: color-mix(in srgb, var(--mark) 5%, transparent); }
+
+.build:hover::before,
+.build:focus-within::before { scale: 1 1; opacity: 1; }
+
+/* The proof panel takes the 2px lift that live tiles take on the main sheet. */
+.proof {
+  transition:
+    translate var(--base) var(--ease),
+    border-color var(--base) var(--ease);
+}
+
+.proof:hover,
+.proof:focus-within {
+  translate: 0 -2px;
+  border-color: var(--line-strong);
+  border-left-color: var(--mark-deep);
+}
+
+/* Buttons take the sheet's 1px lift and give it back on press. */
+.btn { transition: translate var(--fast) var(--ease), transform var(--fast) var(--ease), background var(--fast) var(--ease); }
+.btn:hover { translate: 0 -1px; }
+.btn:active { translate: 0 0; }
+
+/* Underlines are drawn rather than switched on. */
+.crumb a,
+.also-list a {
+  position: relative;
+  text-decoration: none;
+}
+
+.crumb a::after,
+.also-list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.15em;
+  height: 1px;
+  background: currentColor;
+  scale: 0 1;
+  transform-origin: left center;
+  transition: scale var(--base) var(--ease);
+}
+
+.also-list a::after { bottom: 0.7em; }
+
+.crumb a:hover,
+.crumb a:focus-visible,
+.also-list a:hover,
+.also-list a:focus-visible { text-decoration: none; }
+
+.crumb a:hover::after,
+.crumb a:focus-visible::after,
+.also-list a:hover::after,
+.also-list a:focus-visible::after { scale: 1 1; }
+
+/* The walkthrough's position dots answer the frame they mark. */
+.walk-dots li {
+  transition: background var(--base) var(--ease), scale var(--base) var(--ease);
+}
+
+.walk-dots li.is-on { scale: 1.4; }
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-mark { opacity: 0.55; }
+  html.reveal-ready .orbit-ring { stroke-dasharray: none; stroke-dashoffset: 0; }
+  html.reveal-ready .orbit-core { opacity: 1; }
+  .build::before, .proof, .btn, .crumb a::after, .also-list a::after, .walk-dots li { transition: none; }
+  .walk-dots li.is-on { scale: 1; }
+}
+</style>
 </head>
 <body data-theme="individuals">
+
+<canvas id="page-scene" aria-hidden="true"></canvas>
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -82,13 +242,13 @@
       <p class="crumb"><a href="/">Alignment Integration</a> / individuals</p>
       <p class="eyebrow">a packaged product, prototype live</p>
       <h1 class="segment-lede" id="h-seg">Most of the useful detail happens away from a desk.</h1>
-      <p class="segment-claim">The thought in the car, the thing someone told you in a hallway, the decision made standing up. By the time you can write it down, it is gone.</p>
-      <div class="actions">
+      <p class="segment-claim" data-reveal style="--rv: 1">The thought in the car, the thing someone told you in a hallway, the decision made standing up. By the time you can write it down, it is gone.</p>
+      <div class="actions" data-reveal style="--rv: 2">
         <a class="btn btn-primary" href="/demos/personal-pal/">Open demo</a>
         <a class="btn btn-quiet" href="/#contact">Ask about it</a>
       </div>
 
-      <figure class="walk walk--phone" data-walk style="--ar: 768 / 1376" role="group" aria-label="The personal app, running">
+      <figure class="walk walk--phone" data-walk data-reveal style="--ar: 768 / 1376; --rv: 3" role="group" aria-label="The personal app, running">
         <div class="walk-stage">
           <img class="is-on" src="/media/walk/personal-pal/01.webp" width="768" height="1376" loading="eager" decoding="async"
                alt="The timeline showing your day flow, habits, and tasks."
@@ -127,7 +287,7 @@
 
   <section class="section" aria-labelledby="h-build">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <p class="index">01</p>
         <div>
           <h2 id="h-build">What it is meant to do</h2>
@@ -136,29 +296,47 @@
       </div>
 
       <ol class="builds">
-        <li class="build">
-          <p class="build-no">one</p>
+        <li class="build" data-reveal style="--rv: 1">
+          <p class="build-no">one<svg class="orbit-mark" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+            <circle class="orbit-ring" cx="17" cy="17" r="5" pathLength="1"/>
+            <circle class="orbit-core" cx="17" cy="17" r="1.6"/>
+          </svg></p>
           <div>
             <h3>Talk instead of typing</h3>
             <p>Hands busy, walking, driving, mid-conversation. If capture needs you to sit down and type, the detail worth keeping never gets kept.</p>
           </div>
         </li>
-        <li class="build">
-          <p class="build-no">two</p>
+        <li class="build" data-reveal style="--rv: 2">
+          <p class="build-no">two<svg class="orbit-mark" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+            <circle class="orbit-ring" cx="17" cy="17" r="5" pathLength="1"/>
+            <circle class="orbit-ring" cx="17" cy="17" r="10" pathLength="1"/>
+            <circle class="orbit-core" cx="17" cy="17" r="1.6"/>
+          </svg></p>
           <div>
             <h3>It sorts what you give it</h3>
             <p>You should not have to decide where something goes the moment you think of it. Filing is what kills every note-taking system.</p>
           </div>
         </li>
-        <li class="build">
-          <p class="build-no">three</p>
+        <li class="build" data-reveal style="--rv: 3">
+          <p class="build-no">three<svg class="orbit-mark" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+            <circle class="orbit-ring" cx="17" cy="17" r="5" pathLength="1"/>
+            <circle class="orbit-ring" cx="17" cy="17" r="10" pathLength="1"/>
+            <circle class="orbit-ring" cx="17" cy="17" r="14.5" pathLength="1"/>
+            <circle class="orbit-core" cx="17" cy="17" r="1.6"/>
+          </svg></p>
           <div>
             <h3>It answers from your own material</h3>
             <p>Ask what you decided about something in March and get your answer, not a general one.</p>
           </div>
         </li>
-        <li class="build">
-          <p class="build-no">four</p>
+        <li class="build" data-reveal style="--rv: 4">
+          <p class="build-no">four<svg class="orbit-mark" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+            <circle class="orbit-ring" cx="17" cy="17" r="5" pathLength="1"/>
+            <circle class="orbit-ring" cx="17" cy="17" r="10" pathLength="1"/>
+            <circle class="orbit-ring" cx="17" cy="17" r="14.5" pathLength="1"/>
+            <circle class="orbit-ring" cx="17" cy="17" r="18.5" pathLength="1"/>
+            <circle class="orbit-core" cx="17" cy="17" r="1.6"/>
+          </svg></p>
           <div>
             <h3>You govern what becomes true</h3>
             <p>Nothing is filed as fact on its own. When it gets something wrong you say so, and the correction is the record.</p>
@@ -166,7 +344,7 @@
         </li>
       </ol>
 
-      <div class="proof">
+      <div class="proof" data-reveal>
         <p class="proof-state">prototype live</p>
         <h3>Pocket portal</h3>
         <p>A working prototype you can open now. It simulates a day flow timeline, voice dictation commitments extraction, transcription shredding, and the adapting personal mind map.</p>
@@ -175,9 +353,9 @@
         </div>
       </div>
 
-      <p class="bounds">What we are not claiming: there is no product to buy today, no price, and no launch date we are willing to promise. If this is the one you want, tell us what you would want it to handle. That shapes the build more than another month of us guessing.</p>
+      <p class="bounds" data-reveal>What we are not claiming: there is no product to buy today, no price, and no launch date we are willing to promise. If this is the one you want, tell us what you would want it to handle. That shapes the build more than another month of us guessing.</p>
 
-      <div class="also">
+      <div class="also" data-reveal>
         <p class="h-quiet">Not what you came for</p>
         <ul class="also-list">
           <li><a href="/small-business/">Small business</a></li>
@@ -213,5 +391,6 @@
 </footer>
 
 <script src="/main.js" defer></script>
+<script type="module" src="./scene.js" defer></script>
 </body>
 </html>

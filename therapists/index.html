@@ -22,8 +22,107 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f7f6f2'/%3E%3Cg transform='scale(0.6667)'%3E%3Cpath d='M35.5 6.4 A21 21 0 1 0 44.1 18.5' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='41' cy='11.7' r='2.6' fill='%233a5a40'/%3E%3Cpath d='M24 38 C24 30 24 27 24 23' fill='none' stroke='%232d4a3e' stroke-width='2.7' stroke-linecap='round'/%3E%3Cpath d='M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z' fill='%232d4a3e'/%3E%3Cpath d='M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='2.4' fill='%233a5a40'/%3E%3C/g%3E%3C/svg%3E">
 
 <link rel="stylesheet" href="/styles.css">
+
+<style>
+/* Page motion for this sheet only. The shared vocabulary lives in styles.css
+   and is not edited from here: this block adds the quiet hover and press
+   states this page needs, in the page's own teal, plus the one hairline that
+   draws under the opening line. Every move is small, physical and reversible,
+   and all of it collapses under prefers-reduced-motion. */
+
+/* The numbered rows answer a pointer with a drawn rule in the margin, the
+   same marker the nav uses for a current section, and a faint white ground
+   that matches the bordered cards on this page. */
+.build {
+  position: relative;
+  transition: background var(--base) var(--ease);
+}
+
+.build::before {
+  content: "";
+  position: absolute;
+  left: -0.75rem;
+  top: var(--s4);
+  bottom: var(--s4);
+  width: 2px;
+  border-radius: 2px;
+  background: var(--mark);
+  opacity: 0;
+  translate: -4px 0;
+  transition: opacity var(--base) var(--ease), translate var(--base) var(--ease);
+}
+
+/* The proof card is one of the bordered cards, so it lifts by the 2px a live
+   tile is allowed and darkens its boundary. No shadow, no tint change. */
+.proof {
+  transition: translate var(--base) var(--ease), border-color var(--base) var(--ease);
+}
+
+/* The crumb draws its underline from the left rather than switching it on. */
+.crumb a {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  transition: background-size var(--base) var(--ease), color var(--fast) var(--ease);
+}
+
+/* The other segments fade their rule in instead of adding one, so the row
+   height never moves. */
+.also-list a {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color var(--fast) var(--ease), text-decoration-color var(--base) var(--ease);
+}
+
+/* Buttons take a 1px lift and give it back on press. The base transition is
+   restated without its compound entry so the property this sheet uses for
+   movement is the one that animates. */
+.actions .btn {
+  transition: background var(--fast) var(--ease), border-color var(--fast) var(--ease), translate var(--fast) var(--ease);
+}
+.actions .btn:active { translate: 0 1px; }
+
+@media (hover: hover) {
+  .build:hover, .build:focus-within { background: rgba(255, 255, 255, 0.55); }
+  .build:hover::before, .build:focus-within::before { opacity: 1; translate: 0 0; }
+  .proof:hover { translate: 0 -2px; border-left-color: var(--mark-deep); }
+  .crumb a:hover { background-size: 100% 1px; text-decoration: none; }
+  .also-list a:hover { text-decoration-color: var(--mark); }
+  .actions .btn:hover { translate: 0 -1px; }
+  .actions .btn:active { translate: 0 1px; }
+}
+
+/* The opening line draws one hairline under itself, once, the way a measured
+   sheet is ruled before anything is written on it. */
+.segment-lede::after {
+  content: "";
+  display: block;
+  width: 4.5rem;
+  height: 1px;
+  margin-top: var(--s5);
+  background: var(--mark);
+  opacity: 0.5;
+  animation: lede-rule 900ms var(--ease) 240ms both;
+}
+
+@keyframes lede-rule {
+  from { width: 0; }
+  to { width: 4.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .build, .build::before, .proof, .crumb a, .also-list a, .actions .btn { transition: none; }
+  .build::before { translate: 0 0; }
+  .segment-lede::after { animation: none; }
+}
+</style>
 </head>
 <body data-theme="therapists">
+
+<canvas id="page-scene" aria-hidden="true"></canvas>
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -89,7 +188,7 @@
         <a class="btn btn-quiet" href="/#contact">Ask about it</a>
       </div>
 
-      <figure class="walk walk--phone" data-walk style="--ar: 860 / 1800" role="group" aria-label="The therapist workload board, running">
+      <figure class="walk walk--phone" data-walk data-reveal style="--ar: 860 / 1800" role="group" aria-label="The therapist workload board, running">
         <div class="walk-stage">
           <img class="is-on" src="/media/walk/therapist-workload/01.webp" width="860" height="1800" loading="eager" decoding="async"
                alt="A Tuesday board: sessions and reports in time order, one row red because one report is overdue."
@@ -129,36 +228,36 @@
   <section class="section" aria-labelledby="h-build">
     <div class="wrap">
       <div class="section-head">
-        <p class="index">01</p>
+        <p class="index" data-reveal>01</p>
         <div>
-          <h2 id="h-build">What it does</h2>
-          <p class="section-intro">A product you would use, not a system we build for your clinic. Different shape, same engine underneath.</p>
+          <h2 id="h-build" data-reveal style="--rv: 1">What it does</h2>
+          <p class="section-intro" data-reveal style="--rv: 2">A product you would use, not a system we build for your clinic. Different shape, same engine underneath.</p>
         </div>
       </div>
 
       <ol class="builds">
-        <li class="build">
+        <li class="build" data-reveal style="--rv: 1">
           <p class="build-no">one</p>
           <div>
             <h3>It carries what you owe</h3>
             <p>Sessions coming up, reports due, the thing you promised to bring on Thursday. In time order, each one opening to what it needs.</p>
           </div>
         </li>
-        <li class="build">
+        <li class="build" data-reveal style="--rv: 2">
           <p class="build-no">two</p>
           <div>
             <h3>It holds no names</h3>
             <p>Every client is a coded card: a nickname, an avatar, a number if you want one. Which card is which person exists in your head and nowhere else.</p>
           </div>
         </li>
-        <li class="build">
+        <li class="build" data-reveal style="--rv: 3">
           <p class="build-no">three</p>
           <div>
             <h3>The map is fenced to the concern</h3>
             <p>Each card carries a weighted map of what bears on the reason for counselling, and only that. No life history, no intake. A domain stays empty until something in it matters.</p>
           </div>
         </li>
-        <li class="build">
+        <li class="build" data-reveal style="--rv: 4">
           <p class="build-no">four</p>
           <div>
             <h3>Dictate the recap, keep only the items</h3>
@@ -167,7 +266,7 @@
         </li>
       </ol>
 
-      <div class="proof">
+      <div class="proof" data-reveal>
         <p class="proof-state">prototype live</p>
         <h3>Therapist workload</h3>
         <p>A working prototype you can open now. It runs on a sample caseload and exists to show the shape of the product. The full build follows the conversation, not the other way around.</p>
@@ -176,9 +275,9 @@
         </div>
       </div>
 
-      <p class="bounds">What we are not claiming: this is not a clinical records system and it is not built to be one. It stores no client names, no session notes, and no recordings, so it does not stand in for the documentation your college requires. Session content stays in your own case notes. No price on this page yet.</p>
+      <p class="bounds" data-reveal>What we are not claiming: this is not a clinical records system and it is not built to be one. It stores no client names, no session notes, and no recordings, so it does not stand in for the documentation your college requires. Session content stays in your own case notes. No price on this page yet.</p>
 
-      <div class="also">
+      <div class="also" data-reveal>
         <p class="h-quiet">Not what you came for</p>
         <ul class="also-list">
           <li><a href="/small-business/">Small business</a></li>
@@ -214,5 +313,6 @@
 </footer>
 
 <script src="/main.js" defer></script>
+<script type="module" src="./scene.js" defer></script>
 </body>
 </html>

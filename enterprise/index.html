@@ -22,8 +22,136 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f7f6f2'/%3E%3Cg transform='scale(0.6667)'%3E%3Cpath d='M35.5 6.4 A21 21 0 1 0 44.1 18.5' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='41' cy='11.7' r='2.6' fill='%233a5a40'/%3E%3Cpath d='M24 38 C24 30 24 27 24 23' fill='none' stroke='%232d4a3e' stroke-width='2.7' stroke-linecap='round'/%3E%3Cpath d='M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z' fill='%232d4a3e'/%3E%3Cpath d='M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='2.4' fill='%233a5a40'/%3E%3C/g%3E%3C/svg%3E">
 
 <link rel="stylesheet" href="/styles.css">
+
+<style>
+/* Micro-interactions for this sheet only. Every rule here adds a hover, a
+   press, or an entrance that the page is already complete without, so nothing
+   below is load bearing for reading the page. Shared measurements stay in
+   styles.css and are not restated. */
+
+/* The build rows are ruled entries on a sheet. Hover marks the entry with the
+   same solid rule a live status row uses, rather than lifting it, because a
+   row in a list should stay in the list. Inset shadow keeps it off layout. */
+.build {
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 0 transparent;
+  transition: background var(--fast) var(--ease), box-shadow var(--base) var(--ease);
+}
+.build .build-no { transition: color var(--fast) var(--ease); }
+
+@media (hover: hover) {
+  .build:hover {
+    background: rgba(47, 78, 122, 0.035);
+    box-shadow: inset 2px 0 0 0 var(--mark);
+  }
+  .build:hover .build-no { color: var(--mark-deep); }
+}
+
+/* The proof panel is the one tile on the page, so it takes the 2px tile lift
+   and a boundary darken. The left edge carries the state colour and is left
+   alone. */
+.proof {
+  transition:
+    border-top-color var(--base) var(--ease),
+    border-right-color var(--base) var(--ease),
+    border-bottom-color var(--base) var(--ease),
+    translate var(--base) var(--ease);
+}
+
+@media (hover: hover) {
+  .proof:hover {
+    border-top-color: var(--line-strong);
+    border-right-color: var(--line-strong);
+    border-bottom-color: var(--line-strong);
+    translate: 0 -2px;
+  }
+}
+
+/* The three method items already stand on a rule. Hover moves that rule to the
+   accent, which is the whole move. */
+.method-item { transition: border-left-color var(--base) var(--ease); }
+@media (hover: hover) {
+  .method-item:hover { border-left-color: var(--mark); }
+}
+
+/* Buttons take the sheet's 1px lift. The transition list is restated in full
+   because the shared rule cannot be added to, and the press state returns the
+   button to the line it sits on. */
+main .btn {
+  transition:
+    transform var(--fast) var(--ease),
+    background var(--fast) var(--ease),
+    box-shadow var(--fast) var(--ease),
+    border-color var(--fast) var(--ease),
+    translate var(--fast) var(--ease);
+}
+@media (hover: hover) {
+  main .btn:hover { translate: 0 -1px; }
+}
+main .btn:active { translate: 0 0; }
+
+/* Underlines that draw rather than appear. Painted as a background rule so no
+   pseudo-element is claimed and the tap-target boxes stay untouched. The
+   crumb is inline, so its rule sits on the em box; the also-list links are
+   44px tall boxes, so theirs is measured from the centre of the text. */
+.crumb a,
+.also-list a {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size var(--base) var(--ease), color var(--fast) var(--ease);
+}
+.crumb a { background-position: 0 100%; }
+.also-list a { background-position: 0 calc(50% + 0.7em); }
+
+.crumb a:hover,
+.crumb a:focus-visible,
+.also-list a:hover,
+.also-list a:focus-visible {
+  background-size: 100% 1px;
+  text-decoration: none;
+}
+
+/* Prose links keep their underline and thicken under the pointer. */
+.section-intro a { transition: text-decoration-thickness var(--fast) var(--ease); }
+.section-intro a:hover { text-decoration-thickness: 2px; }
+
+/* fig. 01 draws its own routing the first time it is seen: the flows run from
+   the sites to the desk, then the flagged marks land. Scoped to the reveal
+   state, so with no script, no observer, or reduced motion the figure is the
+   complete resting drawing it has always been. */
+@media (prefers-reduced-motion: no-preference) {
+  html.reveal-ready .page-fig[data-reveal] .fig-flow {
+    stroke-dasharray: 480;
+    stroke-dashoffset: 480;
+  }
+
+  html.reveal-ready .page-fig[data-reveal] .fig-bar-flag,
+  html.reveal-ready .page-fig[data-reveal] .fig-row-flag { opacity: 0; }
+
+  html.reveal-ready .page-fig[data-reveal].reveal-in .fig-flow {
+    animation: pf-run 760ms var(--ease) forwards;
+  }
+  html.reveal-ready .page-fig[data-reveal].reveal-in .fig-flow:nth-of-type(1) { animation-delay: 240ms; }
+  html.reveal-ready .page-fig[data-reveal].reveal-in .fig-flow:nth-of-type(2) { animation-delay: 320ms; }
+  html.reveal-ready .page-fig[data-reveal].reveal-in .fig-flow:nth-of-type(3) { animation-delay: 400ms; }
+  html.reveal-ready .page-fig[data-reveal].reveal-in .fig-flow:nth-of-type(4) { animation-delay: 480ms; }
+  html.reveal-ready .page-fig[data-reveal].reveal-in .fig-flow:nth-of-type(5) { animation-delay: 560ms; }
+  html.reveal-ready .page-fig[data-reveal].reveal-in .fig-flow:nth-of-type(6) { animation-delay: 640ms; }
+
+  html.reveal-ready .page-fig[data-reveal].reveal-in .fig-bar-flag,
+  html.reveal-ready .page-fig[data-reveal].reveal-in .fig-row-flag {
+    animation: pf-land var(--base) var(--ease) 1300ms forwards;
+  }
+
+  @keyframes pf-run { to { stroke-dashoffset: 0; } }
+  @keyframes pf-land { to { opacity: 1; } }
+}
+</style>
 </head>
 <body data-theme="enterprise">
+
+<canvas id="page-scene" aria-hidden="true"></canvas>
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -78,7 +206,7 @@
 
   <span id="top"></span>
 
-  <section class="section section-segment-hero" aria-labelledby="h-seg">
+  <section class="section section-segment-hero" aria-labelledby="h-seg" data-scene>
     <div class="wrap">
       <p class="crumb"><a href="/">Alignment Integration</a> / enterprise</p>
       <p class="eyebrow">retail, distribution, multi-site</p>
@@ -92,7 +220,7 @@
       <!-- six sites carrying their own numbers, one desk reading the same
            marks. The flagged bar is the same colour in both places because
            that is the whole claim of this page. -->
-      <figure class="page-fig" aria-hidden="true">
+      <figure class="page-fig" aria-hidden="true" data-reveal>
         <svg class="pf-h" viewBox="0 0 720 280" width="720" height="280" preserveAspectRatio="xMidYMid meet">
           <text class="engine-caption" x="704" y="26" text-anchor="end">fig. 01</text>
 
@@ -207,9 +335,9 @@
     </div>
   </section>
 
-  <section class="section" aria-labelledby="h-build">
+  <section class="section" aria-labelledby="h-build" data-scene>
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <p class="index">01</p>
         <div>
           <h2 id="h-build">What we build at this scale</h2>
@@ -218,28 +346,28 @@
       </div>
 
       <ol class="builds">
-        <li class="build">
+        <li class="build" data-reveal style="--rv: 1">
           <p class="build-no">one</p>
           <div>
             <h3>One version that survives the trip upstairs</h3>
             <p>What is happening across every location, in terms both ends recognize. The floor and head office stop arguing about whose number is right.</p>
           </div>
         </li>
-        <li class="build">
+        <li class="build" data-reveal style="--rv: 2">
           <p class="build-no">two</p>
           <div>
             <h3>It sits on top of what you run</h3>
             <p>Large operations have bought their systems and are not replacing them. We build on the layer above, reading what those systems already produce.</p>
           </div>
         </li>
-        <li class="build">
+        <li class="build" data-reveal style="--rv: 3">
           <p class="build-no">three</p>
           <div>
             <h3>Comparison across sites that means something</h3>
             <p>Sites record the same thing differently. Before anything is added up we map how each one records it, so the totals mean the same everywhere.</p>
           </div>
         </li>
-        <li class="build">
+        <li class="build" data-reveal style="--rv: 4">
           <p class="build-no">four</p>
           <div>
             <h3>We start on site</h3>
@@ -248,7 +376,7 @@
         </li>
       </ol>
 
-      <div class="proof is-early">
+      <div class="proof is-early" data-reveal style="--rv: 1">
         <p class="proof-state">in development</p>
         <h3>Enterprise operations demo</h3>
         <p>Not open yet. The engine is built and we can show it. The same method has run in retail overseas and in health and social services here.</p>
@@ -259,9 +387,9 @@
     </div>
   </section>
 
-  <section class="section" aria-labelledby="h-method">
+  <section class="section" aria-labelledby="h-method" data-scene>
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <p class="index">02</p>
         <div>
           <h2 id="h-method">How it works underneath</h2>
@@ -270,23 +398,23 @@
       </div>
 
       <dl class="method-short">
-        <div class="method-item">
+        <div class="method-item" data-reveal style="--rv: 1">
           <dt>one</dt>
           <dd>It captures what happens as it happens, rather than at the end of a reporting period.</dd>
         </div>
-        <div class="method-item">
+        <div class="method-item" data-reveal style="--rv: 2">
           <dt>two</dt>
           <dd>Overnight it separates the noise from what mattered, so the morning read is short.</dd>
         </div>
-        <div class="method-item">
+        <div class="method-item" data-reveal style="--rv: 3">
           <dt>three</dt>
           <dd>A person with authority governs what becomes the record. Nothing is filed as true on its own.</dd>
         </div>
       </dl>
 
-      <p class="bounds">What we are not claiming: we are a small shop, not a big consulting firm with staff on the bench. That constraint shapes what we take on, so we would rather say it now than in month three. We do not publish client names or numbers we have not measured.</p>
+      <p class="bounds" data-reveal style="--rv: 1">What we are not claiming: we are a small shop, not a big consulting firm with staff on the bench. That constraint shapes what we take on, so we would rather say it now than in month three. We do not publish client names or numbers we have not measured.</p>
 
-      <div class="also">
+      <div class="also" data-reveal style="--rv: 1">
         <p class="h-quiet">Not what you came for</p>
         <ul class="also-list">
           <li><a href="/small-business/">Small business</a></li>
@@ -301,7 +429,7 @@
 
 </main>
 
-<footer class="footer">
+<footer class="footer" data-scene>
   <div class="wrap footer-inner">
     <p class="footer-brand">
       <svg class="monogram" viewBox="0 0 48 48" width="24" height="24" aria-hidden="true">
@@ -322,5 +450,6 @@
 </footer>
 
 <script src="/main.js" defer></script>
+<script type="module" src="./scene.js" defer></script>
 </body>
 </html>

@@ -22,8 +22,119 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f7f6f2'/%3E%3Cg transform='scale(0.6667)'%3E%3Cpath d='M35.5 6.4 A21 21 0 1 0 44.1 18.5' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='41' cy='11.7' r='2.6' fill='%233a5a40'/%3E%3Cpath d='M24 38 C24 30 24 27 24 23' fill='none' stroke='%232d4a3e' stroke-width='2.7' stroke-linecap='round'/%3E%3Cpath d='M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z' fill='%232d4a3e'/%3E%3Cpath d='M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='2.4' fill='%233a5a40'/%3E%3C/g%3E%3C/svg%3E">
 
 <link rel="stylesheet" href="/styles.css">
+
+<style>
+/* Page-scoped motion for the demos index. This page is a set of doors, so
+   the only job here is to make a card feel like a drawn frame that answers
+   the pointer. Nothing moves that the reader has not pointed at. */
+
+/* The card is the anchor for its own corner ticks. The second selector is
+   here because the shared reveal rule is more specific than a bare class and
+   would otherwise replace this transition list with its own, leaving the
+   hover lift to snap. Both sets of properties are named so the entrance and
+   the hover keep working together. */
+.proof,
+html.reveal-ready .proof[data-reveal] {
+  position: relative;
+  transition:
+    translate var(--base) var(--ease),
+    border-color var(--base) var(--ease),
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+}
+
+.proof:hover,
+.proof:focus-within {
+  translate: 0 -2px;
+  border-color: var(--line-strong);
+  border-left-color: var(--mark-deep);
+}
+
+/* Two hairline ticks drawn out from the sharp corners of the leaf radius,
+   the same registration mark the background sheet uses. They are decoration
+   with no content, so they carry aria nothing and never take a pointer. */
+.proof::before,
+.proof::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 0 solid var(--mark);
+  opacity: 0;
+  scale: 0.35;
+  pointer-events: none;
+  transition:
+    opacity var(--base) var(--ease),
+    scale var(--base) var(--ease);
+}
+
+.proof::before {
+  top: 7px;
+  right: 7px;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  transform-origin: top right;
+}
+
+.proof::after {
+  bottom: 7px;
+  left: 7px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+  transform-origin: bottom left;
+}
+
+.proof:hover::before,
+.proof:hover::after,
+.proof:focus-within::before,
+.proof:focus-within::after {
+  opacity: 1;
+  scale: 1;
+}
+
+/* The site's one-pixel button lift, kept for the card's primary action. */
+.proof .btn-primary {
+  transition:
+    translate var(--fast) var(--ease),
+    background var(--fast) var(--ease),
+    box-shadow var(--fast) var(--ease);
+}
+.proof .btn-primary:hover { translate: 0 -1px; }
+
+/* The segment list at the foot draws its underline rather than switching it
+   on, which keeps the row quiet while the pointer crosses it. */
+.also-list a {
+  background-image: linear-gradient(var(--mark-deep), var(--mark-deep));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  transition:
+    background-size var(--base) var(--ease),
+    color var(--base) var(--ease);
+}
+.also-list a:hover,
+.also-list a:focus-visible {
+  text-decoration: none;
+  background-size: 100% 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proof,
+  html.reveal-ready .proof[data-reveal],
+  .proof::before,
+  .proof::after,
+  .proof .btn-primary,
+  .also-list a { transition: none; }
+  .proof:hover,
+  .proof:focus-within { translate: none; }
+  .also-list a:hover,
+  .also-list a:focus-visible { text-decoration: underline; }
+}
+</style>
 </head>
 <body>
+
+<canvas id="page-scene" aria-hidden="true"></canvas>
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -89,7 +200,7 @@
 
   <section class="section" aria-labelledby="h-demos">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <p class="index">01</p>
         <div>
           <h2 id="h-demos">The demonstrations</h2>
@@ -97,62 +208,62 @@
         </div>
       </div>
 
-      <div class="proof">
-        <p class="proof-state">demo live</p>
-        <h3>Diagnostic and intervention map</h3>
-        <p>Four domains across four nested levels, mapped, connected, and scored to find where acting changes the most. Tap any segment for its diagnostic prompts and intervention moves.</p>
-        <div class="actions">
+      <div class="proof" data-reveal>
+        <p class="proof-state" data-reveal style="--rv: 1">demo live</p>
+        <h3 data-reveal style="--rv: 2">Diagnostic and intervention map</h3>
+        <p data-reveal style="--rv: 3">Four domains across four nested levels, mapped, connected, and scored to find where acting changes the most. Tap any segment for its diagnostic prompts and intervention moves.</p>
+        <div class="actions" data-reveal style="--rv: 4">
           <a class="btn btn-primary" href="/demos/bpss-ses/">Open the map</a>
         </div>
       </div>
 
-      <div class="proof">
-        <p class="proof-state">demo live</p>
-        <h3>Restaurant operations</h3>
-        <p>One service day for a small restaurant: what is running low, what is behind, and what a manager should do about it before the doors open.</p>
-        <div class="actions">
+      <div class="proof" data-reveal>
+        <p class="proof-state" data-reveal style="--rv: 1">demo live</p>
+        <h3 data-reveal style="--rv: 2">Restaurant operations</h3>
+        <p data-reveal style="--rv: 3">One service day for a small restaurant: what is running low, what is behind, and what a manager should do about it before the doors open.</p>
+        <div class="actions" data-reveal style="--rv: 4">
           <a class="btn btn-primary" href="/demos/restaurant-ops/">Open the demo</a>
         </div>
       </div>
 
-      <div class="proof">
-        <p class="proof-state">prototype live</p>
-        <h3>Therapist workload</h3>
-        <p>A caseload across two sites on one board that holds no names. Sessions in time order, reports due, and every client a coded card. Runs on a fictional caseload.</p>
-        <div class="actions">
+      <div class="proof" data-reveal>
+        <p class="proof-state" data-reveal style="--rv: 1">prototype live</p>
+        <h3 data-reveal style="--rv: 2">Therapist workload</h3>
+        <p data-reveal style="--rv: 3">A caseload across two sites on one board that holds no names. Sessions in time order, reports due, and every client a coded card. Runs on a fictional caseload.</p>
+        <div class="actions" data-reveal style="--rv: 4">
           <a class="btn btn-primary" href="/demos/therapist-workload/">Open the prototype</a>
         </div>
       </div>
 
-      <div class="proof" id="student-pal">
-        <p class="proof-state">in build</p>
-        <h3>Student Pal</h3>
-        <p>Course outlines in, a term of dated work out. The parser runs today; the rest of the product is being built around it.</p>
-        <div class="actions">
+      <div class="proof" id="student-pal" data-reveal>
+        <p class="proof-state" data-reveal style="--rv: 1">in build</p>
+        <h3 data-reveal style="--rv: 2">Student Pal</h3>
+        <p data-reveal style="--rv: 3">Course outlines in, a term of dated work out. The parser runs today; the rest of the product is being built around it.</p>
+        <div class="actions" data-reveal style="--rv: 4">
           <a class="btn btn-primary" href="https://student-pal.netlify.app" rel="noopener">Open Student Pal</a>
         </div>
       </div>
 
-      <div class="proof" id="resident-pal">
-        <p class="proof-state">intake live</p>
-        <h3>Resident Pal</h3>
-        <p>A personal assistant for one medical resident, shaped by their intake answers. The questionnaire runs today; the assistant is being built from it.</p>
-        <div class="actions">
+      <div class="proof" id="resident-pal" data-reveal>
+        <p class="proof-state" data-reveal style="--rv: 1">intake live</p>
+        <h3 data-reveal style="--rv: 2">Resident Pal</h3>
+        <p data-reveal style="--rv: 3">A personal assistant for one medical resident, shaped by their intake answers. The questionnaire runs today; the assistant is being built from it.</p>
+        <div class="actions" data-reveal style="--rv: 4">
           <a class="btn btn-primary" href="https://resident-pal-intake.netlify.app" rel="noopener">Open the intake</a>
         </div>
       </div>
 
-      <p class="bounds">What we are not claiming: these are demonstrations, not finished products. The demos run on sample and fictional data, and none of them is sold on this page. Student Pal is open mid build. The Resident Pal intake is a real form, and it keeps what you submit.</p>
+      <p class="bounds" data-reveal>What we are not claiming: these are demonstrations, not finished products. The demos run on sample and fictional data, and none of them is sold on this page. Student Pal is open mid build. The Resident Pal intake is a real form, and it keeps what you submit.</p>
 
-      <div class="also">
+      <div class="also" data-reveal>
         <p class="h-quiet">Who we build for</p>
         <ul class="also-list">
-          <li><a href="/small-business/">Small business</a></li>
-          <li><a href="/community-social-services/">Community and social services</a></li>
-          <li><a href="/enterprise/">Enterprise</a></li>
-          <li><a href="/students/">Students</a></li>
-          <li><a href="/therapists/">Therapists</a></li>
-          <li><a href="/individuals/">Individuals</a></li>
+          <li data-reveal style="--rv: 1"><a href="/small-business/">Small business</a></li>
+          <li data-reveal style="--rv: 2"><a href="/community-social-services/">Community and social services</a></li>
+          <li data-reveal style="--rv: 3"><a href="/enterprise/">Enterprise</a></li>
+          <li data-reveal style="--rv: 4"><a href="/students/">Students</a></li>
+          <li data-reveal style="--rv: 5"><a href="/therapists/">Therapists</a></li>
+          <li data-reveal style="--rv: 5"><a href="/individuals/">Individuals</a></li>
         </ul>
       </div>
     </div>
@@ -181,5 +292,6 @@
 </footer>
 
 <script src="/main.js" defer></script>
+<script type="module" src="./scene.js" defer></script>
 </body>
 </html>
