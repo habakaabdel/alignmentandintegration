@@ -124,6 +124,13 @@ body[data-theme="individuals"] {
   --mark-deep:    #592437;
 }
 
+body[data-theme="ai-readiness"] {
+  --paper:        #f8f5f0;
+  --mark:         #8a5420;
+  --mark-deep:    #5e3812;
+}
+
+
 /* ---------- Bordered-card surface treatment for students and therapists ---------- */
 
 body[data-theme="students"] .segment,

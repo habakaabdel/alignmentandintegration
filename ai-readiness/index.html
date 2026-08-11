@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI readiness | Alignment Integration</title>
+<meta name="description" content="People increasingly ask software agents to find, compare, and decide. We get your information and your team ready for that. The initial consultation is free.">
+<link rel="canonical" href="https://alignmentandintegration.com/ai-readiness/">
+<meta name="theme-color" content="#edefee">
+<meta name="color-scheme" content="light">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alignment Integration">
+<meta property="og:locale" content="en_CA">
+<meta property="og:title" content="AI readiness | Alignment Integration">
+<meta property="og:description" content="People increasingly ask software agents to find, compare, and decide. We get your information and your team ready for that. The initial consultation is free.">
+<meta property="og:url" content="https://alignmentandintegration.com/ai-readiness/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI readiness | Alignment Integration">
+<meta name="twitter:description" content="People increasingly ask software agents to find, compare, and decide. We get your information and your team ready for that. The initial consultation is free.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f7f6f2'/%3E%3Cg transform='scale(0.6667)'%3E%3Cpath d='M35.5 6.4 A21 21 0 1 0 44.1 18.5' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='41' cy='11.7' r='2.6' fill='%233a5a40'/%3E%3Cpath d='M24 38 C24 30 24 27 24 23' fill='none' stroke='%232d4a3e' stroke-width='2.7' stroke-linecap='round'/%3E%3Cpath d='M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z' fill='%232d4a3e'/%3E%3Cpath d='M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='2.4' fill='%233a5a40'/%3E%3C/g%3E%3C/svg%3E">
+
+<link rel="stylesheet" href="/styles.css">
+
+<style>
+/* Page-scoped micro-interactions for the AI readiness sheet. */
+
+  body[data-theme="ai-readiness"] { --row-tint: rgba(138, 84, 32, 0.035); }
+
+  .builds .build {
+    position: relative;
+    transition: background-color var(--base) var(--ease);
+  }
+  .builds .build::before {
+    content: "";
+    position: absolute;
+    left: -12px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--mark);
+    scale: 1 0;
+    transform-origin: 50% 0;
+    transition: scale var(--base) var(--ease);
+  }
+  .builds .build:hover,
+  .builds .build:focus-within { background-color: var(--row-tint); }
+  .builds .build:hover::before,
+  .builds .build:focus-within::before { scale: 1 1; }
+  .builds .build .build-no { transition: color var(--fast) var(--ease); }
+  .builds .build:hover .build-no { color: var(--mark-deep); }
+
+  .method-item {
+    transition: border-left-color var(--base) var(--ease);
+  }
+  .method-item:hover { border-left-color: var(--mark); }
+  .method-item dt { transition: color var(--fast) var(--ease); }
+  .method-item:hover dt { color: var(--mark-deep); }
+
+  .also-list a { position: relative; }
+  .also-list a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    margin-top: 0.66em;
+    height: 1px;
+    background: currentColor;
+    scale: 0 1;
+    transform-origin: 0 50%;
+    transition: scale var(--base) var(--ease);
+  }
+  .also-list a:hover { text-decoration: none; }
+  .also-list a:hover::after,
+  .also-list a:focus-visible::after { scale: 1 1; }
+
+  .crumb a,
+  .section-intro a {
+    text-decoration: none;
+    background-image: linear-gradient(var(--mark-deep), var(--mark-deep));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    padding-bottom: 0.14em;
+    transition: background-size var(--base) var(--ease), color var(--fast) var(--ease);
+  }
+  .crumb a:hover,
+  .section-intro a:hover { text-decoration: none; background-size: 100% 1px; }
+
+  .section-head .index { position: relative; }
+  .section-head .index::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: calc(100% + 6px);
+    width: 30px;
+    height: 5px;
+    background-image: repeating-linear-gradient(90deg, var(--mark) 0 1px, transparent 1px 7px);
+    opacity: 0.55;
+    scale: 1 1;
+    transform-origin: 0 50%;
+  }
+  html.reveal-ready .section-head[data-reveal] .index::after {
+    scale: 0 1;
+    transition: scale 620ms var(--ease) 160ms;
+  }
+  html.reveal-ready .section-head[data-reveal].reveal-in .index::after { scale: 1 1; }
+
+  .build-crosslink {
+    margin-top: var(--s2);
+    font-size: var(--t-small);
+    color: var(--ink-muted);
+  }
+  .build-crosslink a {
+    color: var(--ink);
+    text-decoration: underline;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .builds .build,
+    .builds .build::before,
+    .builds .build .build-no,
+    .method-item,
+    .method-item dt,
+    .also-list a::after,
+    .crumb a,
+    .section-intro a { transition: none; }
+    .builds .build::before { scale: 1 0; }
+    .section-head .index::after { scale: 1 1; }
+  }
+</style>
+</head>
+<body data-theme="ai-readiness">
+
+<canvas id="page-scene" aria-hidden="true"></canvas>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="brand" href="/" aria-label="Alignment Integration, home">
+      <svg class="monogram" viewBox="0 0 48 48" width="30" height="30" role="img" aria-label="A and I monogram">
+        <g>
+          <path class="mono-mark" d="M35.5 6.4 A21 21 0 1 0 44.1 18.5" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+          <circle class="mono-node" cx="41" cy="11.7" r="2.6"/>
+          <path class="mono-mark" d="M24 38 C24 30 24 27 24 23" fill="none" stroke-width="2.7" stroke-linecap="round"/>
+          <path class="mono-mark mono-mark-fill" d="M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z"/>
+          <path class="mono-mark" d="M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle class="mono-node" cx="12" cy="12" r="2.4"/>
+        </g>
+      </svg>
+      <span class="brand-name">Alignment Integration</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <details class="nav-disclosure">
+        <summary class="nav-toggle">
+          <span>menu</span>
+          <span class="nav-toggle-mark" aria-hidden="true"></span>
+        </summary>
+        <ul class="nav-list">
+          <li><a href="/small-business/">Small business</a></li>
+          <li><a href="/community-social-services/">Community services</a></li>
+          <li><a href="/enterprise/">Enterprise</a></li>
+          <li><a href="/ai-readiness/" aria-current="page">AI readiness</a></li>
+          <li class="nav-group">
+            <details class="nav-sub-disclosure">
+              <summary class="nav-sub-toggle">
+                <span>PAL Products</span>
+                <span class="nav-sub-mark" aria-hidden="true"></span>
+              </summary>
+              <ul class="nav-sub">
+                <li><a href="/students/">Student Pal</a></li>
+                <li><a href="/therapists/">Therapist Pal</a></li>
+                <li><a href="/individuals/">Personal Pal <span class="nav-sub-soon">coming soon</span></a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="/demos/">Demos</a></li>
+          <li><a href="/#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <span id="top"></span>
+
+  <section class="section section-segment-hero" aria-labelledby="h-seg">
+    <div class="wrap">
+      <p class="crumb"><a href="/">Alignment Integration</a> / AI readiness</p>
+      <h1 class="segment-lede" id="h-seg">The next visitor reading your website may not be a person.</h1>
+      <p class="segment-claim" data-reveal style="--rv: 1">People increasingly ask software agents to find, compare, and decide. We get your information and your team ready for that, starting with a free consultation.</p>
+      <div class="actions" data-reveal style="--rv: 2">
+        <a class="btn btn-primary" href="/#contact">
+          Start the conversation
+          <span class="btn-well" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="h-changing">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <p class="index">01</p>
+        <div>
+          <h2 id="h-changing">What is changing</h2>
+          <p class="section-intro">Search is becoming something you delegate. An agent reads pages, compares options, and reports back. Information written only for human eyes gets skipped.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="h-offer">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <p class="index">02</p>
+        <div>
+          <h2 id="h-offer">What we offer</h2>
+        </div>
+      </div>
+
+      <ol class="builds">
+        <li class="build" data-reveal style="--rv: 1">
+          <p class="build-no">one</p>
+          <div>
+            <p class="proof-state">bookable now</p>
+            <h3>Train your team to work with AI</h3>
+            <p>We teach owners and staff how to use these tools well, and how your business stays visible as customers hand searching to agents.</p>
+          </div>
+        </li>
+        <li class="build" data-reveal style="--rv: 2">
+          <p class="build-no">two</p>
+          <div>
+            <p class="proof-state">service engagement</p>
+            <h3>Make your information readable by machines</h3>
+            <p>We restructure what you already publish into a form agents can read, trust, and act on. Current, verified, and kept that way.</p>
+          </div>
+        </li>
+        <li class="build" data-reveal style="--rv: 3">
+          <p class="build-no">three</p>
+          <div>
+            <p class="proof-state">in development</p>
+            <h3>Service navigation for community agencies</h3>
+            <p>Service information in community care is scattered across agencies and directories. We structure it so staff can find the right referral the first time.</p>
+            <p class="build-crosslink">Working in community services? See <a href="/community-social-services/">community services</a>.</p>
+          </div>
+        </li>
+        <li class="build" data-reveal style="--rv: 4">
+          <p class="build-no">four</p>
+          <div>
+            <p class="proof-state">built to spec, on request</p>
+            <h3>Your knowledge as a product</h3>
+            <p>For specialists with an audience. We turn your published body of work into a product your audience can query, branded to you, owned by you.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="h-trusting">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <p class="index">03</p>
+        <div>
+          <h2 id="h-trusting">What makes the information worth trusting</h2>
+          <p class="section-intro">Anyone can pile up data. What makes information worth paying for is that it is current, verified by people, and tested first hand.</p>
+        </div>
+      </div>
+
+      <dl class="method-short">
+        <div class="method-item" data-reveal style="--rv: 1">
+          <dt>Current</dt>
+          <dd>Kept up to date, with the date shown.</dd>
+        </div>
+        <div class="method-item" data-reveal style="--rv: 2">
+          <dt>Human-verified</dt>
+          <dd>Reviewed by people, drawn from real experience, filtered through real data collection standards.</dd>
+        </div>
+        <div class="method-item" data-reveal style="--rv: 3">
+          <dt>Tested first hand</dt>
+          <dd>For select fields, trusted reviewers try the thing themselves before it goes in.</dd>
+        </div>
+      </dl>
+
+      <p class="bounds" data-reveal>What we are not claiming: none of this is live product today. The consulting is real and bookable now. The data services are engagements we build with you. We will not show you a picture of something that does not run.</p>
+
+      <div class="actions" data-reveal style="margin-top: var(--s6);">
+        <a class="btn btn-primary" href="/#contact">
+          Start the conversation
+          <span class="btn-well" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg>
+          </span>
+        </a>
+      </div>
+      <p class="section-intro" style="margin-top: var(--s3);" data-reveal>The initial consultation is free.</p>
+
+      <div class="also" data-reveal style="margin-top: var(--s7);">
+        <p class="h-quiet">Not what you came for</p>
+        <ul class="also-list">
+          <li><a href="/small-business/">Small business</a></li>
+          <li><a href="/community-social-services/">Community and social services</a></li>
+          <li><a href="/enterprise/">Enterprise</a></li>
+          <li><a href="/students/">Students</a></li>
+          <li><a href="/therapists/">Therapists</a></li>
+          <li><a href="/individuals/">Individuals</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <p class="footer-brand">
+      <svg class="monogram" viewBox="0 0 48 48" width="24" height="24" aria-hidden="true">
+        <g>
+          <path class="mono-mark" d="M35.5 6.4 A21 21 0 1 0 44.1 18.5" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+          <circle class="mono-node" cx="41" cy="11.7" r="2.6"/>
+          <path class="mono-mark" d="M24 38 C24 30 24 27 24 23" fill="none" stroke-width="2.7" stroke-linecap="round"/>
+          <path class="mono-mark mono-mark-fill" d="M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z"/>
+          <path class="mono-mark" d="M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle class="mono-node" cx="12" cy="12" r="2.4"/>
+        </g>
+      </svg>
+      Alignment Integration
+    </p>
+    <p class="footer-meta">Mississauga, Ontario. No cookies, no tracking on this page.</p>
+    <p class="footer-top"><a href="/">Home</a></p>
+  </div>
+</footer>
+
+<script src="/main.js" defer></script>
+<script type="module" src="./scene.js" defer></script>
+</body>
+</html>
