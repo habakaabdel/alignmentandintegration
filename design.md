@@ -20,6 +20,7 @@ The locked palette (measured, do not adjust):
 | `students` | `#f5f4f9` | `#5a3d9e` violet | 7.4 / 8.1 |
 | `therapists` | `#f1f6f6` | `#1f5f5b` calm teal | 6.8 / 7.4 |
 | `individuals` | `#f9f5f3` | `#7d3650` deep rose | 7.7 / 8.3 |
+| `ai-readiness` | `#f8f5f0` | `#8a5420` warm copper | accent as text 5.7, white on accent 6.2 |
 
 The default tokens, carried by the home page, the demo pages, and any page without a `data-theme`:
 
@@ -366,3 +367,8 @@ map domains (the documented demo-page exception). Rules a future editor keeps:
   gone. "Leverage point" became "point of action", because the banned word list
   has no technical exemption. Named programs and agencies were removed and
   replaced with sector language, per the no client or employer names rule.
+
+## The AI readiness page, added 11 August 2026
+
+An audience page for organizations adapting information and teams for software agents (`/ai-readiness/`). Uses the `ai-readiness` theme token system (`--paper: #f8f5f0`, `--mark: #8a5420`, `--mark-deep: #5e3812`, `--row-tint: rgba(138, 84, 32, 0.035)`). Carries the verbatim copy, four build items with state labels, three verification criteria items, and the shared section structure. The eighth nav item fits on one single-row line from 68rem up without wrapping.
+
