@@ -328,8 +328,10 @@ a:hover { color: var(--mark-deep); }
 .mono-mark-fill { fill: var(--mark); }
 .mono-node { fill: var(--second); }
 
-/* Below 48rem the five links sit in a disclosure panel so the sticky masthead
-   stays one row tall. The desktop row is restored in the 48rem block. */
+/* Below 56rem the row sits in a disclosure panel so the sticky masthead stays
+   one row tall. The desktop row is restored in the 56rem block. The row holds
+   two named groups and three standalone destinations, so a visitor can tell a
+   sector from a product without opening anything. */
 
 .nav {
   font-family: var(--mono);
@@ -418,10 +420,11 @@ a:hover { color: var(--mark-deep); }
 
 .nav-cta { color: var(--ink) !important; }
 
-/* ---------- PAL Products: a group inside the nav ----------
-   Below 68rem it is a disclosure nested in the menu disclosure, so the phone
-   gets a plain indented sublist and no script. The 68rem block turns it into a
-   hover and focus panel. Same no-script rule as the parent menu. */
+/* ---------- named groups inside the nav ----------
+   Two of them: Who we build for, and PAL Products. Below 68rem each is a
+   disclosure nested in the menu disclosure, so the phone gets a plain indented
+   sublist and no script. The 68rem block turns them into hover and focus
+   panels. Same no-script rule as the parent menu. */
 
 .nav-sub-toggle {
   display: flex;
@@ -450,23 +453,35 @@ a:hover { color: var(--mark-deep); }
 
 .nav-sub-disclosure:not([open]) .nav-sub { display: none; }
 .nav-sub { display: grid; }
-/* .nav a is flex below the breakpoint, which eats the space between the label
-   and its coming soon tag. Above it the link is block and this gap is inert. */
-.nav-sub a { padding-inline: var(--s5); gap: var(--s2); }
+/* the sublist is indented under its trigger, so the group reads as a group */
+.nav-sub a { padding-inline: var(--s5); }
 
-/* Students, Therapists and Individuals live inside the group now, so on those
-   three pages the current marker would sit in a closed panel and the masthead
-   would claim you are nowhere. The trigger carries it instead. */
+/* Every sector and product page lives inside a group now, so on those six pages
+   the current marker would sit in a closed panel and the masthead would claim
+   you are nowhere. The trigger carries it instead. */
 .nav-group:has(.nav-sub a[aria-current]) .nav-sub-toggle { color: var(--ink); }
 
-/* Personal Pal is named before it is built, so the row says so rather than
-   letting the label imply something a visitor can open. */
-.nav-sub-soon {
-  font-size: var(--t-micro);
-  letter-spacing: 0.04em;
-  color: var(--ink-muted);
-  opacity: 0.75;
+/* Each destination inside a group carries one line saying who it is for. It is
+   the same line the page itself opens with, so the menu answers the question a
+   visitor arrives with rather than making them open three pages to find out. */
+.nav-sub a {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  padding-block: var(--s2);
 }
+
+.nav-sub-note {
+  font-size: var(--t-micro);
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: var(--ink-muted);
+  opacity: 0.8;
+}
+.nav-sub a:hover .nav-sub-note,
+.nav-sub a[aria-current] .nav-sub-note { opacity: 1; }
 
 /* ---------- section frame: the tick rule and the margin index ---------- */
 
@@ -876,11 +891,13 @@ a:hover { color: var(--mark-deep); }
   .field-wide, .field-submit { grid-column: 1 / -1; }
 }
 
-/* The nav is back to six destinations: PAL Products absorbed Students,
-   Therapists and Individuals, so the row is shorter than it was at seven and
-   the 68rem breakpoint has room again. Below it the nav stays a disclosure
-   rather than wrapping the sticky masthead onto two lines. */
-@media (min-width: 68rem) {
+/* The nav is five destinations: two named groups, then AI readiness, Demos and
+   Contact. Grouping the three sectors took the row from seven destinations to
+   five, and the row now measures about 53rem with the wordmark and the gutters,
+   so the breakpoint comes back down to 56rem and a tablet gets the row rather
+   than a menu button. Below it the nav stays a disclosure rather than wrapping
+   the sticky masthead onto two lines. */
+@media (min-width: 56rem) {
   .nav-disclosure::details-content { content-visibility: visible; block-size: auto; }
   .nav-toggle { display: none; }
 
@@ -937,6 +954,12 @@ a:hover { color: var(--mark-deep); }
     color: var(--ink-muted);
   }
 
+  /* on a phone the chevron turns because the panel opened. Up here the panel
+     answers to hover and focus instead, so a left-open disclosure must not
+     turn it. The hover and focus rules below restate the turn and, at equal
+     specificity, come later. */
+  .nav-sub-disclosure[open] .nav-sub-mark { transform: translateY(-2px) rotate(45deg); }
+
   /* the same underline a current top level link draws, so the group reads as
      current from the closed state */
   .nav-group:has(.nav-sub a[aria-current]) .nav-sub-toggle::after {
@@ -959,7 +982,7 @@ a:hover { color: var(--mark-deep); }
     top: 100%;
     left: 0;
     display: grid;
-    min-width: 12rem;
+    min-width: 19rem;
     margin-top: var(--s3);
     padding: var(--s2);
     background: var(--panel);
@@ -993,7 +1016,13 @@ a:hover { color: var(--mark-deep); }
   }
 
   .nav-sub li + li { border-top: 0; }
+  /* .nav a goes block up here, which would put the descriptor on the label's
+     own line. The panel wants the two stacked, so it restates the column. */
   .nav-sub a {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
     padding: var(--s2) var(--s3);
     border-radius: calc(var(--radius) - 3px);
     white-space: nowrap;

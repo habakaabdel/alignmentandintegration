@@ -171,29 +171,44 @@ main .btn:active { translate: 0 0; }
       <span class="brand-name">Alignment Integration</span>
     </a>
     <nav class="nav" aria-label="Main">
+      <!-- Two named groups and three standalone destinations. The row says what
+           kind of thing each item is: a sector we build for, a product you can
+           open, or a surface. On a phone the whole thing is a disclosure and the
+           groups nest inside it. From 68rem up the panel is held open and reads
+           as a single row. No script involved. -->
       <details class="nav-disclosure">
         <summary class="nav-toggle">
           <span>menu</span>
           <span class="nav-toggle-mark" aria-hidden="true"></span>
         </summary>
         <ul class="nav-list">
-          <li><a href="/small-business/">Small business</a></li>
-          <li><a href="/community-social-services/">Community services</a></li>
-          <li><a href="/enterprise/" aria-current="page">Enterprise</a></li>
-          <li><a href="/ai-readiness/">AI readiness</a></li>
+          <li class="nav-group">
+            <details class="nav-sub-disclosure">
+              <summary class="nav-sub-toggle">
+                <span>Who we build for</span>
+                <span class="nav-sub-mark" aria-hidden="true"></span>
+              </summary>
+              <ul class="nav-sub" aria-label="Who we build for">
+                <li><a href="/small-business/">Small business<span class="nav-sub-note">restaurant, salon, independent lot</span></a></li>
+                <li><a href="/community-social-services/">Community services<span class="nav-sub-note">health, social services, coordinated care</span></a></li>
+                <li><a href="/enterprise/" aria-current="page">Enterprise<span class="nav-sub-note">retail, distribution, multi-site</span></a></li>
+              </ul>
+            </details>
+          </li>
           <li class="nav-group">
             <details class="nav-sub-disclosure">
               <summary class="nav-sub-toggle">
                 <span>PAL Products</span>
                 <span class="nav-sub-mark" aria-hidden="true"></span>
               </summary>
-              <ul class="nav-sub">
-                <li><a href="/students/">Student Pal</a></li>
-                <li><a href="/therapists/">Therapist Pal</a></li>
-                <li><a href="/individuals/">Personal Pal <span class="nav-sub-soon">coming soon</span></a></li>
+              <ul class="nav-sub" aria-label="PAL Products">
+                <li><a href="/students/">Student Pal<span class="nav-sub-note">outlines in, a term of dated work out</span></a></li>
+                <li><a href="/therapists/">Therapist Pal<span class="nav-sub-note">a caseload board that holds no names</span></a></li>
+                <li><a href="/individuals/">Personal Pal<span class="nav-sub-note">capture away from a desk</span></a></li>
               </ul>
             </details>
           </li>
+          <li><a href="/ai-readiness/">AI readiness</a></li>
           <li><a href="/demos/">Demos</a></li>
           <li><a href="/#contact" class="nav-cta">Contact</a></li>
         </ul>

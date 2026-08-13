@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Individuals | Alignment Integration</title>
+<title>Personal Pal | Alignment Integration</title>
 <meta name="description" content="The same idea sized for a pocket. For the parts of a day that happen away from a desk, where most of the useful detail gets lost. Prototype live.">
 <link rel="canonical" href="https://alignmentandintegration.com/individuals/">
 <meta name="theme-color" content="#edefee">
@@ -12,11 +12,11 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Alignment Integration">
 <meta property="og:locale" content="en_CA">
-<meta property="og:title" content="Individuals | Alignment Integration">
+<meta property="og:title" content="Personal Pal | Alignment Integration">
 <meta property="og:description" content="The same idea sized for a pocket, for the parts of a day that happen away from a desk.">
 <meta property="og:url" content="https://alignmentandintegration.com/individuals/">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Individuals | Alignment Integration">
+<meta name="twitter:title" content="Personal Pal | Alignment Integration">
 <meta name="twitter:description" content="The same idea sized for a pocket, for the parts of a day that happen away from a desk.">
 
 <link class="icon" rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f7f6f2'/%3E%3Cg transform='scale(0.6667)'%3E%3Cpath d='M35.5 6.4 A21 21 0 1 0 44.1 18.5' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='41' cy='11.7' r='2.6' fill='%233a5a40'/%3E%3Cpath d='M24 38 C24 30 24 27 24 23' fill='none' stroke='%232d4a3e' stroke-width='2.7' stroke-linecap='round'/%3E%3Cpath d='M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z' fill='%232d4a3e'/%3E%3Cpath d='M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='2.4' fill='%233a5a40'/%3E%3C/g%3E%3C/svg%3E">
@@ -202,29 +202,44 @@ html.reveal-ready .build.reveal-in .orbit-core {
       <span class="brand-name">Alignment Integration</span>
     </a>
     <nav class="nav" aria-label="Main">
+      <!-- Two named groups and three standalone destinations. The row says what
+           kind of thing each item is: a sector we build for, a product you can
+           open, or a surface. On a phone the whole thing is a disclosure and the
+           groups nest inside it. From 68rem up the panel is held open and reads
+           as a single row. No script involved. -->
       <details class="nav-disclosure">
         <summary class="nav-toggle">
           <span>menu</span>
           <span class="nav-toggle-mark" aria-hidden="true"></span>
         </summary>
         <ul class="nav-list">
-          <li><a href="/small-business/">Small business</a></li>
-          <li><a href="/community-social-services/">Community services</a></li>
-          <li><a href="/enterprise/">Enterprise</a></li>
-          <li><a href="/ai-readiness/">AI readiness</a></li>
+          <li class="nav-group">
+            <details class="nav-sub-disclosure">
+              <summary class="nav-sub-toggle">
+                <span>Who we build for</span>
+                <span class="nav-sub-mark" aria-hidden="true"></span>
+              </summary>
+              <ul class="nav-sub" aria-label="Who we build for">
+                <li><a href="/small-business/">Small business<span class="nav-sub-note">restaurant, salon, independent lot</span></a></li>
+                <li><a href="/community-social-services/">Community services<span class="nav-sub-note">health, social services, coordinated care</span></a></li>
+                <li><a href="/enterprise/">Enterprise<span class="nav-sub-note">retail, distribution, multi-site</span></a></li>
+              </ul>
+            </details>
+          </li>
           <li class="nav-group">
             <details class="nav-sub-disclosure">
               <summary class="nav-sub-toggle">
                 <span>PAL Products</span>
                 <span class="nav-sub-mark" aria-hidden="true"></span>
               </summary>
-              <ul class="nav-sub">
-                <li><a href="/students/">Student Pal</a></li>
-                <li><a href="/therapists/">Therapist Pal</a></li>
-                <li><a href="/individuals/" aria-current="page">Personal Pal <span class="nav-sub-soon">coming soon</span></a></li>
+              <ul class="nav-sub" aria-label="PAL Products">
+                <li><a href="/students/">Student Pal<span class="nav-sub-note">outlines in, a term of dated work out</span></a></li>
+                <li><a href="/therapists/">Therapist Pal<span class="nav-sub-note">a caseload board that holds no names</span></a></li>
+                <li><a href="/individuals/" aria-current="page">Personal Pal<span class="nav-sub-note">capture away from a desk</span></a></li>
               </ul>
             </details>
           </li>
+          <li><a href="/ai-readiness/">AI readiness</a></li>
           <li><a href="/demos/">Demos</a></li>
           <li><a href="/#contact" class="nav-cta">Contact</a></li>
         </ul>
@@ -240,7 +255,7 @@ html.reveal-ready .build.reveal-in .orbit-core {
   <section class="section section-segment-hero" aria-labelledby="h-seg">
     <div class="wrap">
       <img class="segment-mark" src="/brand/personal-pal/mark.svg" width="44" height="44" alt="" aria-hidden="true">
-      <p class="crumb"><a href="/">Alignment Integration</a> / individuals</p>
+      <p class="crumb"><a href="/">Alignment Integration</a> / Personal Pal</p>
       <p class="eyebrow">a packaged product, prototype live</p>
       <h1 class="segment-lede" id="h-seg">Most of the useful detail happens away from a desk.</h1>
       <p class="segment-claim" data-reveal style="--rv: 1">The thought in the car, the thing someone told you in a hallway, the decision made standing up. By the time you can write it down, it is gone.</p>
