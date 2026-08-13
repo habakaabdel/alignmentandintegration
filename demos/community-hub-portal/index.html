@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>HART Hub portal, guided demonstration</title>
-  <meta name="description" content="Demonstration of a multi-tenant HART Hub portal by Alignment Integration. Fictional agencies, fictional data.">
+  <title>Community hub portal, guided demonstration</title>
+  <meta name="description" content="Demonstration of a multi-tenant community hub portal by Alignment Integration. Fictional agencies, fictional data.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#1C1917">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237F228D'/%3E%3Cg fill='none' stroke='%23FAF9F6' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M9 22V10'/%3E%3Cpath d='M23 22V10'/%3E%3Cpath d='M9 16h14'/%3E%3C/g%3E%3C/svg%3E">
@@ -1445,7 +1445,7 @@
   <header>
     <div class="header-in">
       <div class="brand-group">
-        <span class="brand-title">HART Hub Portal</span>
+        <span class="brand-title">Community Hub Portal</span>
         <span class="demo-pill">demo</span>
       </div>
 
@@ -1460,7 +1460,7 @@
   <main>
     <!-- Step 1: the ask -->
     <section class="sc-sec sc-open" data-step="0" aria-labelledby="h-open">
-      <p class="sc-kicker">HART Hub Portal</p>
+      <p class="sc-kicker">Community Hub Portal</p>
       <h1 id="h-open">One portal for each hub. Connective tissue between them.</h1>
       <p class="sc-lede">This portal standardizes how a person is read and how outcomes are defined. Every hub keeps its own services, partners, and culture.</p>
 
@@ -1794,7 +1794,7 @@
       <div class="segmented-control" id="tenant-toggle-bottom" role="group" aria-label="Choose a demonstration hub" style="margin-bottom:1.5rem;">
         <div class="slider-backdrop" id="bottom-slider"></div>
         <button type="button" class="active" onclick="setHub(0)">Lakeside district hub</button>
-        <button type="button" onclick="setHub(1)">Your HART Hub</button>
+        <button type="button" onclick="setHub(1)">Your hub</button>
       </div>
 
       <div class="sc-identity" id="scaling-identity">
@@ -1899,13 +1899,13 @@
     var hubConfig = {
       0: {
         name: "Lakeside district hub",
-        fullName: "Riverbend Family Services community-led HART Hub",
+        fullName: "Riverbend Family Services community-led hub",
         desc: "A fictional community-led program operating in the Lakeside district. Cultural practice runs through the whole model, and the pathway runs on relationships with communities, not just forms.",
         frontlineSub: "A worker types what is in front of them, in plain language. The portal answers with Do now, Refer, Assess, and Talk to, with forms one tap away. Answering from the Riverbend Family Services registry, sample data, in the fictional Lakeside district.",
         partners: "Funded partner agencies: Riverbend Family Services (lead), Cedarline Health Alliance, Harbourlight Housing Support, Northgate Community Living, and Pinegrove District Services.",
         doors: ["Crisis support", "Harbourlight emergency shelter"],
         registry: [
-          { name: "HART Hub case management (sample)", role: "Hub team (sample)", desc: "One person holds the whole plan. The holding function for high need clients.", contact: "Via intake" },
+          { name: "Hub case management (sample)", role: "Hub team (sample)", desc: "One person holds the whole plan. The holding function for high need clients.", contact: "Via intake" },
           { name: "Rapid Access Addiction Medicine (RAAM) clinic", role: "Cedarline Health Alliance", desc: "Walk-in addiction medicine through a partner clinic. Description illustrative.", contact: "555-0101 (sample)" },
           { name: "Crisis support", role: "Hub team", desc: "Crisis support without an appointment. A door that stays open.", contact: "Walk in" }
         ],
@@ -1927,8 +1927,8 @@
         diffService: "Rapid Access Addiction Medicine (RAAM) clinic"
       },
       1: {
-        name: "Your HART Hub",
-        fullName: "Your HART Hub",
+        name: "Your hub",
+        fullName: "Your hub",
         desc: "The same structure, filled with your region. Your services, your partners, your community.",
         frontlineSub: "A worker types what is in front of them, in plain language. The portal answers with Do now, Refer, Assess, and Talk to, with forms one tap away. Answering from your own service registry, shown here with placeholder sample data.",
         partners: "Funded partner agencies: your local partner agencies.",

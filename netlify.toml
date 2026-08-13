@@ -18,6 +18,11 @@
   to = "/demos/emr-portal/:splat"
   status = 301
 
+[[redirects]]
+  from = "/demos/hart-hub-portal/*"
+  to = "/demos/community-hub-portal/:splat"
+  status = 301
+
 [[headers]]
   for = "/*"
   [headers.values]

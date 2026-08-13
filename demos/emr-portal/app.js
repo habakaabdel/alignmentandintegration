@@ -465,7 +465,7 @@
         '<div style="background:var(--primary-subtle);border:2px solid var(--primary);border-radius:var(--r-lg);padding:16px 18px">' +
           '<div style="font-size:12px;font-weight:700;color:var(--primary-subtle-ink);letter-spacing:.04em;margin-bottom:6px">CENTRAL INTAKE</div>' +
           '<div style="font-family:var(--ff-display);font-size:15px;font-weight:700;margin-bottom:8px">One referral form, triage, route</div>' +
-          '<div style="font-size:13.5px;color:var(--ink-soft);line-height:1.5">Verbal referrals are accepted and transcribed. Two programs keep their own direct intake: <strong>the HART Hub and residential youth treatment</strong>.</div>' +
+          '<div style="font-size:13.5px;color:var(--ink-soft);line-height:1.5">Verbal referrals are accepted and transcribed. Two programs keep their own direct intake: <strong>the community hub and residential youth treatment</strong>.</div>' +
         '</div>' +
       '</div>' +
 

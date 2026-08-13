@@ -137,7 +137,7 @@ const GUIDE_PROGRAMS = [
   { slug: 'child-youth-counselling', title: 'Child & Youth Counselling (CYC)', stream: 'A', status: 'available',  desc: 'Referral through aftercare, and the shared child and adult form set.' },
   { slug: 'adult-therapy',           title: 'Adult Therapy Services',          stream: 'A', status: 'coming-soon', desc: 'Individual therapy, internally referred.' },
 
-  { slug: 'hart-hub-cm',    title: 'HART Hub Case Management',            stream: 'B', status: 'available',  desc: 'Five stages of care, care team documentation, and every contact type.' },
+  { slug: 'community-hub-cm', title: 'Community Hub Case Management',            stream: 'B', status: 'available',  desc: 'Five stages of care, care team documentation, and every contact type.' },
   { slug: 'adult-mh-cm',    title: 'Adult Mental Health Case Management',  stream: 'B', status: 'available',  desc: 'Community referrals, the holistic needs review, and ongoing case work.' },
   { slug: 'central-intake', title: 'Central Intake',                       stream: 'B', status: 'available',  desc: 'The front door for referrals into every program except residential.' },
   { slug: 'reintegration',  title: 'Community Reintegration',              stream: 'B', status: 'coming-soon', desc: 'Runs on the adult case management configuration.' },
@@ -322,10 +322,10 @@ const DEFAULT_GOAL_STEPS = [
 
 /* ---------- The six built guides ---------- */
 const GUIDE_DATA = {
-  'hart-hub-cm': mkGuide({
-    title: 'HART Hub Case Management',
+  'community-hub-cm': mkGuide({
+    title: 'Community Hub Case Management',
     category: 'Case management',
-    funder: 'Provincial health · HART Hub',
+    funder: 'Provincial health · community hub',
     who: 'Case managers and the care team lead',
     lede: 'The hub takes its own referrals, so the front door is inside the program. This guide covers the five stages of care, how the care team documents together, and every contact type the hub uses.',
     notice: 'The hub is one of two programs that accept a direct referral rather than routing through central intake.',
