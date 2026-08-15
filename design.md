@@ -372,3 +372,80 @@ map domains (the documented demo-page exception). Rules a future editor keeps:
 
 An audience page for organizations adapting information and teams for software agents (`/ai-readiness/`). Uses the `ai-readiness` theme token system (`--paper: #f8f5f0`, `--mark: #8a5420`, `--mark-deep: #5e3812`, `--row-tint: rgba(138, 84, 32, 0.035)`). Carries the verbatim copy, four build items with state labels, three verification criteria items, and the shared section structure. The eighth nav item fits on one single-row line from 68rem up without wrapping.
 
+## The landing page, `/ai-readiness/start/`, added 15 August 2026
+
+The site's first landing surface: one reader, one ask. It is not one of the
+sheet's pages and the five-section structure invariants do not apply to it. It
+deliberately carries no navigation; the only ways out are the brand mark, which
+links home, and the booking form. One `h1`, sentence case, the shared monogram
+and skip link, the self-hosted fonts, no cookies, no tracking, no third party
+requests. Rules a future editor keeps:
+
+- **Page-scoped classes are `lp-` prefixed** (`lp-wrap`, `lp-head`, `lp-h1`,
+  `lp-claim`, `lp-form`, `lp-foot`), because the page loads `styles.css` and
+  the sitewide sheet owns the generic names. This is not hypothetical: the
+  first draft's `.claim` collided with the main page's claim-band styling and
+  was renamed `lp-claim`. Any future landing surface prefixes its own classes
+  the same way and takes only tokens and shared components (`btn-primary`,
+  `btn-well`, `monogram`, `skip`) from the sitewide sheet.
+- **The one ask.** A Netlify form, `name="ai-readiness-consult"`,
+  `data-netlify="true"`, `netlify-honeypot` pointing at the offscreen
+  `company-site` field, four fields, submit labelled "Send". It is plain
+  static HTML with a native POST, so unlike the main page's scripted contact
+  form it carries no hidden `form-name` input and no in-place confirmation.
+  Each landing surface gets its own form name, so submissions sort by ask.
+
+### The scroll-motion kit, `/vendor/`
+
+This page is the first use of the vendored scroll-motion kit: `gsap.min.js`,
+`ScrollTrigger.min.js`, `ScrollSmoother.min.js` (GSAP 3.13, all free),
+`motion.js`, and `motion.css`. The kit has no defaults worth trusting;
+everything is tuned per surface through `Motion.init()` and the tuned values
+are baked into the page inline, never left in the vendor files. The mechanics
+this page uses:
+
+- **Ghost type hero.** Three `ghost-line` spans, each repeating its text in an
+  `aria-hidden` inner copy that drifts once on load as a text-stroke outline.
+  Solid type is `--ink`; the outline is the stroke hook below; the last line
+  alone takes the fill hook, which on this page is the `ai-readiness` copper.
+- **ScrollSmoother** on the `#smooth-wrapper > #smooth-content` scaffold, with
+  `data-speed` / `data-lag` read straight off the markup: lag on the three
+  hero lines, speed on the claim and the two blobs. `position: sticky` dies
+  inside `#smooth-content`; fixed chrome belongs outside the wrapper.
+- **Section reveals.** The kit builds one staggered timeline per `section`
+  from its own target list; the markup needs no `data-reveal` tags here. This
+  is the kit's own reveal system, distinct from the main sheet's `data-reveal`
+  mechanism in `main.js`, and the two never mix on one page.
+- **Indexed card lag** on the three `.covers li`, the liquid-grid feel.
+- **Two decor blobs**, seeded `data-blob="7"` and `data-blob="19"`. Seeds are
+  deterministic: a rebuild draws the same shapes. The blobs are `aria-hidden`,
+  behind the hero at 0.10 and 0.08 opacity, filled with the two colour hooks.
+
+**The colour hook rule, gate-enforced.** The kit's only colour surface is two
+custom properties, `--fill` (the solid mark) and `--stroke` (the counter
+colour). On a themed page they are set on `body[data-theme="..."]`, never on
+`:root`, so an embed matches its framing page and the vendor defaults never
+leak. Here: `--fill: #8a5420` (the theme's own mark) and `--stroke: #2d4a3e`
+(the site default mark) on `body[data-theme="ai-readiness"]`. The ghost knobs
+`--ghost-offset` and `--ghost-stroke-w` stay at `:root`, because they are
+motion tuning, not colour.
+
+**The tuned baseline for this surface**, baked in the inline `Motion.init` and
+the two `:root` knobs; a future landing page starts from these numbers, not
+from the vendor defaults:
+
+| Knob | Value | Vendor default |
+|---|---|---|
+| `smooth` | 3 | 1.5 |
+| `reveal.duration` | 0.35 | 0.5 |
+| `cardLag` | `.covers li`, `lagStep` 0.045 | `.card`, 0.125 |
+| `blob.duration` | [1.65, 3.85] | [2, 5] |
+| `--ghost-offset` / `ghost.offsetEm` | 0.12em | 0.125em |
+| `--ghost-stroke-w` / `ghost.strokePx` | 0.5px | 2px |
+
+**Reduced motion.** `motion.js` checks `prefers-reduced-motion` once: it still
+builds the blobs but never starts their morph loops, then returns before the
+smoother, the card lag, and every reveal, so the page scrolls natively and
+renders whole. `motion.css` holds the ghost copies still at 70 percent of the
+offset. Nothing on the page is only legible after it moves, same as everywhere
+else on the site.
