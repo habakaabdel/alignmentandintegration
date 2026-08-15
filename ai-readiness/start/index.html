@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get ready for AI | Alignment Integration</title>
+<meta name="description" content="People increasingly ask software agents to find, compare, and decide. We teach your team to work with these tools, starting with a free consultation.">
+<link rel="canonical" href="https://alignmentandintegration.com/ai-readiness/start/">
+<meta name="theme-color" content="#f8f5f0">
+<meta name="color-scheme" content="light">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alignment Integration">
+<meta property="og:locale" content="en_CA">
+<meta property="og:title" content="Get ready for AI | Alignment Integration">
+<meta property="og:description" content="People increasingly ask software agents to find, compare, and decide. We teach your team to work with these tools, starting with a free consultation.">
+<meta property="og:url" content="https://alignmentandintegration.com/ai-readiness/start/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Get ready for AI | Alignment Integration">
+<meta name="twitter:description" content="People increasingly ask software agents to find, compare, and decide. We teach your team to work with these tools, starting with a free consultation.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f7f6f2'/%3E%3Cg transform='scale(0.6667)'%3E%3Cpath d='M35.5 6.4 A21 21 0 1 0 44.1 18.5' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='41' cy='11.7' r='2.6' fill='%233a5a40'/%3E%3Cpath d='M24 38 C24 30 24 27 24 23' fill='none' stroke='%232d4a3e' stroke-width='2.7' stroke-linecap='round'/%3E%3Cpath d='M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z' fill='%232d4a3e'/%3E%3Cpath d='M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23' fill='none' stroke='%232d4a3e' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='2.4' fill='%233a5a40'/%3E%3C/g%3E%3C/svg%3E">
+
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/vendor/motion.css">
+
+<style>
+/* Landing page for the AI readiness consultation. One reader, one ask.
+   Deliberately carries no navigation: the only ways out are the brand mark
+   and the booking form. Motion comes from the scroll-motion kit in /vendor/;
+   the values below are Abdel's tuned config from the 2026-08-15 draft. */
+
+  :root {
+    /* scroll-motion-kit tuning knobs (not colour) */
+    --ghost-offset: .12em;
+    --ghost-stroke-w: .5px;
+  }
+
+  body[data-theme="ai-readiness"] {
+    background: var(--paper);
+    /* scroll-motion-kit hooks: solid mark and counter stroke */
+    --fill: #8a5420;
+    --stroke: #2d4a3e;
+  }
+
+  .lp-wrap { max-width: 46rem; margin: 0 auto; padding: 0 var(--gutter); }
+  .lp-head { padding: var(--s5) 0; }
+  .lp-head .brand { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--ink); text-decoration: none; font-weight: 600; }
+  main { padding: clamp(1.5rem, 5vw, 3.5rem) 0 var(--s8); }
+
+  .hero { position: relative; }
+  .decor { position: absolute; inset: -10% -20%; z-index: -1; pointer-events: none; }
+  .decor-blob { position: absolute; }
+  .decor-blob path { fill: var(--mark); }
+  .decor-blob.is-counter path { fill: var(--stroke); }
+
+  .kicker { font-family: var(--mono); font-size: var(--t-label); color: var(--mark-deep); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--s5); }
+  .lp-h1 { font-size: clamp(2.35rem, 1.3rem + 4.6vw, 4.6rem); line-height: 1.06; letter-spacing: -0.02em; font-weight: 800; text-wrap: balance; }
+  .lp-h1 .ghost-line { color: var(--ink); }
+  .lp-h1 .ghost-line:last-child { color: var(--fill); }
+  .lp-claim { font-size: var(--t-lead); color: var(--ink-muted); margin-top: var(--s5); max-width: 34rem; }
+  .free { font-size: var(--t-small); color: var(--ink-muted); margin-top: var(--s3); }
+  .hero .actions { margin-top: var(--s6); }
+
+  .lp-section { margin-top: clamp(3.5rem, 9vw, 5.5rem); }
+  .lp-section h2 { font-size: var(--t-h3); margin-bottom: var(--s5); }
+
+  ol.covers { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s4); }
+  ol.covers li {
+    background: var(--panel); border: var(--hair) solid var(--line);
+    border-radius: var(--radius-card); padding: 1.1rem 1.25rem;
+  }
+  ol.covers h3 { font-size: var(--t-body); margin: 0 0 0.35rem; }
+  ol.covers p { font-size: var(--t-small); color: var(--ink-muted); margin: 0; }
+  .num { font-family: var(--mono); font-size: var(--t-label); color: var(--mark-deep); display: block; margin-bottom: 0.4rem; }
+
+  .bounds {
+    border-left: 3px solid var(--mark); padding: var(--s1) 0 var(--s1) 1.1rem;
+    font-size: var(--t-small); color: var(--ink); max-width: 36rem; margin: 0;
+  }
+
+  .lp-form { display: grid; gap: var(--s4); max-width: 30rem; }
+  .lp-form label { font-size: var(--t-label); font-weight: 600; display: grid; gap: 0.35rem; }
+  .lp-form input, .lp-form textarea {
+    font: inherit; font-size: var(--t-small); color: var(--ink);
+    background: var(--panel); border: var(--hair) solid var(--line);
+    border-radius: 10px; padding: 0.65rem 0.8rem; width: 100%; box-sizing: border-box;
+  }
+  .lp-form input:focus, .lp-form textarea:focus { outline: 2px solid var(--mark); outline-offset: 1px; }
+  .lp-form .btn { justify-self: start; cursor: pointer; border: 0; font: inherit; font-weight: 600; }
+  .hp { display: none; }
+
+  .lp-foot { border-top: var(--hair) solid var(--line); padding: var(--s5) 0 var(--s7); font-size: var(--t-small); color: var(--ink-muted); }
+  .lp-foot p { margin: 0; }
+</style>
+</head>
+<body data-theme="ai-readiness">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div id="smooth-wrapper">
+<div id="smooth-content">
+
+<header class="lp-head">
+  <div class="lp-wrap">
+    <a class="brand" href="/" aria-label="Alignment Integration, home">
+      <svg class="monogram" viewBox="0 0 48 48" width="26" height="26" role="img" aria-label="A and I monogram">
+        <g>
+          <path class="mono-mark" d="M35.5 6.4 A21 21 0 1 0 44.1 18.5" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+          <circle class="mono-node" cx="41" cy="11.7" r="2.6"/>
+          <path class="mono-mark" d="M24 38 C24 30 24 27 24 23" fill="none" stroke-width="2.7" stroke-linecap="round"/>
+          <path class="mono-mark mono-mark-fill" d="M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z"/>
+          <path class="mono-mark" d="M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle class="mono-node" cx="12" cy="12" r="2.4"/>
+        </g>
+      </svg>
+      <span class="brand-name">Alignment Integration</span>
+    </a>
+  </div>
+</header>
+
+<main id="main">
+  <div class="lp-wrap">
+
+    <div class="hero">
+      <div class="decor" aria-hidden="true">
+        <div class="decor-blob" data-blob="7" data-speed="0.88" style="left:-16%;top:-22%;width:420px;max-width:60vw;opacity:.1"></div>
+        <div class="decor-blob is-counter" data-blob="19" data-speed="1.14" style="right:-14%;bottom:-30%;width:340px;max-width:55vw;opacity:.08"></div>
+      </div>
+      <p class="kicker">AI readiness, free first session</p>
+      <h1 class="lp-h1">
+        <span class="ghost-line" data-lag=".4">The next visitor<span class="ghost" aria-hidden="true">The next visitor</span></span>
+        <span class="ghost-line" data-lag=".25">reading your website<span class="ghost" aria-hidden="true">reading your website</span></span>
+        <span class="ghost-line" data-lag=".1">may not be a person.<span class="ghost" aria-hidden="true">may not be a person.</span></span>
+      </h1>
+      <p class="lp-claim" data-speed="1.04">People increasingly ask software agents to find, compare, and decide. We teach your team to work with these tools, starting with a free consultation.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#book">
+          Book the free consultation
+          <span class="btn-well" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg>
+          </span>
+        </a>
+      </div>
+      <p class="free">One hour, on a call. No preparation needed.</p>
+    </div>
+
+    <section class="lp-section" aria-labelledby="h-covers">
+      <h2 id="h-covers">What the hour covers</h2>
+      <ol class="covers">
+        <li>
+          <span class="num">one</span>
+          <h3>Where AI already touches your business</h3>
+          <p>How your customers are using these tools today, and what that changes about being found and chosen.</p>
+        </li>
+        <li>
+          <span class="num">two</span>
+          <h3>What your team should learn first</h3>
+          <p>Which tools are worth staff time for your kind of work, and which ones you can skip.</p>
+        </li>
+        <li>
+          <span class="num">three</span>
+          <h3>Whether machines can read your information</h3>
+          <p>A plain reading of what you publish now, and what an agent acting for a customer would miss.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="lp-section" aria-label="What we are not claiming">
+      <p class="bounds">What we are not claiming: nothing is being sold on this page. The first session is a conversation, it is free, and it may end with us telling you that you do not need us yet.</p>
+    </section>
+
+    <section class="lp-section" id="book" aria-labelledby="h-book">
+      <h2 id="h-book">Book the free consultation</h2>
+      <form class="lp-form" name="ai-readiness-consult" method="POST" data-netlify="true" netlify-honeypot="company-site">
+        <p class="hp"><label>Leave this empty <input name="company-site"></label></p>
+        <label>Your name
+          <input type="text" name="name" autocomplete="name" required>
+        </label>
+        <label>Email
+          <input type="email" name="email" autocomplete="email" required>
+        </label>
+        <label>What you do
+          <input type="text" name="work" placeholder="Restaurant owner, program manager, clinic lead" required>
+        </label>
+        <label>Anything you want the hour to cover
+          <textarea name="focus" rows="3"></textarea>
+        </label>
+        <button class="btn btn-primary" type="submit">Send</button>
+      </form>
+    </section>
+
+  </div>
+</main>
+
+<footer class="lp-foot">
+  <div class="lp-wrap">
+    <p>Alignment Integration. Mississauga, Ontario. No cookies, no tracking on this page.</p>
+  </div>
+</footer>
+
+</div>
+</div>
+
+<script src="/vendor/gsap.min.js"></script>
+<script src="/vendor/ScrollTrigger.min.js"></script>
+<script src="/vendor/ScrollSmoother.min.js"></script>
+<script src="/vendor/motion.js"></script>
+<script>
+  Motion.init({
+    smooth: 3,
+    reveal: { duration: 0.35 },
+    cardLag: { selector: '.covers li', lagStep: 0.045 },
+    blob: { duration: [1.65, 3.85] },
+    ghost: { offsetEm: 0.12, strokePx: 0.5 }
+  });
+</script>
+</body>
+</html>
