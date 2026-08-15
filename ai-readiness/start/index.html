@@ -31,14 +31,17 @@
    the values below are Abdel's tuned config from the 2026-08-15 draft. */
 
   :root {
-    /* scroll-motion-kit hooks: solid mark and counter stroke */
-    --fill: #8a5420;
-    --stroke: #2d4a3e;
+    /* scroll-motion-kit tuning knobs (not colour) */
     --ghost-offset: .12em;
     --ghost-stroke-w: .5px;
   }
 
-  body[data-theme="ai-readiness"] { background: var(--paper); }
+  body[data-theme="ai-readiness"] {
+    background: var(--paper);
+    /* scroll-motion-kit hooks: solid mark and counter stroke */
+    --fill: #8a5420;
+    --stroke: #2d4a3e;
+  }
 
   .lp-wrap { max-width: 46rem; margin: 0 auto; padding: 0 var(--gutter); }
   .lp-head { padding: var(--s5) 0; }
