@@ -1,0 +1,86 @@
+/* ============================================================================
+   scroll-motion-kit -- the CSS half
+   Every tunable value is a custom property. Override them on :root, on a
+   section, or on a single element. Nothing here assumes a colour system beyond
+   --fill (the solid mark) and --stroke (the counter colour).
+   ========================================================================== */
+
+:root {
+  /* ghost type */
+  --ghost-offset: .125em;     /* how far the outline copy drifts. em-based on purpose */
+  --ghost-stroke-w: 2px;      /* outline weight. 1px reads delicate, 4px+ reads poster */
+  --ghost-duration: 3s;       /* drift time on load */
+  --ghost-ease: ease-out;
+
+  /* colours the kit needs. map these onto the project's own tokens */
+  --fill: #2d4a3e;
+  --stroke: #7d3650;
+}
+
+/* ---------------------------------------------------------------------------
+   1. GHOST TYPE
+   Markup: <span class="ghost-line">Louder<span class="ghost">Louder</span></span>
+   The inner copy must repeat the text exactly and carry aria-hidden="true".
+   ------------------------------------------------------------------------- */
+
+.ghost-line {
+  display: block;
+  position: relative;
+  isolation: isolate;        /* REQUIRED: without a stacking context the z-index:-1
+                                ghost falls behind the card/section background */
+  color: var(--fill);
+}
+
+.ghost-line .ghost {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  color: transparent;
+  -webkit-text-stroke: var(--ghost-stroke-w) var(--stroke);
+  animation: ghostDrift var(--ghost-duration) var(--ghost-ease) forwards;
+}
+
+@keyframes ghostDrift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(calc(var(--ghost-offset) * -1), var(--ghost-offset)); }
+}
+
+/* static variant: no load animation, just the offset. Use inside cards and
+   anywhere the effect should not compete for attention. */
+.ghost-line.is-static .ghost {
+  animation: none;
+  transform: translate(calc(var(--ghost-offset) * -1), var(--ghost-offset));
+}
+
+/* ---------------------------------------------------------------------------
+   2. REVEAL -- the pre-animation state
+   motion.js animates FROM this, so elements must not flash before their
+   timeline exists. Only applied when the page marks itself .js-motion.
+   ------------------------------------------------------------------------- */
+
+.js-motion [data-reveal] { will-change: transform, opacity; }
+
+/* ---------------------------------------------------------------------------
+   3. SCROLLSMOOTHER SCAFFOLD
+   #smooth-wrapper > #smooth-content must wrap the whole document body.
+   ------------------------------------------------------------------------- */
+
+#smooth-wrapper { overflow: hidden; }
+
+/* position: sticky DOES NOT WORK inside #smooth-content -- ScrollSmoother
+   transforms the content, which kills sticky. Put fixed chrome (nav, toolbar,
+   cookie bar) OUTSIDE the wrapper as position: fixed. */
+
+/* ---------------------------------------------------------------------------
+   4. REDUCED MOTION
+   motion.js skips the smoother, the blob loops and every reveal. This handles
+   the CSS-only half.
+   ------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ghost-line .ghost {
+    animation: none;
+    transform: translate(calc(var(--ghost-offset) * -.7), calc(var(--ghost-offset) * .7));
+  }
+  .js-motion [data-reveal] { will-change: auto; }
+}
