@@ -2,7 +2,7 @@
 
 ## Overview
 
-This deliverable establishes the complete brand logo system for Alignment Integration and the PAL Product family (PAL Products parent mark, Student Pal, Therapist Pal, and Personal Pal) on branch `brand-logo-system`.
+This deliverable establishes the complete brand logo system for Alignment Integration and the PAL Product family (PAL Products parent mark, Student Pal, and Personal Pal) on branch `brand-logo-system`.
 
 All assets have been created inside the `brand/` directory with zero modifications to any existing site code, stylesheets, or configuration files outside `brand/`.
 
@@ -34,11 +34,6 @@ The PAL product marks share a single, disciplined visual construction grammar th
 - **File path**: `brand/student-pal/`
 - **Palette**: Violet `#5a3d9e` (Deep `#432b78`)
 - **Glyph Description**: An open book / upward trajectory chevron curve paired with a top spark node (`cx=24, cy=14, r=2.5`), symbolizing learning, discovery, growth, and academic trajectory. Replaces the temporary "SP" square favicon placeholder.
-
-### Therapist Pal
-- **File path**: `brand/therapist-pal/`
-- **Palette**: Calm Teal `#1f5f5b` (Deep `#14403d`)
-- **Glyph Description**: Dual interlocking sanctuary arches (representing listening ears and empathetic embrace) surrounding a central grounding balance node (`cx=24, cy=24, r=2.5`), symbolizing safety, equilibrium, and professional care.
 
 ### Personal Pal
 - **File path**: `brand/personal-pal/`

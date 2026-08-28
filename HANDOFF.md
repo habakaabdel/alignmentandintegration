@@ -12,7 +12,7 @@
    - `enterprise/index.html`
    - `individuals/index.html`
    - `students/index.html`
-   - `therapists/index.html`
+   - (one audience page directory removed 2026-08-28)
    - `community-social-services/index.html`
    - `demos/index.html`
 

@@ -1,12 +1,12 @@
 # Alignment Integration, design system record
 
-The look in one sentence: a serene organic sheet, warm linen ground with soft charcoal type and deep sage marks, that adapts its ground and accent to six audience pages through a `data-theme` token system while one grid, one type system, and one monogram hold it together. Structure carries the identity, not decoration. There are no shadows and no gradients.
+The look in one sentence: a serene organic sheet, warm linen ground with soft charcoal type and deep sage marks, that adapts its ground and accent to five audience pages through a `data-theme` token system while one grid, one type system, and one monogram hold it together. Structure carries the identity, not decoration. There are no shadows and no gradients.
 
 ---
 
 ## Colour & Themes
 
-The site uses a context-adaptive theme system. The home page and demo pages use the serene default tokens. The six audience pages receive a tailored theme via a `data-theme` attribute on their `<body>` tag.
+The site uses a context-adaptive theme system. The home page and demo pages use the serene default tokens. The five audience pages receive a tailored theme via a `data-theme` attribute on their `<body>` tag.
 
 All ratios are measured against `--paper` unless noted. WCAG 2.2 AA needs 4.5:1 for body text, 3:1 for large text and for the boundary of a control that carries meaning.
 
@@ -18,7 +18,6 @@ The locked palette (measured, do not adjust):
 | `small-business` | `#ffffff` (panel `#fafaf9`) | `#0b5a44` emerald | 8.2 / 8.2 |
 | `community` | `#f7f4ee` | `#2d4a3e` sage (site default) | 8.9 / 9.7 |
 | `students` | `#f5f4f9` | `#5a3d9e` violet | 7.4 / 8.1 |
-| `therapists` | `#f1f6f6` | `#1f5f5b` calm teal | 6.8 / 7.4 |
 | `individuals` | `#f9f5f3` | `#7d3650` deep rose | 7.7 / 8.3 |
 | `ai-readiness` | `#f8f5f0` | `#8a5420` warm copper | accent as text 5.7, white on accent 6.2 |
 
@@ -46,12 +45,11 @@ Rules a future editor keeps:
 
 ## The bordered-card treatment
 
-The `students` and `therapists` pages additionally carry a WhatsApp-web-style surface language:
-- Cards/panels on these pages: `#ffffff` ground, `1px solid var(--ink)` border, `16px` radius.
+The `students` page additionally carries a WhatsApp-web-style surface language:
+- Cards/panels on this page: `#ffffff` ground, `1px solid var(--ink)` border, `16px` radius.
 - Primary buttons become pills (`border-radius: 999px`) with a `1px` border:
   - students: fill `#b9a7ec`, text `var(--ink)` (7.9:1), border `var(--ink)`.
-  - therapists: fill `#1f5f5b`, text `#ffffff` (7.4:1), border same as fill.
-- Quiet/secondary buttons on these two pages: transparent fill, `1px solid var(--ink)`, pill radius.
+- Quiet/secondary buttons on this page: transparent fill, `1px solid var(--ink)`, pill radius.
 - The other four pages keep the site's existing button and card styling; only their tokens move.
 
 ## Type
@@ -85,7 +83,7 @@ Sentence case everywhere, including headings and buttons. The only capitalised w
 
 4px base: `--s1` 4, `--s2` 8, `--s3` 12, `--s4` 16, `--s5` 24, `--s6` 32, `--s7` 48, `--s8` 64, `--s9` 96. Page gutter `clamp(1.25rem, 4vw, 3rem)`, container 1100px.
 
-Radius is 12px on buttons, inputs, and tiles (`--radius`), 16px on the bordered cards of the students and therapists pages, and 999px on their pill buttons. The focus ring stays square: 2px `--ink` at 2px offset.
+Radius is 12px on buttons, inputs, and tiles (`--radius`), 16px on the bordered cards of the students page, and 999px on its pill buttons. The focus ring stays square: 2px `--ink` at 2px offset.
 
 Border language, in three weights:
 1. `1px --line`, quiet division inside a section.
@@ -338,35 +336,6 @@ What the reskin did, and what a future editor keeps doing:
 - The page carries the slim bar and nothing else: the monogram, the company
   name, a link back to the main page, and the word "Demonstration". No nav, no
   footer chrome beyond the source note.
-
-## The prototype page, `demos/therapist-workload/`
-
-A working prototype of the therapist workload board, added 29 July 2026 with
-the `/therapists/` audience page. Built directly in this sheet's language, not
-reskinned: same tokens, same motion vocabulary, the category ramp for the four
-map domains (the documented demo-page exception). Rules a future editor keeps:
-
-- The product has no brand name on the site. The audience page, the nav, and
-  the status grid say "Therapist workload" and "the board", descriptive words
-  only, until a name is decided. Same discipline as the systems map.
-- Every client in the sample data is a coded card: nickname, avatar, optional
-  number. No real names, no session notes, no recordings anywhere in the data,
-  markup, or comments. The dictation flow exists to demonstrate the contract
-  that the transcript is read once for action items and discarded.
-- Each card's map is fenced to the reason for counselling. At least one sample
-  card keeps an empty domain with the honest-empty line, because the fence is
-  the point.
-- One red row at most. Red means the reader must act, and the sample day is
-  built so exactly one thing qualifies.
-- `?frame=app` renders the app alone, full viewport; the walk frames on
-  `/therapists/` are captured from it at 430x900 and device scale 2, into
-  `media/walk/therapist-workload/`. Recapture after any visual change to the
-  prototype: the five states are `?frame=app`, `&open=boat-11`, `&view=recap`,
-  `&view=recap-done`, and `&view=client&client=boat`.
-- The page predates the content rules, so it was swept for them. Em dashes are
-  gone. "Leverage point" became "point of action", because the banned word list
-  has no technical exemption. Named programs and agencies were removed and
-  replaced with sector language, per the no client or employer names rule.
 
 ## The AI readiness page, added 11 August 2026
 

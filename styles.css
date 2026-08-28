@@ -112,12 +112,6 @@ body[data-theme="students"] {
   --mark-deep:    #432b78;
 }
 
-body[data-theme="therapists"] {
-  --paper:        #f1f6f6;
-  --mark:         #1f5f5b;
-  --mark-deep:    #14403d;
-}
-
 body[data-theme="individuals"] {
   --paper:        #f9f5f3;
   --mark:         #7d3650;
@@ -131,29 +125,23 @@ body[data-theme="ai-readiness"] {
 }
 
 
-/* ---------- Bordered-card surface treatment for students and therapists ---------- */
+/* ---------- Bordered-card surface treatment for students ---------- */
 
 body[data-theme="students"] .segment,
 body[data-theme="students"] .panel,
 body[data-theme="students"] .form-shell,
-body[data-theme="students"] .plot,
-body[data-theme="therapists"] .segment,
-body[data-theme="therapists"] .panel,
-body[data-theme="therapists"] .form-shell,
-body[data-theme="therapists"] .plot {
+body[data-theme="students"] .plot {
   background: #ffffff;
   border: 1px solid var(--ink);
   border-radius: 16px;
 }
 
-/* These two themes carry the bordered-card treatment above, which pins the card
+/* This theme carries the bordered-card treatment above, which pins the card
    corner at --radius-card. The leaf radius on .proof and .walk-stage would put a
    second corner language on the same page, so they follow the card here.
     Radius only - .proof keeps its own accent border. */
 body[data-theme="students"] .proof,
-body[data-theme="students"] .walk-stage,
-body[data-theme="therapists"] .proof,
-body[data-theme="therapists"] .walk-stage {
+body[data-theme="students"] .walk-stage {
   border-radius: var(--radius-card);
 }
 
@@ -169,27 +157,13 @@ body[data-theme="students"] .btn-primary:hover {
   border-color: var(--ink);
 }
 
-body[data-theme="therapists"] .btn-primary {
-  background: #1f5f5b;
-  color: #ffffff;
-  border: 1px solid #1f5f5b;
-  border-radius: 999px;
-}
-body[data-theme="therapists"] .btn-primary:hover {
-  background: #14403d;
-  color: #ffffff;
-  border-color: #14403d;
-}
-
-body[data-theme="students"] .btn-quiet,
-body[data-theme="therapists"] .btn-quiet {
+body[data-theme="students"] .btn-quiet {
   background: transparent;
   color: var(--ink);
   border: 1px solid var(--ink);
   border-radius: 999px;
 }
-body[data-theme="students"] .btn-quiet:hover,
-body[data-theme="therapists"] .btn-quiet:hover {
+body[data-theme="students"] .btn-quiet:hover {
   background: #ffffff;
   color: var(--ink);
   border-color: var(--ink);
@@ -1749,12 +1723,6 @@ a:hover { color: var(--mark-deep); }
   .segment:focus-within .viz-card-front { translate: 0 -4px; }
   .segment:hover .viz-day-due,
   .segment:focus-within .viz-day-due { animation: viz-flag 480ms var(--ease); }
-
-  .segment:hover .viz-therapists .viz-row,
-  .segment:focus-within .viz-therapists .viz-row { animation: viz-row 320ms var(--ease) backwards; }
-  .segment:hover .viz-therapists .viz-row:nth-of-type(2) { animation-delay: 70ms; }
-  .segment:hover .viz-therapists .viz-row:nth-of-type(3) { animation-delay: 140ms; }
-  .segment:hover .viz-therapists .viz-row:nth-of-type(4) { animation-delay: 210ms; }
 
   .segment:hover .viz-individuals .viz-edge,
   .segment:focus-within .viz-individuals .viz-edge {
