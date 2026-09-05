@@ -40,3 +40,18 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[redirects]]
+  from = "/small-business/*"
+  to = "/demos/restaurant-ops/"
+  status = 301
+
+[[redirects]]
+  from = "/enterprise/*"
+  to = "/demos/"
+  status = 301
+
+[[redirects]]
+  from = "/individuals/*"
+  to = "/demos/personal-pal/"
+  status = 301
