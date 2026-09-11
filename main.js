@@ -16,8 +16,6 @@ const DEMO_URLS = {
   'small-business':   '/demos/restaurant-ops/',
   'enterprise':       '',
   'community-safety': '/demos/bpss-ses/',
-  'student-portal':   'https://pocket-student.netlify.app',
-  'pocket-portal':    '/demos/personal-pal/',
   'engine':           ''
 };
 

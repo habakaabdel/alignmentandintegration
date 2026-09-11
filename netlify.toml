@@ -53,5 +53,20 @@
 
 [[redirects]]
   from = "/individuals/*"
-  to = "/demos/personal-pal/"
+  to = "/demos/"
+  status = 301
+
+[[redirects]]
+  from = "/students/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/students"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/demos/personal-pal/*"
+  to = "/demos/"
   status = 301
