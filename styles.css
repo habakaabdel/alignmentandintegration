@@ -118,6 +118,12 @@ body[data-theme="individuals"] {
   --mark-deep:    #592437;
 }
 
+body[data-theme="organizations"] {
+  --paper:        #f2f4f5;
+  --mark:         #2f4e7a;
+  --mark-deep:    #1e3556;
+}
+
 body[data-theme="ai-readiness"] {
   --paper:        #f8f5f0;
   --mark:         #8a5420;
@@ -680,6 +686,8 @@ a:hover { color: var(--mark-deep); }
 .engine-head p { color: var(--ink-muted); }
 .beats { display: grid; gap: var(--s5); }
 @media (min-width: 54rem) { .beats { grid-template-columns: repeat(3, 1fr); gap: var(--s6); } }
+@media (min-width: 54rem) { .beats-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 68rem) { .beats-4 { grid-template-columns: repeat(4, 1fr); } }
 .beat { display: grid; gap: var(--s3); align-content: start; padding-top: var(--s5); border-top: 2px solid var(--mark); }
 .beat h3 { font-size: 1.0625rem; max-width: 20ch; }
 .beat p { font-size: var(--t-small); color: var(--ink-muted); }

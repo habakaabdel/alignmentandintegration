@@ -48,12 +48,7 @@
 
 [[redirects]]
   from = "/enterprise/*"
-  to = "/demos/"
-  status = 301
-
-[[redirects]]
-  from = "/individuals/*"
-  to = "/demos/"
+  to = "/organizations/"
   status = 301
 
 [[redirects]]
