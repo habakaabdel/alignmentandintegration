@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The connective layer, demonstration</title>
+<meta name="description" content="Demonstration of a connective layer between the systems a community agency already runs. Fictional agencies, fictional data.">
+<!-- Unlinked on purpose. Kept out of search until it is listed on the demos page. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f7f6f2">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232d4a3e'/%3E%3Cg fill='none' stroke='%23f7f6f2' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='9' cy='9' r='2.5'/%3E%3Ccircle cx='23' cy='9' r='2.5'/%3E%3Ccircle cx='9' cy='23' r='2.5'/%3E%3Ccircle cx='23' cy='23' r='2.5'/%3E%3Cpath d='M11 11l10 10M21 11L11 21'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">The connective layer</span>
+    </div>
+    <span class="demo-label">Demonstration, fictional data</span>
+  </div>
+  <p class="privacy-line">
+    <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+    <span>No personal health information is stored here. Referrals stay inside each hub's own records.</span>
+  </p>
+</header>
+
+<main id="main">
+
+  <!-- Step 0: the idea -->
+  <section class="step is-open" data-step="0" aria-labelledby="h-0">
+    <p class="kicker">Ashgrove region, fictional</p>
+    <h1 id="h-0">Your systems stay. This connects them.</h1>
+    <p class="lede">Most agencies already run records, scheduling, payroll and email, each on its own. The connective layer sits between them and replaces none of them.</p>
+
+    <div class="map" aria-label="How the layer sits between existing systems">
+      <div class="map-grid">
+        <button type="button" class="sys" data-sys="records" aria-pressed="false"><span class="sys-cat">Records</span><span class="sys-note">stays as is</span></button>
+        <button type="button" class="sys" data-sys="scheduling" aria-pressed="false"><span class="sys-cat">Scheduling</span><span class="sys-note">stays as is</span></button>
+        <div class="layer" aria-hidden="false">
+          <span class="layer-name">Connective layer</span>
+          <span class="layer-does">regional search · referral handoffs · shared registry</span>
+        </div>
+        <button type="button" class="sys" data-sys="payroll" aria-pressed="false"><span class="sys-cat">Payroll</span><span class="sys-note">stays as is</span></button>
+        <button type="button" class="sys" data-sys="email" aria-pressed="false"><span class="sys-cat">Email</span><span class="sys-note">stays as is</span></button>
+      </div>
+      <div class="sys-detail" id="sys-detail">
+        <p class="sys-detail-h">Tap a system to see what the layer touches.</p>
+        <p class="sys-detail-b">Each one keeps its own data, its own logins and its own vendor.</p>
+      </div>
+    </div>
+
+    <h2 class="h-small">Three things to try, about thirty seconds each</h2>
+    <div class="tries">
+      <button type="button" class="try" data-go="1">
+        <span class="try-n">1</span>
+        <span class="try-t">Search the region</span>
+        <span class="try-b">Every service across six agencies, one search.</span>
+      </button>
+      <button type="button" class="try" data-go="2">
+        <span class="try-n">2</span>
+        <span class="try-t">Follow a referral</span>
+        <span class="try-b">One agency to the next, each step owned by a named role.</span>
+      </button>
+      <button type="button" class="try" data-go="3">
+        <span class="try-n">3</span>
+        <span class="try-t">Update the registry</span>
+        <span class="try-b">Staff keep their own listings current.</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Step 1: search -->
+  <section class="step" data-step="1" aria-labelledby="h-1">
+    <p class="kicker">Try 1 of 3</p>
+    <h2 id="h-1">Search the region</h2>
+    <p class="sub">One search across every agency in the Ashgrove region. Each agency keeps its own systems. Only the service listings are shared.</p>
+
+    <div class="search-box">
+      <label class="sr-only" for="q">Search services</label>
+      <input id="q" type="search" autocomplete="off" placeholder="Try rent, youth, rides or food in Millbrook">
+      <div class="chips" id="suggest" aria-label="Suggested searches">
+        <button type="button" class="chip" data-q="rent">rent</button>
+        <button type="button" class="chip" data-q="youth">youth</button>
+        <button type="button" class="chip" data-q="rides">rides</button>
+        <button type="button" class="chip" data-q="food millbrook">food in Millbrook</button>
+      </div>
+      <div class="filters">
+        <label class="sr-only" for="town">Town</label>
+        <select id="town">
+          <option value="">All towns</option>
+        </select>
+        <label class="check"><input type="checkbox" id="open-only"> Open only</label>
+      </div>
+    </div>
+
+    <p class="count" id="count" aria-live="polite"></p>
+    <ul class="results" id="results"></ul>
+  </section>
+
+  <!-- Step 2: referral -->
+  <section class="step" data-step="2" aria-labelledby="h-2">
+    <p class="kicker">Try 2 of 3</p>
+    <h2 id="h-2">Follow a referral</h2>
+    <p class="sub">A family at Ashgrove Family Centre needs housing help. Move the referral along. Every step has one owner, and everyone can see where it stands.</p>
+
+    <div class="ref-wrap">
+      <ol class="path" id="path"></ol>
+
+      <aside class="ref-side">
+        <div class="ref-now" id="ref-now"></div>
+
+        <div class="carry">
+          <div class="carry-col">
+            <p class="carry-h">The layer carries</p>
+            <ul>
+              <li>Which service</li>
+              <li>Which step, and who owns it</li>
+              <li>Time since the last handoff</li>
+            </ul>
+          </div>
+          <div class="carry-col carry-stays">
+            <p class="carry-h">Stays in each hub's own records</p>
+            <ul>
+              <li>Names and contact details</li>
+              <li>The family's story</li>
+              <li>Case notes of any kind</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="notice">
+          <p class="notice-h">The notice the next owner gets, by email</p>
+          <p class="notice-b" id="notice"></p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Step 3: registry -->
+  <section class="step" data-step="3" aria-labelledby="h-3">
+    <p class="kicker">Try 3 of 3</p>
+    <h2 id="h-3">Update the registry</h2>
+    <p class="sub">Signed in as <b>Program lead, Millbrook Housing Collective</b>. You own these listings. Change one and the regional search shows it right away.</p>
+
+    <div class="health">
+      <div class="health-bar"><span id="health-fill"></span></div>
+      <p id="health-text"></p>
+    </div>
+
+    <div class="reg-wrap">
+      <ul class="own" id="own"></ul>
+
+      <form class="edit" id="edit" hidden>
+        <p class="edit-h" id="edit-h"></p>
+        <label for="f-hours">Hours</label>
+        <input id="f-hours" type="text">
+        <label for="f-phone">Phone</label>
+        <input id="f-phone" type="text">
+        <label for="f-status">Status</label>
+        <select id="f-status">
+          <option value="open">Open</option>
+          <option value="waitlist">Waitlist</option>
+          <option value="paused">Paused</option>
+        </select>
+        <div class="edit-actions">
+          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-quiet" id="confirm">Still correct</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="log" id="log" hidden>
+      <p class="log-h">Change log</p>
+      <ul id="log-list"></ul>
+      <button type="button" class="btn btn-quiet" id="see-live">See it in the regional search</button>
+    </div>
+  </section>
+
+  <!-- Step 4: bounds -->
+  <section class="step" data-step="4" aria-labelledby="h-4">
+    <p class="kicker">What it is, and is not</p>
+    <h2 id="h-4">Nothing replaced. Nothing moved.</h2>
+    <div class="bounds">
+      <div>
+        <p class="bounds-h">It does</p>
+        <ul>
+          <li>Give staff one search across a region</li>
+          <li>Put a named owner on every referral step</li>
+          <li>Let staff keep their own listings current</li>
+          <li>Send short notices through the email you already use</li>
+        </ul>
+      </div>
+      <div>
+        <p class="bounds-h">It does not</p>
+        <ul>
+          <li>Replace your records, scheduling, payroll or email</li>
+          <li>Store personal health information</li>
+          <li>Move referrals out of each hub's own records</li>
+          <li>Ask anyone to learn a new system to keep working</li>
+        </ul>
+      </div>
+    </div>
+    <p class="fine">Every agency, town, service, phone number and date on these screens is invented for this demonstration.</p>
+    <button type="button" class="btn btn-primary" data-go="0">Start again</button>
+  </section>
+
+</main>
+
+<nav class="tour" aria-label="Demonstration steps">
+  <button type="button" class="tour-btn" id="back">Back</button>
+  <div class="tour-mid">
+    <div class="dots" id="dots"></div>
+    <span class="tour-label" id="tour-label"></span>
+  </div>
+  <button type="button" class="tour-btn primary" id="next">Next</button>
+</nav>
+
+<script src="data.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
