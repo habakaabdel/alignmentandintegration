@@ -1,420 +1,155 @@
-# Alignment Integration, design system record
+# Alignment Integration, design record
 
-The look in one sentence: a serene organic sheet, warm linen ground with soft charcoal type and deep sage marks, that adapts its ground and accent to five audience pages through a `data-theme` token system while one grid, one type system, and one monogram hold it together. Structure carries the identity, not decoration. There are no shadows and no gradients.
+What `styles.css` and the pages do today. When the code and this file disagree, the code is right and this file is out of date; fix it in the same change.
+
+The look: a warm linen sheet, soft charcoal type, deep sage marks. One grid, one type system, one monogram. Each audience page moves only the ground and the accent through a `data-theme` token block. Soft background scenes move behind the content; the content never depends on them.
 
 ---
 
-## Colour & Themes
+## Pages and themes
 
-The site uses a context-adaptive theme system. The home page and demo pages use the serene default tokens. The five audience pages receive a tailored theme via a `data-theme` attribute on their `<body>` tag.
+| Page | `data-theme` | Background scene |
+|---|---|---|
+| `/` | none (default tokens) | `#eco`, from `eco.js` (Three.js) |
+| `/individuals/` | `individuals` | none |
+| `/organizations/` | `organizations` | none |
+| `/community-social-services/` | `community` | `#page-scene`, from its `scene.js` |
+| `/ai-readiness/` | `ai-readiness` | `#page-scene`, from its `scene.js` |
+| `/ai-readiness/start/` | `ai-readiness` | none; uses the scroll-motion kit instead |
+| `/demos/` | none | `#page-scene`, from its `scene.js` |
+| `/privacy/` | none | none (the canvas is in the markup, no script loads) |
 
-All ratios are measured against `--paper` unless noted. WCAG 2.2 AA needs 4.5:1 for body text, 3:1 for large text and for the boundary of a control that carries meaning.
+Every page that loads `main.js` also gets `#nature-canvas`, a fluid wave canvas `main.js` inserts behind everything. All three canvases are fixed, full viewport, `z-index: 0`, `pointer-events: none`; `main`, `header`, and `footer` sit above at `z-index: 1`.
 
-The locked palette (measured, do not adjust):
+The demos under `demos/<name>/` are self-contained. They carry their own stylesheets (two still load Google Fonts), their own scripts, and no site nav. Nothing in this file applies to them.
 
-| Theme key | --paper | --mark (accent) | Measured |
-|---|---|---|---|
-| `enterprise` | `#f2f4f5` | `#2f4e7a` slate blue | accent as text 7.6, white on accent 8.4 |
-| `small-business` | `#ffffff` (panel `#fafaf9`) | `#0b5a44` emerald | 8.2 / 8.2 |
-| `community` | `#f7f4ee` | `#2d4a3e` sage (site default) | 8.9 / 9.7 |
-| `students` | `#f5f4f9` | `#5a3d9e` violet | 7.4 / 8.1 |
-| `individuals` | `#f9f5f3` | `#7d3650` deep rose | 7.7 / 8.3 |
-| `ai-readiness` | `#f8f5f0` | `#8a5420` warm copper | accent as text 5.7, white on accent 6.2 |
+## Colour
 
-The default tokens, carried by the home page, the demo pages, and any page without a `data-theme`:
+Default tokens on `:root`:
 
 | Token | Value | Use |
 |---|---|---|
-| `--paper` | `#f7f6f2` | page ground, warm linen |
-| `--panel` | `#ffffff` | tiles, plot, form shell |
-| `--panel-deep` | `#f0eee7` | the engine tile only |
+| `--paper` | `#f7f6f2` | page ground |
+| `--panel` | `#ffffff` | cards, offers, form inputs, figure plate |
+| `--panel-deep` | `#f0eee7` | the claim and engine bands on home (at 70% via `color-mix`) |
 | `--ink` | `#1c1d1c` | headings, body, focus ring |
 | `--ink-muted` | `#5e605d` | secondary prose, labels |
-| `--mark` | `#2d4a3e` | links, indices, primary button ground, live bars |
-| `--mark-deep` | `#1d332a` | hover state for the above |
-| `--second` | `#3a5a40` | form error text, figure strokes |
-| `--line` | `#d8d6ce` | decorative hairlines, section rules |
-| `--line-strong` | `#717d76` | tile borders, input borders, tick rules (3.95:1 boundary) |
+| `--mark` | `#2d4a3e` | links, primary button, lead offer, indices |
+| `--mark-deep` | `#1d332a` | hover for the above |
+| `--second` | `#3a5a40` | monogram nodes, figure strokes |
+| `--trace-raw` | `#2f4e7a` | the raw trace in the home hero figure only |
+| `--line` | `#d8d6ce` | hairlines, card borders, input borders |
+| `--line-strong` | `#717d76` | home segment cards, tick marks in the section rule |
 
-Global on every theme: `--ink` and `--ink-muted` never move. A theme block reassigns tokens only, never component rules; the two documented exceptions are the bordered-card treatment below.
+Theme blocks on `body[data-theme="..."]` in use today:
 
-Rules a future editor keeps:
-- Never put text on `--line` or `--line-strong`. They are boundary colours.
-- No gold. The previous deck was near black with warm gold and this identity is not an evolution of it.
-- Two looks are banned because they read as generated: cream ground with a high contrast serif and a terracotta accent, and near black with one acid accent.
+| Theme | `--paper` | `--mark` | `--mark-deep` |
+|---|---|---|---|
+| `individuals` | `#f9f5f3` | `#7d3650` | `#592437` |
+| `organizations` | `#f2f4f5` | `#2f4e7a` | `#1e3556` |
+| `community` | `#f7f4ee` | `#2d4a3e` | `#1d332a` |
+| `ai-readiness` | `#f8f5f0` | `#8a5420` | `#5e3812` |
 
-## The bordered-card treatment
+`ai-readiness` also sets `--row-tint` inline on its page, and the landing page sets the motion kit's `--fill` and `--stroke` on its `body[data-theme]`.
 
-The `students` page additionally carries a WhatsApp-web-style surface language:
-- Cards/panels on this page: `#ffffff` ground, `1px solid var(--ink)` border, `16px` radius.
-- Primary buttons become pills (`border-radius: 999px`) with a `1px` border:
-  - students: fill `#b9a7ec`, text `var(--ink)` (7.9:1), border `var(--ink)`.
-- Quiet/secondary buttons on this page: transparent fill, `1px solid var(--ink)`, pill radius.
-- The other four pages keep the site's existing button and card styling; only their tokens move.
+`styles.css` still holds `enterprise`, `small-business`, and `students` theme blocks, plus a `students` bordered-card treatment. No page uses them; those URLs now redirect in `netlify.toml`.
+
+Rules:
+- A theme block reassigns tokens only. `--ink` and `--ink-muted` never move.
+- No text on `--line` or `--line-strong`; they are boundary colours.
+- One ground per page. There is no dark mode and `prefers-color-scheme` is not read.
+- No gold.
 
 ## Type
 
-Two families, loaded from Google Fonts with `display=swap`.
+Self-hosted from `media/fonts/` with `@font-face` at the top of `styles.css`, `font-display: swap`, Latin subset. No Google Fonts request on any site page.
 
-- `Plus Jakarta Sans` 400 / 500 / 600 / 700, all prose, with `IBM Plex Sans` as fallback.
-- `IBM Plex Mono` 400 / 500, section indices, eyebrows, field labels, plot labels, footer meta.
+- `--sans`: Plus Jakarta Sans, variable 300 to 700. All prose, headings, buttons.
+- `--mono`: IBM Plex Mono 400 and 500. Indices, eyebrows, figure keys, offer tags, the nav toggle label.
 
-Why: the sans is warm and open, which carries the serene ground, while the mono kept for measurement labels keeps the page reading as a drawn record rather than a brochure without introducing a second voice.
+| Token | Value |
+|---|---|
+| `--t-micro` | 0.75rem |
+| `--t-label` | 0.8125rem |
+| `--t-small` | 0.9375rem |
+| `--t-body` | 1.0625rem |
+| `--t-lead` | clamp(1.125rem, 0.98rem + 0.55vw, 1.3125rem) |
+| `--t-h3` | clamp(1.125rem, 1.02rem + 0.4vw, 1.3125rem) |
+| `--t-h2` | clamp(1.5rem, 1.24rem + 1.05vw, 2rem) |
+| `--t-h1` | clamp(2rem, 1.45rem + 2.5vw, 3.5rem) |
 
-Scale, fluid where it needs to be:
+Body line height 1.65, headings 1.2 at weight 600 with `-0.01em` tracking. The page `h1` (`.hero-title` on home, `.segment-lede` on the audience pages) uses `--t-h1`; `.segment-lede` adds `-0.022em` and caps at 20ch. Mono labels carry positive tracking, 0.04em to 0.14em.
 
-| Token | Value | Use |
-|---|---|---|
-| `--t-micro` | 0.75rem | hints, tile market labels |
-| `--t-label` | 0.8125rem | mono labels, nav, indices |
-| `--t-small` | 0.9375rem | secondary prose, buttons |
-| `--t-body` | 1.0625rem | body, form inputs |
-| `--t-lead` | clamp 1.125 to 1.3125rem | the claim paragraph |
-| `--t-h3` | clamp 1.125 to 1.3125rem | tile names, step and idea headings |
-| `--t-h2` | clamp 1.5 to 2rem | section headings |
-| `--t-h1` | clamp 1.9375 to 3.375rem | the positioning line, once |
+Sentence case everywhere, headings and buttons included.
 
-Body line height 1.65, headings 1.2. Headings carry `-0.01em` tracking, the h1 carries `-0.022em`. Mono labels carry positive tracking, 0.06em to 0.14em.
-Measure caps: 22ch on the h1, 54ch on the claim, 62 to 68ch on prose.
+## Space, radius, surfaces
 
-Sentence case everywhere, including headings and buttons. The only capitalised words are proper nouns.
+- Spacing on a 4px base: `--s1` 0.25rem through `--s9` 6rem (4, 8, 12, 16, 24, 32, 48, 64, 96px).
+- Container `--measure` 1100px, gutter `clamp(1.25rem, 4vw, 3rem)`.
+- `.section` padding `clamp(2.5rem, 6vw, 6rem)`; `.band` 6rem.
+- Radii: `--radius` 12px, `--radius-card` 16px (offers, islands), `--radius-leaf` `24px 4px 24px 4px` (home segment cards, the hero bezel), `--radius-pill` 999px (buttons). Inputs are 10px.
+- Surfaces:
+  - `.island`: prose on home sits on frosted paper, `--panel` at 88% with a 3px backdrop blur, 1px `--line`, card radius. Keeps the eco scene behind the words, not through them.
+  - `.bezel` / `.bezel-core`: the hero figure's double frame, a faint tray around a white plate with a soft lift shadow.
+  - `.offer` in a `.bento` grid: the lead offer spans two rows on `--mark` with paper text; the other two stack beside it. One column below 58rem.
+  - `.build` rows and `.proof` panels carry the audience pages.
+- Shadows exist but stay soft: `--lift` on the primary button and the bezel plate only.
+- The section rule: every `.section` that follows another gets a 1px `--line` hairline with a row of `--line-strong` ticks every 9px under it, at 0.75 opacity.
 
-## Space, border, radius
+## Buttons and focus
 
-4px base: `--s1` 4, `--s2` 8, `--s3` 12, `--s4` 16, `--s5` 24, `--s6` 32, `--s7` 48, `--s8` 64, `--s9` 96. Page gutter `clamp(1.25rem, 4vw, 3rem)`, container 1100px.
+- `.btn`: pill, `--t-small` at 600, with an optional round `.btn-well` holding an arrow that nudges 2px up and right on hover. Press scales to 0.98.
+- `.btn-primary`: `--mark` ground, paper text, `--lift`; hover goes to `--mark-deep`.
+- `.btn-quiet`: transparent with a `--line` border.
+- Focus ring on everything: 2px `--ink` at 2px offset. Inputs use 2px `--mark` at 1px offset instead.
 
-Radius is 12px on buttons, inputs, and tiles (`--radius`), 16px on the bordered cards of the students page, and 999px on its pill buttons. The focus ring stays square: 2px `--ink` at 2px offset.
+## Masthead and nav
 
-Border language, in three weights:
-1. `1px --line`, quiet division inside a section.
-2. `1px --line-strong`, anything with a boundary that matters: tiles, inputs.
-3. The tick rule between sections: a 1px `--line` line with a 5px row of `--line-strong` ticks repeating every 9px under it, at 0.75 opacity. This is the page's signature. Every section except the first carries one on its top edge.
+Four links on every site page: For individuals, For organizations, Demos, Contact (`.nav-cta`, to `/#contact`). Below 56rem they live in a `details` disclosure labelled "menu" whose toggle is a plus in two hairlines; from 56rem up the panel is held open with `::details-content` and the toggle is hidden. No script is needed. `main.js` sets `aria-current` for in-page anchors and closes the panel after a link is used.
+
+The landing page `/ai-readiness/start/` has no nav; the brand mark links home.
 
 ## Motion
 
-Two durations, `--fast` 140ms and `--base` 240ms, one curve, `cubic-bezier(0.2, 0, 0, 1)`. The vocabulary is three moves and nothing else:
+Tokens: `--fast` 140ms, `--base` 240ms, ease `cubic-bezier(0.2, 0, 0, 1)`.
 
-1. 1px lift on buttons, 2px on live tiles, plus a border darken.
-2. Nav underline fade for hover and the current section.
-3. The hero plot draws its two traces once on load, 900ms, then the step nodes appear.
+Two reveal systems, never mixed on one element:
+- `data-reveal`, the shared one, used on the audience, sector, and demos pages. The hidden state exists only under `html.reveal-ready`, which `main.js` sets after confirming motion is welcome and IntersectionObserver exists. Elements rise 14px over 0.7s; stagger with `--rv` (70ms per step).
+- `.rise`, used on home, gated on the `.js` class set inline in the head. 20px over 760ms.
 
-Scroll reveals exist, but only through the shared `data-reveal` system in `main.js` and `styles.css`, never as ad hoc page code. The first build's ad hoc version left every section below the hero invisible whenever the intersection callback did not run, and that failure class is what the shared system is built against: the hidden state exists only under `html.reveal-ready`, which is set by JavaScript after confirming motion is welcome and IntersectionObserver is present, so full page rendering, print, no JavaScript, and reduced motion all render the page whole. Anything already in view at load, or above the viewport after a deep link, arrives settled rather than late. Content that can stay invisible is still a defect; tag markup with `data-reveal` (stagger siblings with `--rv`) and let the shared system carry it.
+Home also has a word split on the hero line (`.wsplit`), the hero figure (`initPlot3D()` on canvas with the flat `drawPlot()` fallback), and the eco scene. The community page carries three `data-walk` walkthroughs driven by `wireWalkthroughs()`, with frames in `media/walk/`.
 
-Each audience page also carries its own ambient scene on `#page-scene`, a page-local `scene.js` sibling of the home page's `eco.js`, holding the same engineering contract: progressive enhancement, one settled still frame under reduced motion, deterministic seeded randomness, scroll as the conductor, fog toward the page's paper. Page figures may draw themselves in when revealed (the enterprise fig. 01 does), provided the resting state in markup is the complete figure.
+The landing page uses the vendored scroll-motion kit (`vendor/gsap.min.js`, `ScrollTrigger`, `ScrollSmoother`, `motion.js`, `motion.css`), tuned inline in its own `Motion.init()`. Its page classes are `lp-` prefixed so they never collide with sitewide names.
 
-Motion uses the `translate` property, not a compound shorthand. Under `prefers-reduced-motion: reduce` every animation and transition collapses to 1ms, smooth scrolling is off, and the plot renders complete and static. All of it is non-essential by construction: nothing is only legible after it moves.
+Under `prefers-reduced-motion: reduce` reveals render settled, smooth scrolling is off, background scenes draw one still frame or nothing, and the hero figure is static. Nothing is only legible after it moves.
 
-## The monogram
+## Monogram
 
-Sprout & Lens mark, representing a two-leaf sprout where one leaf is solid and one leaf is an open line, with a coordinate node at each leaf tip, enclosed within a thin outer ring that extends to a coordinate point in the upper right. One logo used across all themed and demo pages.
+The sprout and lens mark on a `0 0 48 48` grid: an open ring ending in a node, a stem, one solid leaf, one outlined leaf, and a node at the solid leaf's tip. `.mono-mark` and `.mono-mark-fill` take `--mark`; `.mono-node` takes `--second`, so the mark follows the page theme. The favicon is the same geometry as an inline SVG data URI on a `#f7f6f2` rounded square. The community and demos pages add a `.segment-mark` from `brand/<page>/mark.svg`. Master files live in `brand/alignmentandintegration/`.
 
-- Grid `0 0 48 48`.
-- Class bindings: `.mono-mark` controls the leaves and ring (using `stroke` and/or `fill` mapped to `var(--mark)`), and `.mono-node` controls the node dots (using `fill` mapped to `var(--second)`).
-- Favicon matches this geometry in an inline SVG data URI scaled to `32x32` with a rounded square background filled with the `#f7f6f2` (`--paper`) color.
+## Forms
 
-## Content rules that outlive this build
+- Home: `name="contact"`, `data-netlify="true"`, hidden `form-name` input, `netlify-honeypot="referral-source"`. `wireForm()` submits in place and shows the confirmation.
+- Landing page: `name="ai-readiness-consult"`, honeypot `company-site`, plain native POST.
 
-These are claim limits, not style preferences. They win over voice, and voice
-wins over design.
+## Structure rules
 
-- The hero line is verbatim and cannot be edited (amended by Abdel 2026-07-31, plain
-  language, replacing the 2026-07-26 we-voice line):
-  "We build software shaped like the way your operation already works."
-  The retired phrasing survives only as the two axis labels on the hero plot,
-  "objective reality" and "ones and zeros". It is a drawing there, not a claim.
-- The claim paragraph under it is verbatim. Same rule. Current canonical text:
-  "Software built specifically for you used to be out of reach. That is the only reason
-  organizations settle for tools that were never built for them. Not anymore."
-- Site voice is first person plural (we/us) everywhere, per the same amendment. No
-  "millions" phrasing anywhere; the cost claim stays qualitative until a measured
-  number exists.
-- Naming is locked: "the engine", "student portal", "pocket portal". Never "the
-  Harness", "Pocket", or "Pocket Student". The engine's former product name was
-  retired on 26 July 2026 and must not appear anywhere on this site in any form,
-  including comments and metadata. Refer to it in plain words: the engine.
-- The systems map has no brand name yet. Call it "the systems map" and nothing
-  else until one is decided.
-- No outcome numbers, no user counts, no "in use", no "trusted by". The deployed
-  application is built and demonstrable. It is not running.
-- No client or employer names anywhere. Sectors only.
-- No pricing beyond the free initial consultation. No numbers, no ranges, no
-  "affordable". The service menu is deliberately unpriced and its three offers
-  are deliberately unordered: nothing in the copy may imply that one costs more
-  than another, or that they are tiers.
-- No future phases promised, no vendor or agency commentary.
-- Banned words anywhere in the deliverable, comments and metadata included: em
-  dashes, "leverage", "seamless", "empower", "transform", "cutting-edge",
-  "unlock", and hype adjectives. This is why the CSS uses `translate` rather
-  than the property whose name is on that list.
-- Canadian English. Short declarative sentences. First person singular is fine.
-- Test every new sentence against "is this measurably true today". If a sentence
-  needs a banned claim to work, the sentence is wrong, not the rule.
+- One `h1` per page. Sections use `h2`, items `h3`. No skipped levels.
+- The site works with no JavaScript: links navigate, the nav opens, forms post natively.
+- Responsive from 360px with no horizontal overflow. Check 375px and 1280px on any change, 768px near a breakpoint. Tap targets are at least 44px; small links grow their hit area with a transparent `::after`.
+- No analytics, no cookies, no third party requests from site pages. The booking link to cal.com is a plain link.
 
-## The canonical content of section 01
+## Content rules
 
-Section 01 carries four blocks in this order, and the order is load bearing:
-the h1 and the claim, the process, the two axes, then the menu.
+- Canadian English, sentence case, first person plural.
+- No em dashes, and none of: "leverage", "seamless", "empower", "transform", "cutting-edge", "unlock", or hype adjectives. Comments and metadata included. This is why the CSS uses `translate`, and why this file says so.
+- No client or employer names. Sectors only.
+- No outcome numbers, user counts, "in use", or "trusted by". Built things are described as built, not in service.
+- Every audience page states what we are not claiming, in a `.bounds` paragraph.
+- Prices: the initial consultation is free, and diagnosis and intervention is $3,500 CAD flat on `/organizations/`. No other prices.
 
-1. **The process, four beats.** Research and consultation, development and
-   planning, building, keeping it working. One heading and one short paragraph
-   each. The wording of the four beats is settled; do not re-cut them into three
-   or five.
-2. **The two axes.** Who you are, a small business or an enterprise. What you
-   buy, one of the three offers. They are decided separately and the copy says
-   so outright: a small business might buy only the map, an enterprise might buy
-   everything. Never present the axes as a single ladder.
-3. **The menu, three offers.** Diagnosis and intervention. The systems map. The
-   full build. Same measured language as the rest of the sheet. The menu lives
-   inside section 01 as its own labelled block. It never becomes a sixth nav
-   section, because five sections indexed 01 to 05 is a structure invariant.
+## Known loose ends in `styles.css`
 
-## Structure invariants
-
-- Exactly one `h1` per page: the positioning line on the main page, the artifact
-  name on the demonstration page. Section headings are `h2`, items are `h3`.
-  Nothing skips a level. The demonstration page's `h1` uses `--t-h2`, because
-  `--t-h1` belongs to the positioning line alone.
-- Five sections in order, indexed 01 to 05 in the margin: what we do, demos, how
-  it works, what is built, contact.
-- Section 3 states exactly three ideas. Not two, not four.
-- Every interactive element has a visible focus ring, 2px `--ink` at 2px offset.
-- No JavaScript is required. Anchors and the form work natively. `main.js` adds
-  the nav current state, the reveal, the plot draw, the in place form
-  confirmation, and it turns a demo tile into a link when a URL exists.
-- The form contract with Netlify: `name="contact"`, `data-netlify="true"`, a
-  hidden `form-name` input matching the name, and `netlify-honeypot`
-  pointing at the offscreen `referral-source` field. The submit button and the
-  confirmation share a verb: start, then started.
-- Responsive from 360px with no horizontal overflow. No fixed viewport heights,
-  no content trapped behind a hidden overflow.
-- No analytics, no cookies, no third party requests other than the two Google
-  Fonts stylesheets.
-
-## Responsive verification, locked 2026-07-27
-
-This site is one responsive codebase. There is no separate mobile build. Every
-change, however small, accounts for both the phone and the desktop rendering of
-the page it touches, and is verified at both before it deploys:
-
-- Minimum check: 375px and 1280px, full-page, zero horizontal overflow
-  (`scrollWidth` equals `innerWidth`). Add 768px whenever a change lands near a
-  breakpoint.
-- Both screenshots accompany any change presented for approval.
-- Tap targets keep a hit area of at least 44px in their smallest dimension.
-- A change verified at only one viewport is an unfinished change.
-
-### The masthead nav on a phone
-
-Below 68rem the seven links live in a `details` disclosure labelled "menu", so
-the sticky masthead stays one row and 69px tall instead of wrapping to two. The
-panel is absolutely positioned under the masthead, so opening it moves nothing
-on the page. From 68rem up the panel is held open with
-`::details-content { content-visibility: visible }`, the toggle is hidden, and
-the row is the same one it has always been: same widths, same positions, same
-56px masthead.
-
-Rules a future editor keeps:
-
-- No script is involved. `details` opens on its own. `main.js` only closes the
-  panel after a link is used, which is a convenience and not a requirement.
-- The toggle's mark is a plus drawn in two hairlines that loses its upright when
-  the panel opens. It does not rotate or slide. There is no drawer, no overlay
-  dim, and no shadow.
-- Inside the panel the current section is a solid 2px `--mark` rule down the
-  left edge of the row, which is the same marker a built status row uses. The
-  underline belongs to the desktop row.
-- The breakpoint is 68rem because that is where all seven links plus the brand
-  fit on one line, measured at 1088px with a 56px single-row masthead. It moved
-  from 48rem at five anchors, 62rem at six destinations, 68rem at seven. Do not
-  lower it without measuring.
-- Anything that resets a `.nav a` property at 48rem has to leave the CTA's own
-  padding and border alone, which is why that rule is written `.nav a.nav-cta`.
-
-### Tap targets
-
-44px is a hit area, not a visual box. Where the type is small and has to stay
-that way, the hit area grows with a transparent absolutely positioned `::after`
-on the link: status row names, and the back to top link in the footer. Nothing
-about the drawn sheet changes. Padding based growth is confined to the phone,
-because a desktop pointer does not need it and the row heights are load bearing.
-
-### The hero plot labels
-
-`.plot-label` and `.plot-caption` are SVG user units on a 480 wide viewBox that
-scales with its column, so their rendered size moves with the viewport. They are
-sized with a clamp that holds the rendered size near 12px on a phone and returns
-to the sheet's 11 units at 640px and above. Set a fixed size there again and the
-labels fall to about 7px on a phone.
-
-## The figures, added 1 August 2026
-
-The page became one numbered sheet of figures. Rules a future editor keeps:
-
-- **fig. 01 in three dimensions.** `initPlot3D()` in `main.js` draws the hero
-  plot on a canvas by hand, no library: the raw trace scatters in z, the
-  staircase sits flat on the plane, the camera answers the pointer by a few
-  degrees with a slow drift at rest. The flat SVG stays in the markup and is
-  the rendering for reduced motion, print, no JavaScript, and any failure in
-  the canvas path; `drawPlot()` remains as that fallback's entrance. The
-  rendering loop only runs while the figure is on screen and the document is
-  visible. Labels are HTML in `.plot-overlay`, not canvas text, so they stay
-  crisp and readable at every size.
-- **fig. 02, the engine schematic**, lives in section 03: capture, the
-  overnight funnel that holds noise back, the confirmation tick, the filed
-  record. Two cuts of the same drawing, `.engine-svg-h` wide and
-  `.engine-svg-v` stacked, switched at 46rem; the stacked cut exists because
-  SVG user-unit labels fall below readable size on a phone. The markup is the
-  complete resting drawing; `.engine-live` (added by `wireEngine()` on view,
-  motion permitting) replays it once. Raw records are `--second`, kept records
-  are `--mark`, noise is `--line-strong` at reduced opacity.
-- **figs 03 to 09, the segment figures.** Every tile in section 02 opens with
-  a small drawing of its product's key screen, on the shared `minigrid`
-  pattern (defined once in the first tile's SVG). Numbering continues from the
-  hero because the page is one sheet. Static resting state; each figure
-  performs one hover move, defined with the rest of the motion. Main-sheet
-  palette only: the two accents, ink, and the line colours. The category ramp
-  does not migrate here.
-- **Page figures on the audience pages** (`.page-fig`, currently enterprise
-  and individuals): one drawn figure that proves the page's own headline, in
-  the same two-cut pattern (`.pf-h` / `.pf-v` at 46rem). Static by design;
-  each audience page restarts its own figure numbering at fig. 01 because each
-  page is its own sheet. A page that gains a real product walkthrough should
-  prefer captured frames over a drawing, per the walk figures.
-- New figures reuse the drawing vocabulary that exists: `engine-base`,
-  `engine-tick`, `engine-drop`, `engine-label`, `engine-caption`, the square
-  record mark, hairline flows at reduced opacity. Do not invent a second
-  vocabulary.
-
-## Adding a demo
-
-Open `main.js`, put the URL in `DEMO_URLS` against the tile's key, deploy. The
-tile turns into a link, the band turns solid, and the footer label changes from
-"in development" to "open demo". Alternatively set `data-demo-url` on the tile in
-`index.html`, which takes priority over the map. A tile that has no URL renders
-the in development state, which is the honest default and the reason a broken
-tile cannot ship by accident.
-
-Two tiles are live: `small-business` points at an external demo, and
-`community-safety` points at `demos/bpss-ses/`, which is served from this repo.
-When a demo lands, add its row to the section 04 status grid too, and link it.
-
-## The demonstration page, `demos/bpss-ses/`
-
-A working diagnostic and intervention map: two tabs, clickable segments, a live
-detail panel, and a small simulation. It was built elsewhere in a different
-visual language and was reskinned, not rebuilt. The interaction logic is
-untouched and should stay that way.
-
-What the reskin did, and what a future editor keeps doing:
-
-- Its custom properties were repointed to this sheet's tokens. `--bg` became
-  `--paper`, `--muted` became `--ink-muted`, `--accent` became `--ink`, and
-  `--gold` was removed outright because no gold appears on this site. The gold
-  jobs were reassigned: annotation rings and the point-of-action marker to
-  `--ink`, the primary button to `--mark`, meter fills to `--mark`, secondary
-  bars to `--ink-muted`.
-- Radius 18px to 2px, pills to 2px, IBM Plex in place of the system stack,
-  weights 700 and 800 down to 500 and 600, no gradients, no shadows, no
-  uppercase, sentence case throughout.
-- The dark theme and its toggle were removed. This site has one ground and it is
-  paper. `prefers-color-scheme` is not honoured anywhere here by design.
-- **The category ramp.** A data visual needs hue separation, so four categories
-  each carry a dark hue for type and boundaries and a light tint for area fill.
-  Areas are filled with the tint and outlined with the hue at 1px, which keeps
-  the wheel light like the rest of the sheet instead of turning it into a dark
-  mass. The ramp exists only on this page and never migrates to the main sheet.
-
-  | Category | Hue | Tint | Hue on panel |
-  |---|---|---|---|
-  | biological | `#0b5a44` (`--mark`) | `#cfe0d9` | 7.6:1 |
-  | psychological | `#2f4e7a` (`--second`) | `#d3dbe8` | 7.9:1 |
-  | social | `#7d4a10` | `#e7dcc6` | 6.8:1 |
-  | spiritual | `#6b3566` | `#e0d3de` | 8.4:1 |
-
-  Edge polarity reuses two of these: reinforcing `#9c3b2c`, balancing `--mark`.
-  Balancing edges are also dashed, so polarity never rests on hue alone.
-- The page carries the slim bar and nothing else: the monogram, the company
-  name, a link back to the main page, and the word "Demonstration". No nav, no
-  footer chrome beyond the source note.
-
-## The AI readiness page, added 11 August 2026
-
-An audience page for organizations adapting information and teams for software agents (`/ai-readiness/`). Uses the `ai-readiness` theme token system (`--paper: #f8f5f0`, `--mark: #8a5420`, `--mark-deep: #5e3812`, `--row-tint: rgba(138, 84, 32, 0.035)`). Carries the verbatim copy, four build items with state labels, three verification criteria items, and the shared section structure. The eighth nav item fits on one single-row line from 68rem up without wrapping.
-
-## The landing page, `/ai-readiness/start/`, added 15 August 2026
-
-The site's first landing surface: one reader, one ask. It is not one of the
-sheet's pages and the five-section structure invariants do not apply to it. It
-deliberately carries no navigation; the only ways out are the brand mark, which
-links home, and the booking form. One `h1`, sentence case, the shared monogram
-and skip link, the self-hosted fonts, no cookies, no tracking, no third party
-requests. Rules a future editor keeps:
-
-- **Page-scoped classes are `lp-` prefixed** (`lp-wrap`, `lp-head`, `lp-h1`,
-  `lp-claim`, `lp-form`, `lp-foot`), because the page loads `styles.css` and
-  the sitewide sheet owns the generic names. This is not hypothetical: the
-  first draft's `.claim` collided with the main page's claim-band styling and
-  was renamed `lp-claim`. Any future landing surface prefixes its own classes
-  the same way and takes only tokens and shared components (`btn-primary`,
-  `btn-well`, `monogram`, `skip`) from the sitewide sheet.
-- **The one ask.** A Netlify form, `name="ai-readiness-consult"`,
-  `data-netlify="true"`, `netlify-honeypot` pointing at the offscreen
-  `company-site` field, four fields, submit labelled "Send". It is plain
-  static HTML with a native POST, so unlike the main page's scripted contact
-  form it carries no hidden `form-name` input and no in-place confirmation.
-  Each landing surface gets its own form name, so submissions sort by ask.
-
-### The scroll-motion kit, `/vendor/`
-
-This page is the first use of the vendored scroll-motion kit: `gsap.min.js`,
-`ScrollTrigger.min.js`, `ScrollSmoother.min.js` (GSAP 3.13, all free),
-`motion.js`, and `motion.css`. The kit has no defaults worth trusting;
-everything is tuned per surface through `Motion.init()` and the tuned values
-are baked into the page inline, never left in the vendor files. The mechanics
-this page uses:
-
-- **Ghost type hero.** Three `ghost-line` spans, each repeating its text in an
-  `aria-hidden` inner copy that drifts once on load as a text-stroke outline.
-  Solid type is `--ink`; the outline is the stroke hook below; the last line
-  alone takes the fill hook, which on this page is the `ai-readiness` copper.
-- **ScrollSmoother** on the `#smooth-wrapper > #smooth-content` scaffold, with
-  `data-speed` / `data-lag` read straight off the markup: lag on the three
-  hero lines, speed on the claim and the two blobs. `position: sticky` dies
-  inside `#smooth-content`; fixed chrome belongs outside the wrapper.
-- **Section reveals.** The kit builds one staggered timeline per `section`
-  from its own target list; the markup needs no `data-reveal` tags here. This
-  is the kit's own reveal system, distinct from the main sheet's `data-reveal`
-  mechanism in `main.js`, and the two never mix on one page.
-- **Indexed card lag** on the three `.covers li`, the liquid-grid feel.
-- **Two decor blobs**, seeded `data-blob="7"` and `data-blob="19"`. Seeds are
-  deterministic: a rebuild draws the same shapes. The blobs are `aria-hidden`,
-  behind the hero at 0.10 and 0.08 opacity, filled with the two colour hooks.
-
-**The colour hook rule, gate-enforced.** The kit's only colour surface is two
-custom properties, `--fill` (the solid mark) and `--stroke` (the counter
-colour). On a themed page they are set on `body[data-theme="..."]`, never on
-`:root`, so an embed matches its framing page and the vendor defaults never
-leak. Here: `--fill: #8a5420` (the theme's own mark) and `--stroke: #2d4a3e`
-(the site default mark) on `body[data-theme="ai-readiness"]`. The ghost knobs
-`--ghost-offset` and `--ghost-stroke-w` stay at `:root`, because they are
-motion tuning, not colour.
-
-**The tuned baseline for this surface**, baked in the inline `Motion.init` and
-the two `:root` knobs; a future landing page starts from these numbers, not
-from the vendor defaults:
-
-| Knob | Value | Vendor default |
-|---|---|---|
-| `smooth` | 3 | 1.5 |
-| `reveal.duration` | 0.35 | 0.5 |
-| `cardLag` | `.covers li`, `lagStep` 0.045 | `.card`, 0.125 |
-| `blob.duration` | [1.65, 3.85] | [2, 5] |
-| `--ghost-offset` / `ghost.offsetEm` | 0.12em | 0.125em |
-| `--ghost-stroke-w` / `ghost.strokePx` | 0.5px | 2px |
-
-**Reduced motion.** `motion.js` checks `prefers-reduced-motion` once: it still
-builds the blobs but never starts their morph loops, then returns before the
-smoother, the card lag, and every reveal, so the page scrolls natively and
-renders whole. `motion.css` holds the ghost copies still at 70 percent of the
-offset. Nothing on the page is only legible after it moves, same as everywhere
-else on the site.
+- `--slow` and `--ink-faint` are used but never defined.
+- The header comment and a few section comments (the nav, the Student Pal embed) describe earlier versions.
+- The unused theme blocks noted above, and `.tile` in the print rules, which no site page uses.

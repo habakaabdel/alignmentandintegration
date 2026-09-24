@@ -1,48 +1,8 @@
 /* Alignment Integration
    Progressive enhancement only. The page is complete and usable with this file
-   absent: anchors navigate natively, the form posts natively, every demo tile
-   renders its in development state. */
-
-/* ---------------------------------------------------------------------------
-   DEMO URLS. This is the slot.
-
-   A tile shows "in development" while its value here is an empty string. Put a
-   URL in and that tile becomes a link on the next deploy. One line, no other
-   edit needed. A data-demo-url attribute on the tile in index.html wins over
-   this map, if you would rather keep the URL in the markup.
-   --------------------------------------------------------------------------- */
-
-const DEMO_URLS = {
-  'small-business':   '/demos/restaurant-ops/',
-  'enterprise':       '',
-  'community-safety': '/demos/bpss-ses/',
-  'engine':           ''
-};
-
-const LIVE_LABEL = 'open demo';
+   absent: anchors navigate natively and the form posts natively. */
 
 const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* ---------- demo tiles ---------- */
-
-function activateTiles() {
-  document.querySelectorAll('.tile[data-demo]').forEach(function (tile) {
-    const key = tile.dataset.demo;
-    const url = (tile.dataset.demoUrl || DEMO_URLS[key] || '').trim();
-    if (!url) return;
-
-    const link = document.createElement('a');
-    link.className = 'tile-link';
-    link.href = url;
-
-    while (tile.firstChild) link.appendChild(tile.firstChild);
-    tile.appendChild(link);
-    tile.classList.add('tile-live');
-
-    const state = link.querySelector('[data-tile-state]');
-    if (state) state.textContent = LIVE_LABEL;
-  });
-}
 
 /* ---------- current section in the nav ---------- */
 
@@ -454,7 +414,6 @@ function wireForm() {
   });
 }
 
-activateTiles();
 trackSections();
 wireNav();
 wireReveals();
