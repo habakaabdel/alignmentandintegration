@@ -18,6 +18,7 @@ The look: a warm linen sheet, soft charcoal type, deep sage marks. One grid, one
 | `/ai-readiness/start/` | `ai-readiness` | none; uses the scroll-motion kit instead |
 | `/demos/` | none | `#page-scene`, from its `scene.js` |
 | `/privacy/` | none | none (the canvas is in the markup, no script loads) |
+| `/about/` | none | none; loads `/about/about.css` and `/about/about.js` after the site files |
 
 Every page that loads `main.js` also gets `#nature-canvas`, a fluid wave canvas `main.js` inserts behind everything. All three canvases are fixed, full viewport, `z-index: 0`, `pointer-events: none`; `main`, `header`, and `footer` sit above at `z-index: 1`.
 
@@ -105,7 +106,7 @@ Sentence case everywhere, headings and buttons included.
 
 ## Masthead and nav
 
-Four links on every site page: For individuals, For organizations, Demos, Contact (`.nav-cta`, to `/#contact`). Below 56rem they live in a `details` disclosure labelled "menu" whose toggle is a plus in two hairlines; from 56rem up the panel is held open with `::details-content` and the toggle is hidden. No script is needed. `main.js` sets `aria-current` for in-page anchors and closes the panel after a link is used.
+Five links on every site page: For individuals, For organizations, Demos, About, Contact (`.nav-cta`, to `/#contact`). Below 56rem they live in a `details` disclosure labelled "menu" whose toggle is a plus in two hairlines; from 56rem up the panel is held open with `::details-content` and the toggle is hidden. No script is needed. `main.js` sets `aria-current` for in-page anchors and closes the panel after a link is used.
 
 The landing page `/ai-readiness/start/` has no nav; the brand mark links home.
 
@@ -138,6 +139,10 @@ The sprout and lens mark on a `0 0 48 48` grid: an open ring ending in a node, a
 - The site works with no JavaScript: links navigate, the nav opens, forms post natively.
 - Responsive from 360px with no horizontal overflow. Check 375px and 1280px on any change, 768px near a breakpoint. Tap targets are at least 44px; small links grow their hit area with a transparent `::after`.
 - No analytics, no cookies, no third party requests from site pages. The booking link to cal.com is a plain link.
+
+## The about page
+
+`/about/` is Abdel's page, first person singular, on the default tokens. The first screen is a stage: the four-level map (person, program, agency, region) on the left, a tab strip and one panel on the right; nodes and tabs are one control (`about.js`), the selected node fills with `--mark`, cases fold open with native `details`, and `#agency` style hashes deep-link. Below it a slow ticker of his lines, the hire list as `.builds`, a contained photograph, background as a timeline, and a contact block that points at the home page form. Photographs live in `about/media/`.
 
 ## Content rules
 
