@@ -142,7 +142,7 @@ The sprout and lens mark on a `0 0 48 48` grid: an open ring ending in a node, a
 
 ## The about page
 
-`/about/` is Abdel's page, first person singular, on the default tokens. The first screen is a stage: the four-level map (person, program, agency, region) on the left, a tab strip and one panel on the right; nodes and tabs are one control (`about.js`), the selected node fills with `--mark`, cases fold open with native `details`, and `#agency` style hashes deep-link. Below it a slow ticker of his lines, the hire list as `.builds`, a contained photograph, background as a timeline, and a contact block that points at the home page form. Photographs live in `about/media/`. Until launch the page carries a review banner and `mark.nn` highlights on sentences not yet in his words; both go at launch.
+`/about/` is Abdel's page, first person singular, on the default tokens. The first screen is a stage: the four-level map (person, program, agency, region) on the left, a tab strip and one panel on the right; nodes and tabs are one control (`about.js`), the selected node fills with `--mark`, cases fold open with native `details`, and `#agency` style hashes deep-link. Below it a slow ticker of his lines, the hire list as `.builds`, a contained photograph, background as a timeline, and a contact block that points at the home page form. Photographs live in `about/media/`.
 
 ## Content rules
 

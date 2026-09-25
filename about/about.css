@@ -1,9 +1,5 @@
 /* About page, on the site tokens. Loaded after /styles.css. Only this page uses these. */
 
-.review-note { font-family: var(--mono); font-size: var(--t-label); background: var(--ink); color: var(--paper); padding: 0.5rem var(--gutter, 1.5rem); text-align: center; }
-.review-note .nn { color: var(--ink); }
-mark.nn { background: #ffe58a; color: inherit; padding: 0 0.15em; border-radius: 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-
 /* Stage: the map is the front door */
 .stage-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 3rem; align-items: start; margin-top: 2rem; }
 @media (max-width: 56rem) { .stage-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
@@ -47,6 +43,7 @@ html.js .panel[hidden] { display: none; }
 @media (max-width: 56rem) { .more-body { grid-template-columns: 1fr; gap: 1rem; } }
 .more-body h4 { font-family: var(--mono); font-size: var(--t-label); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin: 0 0 0.5rem; }
 .more-body p, .more-body li { font-size: var(--t-small); }
+.more-body p { margin: 0 0 0.75rem; }
 .more-body ul { list-style: none; margin: 0; padding: 0; }
 .more-body li { margin: 0 0 0.75rem; padding-left: 1.1em; position: relative; }
 .more-body li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 0.45em; height: 1px; background: var(--line-strong); }
