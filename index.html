@@ -28,6 +28,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
+<link rel="preload" href="/media/fonts/plus-jakarta-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -83,9 +84,9 @@
   <!-- 01 -->
   <section class="hero" id="what-we-do" data-eco>
     <div class="wrap">
-      <h1 class="hero-title rise wsplit" id="h-what-we-do">Align what matters. Integrate how you move forward.</h1>
+      <h1 class="hero-title" id="h-what-we-do">Align what matters. Integrate how you move forward.</h1>
       <div class="hero-grid">
-        <div class="rise" style="transition-delay:80ms">
+        <div>
           <p class="hero-claim">One approach for personal life and organizational work. Understand the whole situation, clarify what matters, and connect the pieces into a practical response.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#contact">
@@ -370,13 +371,15 @@
 
 <script src="main.js" defer></script>
 <script>
-/* The ecosystem loads after the page is complete and the browser is idle, so
-   its renderer (660 KB) never sits in front of first paint or first tap.
-   Nothing else on the page waits for it. */
+/* The ecosystem loads two seconds after the page is complete, on an idle
+   frame, so its renderer (660 KB) never sits in front of first paint, the
+   largest paint, or first tap. Nothing else on the page waits for it. */
 window.addEventListener('load', function () {
   var start = function () { import('/eco.js'); };
-  if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 2500 });
-  else setTimeout(start, 1200);
+  setTimeout(function () {
+    if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 1500 });
+    else start();
+  }, 2000);
 });
 </script>
 <script>
