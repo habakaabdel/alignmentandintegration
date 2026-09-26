@@ -521,6 +521,9 @@ a:hover { color: var(--mark-deep); }
   font-size: var(--t-small);
 }
 
+.group-head { margin-top: var(--s6); }
+.group-head + .proof { margin-top: var(--s4); }
+
 .h-quiet {
   font-family: var(--mono);
   font-size: var(--t-label);
@@ -827,6 +830,25 @@ a:hover { color: var(--mark-deep); }
   padding-block: var(--s6);
   background: var(--panel);
 }
+
+.footer-map {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--s5) var(--s6);
+  padding-bottom: var(--s6);
+  margin-bottom: var(--s5);
+  border-bottom: var(--hair) solid var(--line);
+}
+.footer-list { margin-top: var(--s3); display: grid; gap: var(--s1); }
+.footer-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  font-size: var(--t-small);
+  color: var(--ink);
+  text-decoration: none;
+}
+.footer-list a:hover { color: var(--mark-deep); text-decoration: underline; }
 
 .footer-inner {
   display: flex;
