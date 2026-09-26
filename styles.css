@@ -1770,6 +1770,9 @@ a:hover { color: var(--mark-deep); }
 
 /* ---------- the ecosystem: motion choreography ---------- */
 
+/* The hero title and claim carry no reveal: they are the largest paint on the
+   page and are drawn on the first frame. */
+
 /* Word reveal on the above-the-fold statements. Spans are plain, so the
    accessible text is untouched; under reduced motion the split never runs. */
 .js .wsplit .w {
