@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found | Alignment Integration</title>
+<meta name="description" content="That page is not here. Everything on the site is one step from here.">
+<meta name="theme-color" content="#edefee">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex">
+
+
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .lost-list { margin: 1.5rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.6rem; max-width: 40ch; }
+  .lost-list a { font-size: var(--t-lead); color: var(--mark); text-decoration: underline; text-underline-offset: 0.2em; }
+</style>
+</head>
+<body>
+
+<canvas id="page-scene" aria-hidden="true"></canvas>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="brand" href="/" aria-label="Alignment Integration, home">
+      <svg class="monogram" viewBox="0 0 48 48" width="30" height="30" role="img" aria-label="A and I monogram">
+        <g>
+          <path class="mono-mark" d="M35.5 6.4 A21 21 0 1 0 44.1 18.5" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+          <circle class="mono-node" cx="41" cy="11.7" r="2.6"/>
+          <path class="mono-mark" d="M24 38 C24 30 24 27 24 23" fill="none" stroke-width="2.7" stroke-linecap="round"/>
+          <path class="mono-mark mono-mark-fill" d="M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z"/>
+          <path class="mono-mark" d="M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle class="mono-node" cx="12" cy="12" r="2.4"/>
+        </g>
+      </svg>
+      <span class="brand-name">Alignment Integration</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <!-- Four destinations, flat. On a phone the whole thing is a disclosure;
+           from 68rem up the panel is held open and reads as a single row.
+           No script involved. -->
+      <details class="nav-disclosure">
+        <summary class="nav-toggle">
+          <span>menu</span>
+          <span class="nav-toggle-mark" aria-hidden="true"></span>
+        </summary>
+        <ul class="nav-list">
+          <li><a href="/individuals/">For individuals</a></li>
+          <li><a href="/organizations/">For organizations</a></li>
+          <li><a href="/demos/">Demos</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <span id="top"></span>
+
+  <section class="section" aria-labelledby="h-404">
+    <div class="wrap">
+      <p class="crumb"><a href="/">Alignment Integration</a> / not found</p>
+      <div class="section-head">
+        <p class="eyebrow">404</p>
+        <h1 id="h-404">That page is not here.</h1>
+        <p class="section-intro">The address may have changed, or it was typed a little differently. Everything on the site is one step from here.</p>
+      </div>
+      <ul class="lost-list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/individuals/">For individuals</a></li>
+        <li><a href="/organizations/">For organizations</a></li>
+        <li><a href="/demos/">Demos</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <p class="footer-brand">
+      <svg class="monogram" viewBox="0 0 48 48" width="24" height="24" aria-hidden="true">
+        <g>
+          <path class="mono-mark" d="M35.5 6.4 A21 21 0 1 0 44.1 18.5" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+          <circle class="mono-node" cx="41" cy="11.7" r="2.6"/>
+          <path class="mono-mark" d="M24 38 C24 30 24 27 24 23" fill="none" stroke-width="2.7" stroke-linecap="round"/>
+          <path class="mono-mark mono-mark-fill" d="M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z"/>
+          <path class="mono-mark" d="M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle class="mono-node" cx="12" cy="12" r="2.4"/>
+        </g>
+      </svg>
+      Alignment Integration
+    </p>
+    <p class="footer-meta">Mississauga, Ontario. No cookies, no tracking on this page.</p>
+    <p class="footer-meta"><a href="/ai-readiness/">AI readiness</a></p>
+    <p class="footer-top"><a href="/">Home</a></p>
+  </div>
+</footer>
+</body>
+</html>
