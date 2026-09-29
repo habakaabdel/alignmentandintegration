@@ -334,6 +334,7 @@
               </span>
             </button>
             <p class="form-error" data-form-error hidden>That did not send. Try once more.</p>
+            <a class="field-help" href="/privacy/">Privacy</a>
           </div>
         </form>
 
@@ -512,25 +513,15 @@ window.addEventListener('load', function () {
     ctx.clearRect(0, 0, w, h);
 
     var line = css('--line-soft') || css('--line');
-    var inkFaint = css('--ink-faint') || css('--ink-muted');
     var trace = css('--trace-raw') || css('--trace');
     var mark = css('--mark');
 
-    /* axes: the two labels that survive from the original plot */
+    /* axes, unlabelled */
     ctx.strokeStyle = line; ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(w * 0.1, h * 0.08); ctx.lineTo(w * 0.1, h * 0.86);
     ctx.lineTo(w * 0.94, h * 0.86);
     ctx.stroke();
-
-    ctx.fillStyle = inkFaint;
-    ctx.font = '500 10px ' + css('--mono').split(',')[0].replace(/"/g, '');
-    ctx.fillText('OBJECTIVE REALITY', w * 0.1, h * 0.955);
-    ctx.save();
-    ctx.translate(w * 0.062, h * 0.86);
-    ctx.rotate(-Math.PI / 2);
-    ctx.fillText('ONES AND ZEROS', 0, 0);
-    ctx.restore();
 
     /* the raw trace, drawn in full, faint */
     ctx.strokeStyle = trace;
