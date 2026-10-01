@@ -564,10 +564,104 @@ a:hover { color: var(--mark-deep); }
 
 .figure-core { padding: var(--s5); }
 .figure-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s4); margin-bottom: var(--s4); }
-.figure-canvas { width: 100%; aspect-ratio: 3 / 2; display: block; }
 .figure-key { display: flex; gap: var(--s5); margin-top: var(--s4); padding-top: var(--s4); border-top: 1px solid var(--line); }
-.key { display: flex; align-items: center; gap: var(--s2); font-family: var(--mono); font-size: var(--t-micro); color: var(--ink-muted); letter-spacing: 0.04em; }
+.key { display: flex; align-items: center; gap: var(--s2); font-family: var(--mono); font-size: var(--t-micro); color: var(--ink-muted); letter-spacing: 0.04em; transition: opacity var(--base) var(--ease); }
 .key i { width: 16px; height: 2px; border-radius: 2px; flex: none; }
+.figure-core[data-state="scattered"] .key:last-child,
+.figure-core[data-state="integrated"] .key:first-child { opacity: 0.4; }
+
+/* fig. 01: the four parts of a response. Settled, they are one block, and
+   that is what these rules draw: the page is complete with no script. The
+   home page script loosens them and lets the visitor put them back. A column
+   by default; one row once the card is wide enough to hold four across. */
+.stage { container-type: inline-size; position: relative; touch-action: pan-y; }
+.pieces {
+  position: relative;
+  display: grid;
+  width: 86%;
+  margin: 15px auto;
+  border-radius: 18px 4px 18px 4px;
+  box-shadow: 0 1px 2px rgba(29,51,42,0.05), 0 16px 30px -14px rgba(29,51,42,0.28);
+  transition: box-shadow var(--base) var(--ease);
+}
+.piece {
+  position: relative;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  align-items: center;
+  gap: var(--s3);
+  height: 50px;
+  padding: 0 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-top-width: 0;
+  transition: border-radius var(--base) var(--ease), box-shadow var(--base) var(--ease);
+}
+.piece:first-child { border-top: 2px solid var(--mark); border-radius: 18px 4px 0 0; }
+.piece:last-child { border-radius: 0 0 18px 4px; }
+.piece-glyph { height: 30px; }
+.piece-glyph svg { height: 100%; width: auto; display: block; }
+.piece-name { font-size: var(--t-label); font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; }
+
+/* the thread through all four, and a node on it for each part */
+.pieces::after {
+  content: "";
+  position: absolute;
+  left: -13px; top: 6px; bottom: 6px;
+  width: 2.6px;
+  border-radius: 2px;
+  background: var(--mark);
+  transform-origin: 50% 0;
+  transition: transform 600ms var(--ease);
+}
+.piece::after {
+  content: "";
+  position: absolute;
+  left: -16.7px; top: calc(50% - 4px);
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--mark);
+  transition: opacity var(--base) var(--ease) 240ms;
+}
+
+@container (min-width: 26.5rem) {
+  .pieces { grid-template-columns: repeat(4, 1fr); width: auto; margin: 76px 15px 77px; }
+  .piece {
+    grid-template-columns: none;
+    align-content: start;
+    gap: var(--s2);
+    height: 132px;
+    padding: var(--s3) 10px;
+    border-top: 2px solid var(--mark);
+    border-left-width: 0;
+  }
+  .piece:first-child { border-left-width: 1px; border-radius: 18px 0 0 4px; }
+  .piece:last-child { border-radius: 0 4px 18px 0; }
+  .piece-glyph { height: 34px; }
+  .pieces::after { left: 6px; right: 6px; top: calc(100% + 15px); bottom: auto; width: auto; height: 2.6px; transform-origin: 0 50%; }
+  .piece::after { left: calc(50% - 4px); top: calc(100% + 13.3px); }
+}
+
+/* loose: each part is its own tile until the visitor has lined them up */
+.figure-core:not([data-state="integrated"]) .pieces { box-shadow: none; }
+.figure-core:not([data-state="integrated"]) .pieces::after { transform: scale(0); }
+.figure-core:not([data-state="integrated"]) .piece {
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--mark);
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(29,51,42,0.05), 0 10px 24px -12px rgba(29,51,42,0.22);
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform;
+}
+.figure-core:not([data-state="integrated"]) .piece::after { opacity: 0; transition: none; }
+.figure-core:not([data-state="integrated"]) .piece.held {
+  box-shadow: 0 2px 4px rgba(29,51,42,0.08), 0 22px 40px -14px rgba(29,51,42,0.38);
+  cursor: grabbing;
+  z-index: 2;
+}
 
 /* ---------- buttons: pill, with nested icon well ---------- */
 .btn {
