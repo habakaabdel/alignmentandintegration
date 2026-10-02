@@ -1,0 +1,34 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "reference-check",
+  "version": "1.0.0",
+  "description": "Checks a reference list against Crossref and reports, for each reference, a match, a mismatch, or not found in Crossref.",
+  "author": {
+    "name": "Alignment Integration",
+    "email": "alignmentandintegration@gmail.com",
+    "url": "https://alignmentandintegration.com"
+  },
+  "homepage": "https://alignmentandintegration.com/reference-check/support/",
+  "keywords": ["references", "citations", "doi", "crossref"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Reference Check",
+        "shortDescription": "Verify references are real",
+        "longDescription": "Paste a reference list and Reference Check looks each reference up in Crossref, the registry that holds the records for most journal articles. For each reference it reports one of three results. Match: Crossref holds a record whose title, first author and year agree with the reference. Mismatch: Crossref holds a record, but the DOI, title, first author or year differs, and the Crossref record is shown beside the reference so you can compare. Not found in Crossref: no record was found. Not found does not mean a reference is not real, because books, reports, theses and DOIs registered with other agencies are outside Crossref. It can also find the DOI for a single work from its title and author. Up to 25 references are checked at a time. No account is needed and nothing is stored.",
+        "developerName": "Alignment Integration",
+        "category": "Education",
+        "capabilities": ["Read"],
+        "websiteURL": "https://alignmentandintegration.com",
+        "supportURL": "https://alignmentandintegration.com/reference-check/support/",
+        "privacyPolicyURL": "https://alignmentandintegration.com/reference-check/privacy/",
+        "termsOfServiceURL": "https://alignmentandintegration.com/reference-check/terms/",
+        "defaultPrompt": [
+          "Check whether the references in this list are real.",
+          "Find the DOI for this article."
+        ],
+        "logo": "./assets/logo.png"
+      }
+    }
+  }
+}

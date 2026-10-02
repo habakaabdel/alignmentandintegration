@@ -12,3 +12,6 @@ Desktop.ini
 !.env.example
 *.pem
 *.key
+
+# Dependencies for the /mcp function
+node_modules/
