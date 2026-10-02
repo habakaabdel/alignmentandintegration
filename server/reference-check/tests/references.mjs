@@ -42,7 +42,7 @@ export const references = [
   { id: "invented-07", expect: "not_found_in_crossref", titleInCrossref: false, text: "Pemberton, A. J. (2018). Quantum entanglement as a metaphor in municipal zoning appeals. Journal of Planning Education and Research, 38(2), 150-164. https://doi.org/10.1177/0739456X18700001" },
   { id: "invented-08", expect: "not_found_in_crossref", titleInCrossref: false, text: "Varga, E., Thistlewood, N., & Abara, C. (2023). Why most published harmonica findings are transferable: evidence from eleven truck stops. PLoS Medicine, 20(3), e1004188." },
   { id: "invented-09-one-word-title-trap", expect: "not_found_in_crossref", titleInCrossref: false, text: "Quillfeather, N. (2010). Imaginary study number 10 of marmalade viscosity among lighthouse keepers. Journal of Unlikely Results, 10(2), 1-9. https://doi.org/10.1037/zzz00109412x" },
-  { id: "invented-10-short-title-wrong-author", expect: "not_found_in_crossref", titleInCrossref: false, text: "Marchetti, O. (2015). Deep learning. Journal of Unlikely Results, 4(1), 2-11." },
+  { id: "short-title-wrong-author", expect: "not_found_in_crossref", titleInCrossref: false, text: "Marchetti, O. (2015). Deep learning. Journal of Unlikely Results, 4(1), 2-11." },
 
   // Real works that sit outside Crossref.
   { id: "outside-report", expect: "not_found_in_crossref", titleInCrossref: false, text: "Truth and Reconciliation Commission of Canada. (2015). Honouring the truth, reconciling for the future: Summary of the final report of the Truth and Reconciliation Commission of Canada." },

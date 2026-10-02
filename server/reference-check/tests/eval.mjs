@@ -25,7 +25,8 @@ for (const ref of references) {
     0,
     ...records.filter((r) => tokens(r.title).length >= 3).map((r) => titleSimilarity(r.title, text))
   );
-  scored.push({ ...ref, top });
+  const shortTitle = out.crossref_record && tokens(out.crossref_record.title).length < 3;
+  if (!shortTitle) scored.push({ ...ref, top });
 
   console.log(
     `${ok ? "HIT " : "MISS"} ${ref.id.padEnd(30)} expected ${ref.expect.padEnd(22)} got ${out.result.padEnd(22)} top title score ${top.toFixed(2)}${out.differs ? "  differs: " + out.differs.join(",") : ""}`
