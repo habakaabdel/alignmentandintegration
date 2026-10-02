@@ -1,0 +1,14 @@
+{
+  "name": "alignmentandintegration",
+  "private": true,
+  "type": "module",
+  "description": "Static site plus the Reference Check MCP server (one Netlify Function).",
+  "scripts": {
+    "test": "node --test server/reference-check/tests/*.test.mjs",
+    "eval": "node server/reference-check/tests/eval.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.31.0",
+    "zod": "^4.6.5"
+  }
+}
