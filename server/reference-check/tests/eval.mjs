@@ -5,7 +5,7 @@
 import { references } from "./references.mjs";
 import { checkOne } from "../src/check.mjs";
 import { resolveDoi, search } from "../src/crossref.mjs";
-import { extractDoi, titleSimilarity, TITLE_THRESHOLD } from "../src/match.mjs";
+import { extractDoi, titleSimilarity, tokens, TITLE_THRESHOLD } from "../src/match.mjs";
 
 let hits = 0;
 const scored = [];
@@ -19,7 +19,12 @@ for (const ref of references) {
   const records = await search(ref.text, 5);
   const byDoi = doi ? await resolveDoi(doi).catch(() => null) : null;
   if (byDoi) records.push(byDoi);
-  const top = Math.max(0, ...records.map((r) => titleSimilarity(r.title, text)));
+  // One and two word titles are left out here: they are decided by the author
+  // rule in check.mjs, not by the threshold.
+  const top = Math.max(
+    0,
+    ...records.filter((r) => tokens(r.title).length >= 3).map((r) => titleSimilarity(r.title, text))
+  );
   scored.push({ ...ref, top });
 
   console.log(

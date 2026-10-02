@@ -1,7 +1,7 @@
 // The two operations behind the Reference Check tools.
 
 import { resolveDoi, registrationAgency, search, LookupError } from "./crossref.mjs";
-import { compare, extractDoi, titleSimilarity, TITLE_THRESHOLD } from "./match.mjs";
+import { compare, extractDoi, titleSimilarity, tokens, TITLE_THRESHOLD } from "./match.mjs";
 
 export const MAX_REFERENCES = 25;
 const CONCURRENCY = 3; // Crossref asks polite clients to stay at three at a time
@@ -33,6 +33,9 @@ async function closest(text, fetchImpl) {
   for (const record of candidates) {
     const comparison = compare(record, text, doi);
     if (!comparison.title) continue;
+    // A one or two word title ("10", "Editorial") turns up inside unrelated
+    // references, so it only counts when the author agrees as well.
+    if (tokens(record.title).length < 3 && comparison.author !== true) continue;
     const rank = [differing(comparison).length, -comparison.title_similarity];
     if (!best || rank[0] < best.rank[0] || (rank[0] === best.rank[0] && rank[1] < best.rank[1])) {
       best = { record, comparison, rank };

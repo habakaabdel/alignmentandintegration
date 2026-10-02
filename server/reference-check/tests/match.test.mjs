@@ -112,6 +112,15 @@ test("an invented reference is not found, and is never called fake", async () =>
   assert.ok(!/fake|fabricat/i.test(JSON.stringify(out)));
 });
 
+test("a one word title inside an unrelated reference is not a match", async () => {
+  const chapter = async (url) =>
+    decodeURIComponent(url).includes("query.bibliographic")
+      ? Response.json({ message: { items: [{ DOI: "10.1093/x.1", title: ["10"], author: [{ family: "Woolf", given: "Virginia" }], issued: { "date-parts": [[2009]] } }] } })
+      : new Response("", { status: 404 });
+  const out = await checkOne({ text: "Quillfeather, N. (2010). Imaginary study number 10 of marmalade viscosity. Journal of Unlikely Results, 10(2), 1-9." }, chapter);
+  assert.equal(out.result, "not_found_in_crossref");
+});
+
 test("a DOI registered with another agency is not found, with the agency named", async () => {
   const out = await checkOne({ text: "Vaswani, A. (2017). Attention is all you need. https://doi.org/10.48550/arXiv.1706.03762" }, fakeCrossref());
   assert.equal(out.result, "not_found_in_crossref");
