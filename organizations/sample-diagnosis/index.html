@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sample diagnosis, on fictional data | Alignment Integration</title>
+<meta name="description" content="A worked example of the two-week diagnosis and intervention offer, on fictional data: a community agency's quarterly funder report mapped before and after, with the numbers.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#edefee">
+<meta name="color-scheme" content="light">
+
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Page-local styles for the sample diagnosis. Tokens come from styles.css. */
+.sd-facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--s2) var(--s5);
+  margin-top: var(--s6);
+  max-width: 62ch;
+  font-size: var(--t-small);
+}
+.sd-facts dt { font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.08em; color: var(--ink-muted); padding-top: 0.15em; }
+.sd-facts dd { margin: 0; color: var(--ink); }
+
+.sd-maps { display: grid; gap: var(--s7); margin-top: var(--s6); }
+@media (min-width: 58rem) { .sd-maps { grid-template-columns: 1fr 1fr; align-items: start; } }
+
+.sd-fig { margin: 0; min-width: 0; }
+.sd-fig .bezel-core { padding: var(--s5); }
+.sd-fig-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s2) var(--s4); margin-bottom: var(--s4); }
+.sd-fig-head h3 { font-size: var(--t-h3); }
+.sd-fig-label { font-family: var(--mono); font-size: var(--t-micro); letter-spacing: 0.06em; color: var(--ink-muted); }
+.sd-fig svg { display: block; width: 100%; min-width: 0; height: auto; max-width: 30rem; margin: 0 auto; }
+.sd-fig figcaption { margin-top: var(--s4); padding-top: var(--s4); border-top: 1px solid var(--line); font-family: var(--mono); font-size: var(--t-micro); letter-spacing: 0.04em; color: var(--ink-muted); }
+.sd-fig .figure-key { flex-wrap: wrap; gap: var(--s3) var(--s5); }
+
+@media (max-width: 40rem) {
+  .sd-fig { margin-inline: calc(-1 * var(--s3)); }
+  .sd-fig.bezel { padding: 6px; }
+  .sd-fig .bezel-core { padding: var(--s4) var(--s3); }
+}
+
+/* the step diagrams */
+.sd-node { fill: var(--panel); stroke: var(--line-strong); stroke-width: 1; }
+.sd-node.is-exception { stroke-dasharray: 3 3; }
+.sd-node.is-source { stroke: var(--mark); stroke-width: 1.4; }
+.sd-flow { stroke: var(--line-strong); stroke-width: 1; fill: none; }
+.sd-loop { stroke: var(--ink-muted); stroke-width: 1.4; fill: none; stroke-dasharray: 4 3; }
+.sd-loop.is-bounded { stroke: var(--mark); stroke-dasharray: none; }
+.sd-badge { fill: var(--ink-muted); }
+.sd-badge.is-bounded { fill: var(--mark); }
+.sd-badge-t { fill: var(--paper); font-family: var(--mono); font-size: 8.5px; font-weight: 500; text-anchor: middle; }
+.sd-n { fill: var(--mark); font-family: var(--mono); font-size: 10px; font-weight: 500; }
+.sd-t { fill: var(--ink); font-family: var(--sans); font-size: 11.5px; }
+.sd-tag { fill: var(--ink-muted); font-family: var(--mono); font-size: 9px; letter-spacing: 0.04em; text-anchor: end; }
+.sd-tag.is-source { fill: var(--mark); }
+.sd-arrow { fill: var(--line-strong); }
+.sd-arrow-loop { fill: var(--ink-muted); }
+.sd-arrow-bounded { fill: var(--mark); }
+
+.sd-list { margin: var(--s4) 0 0; padding: 0; list-style: none; display: grid; gap: var(--s2); font-size: var(--t-small); color: var(--ink-muted); }
+.sd-list li { display: grid; grid-template-columns: 1.25rem 1fr; gap: var(--s2); }
+.sd-list b { font-family: var(--mono); font-weight: 500; font-size: var(--t-micro); color: var(--mark); padding-top: 0.25em; }
+.sd-list s { color: var(--ink-muted); text-decoration-thickness: 1px; }
+
+/* the numbers */
+.sd-table { width: 100%; border-collapse: collapse; margin-top: var(--s6); font-size: var(--t-small); }
+.sd-table th, .sd-table td { text-align: left; vertical-align: top; padding: var(--s3) var(--s3) var(--s3) 0; border-bottom: 1px solid var(--line); }
+.sd-table thead th { font-family: var(--mono); font-size: var(--t-label); font-weight: 400; letter-spacing: 0.08em; color: var(--ink-muted); }
+.sd-table th[scope="row"] { font-weight: 600; color: var(--ink); width: 30%; }
+.sd-table td { color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.sd-table td strong { color: var(--ink); font-weight: 600; }
+.sd-table .sd-def { display: block; margin-top: var(--s2); font-size: var(--t-label); color: var(--ink-muted); max-width: 44ch; }
+@media (max-width: 40rem) {
+  .sd-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .sd-table tr { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--s4); padding-block: var(--s3); border-bottom: 1px solid var(--line); }
+  .sd-table th[scope="row"] { grid-column: 1 / -1; width: auto; border: 0; padding-bottom: var(--s2); }
+  .sd-table td { border: 0; padding: 0; }
+  .sd-table td::before { content: attr(data-col); display: block; font-family: var(--mono); font-size: var(--t-micro); letter-spacing: 0.08em; color: var(--ink-muted); margin-bottom: var(--s1); }
+}
+
+.sd-ledgers { display: grid; gap: var(--s5); margin-top: var(--s6); }
+@media (min-width: 58rem) { .sd-ledgers { grid-template-columns: 1fr 1fr 1fr; } }
+.sd-ledger { padding: var(--s5); background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-card); }
+.sd-ledger h3 { font-size: var(--t-small); font-weight: 600; }
+.sd-ledger h3 span { font-family: var(--mono); font-weight: 400; font-size: var(--t-micro); letter-spacing: 0.06em; color: var(--ink-muted); margin-left: var(--s2); }
+.sd-ledger dl { margin: var(--s3) 0 0; display: grid; grid-template-columns: 1fr auto; gap: var(--s1) var(--s4); font-size: var(--t-label); font-variant-numeric: tabular-nums; }
+.sd-ledger dt { color: var(--ink-muted); }
+.sd-ledger dd { margin: 0; font-family: var(--mono); color: var(--ink); text-align: right; white-space: nowrap; }
+.sd-ledger .sd-sum { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr auto; gap: var(--s4); padding-top: var(--s2); margin-top: var(--s1); border-top: 1px solid var(--line); font-weight: 600; }
+.sd-ledger .sd-sum dd { color: var(--mark); }
+
+.sd-receive { display: grid; gap: var(--s5); margin-top: var(--s6); }
+@media (min-width: 48rem) { .sd-receive { grid-template-columns: 1fr 1fr; } }
+.sd-receive article { padding: var(--s5); background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-card); }
+.sd-receive h3 { font-size: var(--t-h3); }
+.sd-receive p, .sd-receive li { margin-top: var(--s3); font-size: var(--t-small); color: var(--ink-muted); }
+.sd-receive ul { margin: 0; padding: 0; list-style: none; }
+
+/* review marks: lines Abdel has not said yet. Removed when he rules on them. */
+mark[data-netnew] { background: color-mix(in srgb, var(--mark) 14%, transparent); color: inherit; padding: 0 0.15em; border-radius: 3px; }
+mark[data-netnew]::after { content: " net-new " attr(data-netnew); font-family: var(--mono); font-size: var(--t-micro); letter-spacing: 0.06em; color: var(--mark); }
+</style>
+</head>
+<body data-theme="organizations">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="brand" href="/" aria-label="Alignment Integration, home">
+      <svg class="monogram" viewBox="0 0 48 48" width="30" height="30" role="img" aria-label="A and I monogram">
+        <g>
+          <path class="mono-mark" d="M35.5 6.4 A21 21 0 1 0 44.1 18.5" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+          <circle class="mono-node" cx="41" cy="11.7" r="2.6"/>
+          <path class="mono-mark" d="M24 38 C24 30 24 27 24 23" fill="none" stroke-width="2.7" stroke-linecap="round"/>
+          <path class="mono-mark mono-mark-fill" d="M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z"/>
+          <path class="mono-mark" d="M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle class="mono-node" cx="12" cy="12" r="2.4"/>
+        </g>
+      </svg>
+      <span class="brand-name">Alignment Integration</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <details class="nav-disclosure">
+        <summary class="nav-toggle">
+          <span>menu</span>
+          <span class="nav-toggle-mark" aria-hidden="true"></span>
+        </summary>
+        <ul class="nav-list">
+          <li><a href="/individuals/">For individuals</a></li>
+          <li><a href="/organizations/" aria-current="page">For organizations</a></li>
+          <li><a href="/demos/">Demos</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="section section-segment-hero" aria-labelledby="h-seg">
+    <div class="wrap">
+      <p class="crumb"><a href="/">Alignment Integration</a> / <a href="/organizations/">for organizations</a> / sample diagnosis</p>
+      <p class="eyebrow">demonstration on fictional data</p>
+      <h1 class="segment-lede" id="h-seg">Sample diagnosis, on fictional data</h1>
+      <p class="segment-claim" data-reveal style="--rv: 1">You map out the full process, whatever it is that we're automating or improving, and through that you can identify in each step what's required and how the whole workflow will be done.</p>
+      <dl class="sd-facts" data-reveal style="--rv: 2">
+        <dt>offer</dt><dd>Diagnosis and intervention. Two weeks, $3,500 CAD flat.</dd>
+        <dt>setting</dt><dd>A fictional 40-staff community mental health and addictions agency in Ontario.</dd>
+        <dt>process</dt><dd>The quarterly report to a funder: indicators pulled from records and spreadsheets.</dd>
+        <dt>reader</dt><dd>Executive directors and finance officers.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="h-maps">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <p class="index">01</p>
+        <div>
+          <h2 id="h-maps">The process map, before and after</h2>
+          <p class="section-intro">People understood the mess because they lived in it.</p>
+        </div>
+      </div>
+
+      <div class="sd-maps">
+
+        <figure class="sd-fig bezel" data-reveal style="--rv: 1" aria-labelledby="h-before">
+          <div class="bezel-core">
+            <div class="sd-fig-head">
+              <h3 id="h-before">Before: as it runs today</h3>
+              <p class="sd-fig-label">demonstration on fictional data</p>
+            </div>
+            <svg viewBox="0 0 360 976" role="img" aria-label="Fourteen steps to produce the quarterly funder report, with four loops where work goes backwards">
+              <defs>
+                <marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path class="sd-arrow" d="M0 0 8 4 0 8Z"/></marker>
+                <marker id="ar-loop" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path class="sd-arrow-loop" d="M0 0 8 4 0 8Z"/></marker>
+              </defs>
+
+              <!-- flow connectors -->
+              <g class="sd-flow" marker-end="url(#ar)">
+                <path d="M192 70V90"/><path d="M192 138V158"/><path d="M192 206V226"/><path d="M192 274V294"/><path d="M192 342V362"/><path d="M192 410V430"/><path d="M192 478V498"/><path d="M192 546V566"/><path d="M192 614V634"/><path d="M192 682V702"/><path d="M192 750V770"/><path d="M192 818V838"/><path d="M192 886V906"/>
+              </g>
+
+              <!-- loops, left lanes -->
+              <g class="sd-loop" marker-end="url(#ar-loop)">
+                <path d="M56 395H48Q42 395 42 389V249Q42 243 48 243H52"/>
+                <path d="M56 531H36Q30 531 30 525V113Q30 107 36 107H52"/>
+                <path d="M56 871H48Q42 871 42 865V589Q42 583 48 583H52"/>
+              </g>
+              <!-- loop C, right lane -->
+              <g class="sd-loop" marker-end="url(#ar-loop)">
+                <path d="M328 803H340Q346 803 346 797V385Q346 379 340 379H332"/>
+              </g>
+              <g>
+                <circle class="sd-badge" cx="42" cy="316" r="7.5"/><text class="sd-badge-t" x="42" y="319">A</text>
+                <circle class="sd-badge" cx="30" cy="460" r="7.5"/><text class="sd-badge-t" x="30" y="463">B</text>
+                <circle class="sd-badge" cx="346" cy="600" r="7.5"/><text class="sd-badge-t" x="346" y="603">C</text>
+                <circle class="sd-badge" cx="42" cy="727" r="7.5"/><text class="sd-badge-t" x="42" y="730">D</text>
+              </g>
+
+              <!-- steps -->
+              <g>
+                <text class="sd-tag" x="328" y="18">email</text>
+                <rect class="sd-node" x="56" y="24" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="52">01</text>
+                <text class="sd-t" x="90" y="43">Quarter ends. The funder template</text>
+                <text class="sd-t" x="90" y="58">arrives by email to finance</text>
+              </g>
+              <g>
+                <text class="sd-tag is-source" x="328" y="86">records system</text>
+                <rect class="sd-node" x="56" y="92" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="120">02</text>
+                <text class="sd-t" x="90" y="111">Data lead exports the client list</text>
+                <text class="sd-t" x="90" y="126">from the records system</text>
+              </g>
+              <g>
+                <text class="sd-tag" x="328" y="154">spreadsheet</text>
+                <rect class="sd-node" x="56" y="160" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="188">03</text>
+                <text class="sd-t" x="90" y="179">Exports service contacts separately</text>
+                <text class="sd-t" x="90" y="194">and joins the two in a spreadsheet</text>
+              </g>
+              <g>
+                <text class="sd-tag" x="328" y="222">spreadsheet, paper</text>
+                <rect class="sd-node" x="56" y="228" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="256">04</text>
+                <text class="sd-t" x="90" y="247">Four supervisors fill caseload sheets</text>
+                <text class="sd-t" x="90" y="262">from memory and paper tallies</text>
+              </g>
+              <g>
+                <text class="sd-tag" x="328" y="290">email</text>
+                <rect class="sd-node" x="56" y="296" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="324">05</text>
+                <text class="sd-t" x="90" y="315">Supervisors email their sheets</text>
+                <text class="sd-t" x="90" y="330">to the data lead</text>
+              </g>
+              <g>
+                <text class="sd-tag" x="328" y="358">spreadsheet</text>
+                <rect class="sd-node" x="56" y="364" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="392">06</text>
+                <text class="sd-t" x="90" y="383">Data lead reconciles sheets against</text>
+                <text class="sd-t" x="90" y="398">the export. The totals do not match</text>
+              </g>
+              <g>
+                <text class="sd-tag" x="328" y="426">email</text>
+                <rect class="sd-node" x="56" y="432" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="460">07</text>
+                <text class="sd-t" x="90" y="451">Lists clients with missing fields and</text>
+                <text class="sd-t" x="90" y="466">emails each worker</text>
+              </g>
+              <g>
+                <text class="sd-tag is-source" x="328" y="494">records system, email</text>
+                <rect class="sd-node" x="56" y="500" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="528">08</text>
+                <text class="sd-t" x="90" y="519">Workers fix some records, answer the</text>
+                <text class="sd-t" x="90" y="534">rest by email. Data lead exports again</text>
+              </g>
+              <g>
+                <text class="sd-tag" x="328" y="562">exception</text>
+                <rect class="sd-node is-exception" x="56" y="568" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="596">09</text>
+                <text class="sd-t" x="90" y="587">Clients in two programs counted twice.</text>
+                <text class="sd-t" x="90" y="602">De-duplicated by hand</text>
+              </g>
+              <g>
+                <text class="sd-tag" x="328" y="630">exception, paper</text>
+                <rect class="sd-node is-exception" x="56" y="636" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="664">10</text>
+                <text class="sd-t" x="90" y="655">Walk-in and phone contacts sit in a</text>
+                <text class="sd-t" x="90" y="670">paper binder. Reception tallies them</text>
+              </g>
+              <g>
+                <text class="sd-tag" x="328" y="698">funder template</text>
+                <rect class="sd-node" x="56" y="704" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="732">11</text>
+                <text class="sd-t" x="90" y="723">Data lead types the indicators</text>
+                <text class="sd-t" x="90" y="738">into the funder template</text>
+              </g>
+              <g>
+                <text class="sd-tag" x="328" y="766">spreadsheet</text>
+                <rect class="sd-node" x="56" y="772" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="800">12</text>
+                <text class="sd-t" x="90" y="791">Finance checks service units against</text>
+                <text class="sd-t" x="90" y="806">budget targets. They do not line up</text>
+              </g>
+              <g>
+                <text class="sd-tag" x="328" y="834">email</text>
+                <rect class="sd-node" x="56" y="840" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="868">13</text>
+                <text class="sd-t" x="90" y="859">Executive director reviews and</text>
+                <text class="sd-t" x="90" y="874">questions a number</text>
+              </g>
+              <g>
+                <text class="sd-tag" x="328" y="902">shared drive</text>
+                <rect class="sd-node" x="56" y="908" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="936">14</text>
+                <text class="sd-t" x="90" y="927">Director signs, finance submits. Sheets</text>
+                <text class="sd-t" x="90" y="942">saved to the shared drive</text>
+              </g>
+            </svg>
+            <ul class="sd-list" aria-label="Where work goes backwards">
+              <li><b>A</b><span>06 to 04: totals do not match, supervisors recount</span></li>
+              <li><b>B</b><span>08 to 02: records changed, export again</span></li>
+              <li><b>C</b><span>12 to 06: units off target, reconcile again</span></li>
+              <li><b>D</b><span>13 to 09: a number questioned, de-duplicate again</span></li>
+            </ul>
+            <div class="figure-key">
+              <span class="key">14 steps</span>
+              <span class="key">4 loops</span>
+              <span class="key">2 exception cases</span>
+              <span class="key">the same fact in 5 places</span>
+            </div>
+            <figcaption>Demonstration on fictional data</figcaption>
+          </div>
+        </figure>
+
+        <figure class="sd-fig bezel" data-reveal style="--rv: 2" aria-labelledby="h-after">
+          <div class="bezel-core">
+            <div class="sd-fig-head">
+              <h3 id="h-after">After: the same report, redesigned</h3>
+              <p class="sd-fig-label">demonstration on fictional data</p>
+            </div>
+            <svg viewBox="0 0 360 568" role="img" aria-label="Eight steps to produce the same report, indicators captured once in the records system, one bounded loop">
+              <defs>
+                <marker id="ar2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path class="sd-arrow" d="M0 0 8 4 0 8Z"/></marker>
+                <marker id="ar-bounded" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path class="sd-arrow-bounded" d="M0 0 8 4 0 8Z"/></marker>
+              </defs>
+              <g class="sd-flow" marker-end="url(#ar2)">
+                <path d="M192 70V90"/><path d="M192 138V158"/><path d="M192 206V226"/><path d="M192 274V294"/><path d="M192 342V362"/><path d="M192 410V430"/><path d="M192 478V498"/>
+              </g>
+              <g class="sd-loop is-bounded" marker-end="url(#ar-bounded)">
+                <path d="M56 395H48Q42 395 42 389V249Q42 243 48 243H52"/>
+              </g>
+              <circle class="sd-badge is-bounded" cx="42" cy="316" r="7.5"/><text class="sd-badge-t" x="42" y="319">E</text>
+
+              <g>
+                <text class="sd-tag is-source" x="328" y="18">records system</text>
+                <rect class="sd-node is-source" x="56" y="24" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="52">01</text>
+                <text class="sd-t" x="90" y="43">In the quarter: intake and discharge</text>
+                <text class="sd-t" x="90" y="58">fields are required pick lists</text>
+              </g>
+              <g>
+                <text class="sd-tag is-source" x="328" y="86">records system</text>
+                <rect class="sd-node is-source" x="56" y="92" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="120">02</text>
+                <text class="sd-t" x="90" y="111">In the quarter: reception logs walk-in</text>
+                <text class="sd-t" x="90" y="126">and phone contacts as they happen</text>
+              </g>
+              <g>
+                <text class="sd-tag" x="328" y="154">email</text>
+                <rect class="sd-node" x="56" y="160" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="188">03</text>
+                <text class="sd-t" x="90" y="179">Quarter ends. The funder template</text>
+                <text class="sd-t" x="90" y="194">arrives by email to finance</text>
+              </g>
+              <g>
+                <text class="sd-tag is-source" x="328" y="222">records system</text>
+                <rect class="sd-node is-source" x="56" y="228" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="256">04</text>
+                <text class="sd-t" x="90" y="247">Data lead runs the indicator report.</text>
+                <text class="sd-t" x="90" y="262">One client, one count</text>
+              </g>
+              <g>
+                <text class="sd-tag is-source" x="328" y="290">records system</text>
+                <rect class="sd-node is-source" x="56" y="296" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="324">05</text>
+                <text class="sd-t" x="90" y="315">The report lists records with a</text>
+                <text class="sd-t" x="90" y="330">missing required field</text>
+              </g>
+              <g>
+                <text class="sd-tag is-source" x="328" y="358">records system</text>
+                <rect class="sd-node is-source" x="56" y="364" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="392">06</text>
+                <text class="sd-t" x="90" y="383">Supervisors clear them in the records</text>
+                <text class="sd-t" x="90" y="398">system within two days</text>
+              </g>
+              <g>
+                <text class="sd-tag" x="328" y="426">funder template</text>
+                <rect class="sd-node" x="56" y="432" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="460">07</text>
+                <text class="sd-t" x="90" y="451">Data lead copies the indicators</text>
+                <text class="sd-t" x="90" y="466">into the funder template</text>
+              </g>
+              <g>
+                <rect class="sd-node" x="56" y="500" width="272" height="46" rx="8"/>
+                <text class="sd-n" x="66" y="528">08</text>
+                <text class="sd-t" x="90" y="519">Finance checks units against targets.</text>
+                <text class="sd-t" x="90" y="534">Director signs, finance submits</text>
+              </g>
+            </svg>
+            <ul class="sd-list" aria-label="The one loop that stays">
+              <li><b>E</b><span>06 to 04: exceptions cleared, run the report again</span></li>
+            </ul>
+            <p class="h-quiet" style="margin-top: var(--s4)">Deleted outright</p>
+            <ul class="sd-list" style="margin-top: var(--s2)" aria-label="Steps removed from the process">
+              <li><b>04</b><s>Supervisor caseload sheets</s></li>
+              <li><b>07</b><s>Emailing each worker</s></li>
+              <li><b>09</b><s>De-duplicating by hand</s></li>
+              <li><b>10</b><s>The paper binder</s></li>
+              <li><b>14</b><s>Copies on the shared drive</s></li>
+            </ul>
+            <div class="figure-key">
+              <span class="key">8 steps</span>
+              <span class="key">1 loop, bounded</span>
+              <span class="key">0 exception cases</span>
+              <span class="key">each fact in 1 place</span>
+            </div>
+            <figcaption>Demonstration on fictional data</figcaption>
+          </div>
+        </figure>
+
+      </div>
+
+      <p class="offer-price" data-reveal>Sometimes you don't even need AI or automation; it's just simplifying, because you may have multiple steps in the process that don't need to be there, multiple sources, too many exception cases. Once you can map it all out you can really optimize it.</p>
+      <p class="offer-price" data-reveal style="margin-top: var(--s3)">I identified all the indicators needed and ensured that those indicators are mapped out within the records system.</p>
+      <p class="offer-price" data-reveal style="margin-top: var(--s3)">We will build within your systems or on top of your systems, and not have you change systems.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="h-numbers">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <p class="index">02</p>
+        <div>
+          <h2 id="h-numbers">The numbers, before and after</h2>
+          <p class="section-intro">Only certain people would be able to get that data, or it would take programs and teams full days of pulling data manually.</p>
+        </div>
+      </div>
+
+      <table class="sd-table" data-reveal style="--rv: 1">
+        <caption class="h-quiet" style="text-align: left; margin-bottom: var(--s3)">fictional figures. before: measured in week one. after: the plan's estimate</caption>
+        <thead>
+          <tr><th scope="col">measure</th><th scope="col">before</th><th scope="col">after, as planned</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Time<span class="sd-def">Staff hours per quarterly report, and working days from quarter end to submission.</span></th>
+            <td data-col="before"><strong>62 hours</strong><br>14 working days</td>
+            <td data-col="after, as planned"><strong>18 hours</strong><br>4 working days</td>
+          </tr>
+          <tr>
+            <th scope="row">Data accuracy<span class="sd-def">How many things are not documented properly or are documented in different ways, so they're not captured when running reports.</span></th>
+            <td data-col="before"><strong>71 of 100 records</strong><br>complete and consistent enough to count</td>
+            <td data-col="after, as planned"><strong>94 of 100 records</strong><br>complete and consistent enough to count</td>
+          </tr>
+          <tr>
+            <th scope="row">Cost<span class="sd-def">Staff cost per report at a blended $42 an hour, against the one-time cost of the fix.</span></th>
+            <td data-col="before"><strong>$2,604 per report</strong><br>$10,416 a year</td>
+            <td data-col="after, as planned"><strong>$756 per report</strong><br>$3,024 a year, after a $5,180 fix</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sd-ledgers" data-reveal style="--rv: 2">
+        <article class="sd-ledger">
+          <h3>Hours, before <span>fictional</span></h3>
+          <dl>
+            <dt>02 to 03 exports and join</dt><dd>8 h</dd>
+            <dt>04 four supervisors, 4 h each</dt><dd>16 h</dd>
+            <dt>06 reconcile the totals</dt><dd>6 h</dd>
+            <dt>07 to 08 chasing missing fields</dt><dd>10 h</dd>
+            <dt>09 de-duplicate by hand</dt><dd>4 h</dd>
+            <dt>10 tally the paper binder</dt><dd>3 h</dd>
+            <dt>11 type the template</dt><dd>3 h</dd>
+            <dt>12 finance check</dt><dd>4 h</dd>
+            <dt>13 director review and rework</dt><dd>6 h</dd>
+            <dt>14 sign, submit, file</dt><dd>2 h</dd>
+            <div class="sd-sum"><dt>per report</dt><dd>62 h</dd></div>
+          </dl>
+        </article>
+        <article class="sd-ledger">
+          <h3>Hours, after <span>fictional, as planned</span></h3>
+          <dl>
+            <dt>04 run the indicator report</dt><dd>2 h</dd>
+            <dt>05 to 06 four supervisors, 1.5 h each</dt><dd>6 h</dd>
+            <dt>04 again, 07 copy into template</dt><dd>2 h</dd>
+            <dt>08 finance check</dt><dd>3 h</dd>
+            <dt>08 director review</dt><dd>3 h</dd>
+            <dt>08 sign, submit, file</dt><dd>2 h</dd>
+            <div class="sd-sum"><dt>per report</dt><dd>18 h</dd></div>
+          </dl>
+        </article>
+        <article class="sd-ledger">
+          <h3>Cost <span>fictional, $42 an hour</span></h3>
+          <dl>
+            <dt>before: 62 h × $42</dt><dd>$2,604</dd>
+            <dt>after: 18 h × $42</dt><dd>$756</dd>
+            <dt>saved per report</dt><dd>$1,848</dd>
+            <dt>saved a year, 4 reports</dt><dd>$7,392</dd>
+            <dt>the fix: diagnosis and intervention</dt><dd>$3,500</dd>
+            <dt>the fix: 40 h of the agency's administrator × $42</dt><dd>$1,680</dd>
+            <dt>the fix, one time</dt><dd>$5,180</dd>
+            <div class="sd-sum"><dt>pays back after</dt><dd>2.8 reports</dd></div>
+          </dl>
+        </article>
+      </div>
+
+      <p class="offer-price" data-reveal>If you can set up something properly and it's less than what you're currently paying, then it's worth it.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="h-receive">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <p class="index">03</p>
+        <div>
+          <h2 id="h-receive">What you receive</h2>
+          <p class="section-intro">Once you can map all that out, it becomes easy to automate, to improve, to optimize.</p>
+        </div>
+      </div>
+
+      <div class="sd-receive" data-reveal style="--rv: 1">
+        <article>
+          <h3>A process map</h3>
+          <ul>
+            <li>Before: every step, loop, exception case, and place the same fact lives.</li>
+            <li>After: the redesigned process, indicators captured once in the records system.</li>
+          </ul>
+        </article>
+        <article>
+          <h3>The initial plan</h3>
+          <ul>
+            <li>What to delete, what to change in the records system, in what order.</li>
+            <li>The three measures, before and as planned: time, data accuracy, cost.</li>
+          </ul>
+        </article>
+      </div>
+
+      <h3 style="margin-top: var(--s7); font-size: var(--t-h3)" data-reveal>The two weeks</h3>
+      <ol class="steps" data-reveal style="--rv: 1; margin-top: var(--s5)">
+        <li class="step">
+          <span class="step-n" aria-hidden="true"></span>
+          <div>
+            <h3>Leadership meeting</h3>
+            <p>A leadership meeting to ensure the vision and alignment.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-n" aria-hidden="true"></span>
+          <div>
+            <h3>Week one</h3>
+            <p>The first week would be collecting info, having meetings with people, checking the whole landscape, gathering documents and materials.</p>
+            <p>At the end of the first week, we develop the initial plan and process map.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-n" aria-hidden="true"></span>
+          <div>
+            <h3>Review</h3>
+            <p>Review that for feedback with leadership, and then each stakeholder that's responsible for certain parts will review those.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-n" aria-hidden="true"></span>
+          <div>
+            <h3>Final product</h3>
+            <p>We take all of that feedback, adapt, and then have a final product with any minor adjustments.</p>
+          </div>
+        </li>
+      </ol>
+
+      <p class="bounds" data-reveal><mark data-netnew="2">Demonstration on fictional data: no real organization, no real client, and no measured outcome.</mark> AI is not a miracle solution that will do everything you want.</p>
+
+      <div class="actions" data-reveal style="margin-top: var(--s6);">
+        <a class="btn btn-primary" href="/#contact">
+          Start the conversation
+          <span class="btn-well" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg>
+          </span>
+        </a>
+        <a class="btn btn-quiet" href="/organizations/">For organizations</a>
+      </div>
+      <p class="section-intro" style="margin-top: var(--s3);" data-reveal>The initial consultation is free.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-map">
+    <div>
+      <p class="h-quiet">Who we build for</p>
+      <ul class="footer-list">
+        <li><a href="/individuals/">For individuals</a></li>
+        <li><a href="/organizations/">For organizations</a></li>
+        <li><a href="/community-social-services/">Community and social services</a></li>
+        <li><a href="/ai-readiness/">AI readiness</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="h-quiet">The demonstrations</p>
+      <ul class="footer-list">
+        <li><a href="/demos/bpss-ses/">Diagnostic and intervention map</a></li>
+        <li><a href="/demos/community-hub-portal/">Community hub portal</a></li>
+        <li><a href="/demos/emr-portal/">Staff portal over a clinical record</a></li>
+        <li><a href="/demos/cswb-portal/">Community safety and well-being portal</a></li>
+        <li><a href="/demos/restaurant-ops/">Restaurant operations</a></li>
+        <li><a href="/demos/">All demos</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="h-quiet">Alignment Integration</p>
+      <ul class="footer-list">
+        <li><a href="/about/">About</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="https://cal.com/align-integrate-l8uyvp/30min" rel="noopener">Book a call</a></li>
+        <li><a href="/privacy/">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-inner">
+    <p class="footer-brand">
+      <svg class="monogram" viewBox="0 0 48 48" width="24" height="24" aria-hidden="true">
+        <g>
+          <path class="mono-mark" d="M35.5 6.4 A21 21 0 1 0 44.1 18.5" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+          <circle class="mono-node" cx="41" cy="11.7" r="2.6"/>
+          <path class="mono-mark" d="M24 38 C24 30 24 27 24 23" fill="none" stroke-width="2.7" stroke-linecap="round"/>
+          <path class="mono-mark mono-mark-fill" d="M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z"/>
+          <path class="mono-mark" d="M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle class="mono-node" cx="12" cy="12" r="2.4"/>
+        </g>
+      </svg>
+      Alignment Integration
+    </p>
+    <p class="footer-meta">Mississauga, Ontario. No cookies, no tracking on this page.</p>
+    <p class="footer-top"><a href="/">Home</a></p>
+  </div>
+</footer>
+
+<script src="/main.js" defer></script>
+</body>
+</html>
