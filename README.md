@@ -15,6 +15,7 @@ Marketing and demo site for Alignment Integration, a consultation and software d
 | `/privacy/` | Privacy notice. No other page links to it at present. |
 | `/demos/` | Index of the demonstrations. |
 | `/videos/` | Videos. One card per YouTube playlist (Holistics first), each with a Watch on YouTube link and a References link. In the nav. |
+| `/videos/holistics/` | The Holistics series page: six looping clips cut from the first video's map renders, each with the line it carries, the four steps every video follows, and the list of videos. Linked from the Holistics card on `/videos/`. |
 | `/videos/references/` | The references for each video, by playlist, APA 7th with DOI links, plus the music credit. Linked from the playlist cards; the video credits point to `/videos`. |
 | `/brand/` | Logo system preview. Not linked from the site. |
 

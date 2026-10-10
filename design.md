@@ -19,7 +19,7 @@ The look: a warm linen sheet, soft charcoal type, deep sage marks. One grid, one
 | `/demos/` | none | `#page-scene`, from its `scene.js` |
 | `/privacy/` | none | none (the canvas is in the markup, no script loads) |
 | `/about/` | none | none; loads `/about/about.css` and `/about/about.js` after the site files |
-| `/videos/` and `/videos/references/` | none | none; each carries a small scoped `<style>` block |
+| `/videos/`, `/videos/holistics/` and `/videos/references/` | none | none; each carries a small scoped `<style>` block |
 
 Every page that loads `main.js` also gets `#nature-canvas`, a fluid wave canvas `main.js` inserts behind everything. All three canvases are fixed, full viewport, `z-index: 0`, `pointer-events: none`; `main`, `header`, and `footer` sit above at `z-index: 1`.
 
