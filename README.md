@@ -14,6 +14,7 @@ Marketing and demo site for Alignment Integration, a consultation and software d
 | `/ai-readiness/start/` | Landing page for the AI readiness free consultation. No nav, its own Netlify form. |
 | `/privacy/` | Privacy notice. No other page links to it at present. |
 | `/demos/` | Index of the demonstrations. |
+| `/videos/` | Videos. One entry per video in the Holistics series: title, two lines from the video, its references (APA 7th, DOI links), and the music credit. In the nav. |
 | `/brand/` | Logo system preview. Not linked from the site. |
 
 ## Demos
@@ -30,7 +31,7 @@ Each demo is a self-contained folder under `demos/` with its own markup, and mos
 
 ## Navigation
 
-Every site page (not the demos or the landing page) carries the same four links: For individuals, For organizations, Demos, Contact. Contact goes to the form on the home page (`/#contact`). Below 56rem the links sit in a `details` disclosure labelled "menu"; no script is needed for it.
+Every site page (not the demos or the landing page) carries the same six links: For individuals, For organizations, Demos, Videos, About, Contact. Contact goes to the form on the home page (`/#contact`). Below 56rem the links sit in a `details` disclosure labelled "menu"; no script is needed for it.
 
 ## Stack
 

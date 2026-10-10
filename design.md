@@ -19,6 +19,7 @@ The look: a warm linen sheet, soft charcoal type, deep sage marks. One grid, one
 | `/demos/` | none | `#page-scene`, from its `scene.js` |
 | `/privacy/` | none | none (the canvas is in the markup, no script loads) |
 | `/about/` | none | none; loads `/about/about.css` and `/about/about.js` after the site files |
+| `/videos/` | none | none; a scoped `<style>` block for the entries and the reference list |
 
 Every page that loads `main.js` also gets `#nature-canvas`, a fluid wave canvas `main.js` inserts behind everything. All three canvases are fixed, full viewport, `z-index: 0`, `pointer-events: none`; `main`, `header`, and `footer` sit above at `z-index: 1`.
 
@@ -106,7 +107,7 @@ Sentence case everywhere, headings and buttons included.
 
 ## Masthead and nav
 
-Five links on every site page: For individuals, For organizations, Demos, About, Contact (`.nav-cta`, to `/#contact`). Below 56rem they live in a `details` disclosure labelled "menu" whose toggle is a plus in two hairlines; from 56rem up the panel is held open with `::details-content` and the toggle is hidden. No script is needed. `main.js` sets `aria-current` for in-page anchors and closes the panel after a link is used.
+Six links on every site page: For individuals, For organizations, Demos, Videos, About, Contact (`.nav-cta`, to `/#contact`). Below 56rem they live in a `details` disclosure labelled "menu" whose toggle is a plus in two hairlines; from 56rem up the panel is held open with `::details-content` and the toggle is hidden. No script is needed. `main.js` sets `aria-current` for in-page anchors and closes the panel after a link is used.
 
 The landing page `/ai-readiness/start/` has no nav; the brand mark links home.
 
