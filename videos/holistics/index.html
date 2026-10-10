@@ -49,6 +49,14 @@
   .vlist li { display: flex; gap: var(--s3); align-items: baseline; padding: var(--s3) 0; border-top: var(--hair) solid var(--line); font-weight: 600; }
   .vlist .n { display: inline; }
   .vlist .next { color: var(--ink-muted); font-weight: 400; }
+  /* Card 06: the line as type. The "a" of alone hops out and sits on
+     "moves"; the "i" of Nothing hops over and knocks it back into place.
+     Letters are split and moved by the script below; without it, or under
+     reduced motion, the line simply sits there. */
+  .line-stage { container-type: inline-size; display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(ellipse at 50% 45%, #dbd2bf 0%, #cfc4aa 62%, #c0b295 100%); overflow: hidden; }
+  .line-stage .line { margin: 0; font-size: 5.8cqw; font-weight: 650; letter-spacing: -0.01em; color: #33281c; white-space: nowrap; line-height: 1; padding-top: 1.1em; }
+  .line-stage .w, .line-stage .ch { display: inline-block; transform-origin: 50% 100%; }
   @media (max-width: 48rem) {
     .clips { grid-template-columns: 1fr 1fr; }
     .series-more { grid-template-columns: 1fr; }
@@ -146,7 +154,7 @@
             <p>When you create a network, you can map directions.</p>
           </li>
           <li class="cell">
-            <video class="clip" src="/videos/holistics/media/close.mp4" poster="/videos/holistics/media/close.jpg" autoplay muted loop playsinline aria-hidden="true"></video>
+            <div class="clip line-stage" aria-hidden="true"><p class="line">Nothing here moves alone.</p></div>
             <span class="n">06</span>
             <p>Nothing here moves alone.</p>
           </li>
@@ -227,6 +235,92 @@
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.querySelectorAll('video.clip').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); });
   }
+</script>
+<script>
+  /* Card 06 line. One cycle, about 9 s, then it replays while in view. */
+  (function () {
+    var line = document.querySelector('.line-stage .line');
+    if (!line || !line.animate || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var words = line.textContent.trim().split(' ');
+    line.textContent = '';
+    words.forEach(function (w, i) {
+      var ws = document.createElement('span'); ws.className = 'w';
+      w.split('').forEach(function (c) { var s = document.createElement('span'); s.className = 'ch'; s.textContent = c; ws.appendChild(s); });
+      line.appendChild(ws);
+      if (i < words.length - 1) line.appendChild(document.createTextNode(' '));
+    });
+    var W = line.querySelectorAll('.w');
+    var I = W[0].children[4], A = W[3].children[0], HERE = W[1], MOVES = W[2], LONE = [].slice.call(W[3].children, 1);
+    var OUT = 'cubic-bezier(0.2, 0.7, 0.3, 1)', IN = 'cubic-bezier(0.5, 0, 0.8, 0.4)';
+    var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+    var cx = function (el) { var r = el.getBoundingClientRect(); return r.left + r.width / 2; };
+    var tf = function (x, y, sx, sy, r) { return 'translate(' + x + 'px,' + y + 'px) rotate(' + (r || 0) + 'deg) scale(' + sx + ',' + sy + ')'; };
+
+    // One hop with anticipation, stretch in the air, squash on landing.
+    function hop(el, a, b, lift, ms, tilt) {
+      var mx = (a[0] + b[0]) / 2, my = Math.min(a[1], b[1]) - lift;
+      return el.animate([
+        { transform: tf(a[0], a[1], 1, 1, a[2]), easing: 'ease-out' },
+        { transform: tf(a[0], a[1], 1.14, 0.8, a[2]), offset: 0.16, easing: OUT },
+        { transform: tf(mx, my, 0.9, 1.14, tilt || 0), offset: 0.52, easing: IN },
+        { transform: tf(b[0], b[1], 1.16, 0.78, b[2]), offset: 0.82, easing: 'ease-out' },
+        { transform: tf(b[0], b[1], 1, 1, b[2]) }
+      ], { duration: ms, fill: 'forwards' }).finished;
+    }
+    function squash(el, k, ms) {
+      return el.animate([{ transform: 'scale(1,1)' }, { transform: 'scale(' + (1 + (1 - k) / 2) + ',' + k + ')', offset: 0.35 }, { transform: 'scale(1,1)' }],
+        { duration: ms, easing: 'ease-out' }).finished;
+    }
+
+    async function cycle() {
+      line.getAnimations({ subtree: true }).forEach(function (a) { a.cancel(); });
+      var fs = parseFloat(getComputedStyle(line).fontSize), xh = 0.78 * fs;
+
+      // 1. The words drop in.
+      W.forEach(function (w, i) {
+        w.animate([
+          { transform: 'translateY(-0.9em) scale(0.92,1.1)', opacity: 0, easing: IN },
+          { transform: 'translateY(0) scale(1.08,0.86)', opacity: 1, offset: 0.7, easing: 'ease-out' },
+          { transform: 'translateY(0) scale(1,1)', opacity: 1 }
+        ], { duration: 520, delay: i * 170, fill: 'backwards' });
+      });
+      await wait(4 * 170 + 520 + 700);
+
+      // 2. The "a" leaves alone and sits on top of "moves".
+      var aOn = [cx(MOVES) - cx(A), -xh, -6];
+      var aFinished = hop(A, [0, 0, 0], aOn, 0.8 * fs, 680, -14);
+      await wait(680 * 0.8); squash(MOVES, 0.88, 320); await aFinished;
+      await A.animate([{ transform: tf(aOn[0], aOn[1], 1, 1, -6) }, { transform: tf(aOn[0], aOn[1], 1, 1, 9) }, { transform: tf(aOn[0], aOn[1], 1, 1, -4) }, { transform: tf(aOn[0], aOn[1], 1, 1, 7) }],
+        { duration: 1000, easing: 'ease-in-out', fill: 'forwards' }).finished;
+      await wait(250);
+
+      // 3. The "i" hops over, lands on the "a", and knocks it home.
+      var iHome = [0, 0, 0], iHere = [cx(HERE) - cx(I), -xh, 0], iOnA = [cx(MOVES) - cx(I), -2 * xh, 0], iDrop = [cx(MOVES) - cx(I), -xh, 0];
+      await hop(I, iHome, iHere, 0.75 * fs, 560, 8);
+      var iLand = hop(I, iHere, iOnA, 0.7 * fs, 560, 10);
+      await wait(560 * 0.8);
+      A.animate([{ transform: tf(aOn[0], aOn[1], 1, 1, 7) }, { transform: tf(aOn[0], aOn[1], 1.25, 0.65, 0), offset: 0.3 }, { transform: tf(aOn[0] * 0.5, -0.9 * xh, 0.92, 1.1, 18), offset: 0.62, easing: IN },
+        { transform: tf(0, 0, 1.14, 0.8, 0), offset: 0.85 }, { transform: tf(0, 0, 1, 1, 0) }], { duration: 560, easing: 'ease-out', fill: 'forwards' });
+      await iLand;
+      I.animate([{ transform: tf(iOnA[0], iOnA[1], 1, 1) }, { transform: tf(iDrop[0], iDrop[1], 1.12, 0.84) , offset: 0.6, easing: 'ease-out' }, { transform: tf(iDrop[0], iDrop[1], 1, 1) }],
+        { duration: 300, easing: IN, fill: 'forwards' });
+      await wait(330);
+      LONE.forEach(function (c, k) { c.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(0.06em)', offset: 0.4 }, { transform: 'translateX(0)' }], { duration: 300, delay: k * 30, easing: 'ease-out' }); });
+      squash(MOVES, 0.9, 280);
+      await I.animate([{ transform: tf(iDrop[0], iDrop[1], 1, 1, 0) }, { transform: tf(iDrop[0], iDrop[1], 1, 1, 12) }, { transform: tf(iDrop[0], iDrop[1], 1, 1, 0) }], { duration: 600, easing: 'ease-in-out', fill: 'forwards' }).finished;
+
+      // 4. The "i" goes home; the line holds.
+      await hop(I, iDrop, iHere, 0.45 * fs, 480, -8);
+      await hop(I, iHere, iHome, 0.5 * fs, 520, -8);
+      await wait(2600);
+      await line.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 400, fill: 'forwards' }).finished;
+      line.getAnimations().forEach(function (a) { a.cancel(); });
+    }
+
+    var running = false, visible = false;
+    async function run() { if (running) return; running = true; while (visible) { await cycle(); } running = false; }
+    new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) run(); }, { threshold: 0.5 }).observe(line.parentNode);
+  })();
 </script>
 </body>
 </html>
