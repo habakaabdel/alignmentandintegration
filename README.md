@@ -14,7 +14,8 @@ Marketing and demo site for Alignment Integration, a consultation and software d
 | `/ai-readiness/start/` | Landing page for the AI readiness free consultation. No nav, its own Netlify form. |
 | `/privacy/` | Privacy notice. No other page links to it at present. |
 | `/demos/` | Index of the demonstrations. |
-| `/videos/` | Videos. One entry per video in the Holistics series: title, two lines from the video, its references (APA 7th, DOI links), and the music credit. In the nav. |
+| `/videos/` | Videos. One card per YouTube playlist (Holistics first), each with a Watch on YouTube link and a References link. In the nav. |
+| `/videos/references/` | The references for each video, by playlist, APA 7th with DOI links, plus the music credit. Linked from the playlist cards; the video credits point to `/videos`. |
 | `/brand/` | Logo system preview. Not linked from the site. |
 
 ## Demos
