@@ -31,14 +31,18 @@
 
 <link rel="stylesheet" href="/styles.css">
 <style>
-  /* Scoped to this page. One entry per video; the reference list reads as a
-     document, APA 7th with a hanging indent. */
+  /* Scoped to this page. One entry per video; references grouped by the
+     part of the video they back, each title a link to the paper. */
   .video-entry { padding-top: var(--s7); max-width: 72ch; }
   .video-entry + .video-entry { margin-top: var(--s8); border-top: var(--hair) solid var(--line); }
   .video-entry h2 { font-size: var(--t-h2); margin-top: var(--s2); }
-  .refs { margin-top: var(--s5); }
-  .refs li { padding-left: 2em; text-indent: -2em; margin-bottom: var(--s4); font-size: var(--t-small); overflow-wrap: anywhere; }
-  .video-credit { margin-top: var(--s6); font-size: var(--t-small); color: var(--ink-muted); }
+  .ref-group { margin-top: var(--s7); }
+  .ref-group h3 { font-size: var(--t-body); margin-bottom: var(--s3); }
+  .ref-time { font-family: var(--mono); font-size: var(--t-label); font-weight: 400; color: var(--ink-muted); margin-right: var(--s2); }
+  .refs li { padding: var(--s3) 0; border-top: var(--hair) solid var(--line); }
+  .ref-title { display: block; font-weight: 500; text-underline-offset: 3px; }
+  .ref-meta { display: block; margin-top: var(--s1); font-size: var(--t-small); color: var(--ink-muted); }
+  .video-credit { margin-top: var(--s7); font-size: var(--t-small); color: var(--ink-muted); }
 </style>
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -99,19 +103,75 @@
       <article class="video-entry" id="nothing-moves-alone-intro" aria-labelledby="h-intro">
         <p class="eyebrow">Holistics</p>
         <h2 id="h-intro">Nothing Moves Alone - Intro</h2>
-        <ol class="refs" role="list">
-            <li>Davies, W., &amp; Roache, R. (2017). Reassessing biopsychosocial psychiatry. <i>British Journal of Psychiatry, 210</i>(1), 3&ndash;5. <a href="https://doi.org/10.1192/bjp.bp.116.182873" rel="noopener">https://doi.org/10.1192/bjp.bp.116.182873</a></li>
-            <li>Dragan, K. L., Desai, S. M., Billings, J., &amp; Glied, S. A. (2022). Association of insurance mix and diagnostic coding practices in New York State hospitals. <i>JAMA Health Forum, 3</i>(9), Article e222919. <a href="https://doi.org/10.1001/jamahealthforum.2022.2919" rel="noopener">https://doi.org/10.1001/jamahealthforum.2022.2919</a></li>
-            <li>Engel, G. L. (1977). The need for a new medical model: A challenge for biomedicine. <i>Science, 196</i>(4286), 129&ndash;136. <a href="https://doi.org/10.1126/science.847460" rel="noopener">https://doi.org/10.1126/science.847460</a></li>
-            <li>Goodwin, N. (2016). Understanding integrated care. <i>International Journal of Integrated Care, 16</i>(4), Article 6. <a href="https://doi.org/10.5334/ijic.2530" rel="noopener">https://doi.org/10.5334/ijic.2530</a></li>
-            <li>Ibrahim, M. A., Asslan, H., &amp; Nassef, M. M. (2023). Comparative analysis between the architecture of bimaristans in Egyptian and Syrian during Mamluk&rsquo;s era. <i>Journal of Mediterranean Cities, 3</i>(1), 75&ndash;100. <a href="https://doi.org/10.38027/mediterranean-cities_vol3no1_6" rel="noopener">https://doi.org/10.38027/mediterranean-cities_vol3no1_6</a></li>
-            <li>Miller, A. C. (2006). Jundi-Shapur, bimaristans, and the rise of academic medical centres. <i>Journal of the Royal Society of Medicine, 99</i>(12), 615&ndash;617. <a href="https://doi.org/10.1177/014107680609901208" rel="noopener">https://doi.org/10.1177/014107680609901208</a></li>
-            <li>Mitha, K. (2020). Conceptualising and addressing mental disorders amongst Muslim communities: Approaches from the Islamic Golden Age. <i>Transcultural Psychiatry, 57</i>(6), 763&ndash;774. <a href="https://doi.org/10.1177/1363461520962603" rel="noopener">https://doi.org/10.1177/1363461520962603</a></li>
-            <li>Phillips, J., Frances, A., Cerullo, M. A., Chardavoyne, J., Decker, H. S., First, M. B., Ghaemi, N., Greenberg, G., Hinderliter, A. C., Kinghorn, W. A., LoBello, S. G., Martin, E. B., Mishara, A. L., Paris, J., Pierre, J. M., Pies, R. W., Pincus, H. A., Porter, D., Pouncey, C., . . . Zachar, P. (2012). The six most essential questions in psychiatric diagnosis: A pluralogue part 1: Conceptual and definitional issues in psychiatric diagnosis. <i>Philosophy, Ethics, and Humanities in Medicine, 7</i>(1), Article 3. <a href="https://doi.org/10.1186/1747-5341-7-3" rel="noopener">https://doi.org/10.1186/1747-5341-7-3</a></li>
-            <li>Sell, K., Hommes, F., Fischer, F., &amp; Arnold, L. (2022). Multi-, inter-, and transdisciplinarity within the public health workforce: A scoping review to assess definitions and applications of concepts. <i>International Journal of Environmental Research and Public Health, 19</i>(17), Article 10902. <a href="https://doi.org/10.3390/ijerph191710902" rel="noopener">https://doi.org/10.3390/ijerph191710902</a></li>
-            <li>Taheri, J. (2021). The impacts of architecture and decorative arts on health based on medical sources in the Muslim societies during the medieval era. <i>Studia Historiae Scientiarum, 20</i>, 861&ndash;891. <a href="https://doi.org/10.4467/2543702XSHS.21.025.14056" rel="noopener">https://doi.org/10.4467/2543702XSHS.21.025.14056</a></li>
-            <li>Wiens, K., Bhattarai, A., Pedram, P., Dores, A., Williams, J., Bulloch, A., &amp; Patten, S. (2020). A growing need for youth mental health services in Canada: Examining trends in youth mental health from 2011 to 2018. <i>Epidemiology and Psychiatric Sciences, 29</i>, Article e115. <a href="https://doi.org/10.1017/S2045796020000281" rel="noopener">https://doi.org/10.1017/S2045796020000281</a></li>
-        </ol>
+        <section class="ref-group">
+          <h3><span class="ref-time">0:05</span> Are mental health rates rising?</h3>
+          <ul class="refs" role="list">
+            <li>
+              <a class="ref-title" href="https://doi.org/10.1017/S2045796020000281" rel="noopener">A growing need for youth mental health services in Canada: Examining trends in youth mental health from 2011 to 2018</a>
+              <span class="ref-meta">Wiens et al., 2020. <i>Epidemiology and Psychiatric Sciences</i></span>
+            </li>
+          </ul>
+        </section>
+        <section class="ref-group">
+          <h3><span class="ref-time">1:00</span> Multidisciplinary, interdisciplinary, integration</h3>
+          <ul class="refs" role="list">
+            <li>
+              <a class="ref-title" href="https://doi.org/10.3390/ijerph191710902" rel="noopener">Multi-, inter-, and transdisciplinarity within the public health workforce: A scoping review</a>
+              <span class="ref-meta">Sell et al., 2022. <i>International Journal of Environmental Research and Public Health</i></span>
+            </li>
+            <li>
+              <a class="ref-title" href="https://doi.org/10.5334/ijic.2530" rel="noopener">Understanding integrated care</a>
+              <span class="ref-meta">Goodwin, 2016. <i>International Journal of Integrated Care</i></span>
+            </li>
+          </ul>
+        </section>
+        <section class="ref-group">
+          <h3><span class="ref-time">1:18</span> Islamic psychology and the bimaristans</h3>
+          <ul class="refs" role="list">
+            <li>
+              <a class="ref-title" href="https://doi.org/10.4467/2543702XSHS.21.025.14056" rel="noopener">The impacts of architecture and decorative arts on health based on medical sources in the Muslim societies during the medieval era</a>
+              <span class="ref-meta">Taheri, 2021. <i>Studia Historiae Scientiarum</i></span>
+            </li>
+            <li>
+              <a class="ref-title" href="https://doi.org/10.1177/014107680609901208" rel="noopener">Jundi-Shapur, bimaristans, and the rise of academic medical centres</a>
+              <span class="ref-meta">Miller, 2006. <i>Journal of the Royal Society of Medicine</i></span>
+            </li>
+            <li>
+              <a class="ref-title" href="https://doi.org/10.38027/mediterranean-cities_vol3no1_6" rel="noopener">Comparative analysis between the architecture of bimaristans in Egyptian and Syrian during Mamluk&rsquo;s era</a>
+              <span class="ref-meta">Ibrahim et al., 2023. <i>Journal of Mediterranean Cities</i></span>
+            </li>
+            <li>
+              <a class="ref-title" href="https://doi.org/10.1177/1363461520962603" rel="noopener">Conceptualising and addressing mental disorders amongst Muslim communities: Approaches from the Islamic Golden Age</a>
+              <span class="ref-meta">Mitha, 2020. <i>Transcultural Psychiatry</i></span>
+            </li>
+          </ul>
+        </section>
+        <section class="ref-group">
+          <h3><span class="ref-time">2:26</span> Diagnoses, institutions and economics</h3>
+          <ul class="refs" role="list">
+            <li>
+              <a class="ref-title" href="https://doi.org/10.1186/1747-5341-7-3" rel="noopener">The six most essential questions in psychiatric diagnosis: A pluralogue part 1</a>
+              <span class="ref-meta">Phillips et al., 2012. <i>Philosophy, Ethics, and Humanities in Medicine</i></span>
+            </li>
+            <li>
+              <a class="ref-title" href="https://doi.org/10.1001/jamahealthforum.2022.2919" rel="noopener">Association of insurance mix and diagnostic coding practices in New York State hospitals</a>
+              <span class="ref-meta">Dragan et al., 2022. <i>JAMA Health Forum</i></span>
+            </li>
+          </ul>
+        </section>
+        <section class="ref-group">
+          <h3><span class="ref-time">3:18</span> The biopsychosocial model</h3>
+          <ul class="refs" role="list">
+            <li>
+              <a class="ref-title" href="https://doi.org/10.1126/science.847460" rel="noopener">The need for a new medical model: A challenge for biomedicine</a>
+              <span class="ref-meta">Engel, 1977. <i>Science</i></span>
+            </li>
+            <li>
+              <a class="ref-title" href="https://doi.org/10.1192/bjp.bp.116.182873" rel="noopener">Reassessing biopsychosocial psychiatry</a>
+              <span class="ref-meta">Davies &amp; Roache, 2017. <i>British Journal of Psychiatry</i></span>
+            </li>
+          </ul>
+        </section>
         <p class="video-credit">Music: Lofi Cocktail Bar by Alex Morgan (Pixabay)</p>
       </article>
     </div>
