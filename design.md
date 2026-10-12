@@ -43,6 +43,23 @@ Default tokens on `:root`:
 | `--line` | `#d8d6ce` | hairlines, card borders, input borders |
 | `--line-strong` | `#717d76` | home segment cards, tick marks in the section rule |
 
+Sage Garden additions, 2026-10-12. Taken from the Sage Garden theme on 21st.dev and added alongside the tokens above, which do not change. No page uses them yet; each is available for new work.
+
+| Token | Value | Use |
+|---|---|---|
+| `--sage` | `#7c9082` | dusty sage for fills, strokes, figure marks, the monogram; never text |
+| `--sage-deep` | `#637468` | sage that carries text: links, button fills with paper text |
+| `--tint-sage` | `#ced4bf` | soft sage band or card fill |
+| `--tint-moss` | `#bfc9bb` | a second, cooler sage fill |
+| `--tint-stone` | `#e8e6e1` | neutral stone fill, quieter than `--panel-deep` |
+| `--ink-navy` | `#1a1f2e` | navy-tinted text, an alternative to `--ink` |
+| `--line-soft` | `#e8e6e1` | lighter hairline than `--line` |
+
+Contrast, measured 2026-10-12 against the 4.5:1 floor for text:
+- `--sage` is 3.4:1 on white and 3.15:1 on `--paper`, so it never carries text and never sits behind text.
+- `--sage-deep` is 4.97:1 on white and 4.5:1 or better on every page `--paper` (4.59 default, 4.58 `individuals`, 4.50 `organizations`, 4.52 `community`, 4.57 `ai-readiness`). It drops to 4.28:1 on `--panel-deep` and below 4:1 on the tints, so no sage text on those.
+- `--ink-navy` and `--ink` both clear 9.6:1 on every ground and tint above. Text on a tint uses one of them; `--ink-muted` falls to 3.72:1 on `--tint-moss`, so muted text stays off that fill.
+
 Theme blocks on `body[data-theme="..."]` in use today:
 
 | Theme | `--paper` | `--mark` | `--mark-deep` |
@@ -58,7 +75,7 @@ Theme blocks on `body[data-theme="..."]` in use today:
 
 Rules:
 - A theme block reassigns tokens only. `--ink` and `--ink-muted` never move.
-- No text on `--line` or `--line-strong`; they are boundary colours.
+- No text on `--line`, `--line-strong` or `--line-soft`; they are boundary colours.
 - One ground per page. There is no dark mode and `prefers-color-scheme` is not read.
 - No gold.
 
@@ -89,7 +106,7 @@ Sentence case everywhere, headings and buttons included.
 - Spacing on a 4px base: `--s1` 0.25rem through `--s9` 6rem (4, 8, 12, 16, 24, 32, 48, 64, 96px).
 - Container `--measure` 1100px, gutter `clamp(1.25rem, 4vw, 3rem)`.
 - `.section` padding `clamp(2.5rem, 6vw, 6rem)`; `.band` 6rem.
-- Radii: `--radius` 12px, `--radius-card` 16px (offers, islands), `--radius-leaf` `24px 4px 24px 4px` (home segment cards, the hero bezel), `--radius-pill` 999px (buttons). Inputs are 10px.
+- Radii: `--radius` 12px, `--radius-card` 16px (offers, islands), `--radius-leaf` `24px 4px 24px 4px` (home segment cards, the hero bezel), `--radius-pill` 999px (buttons), and `--radius-sm` 6px (added 2026-10-12 from Sage Garden, unused so far, for tags, chips and small panels). Inputs are 10px.
 - Surfaces:
   - `.island`: prose on home sits on frosted paper, `--panel` at 88% with a 3px backdrop blur, 1px `--line`, card radius. Keeps the eco scene behind the words, not through them.
   - `.bezel` / `.bezel-core`: the hero figure's double frame, a faint tray around a white plate with a soft lift shadow.
