@@ -33,7 +33,7 @@ Default tokens on `:root`:
 |---|---|---|
 | `--paper` | `#f7f6f2` | page ground |
 | `--panel` | `#ffffff` | cards, offers, form inputs, figure plate |
-| `--panel-deep` | `#f0eee7` | nav submenu hover; the home bands moved to `--tint-sage` on 2026-10-12 |
+| `--panel-deep` | `#f0eee7` | the about page photo band (at 70% via `color-mix`); the home bands moved to `--tint-sage` on 2026-10-12 |
 | `--ink` | `#1c1d1c` | headings, body, focus ring |
 | `--ink-muted` | `#5e605d` | secondary prose, labels |
 | `--mark` | `#2d4a3e` | links, primary button, lead offer, indices |
