@@ -790,7 +790,7 @@ a:hover { color: var(--mark-deep); }
 /* ---------- 03 the three ideas ---------- */
 
 /* ---------- 03 the three ideas (beats) ---------- */
-.engine { background: var(--panel-deep); border-block: 1px solid var(--line); }
+.engine { background: var(--tint-sage); border-block: 1px solid var(--line); }
 .engine-head { max-width: 44ch; margin-bottom: var(--s7); display: grid; gap: var(--s4); }
 .engine-head h2 { font-size: var(--t-h2); }
 .engine-head p { color: var(--ink-muted); }
@@ -1984,10 +1984,9 @@ a:hover { color: var(--mark-deep); }
 }
 
 /* The two deep bands let the world show through faintly, so the structure
-   assembling behind the engine section stays part of the story. The claim
-   band carries the sage tint, the engine band stays linen. */
-.claim { background: color-mix(in srgb, var(--tint-sage) 70%, transparent); }
-.engine { background: color-mix(in srgb, var(--panel-deep) 70%, transparent); }
+   assembling behind the engine section stays part of the story. Both carry
+   the sage tint. */
+.claim, .engine { background: color-mix(in srgb, var(--tint-sage) 70%, transparent); }
 
 @media print {
   .masthead, .nav, .skip, .footer-top { display: none; }
