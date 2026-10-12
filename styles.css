@@ -47,6 +47,18 @@
   --line:         #d8d6ce;
   --line-strong:  #717d76;
 
+  /* Sage Garden additions, 2026-10-12. Available tokens only; nothing above
+     changes. --sage fails text contrast (3.15:1 on paper), so it is for fills,
+     strokes and marks; sage text and text-bearing fills use --sage-deep, which
+     clears 4.5:1 on --panel and every page --paper. */
+  --sage:         #7c9082;
+  --sage-deep:    #637468;
+  --tint-sage:    #ced4bf;
+  --tint-moss:    #bfc9bb;
+  --tint-stone:   #e8e6e1;
+  --ink-navy:     #1a1f2e;
+  --line-soft:    #e8e6e1;
+
   /* type */
   --sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
@@ -72,6 +84,7 @@
   --s9: 6rem;
 
   --radius: 12px;
+  --radius-sm: 6px;
   --radius-leaf: 24px 4px 24px 4px;
   --radius-card: 16px;
   --radius-pill: 999px;
