@@ -720,7 +720,7 @@ a:hover { color: var(--mark-deep); }
 .rule { height: 1px; background: var(--line); border: 0; margin: 0; }
 
 /* ---------- 2. CLAIM: full-width editorial band ---------- */
-.claim { border-block: 1px solid var(--line); background: var(--panel-deep); }
+.claim { border-block: 1px solid var(--line); background: var(--tint-sage); }
 .claim-inner { padding-block: var(--s8); display: grid; gap: var(--s5); }
 .claim p {
   font-size: clamp(1.375rem, 0.95rem + 1.75vw, 2.375rem);
@@ -1984,8 +1984,10 @@ a:hover { color: var(--mark-deep); }
 }
 
 /* The two deep bands let the world show through faintly, so the structure
-   assembling behind the engine section stays part of the story. */
-.claim, .engine { background: color-mix(in srgb, var(--panel-deep) 70%, transparent); }
+   assembling behind the engine section stays part of the story. The claim
+   band carries the sage tint, the engine band stays linen. */
+.claim { background: color-mix(in srgb, var(--tint-sage) 70%, transparent); }
+.engine { background: color-mix(in srgb, var(--panel-deep) 70%, transparent); }
 
 @media print {
   .masthead, .nav, .skip, .footer-top { display: none; }

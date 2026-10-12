@@ -33,7 +33,7 @@ Default tokens on `:root`:
 |---|---|---|
 | `--paper` | `#f7f6f2` | page ground |
 | `--panel` | `#ffffff` | cards, offers, form inputs, figure plate |
-| `--panel-deep` | `#f0eee7` | the claim and engine bands on home (at 70% via `color-mix`) |
+| `--panel-deep` | `#f0eee7` | the engine band on home (at 70% via `color-mix`) |
 | `--ink` | `#1c1d1c` | headings, body, focus ring |
 | `--ink-muted` | `#5e605d` | secondary prose, labels |
 | `--mark` | `#2d4a3e` | links, primary button, lead offer, indices |
@@ -43,13 +43,13 @@ Default tokens on `:root`:
 | `--line` | `#d8d6ce` | hairlines, card borders, input borders |
 | `--line-strong` | `#717d76` | home segment cards, tick marks in the section rule |
 
-Sage Garden additions, 2026-10-12. Taken from the Sage Garden theme on 21st.dev and added alongside the tokens above, which do not change. No page uses them yet; each is available for new work.
+Sage Garden additions, 2026-10-12. Taken from the Sage Garden theme on 21st.dev and added alongside the tokens above, which do not change. In use: `--tint-sage` on the home claim band (at 70% via `color-mix`), where `--ink` reads 12.3:1, `--mark` 7.1:1 and `--ink-muted` 4.6:1. The rest are available for new work.
 
 | Token | Value | Use |
 |---|---|---|
 | `--sage` | `#7c9082` | dusty sage for fills, strokes, figure marks, the monogram; never text |
 | `--sage-deep` | `#637468` | sage that carries text: links, button fills with paper text |
-| `--tint-sage` | `#ced4bf` | soft sage band or card fill |
+| `--tint-sage` | `#ced4bf` | the claim band on home; soft sage band or card fill |
 | `--tint-moss` | `#bfc9bb` | a second, cooler sage fill |
 | `--tint-stone` | `#e8e6e1` | neutral stone fill, quieter than `--panel-deep` |
 | `--ink-navy` | `#1a1f2e` | navy-tinted text, an alternative to `--ink` |
