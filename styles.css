@@ -1337,6 +1337,9 @@ a:hover { color: var(--mark-deep); }
 }
 
 .proof .actions { margin-top: var(--s5); }
+.proof-quote blockquote { margin: var(--s3) 0 0; }
+.proof-quote blockquote p { font-size: var(--t-h3); color: var(--ink); line-height: 1.35; }
+.proof-quote .proof-cite { color: var(--ink); }
 
 /* the honest-state line, reused from the status grid vocabulary */
 .proof-state {
