@@ -29,6 +29,11 @@
   status = 301
 
 [[redirects]]
+  from = "/individuals/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
   from = "/demos/therapist-workload/*"
   to = "/demos/"
   status = 301
