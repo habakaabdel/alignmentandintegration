@@ -1339,7 +1339,11 @@ a:hover { color: var(--mark-deep); }
 .proof .actions { margin-top: var(--s5); }
 .proof-quote blockquote { margin: var(--s3) 0 0; }
 .proof-quote blockquote p { font-size: var(--t-h3); color: var(--ink); line-height: 1.35; }
-.proof-quote .proof-cite { color: var(--ink); }
+.proof-quote .proof-by { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3) var(--s4); margin-top: var(--s4); }
+.proof-quote .proof-by .proof-cite { margin-top: 0; color: var(--ink); }
+/* client logos sit on their own dark tile so light marks stay legible */
+.client-logo { display: inline-flex; padding: 0.6rem 0.9rem; background: #111; border-radius: var(--radius-leaf); }
+.client-logo img { display: block; width: auto; height: 2rem; max-width: 100%; }
 
 /* the honest-state line, reused from the status grid vocabulary */
 .proof-state {
