@@ -414,20 +414,6 @@ function wireForm() {
   });
 }
 
-trackSections();
-wireNav();
-wireReveals();
-
-let dimensional = false;
-try { dimensional = initPlot3D(); } catch (err) { dimensional = false; }
-if (!dimensional) drawPlot();
-
-wireEngine();
-wireWalkthroughs();
-wireForm();
-showVisitorNotice();
-loadVisitorId();
-
 /* ---------- visitor identification: the notice, then the loader ----------
    Leadfeeder identifies the organization a visit comes from, never the person.
    The privacy page (/privacy/#vid-state) describes it and holds the switch; the
@@ -522,6 +508,20 @@ function loadVisitorId() {
   script.src = 'https://sc.lfeeder.com/lftracker_v1_' + LEADFEEDER_ID + '.js';
   document.head.appendChild(script);
 }
+
+trackSections();
+wireNav();
+wireReveals();
+
+let dimensional = false;
+try { dimensional = initPlot3D(); } catch (err) { dimensional = false; }
+if (!dimensional) drawPlot();
+
+wireEngine();
+wireWalkthroughs();
+wireForm();
+showVisitorNotice();
+loadVisitorId();
 
 /* ---------- nature organic fluid wave canvas ---------- */
 function initNatureCanvas() {
