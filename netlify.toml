@@ -34,6 +34,16 @@
   status = 301
 
 [[redirects]]
+  from = "/videos/holistics/*"
+  to = "/videos/"
+  status = 301
+
+[[redirects]]
+  from = "/videos/references/*"
+  to = "/videos/"
+  status = 301
+
+[[redirects]]
   from = "/demos/therapist-workload/*"
   to = "/demos/"
   status = 301
