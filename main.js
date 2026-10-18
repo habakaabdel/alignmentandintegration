@@ -414,6 +414,101 @@ function wireForm() {
   });
 }
 
+/* ---------- visitor identification: the notice, then the loader ----------
+   Leadfeeder identifies the organization a visit comes from, never the person.
+   The privacy page (/privacy/#vid-state) describes it and holds the switch; the
+   choice lives in this browser only, under the key ai-visitor-id. The notice
+   bar is added first, so notice comes at or before collection, and the loader
+   runs only when every gate below is open. Pages that do not load this file
+   get neither. */
+
+/* Filled at install from the Leadfeeder Lite account (the id in the snippet
+   the account shows). While it is empty the loader does nothing. */
+const LEADFEEDER_ID = '';
+
+const VISITOR_CHOICE_KEY = 'ai-visitor-id';
+const VISITOR_NOTICE_KEY = 'ai-visitor-notice';
+
+function readStore(key) {
+  try { return localStorage.getItem(key); } catch (err) { return null; }
+}
+
+function writeStore(key, value) {
+  try { localStorage.setItem(key, value); } catch (err) { /* storage is a convenience, not a requirement */ }
+}
+
+/* The edge function netlify/edge-functions/visitor-region.js marks the html
+   tag for a visitor Netlify places in Quebec. */
+function inQuebec() {
+  return document.documentElement.getAttribute('data-region') === 'QC';
+}
+
+/* Off when the switch is off, when the browser sends Do Not Track or Global
+   Privacy Control, or when the visitor is in Quebec and has not turned it on. */
+function visitorIdAllowed() {
+  const choice = readStore(VISITOR_CHOICE_KEY);
+  if (choice === 'off') return false;
+  if (navigator.doNotTrack === '1') return false;
+  if (navigator.globalPrivacyControl === true) return false;
+  if (inQuebec() && choice !== 'on') return false;
+  return true;
+}
+
+function showVisitorNotice() {
+  const masthead = document.querySelector('.masthead');
+  if (!masthead || document.querySelector('.notice')) return;
+  if (readStore(VISITOR_NOTICE_KEY) === 'dismissed') return;
+
+  const quebecOff = inQuebec() && readStore(VISITOR_CHOICE_KEY) !== 'on';
+
+  const bar = document.createElement('aside');
+  bar.className = 'notice';
+  bar.setAttribute('aria-label', 'Visitor identification notice');
+
+  const inner = document.createElement('div');
+  inner.className = 'wrap notice-inner';
+
+  const link = document.createElement('a');
+  link.href = '/privacy/#vid-state';
+  link.textContent = 'privacy page';
+
+  const text = document.createElement('p');
+  if (quebecOff) {
+    text.append('Visitor identification is off for you. If you want to turn it on, the switch is on the ', link, '.');
+  } else {
+    text.append('This site identifies which organizations visit it, not people. Details and a switch to turn it off are on the ', link, '.');
+  }
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'btn btn-quiet';
+  button.textContent = 'OK';
+  button.addEventListener('click', function () {
+    writeStore(VISITOR_NOTICE_KEY, 'dismissed');
+    bar.remove();
+  });
+
+  inner.append(text, button);
+  bar.append(inner);
+  masthead.insertAdjacentElement('afterend', bar);
+}
+
+function loadVisitorId() {
+  if (!LEADFEEDER_ID || !visitorIdAllowed()) return;
+  if (document.querySelector('script[src^="https://sc.lfeeder.com/"]')) return;
+
+  /* The tracker's own snippet, written out: a queue the tracker drains once it
+     has loaded, then the script named by the account id. Check the URL shape
+     against the snippet the account shows when the id is filled in. */
+  window.ldfdr = window.ldfdr || function () {
+    (window.ldfdr._q = window.ldfdr._q || []).push([].slice.call(arguments));
+  };
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://sc.lfeeder.com/lftracker_v1_' + LEADFEEDER_ID + '.js';
+  document.head.appendChild(script);
+}
+
 trackSections();
 wireNav();
 wireReveals();
@@ -425,6 +520,8 @@ if (!dimensional) drawPlot();
 wireEngine();
 wireWalkthroughs();
 wireForm();
+showVisitorNotice();
+loadVisitorId();
 
 /* ---------- nature organic fluid wave canvas ---------- */
 function initNatureCanvas() {

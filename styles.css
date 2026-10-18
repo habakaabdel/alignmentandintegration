@@ -280,6 +280,36 @@ a:hover { color: var(--mark-deep); }
 }
 .skip:focus { translate: 0 0; }
 
+/* ---------- visitor identification notice, under the masthead ----------
+   Added by main.js on the first visit; the OK button stores the dismissal in
+   this browser. The wording lives in main.js. */
+
+.notice {
+  background: var(--panel-deep);
+  border-bottom: var(--hair) solid var(--line);
+}
+
+.notice-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2) var(--s5);
+  padding-block: var(--s2);
+}
+
+.notice p {
+  margin: 0;
+  flex: 1 1 28ch;
+  font-size: var(--t-small);
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.notice a { color: var(--mark); text-decoration: underline; text-underline-offset: 0.15em; }
+
+.notice .btn { padding: 0.35rem 0.9rem; font-size: var(--t-label); }
+
 /* ---------- masthead ---------- */
 
 .masthead {
@@ -1995,7 +2025,7 @@ a:hover { color: var(--mark-deep); }
 .claim, .engine { background: color-mix(in srgb, var(--tint-sage) 70%, transparent); }
 
 @media print {
-  .masthead, .nav, .skip, .footer-top { display: none; }
+  .masthead, .nav, .skip, .notice, .footer-top { display: none; }
   body { background: #ffffff; }
   .plot, .form-shell, .tile { background: #ffffff; }
   /* paper gets the drawn sheet, not the canvas */

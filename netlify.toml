@@ -142,3 +142,11 @@
   to = "/404"
   status = 404
   force = true
+
+# Marks the HTML pages for a visitor Netlify places in Quebec (one attribute on
+# the html tag), so the visitor identification loader in main.js stays off for
+# them until they turn it on. Files with an extension stay with the CDN.
+[[edge_functions]]
+  path = "/*"
+  excludedPath = ["/media/*", "/vendor/*", "/brand/*", "/*.css", "/*.js", "/*.mjs", "/*.svg", "/*.png", "/*.jpg", "/*.jpeg", "/*.webp", "/*.gif", "/*.ico", "/*.xml", "/*.txt", "/*.json", "/*.woff", "/*.woff2", "/*.mp4", "/*.webm", "/*.pdf"]
+  function = "visitor-region"
