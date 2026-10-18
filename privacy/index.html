@@ -92,33 +92,55 @@
       <div class="section-head">
         <p class="eyebrow">Privacy</p>
         <h1 id="h-privacy">What we collect, and what we do with it</h1>
-        <p class="section-intro">Alignment Integration is a one person consultancy based in Mississauga, Ontario. This page covers alignmentandintegration.com and the ways you can reach us from it. Last updated 28 September 2026.</p>
+        <p class="section-intro">Alignment Integration is a one person consultancy based in Mississauga, Ontario. This page covers alignmentandintegration.com and the ways you can reach us from it. Last updated 17 October 2026.</p>
       </div>
 
       <div class="legal">
       <h2>What we collect</h2>
-      <p>We only collect what you type and send. There is no sign up on this site and nothing is gathered in the background.</p>
+      <p>We collect what you type and send, and one thing in the background: which organization a visit comes from. There is no sign up on this site.</p>
       <ul>
         <li><strong>Contact form.</strong> Your name, email address, organisation if you give one, and what you write in the message box.</li>
         <li><strong>Booking a call.</strong> Booking runs through Cal.com. They collect your name, email address, time zone, and anything you write when you book.</li>
         <li><strong>Email.</strong> If you write to us, we have your email and whatever is in it.</li>
         <li><strong>Server records.</strong> Our host keeps standard technical logs, including IP addresses, for security and reliability. We do not use those logs to build a picture of who you are.</li>
+        <li><strong>Visiting organizations.</strong> A service called Leadfeeder reads the network address your visit comes from and matches it to an organization, such as an agency, a company or a public body. It also records the pages viewed, the time of the visit, the page you came from and the browser used, and it sets a cookie named _lfa in your browser for up to a year. It is built to identify organizations, not people, and we use it only that way: a match that points to a single person is dropped. You can turn it off for your browser in the section below, and if you are visiting from Quebec it stays off until you turn it on.</li>
       </ul>
 
       <h2>Why we collect it</h2>
-      <p>To answer you, to prepare for a call you booked, and to keep a record of who asked us for what so nothing gets dropped. That is the whole list. We do not use any of it to target advertising.</p>
+      <p>To answer you, to prepare for a call you booked, to keep a record of who asked us for what so nothing gets dropped, and to see which organizations are reading about our work so we can offer them relevant help. That is the whole list. We do not use any of it to target advertising.</p>
 
       <h2>Where it is stored</h2>
       <p>Form submissions are handled by Netlify and reach us by email through Google. Bookings sit with Cal.com.</p>
       <p>Netlify, Google, and Cal.com are based in the United States, so information you send through a form or a booking is stored there and is subject to the laws of that country.</p>
+      <p>Leadfeeder is run by Dealfront Group GmbH and stores and processes what it collects on servers in the European Union, in Ireland. We see the organization names and the pages viewed inside their service; we do not copy the visitor log out of it.</p>
 
       <h2>What we do not do</h2>
       <ul>
         <li>We do not sell your information, and we never will.</li>
         <li>We do not share it with anyone beyond the services named above.</li>
         <li>We do not send marketing email to people who only asked a question.</li>
-        <li>This site sets no cookies and runs no tracking scripts.</li>
+        <li>If your organization shows up as a visitor, we may write once to its published general address about the topic you read about. That email says who we are, carries our mailing address and a line to stop further email, and a visit on its own never counts as consent to anything.</li>
+        <li>This site runs one script that identifies visiting organizations, Leadfeeder, described above, and no advertising trackers. The only cookie it sets is the one named above.</li>
       </ul>
+
+      <h2>Visitor identification, and how to turn it off</h2>
+      <p>Your choice here is stored in this browser only and we never see it. If you are visiting from Quebec, identification is off until you turn it on. We also keep it off when your browser sends a Do Not Track or Global Privacy Control signal.</p>
+      <p id="vid-state" aria-live="polite">Visitor identification in this browser: <strong id="vid-value">following the default</strong>.</p>
+      <p><button type="button" class="btn" id="vid-off">Turn it off for this browser</button> <button type="button" class="btn" id="vid-on">Turn it on for this browser</button></p>
+      <script>
+        (function () {
+          var key = "ai-visitor-id", val = document.getElementById("vid-value");
+          function show() {
+            var v = null;
+            try { v = localStorage.getItem(key); } catch (e) {}
+            val.textContent = v === "off" ? "off" : v === "on" ? "on" : "following the default";
+          }
+          function set(v) { try { localStorage.setItem(key, v); } catch (e) {} show(); }
+          document.getElementById("vid-off").addEventListener("click", function () { set("off"); });
+          document.getElementById("vid-on").addEventListener("click", function () { set("on"); });
+          show();
+        })();
+      </script>
 
       <h2>How long we keep it</h2>
       <p>Email correspondence is kept as long as the working relationship lasts, and for seven years after that where it relates to paid work, because business records have to be retained.</p>
