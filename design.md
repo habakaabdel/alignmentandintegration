@@ -2,7 +2,9 @@
 
 What `styles.css` and the pages do today. When the code and this file disagree, the code is right and this file is out of date; fix it in the same change.
 
-The look: a warm linen sheet, soft charcoal type, deep sage marks. One grid, one type system, one monogram. Each audience page moves only the ground and the accent through a `data-theme` token block. Soft background scenes move behind the content; the content never depends on them.
+The look: a warm linen sheet, soft charcoal type, deep sage marks. One grid, one type system, one monogram. A page that wants its own ground moves only the ground and the accent through a `data-theme` token block. Soft background scenes move behind the content; the content never depends on them.
+
+Since 2026-11-01 the site is one simple home page and one landing page per service (Brief 109): Reporting alignment at `/reporting/`, Video at `/video/`, Events at `/events/`, Software builds at `/demos/`. The doors are services, not audiences; clients are anyone. Every service page ends at its own contact section. The full visual redesign is a later, separate change; this one reused the existing tokens and components.
 
 ---
 
@@ -10,16 +12,19 @@ The look: a warm linen sheet, soft charcoal type, deep sage marks. One grid, one
 
 | Page | `data-theme` | Background scene |
 |---|---|---|
-| `/` | none (default tokens) | `#eco`, from `eco.js` (Three.js) |
-| `/individuals/` | `individuals` | none |
-| `/organizations/` | `organizations` | none |
-| `/community-social-services/` | `community` | `#page-scene`, from its `scene.js` |
-| `/ai-readiness/` | `ai-readiness` | `#page-scene`, from its `scene.js` |
-| `/ai-readiness/start/` | `ai-readiness` | none; uses the scroll-motion kit instead |
-| `/demos/` | none | `#page-scene`, from its `scene.js` |
+| `/` | none (default tokens) | `#eco`, from `eco.js` (Three.js). Hero, the four doors (`.segments.doors`), the proof strip (`#work`), contact |
+| `/reporting/` | `organizations` | none. The Reporting alignment page; it was `/organizations/` until 2026-11-01 and keeps that theme block |
+| `/organizations/sample-diagnosis/` | `organizations` | none; its own scoped styles. Reached from `/reporting/` |
+| `/video/` | none | none; a small scoped `<style>` block. The Wolfe Retreat video (the short and the tour) and the Brain to AI reel, each a local 540 by 960 mp4, and a marked `.slot` for the case study that has no files yet |
+| `/events/` | none | none. New on 2026-11-01; its sentences are `[NET-NEW n]` placeholders until he says them |
+| `/demos/` | none | `#page-scene`, from its `scene.js`. The Software builds page; the five demos, the barbershop quote, the bounds line |
 | `/privacy/` | none | none (the canvas is in the markup, no script loads) |
 | `/about/` | none | none; loads `/about/about.css` and `/about/about.js` after the site files |
-| `/videos/` | none | none; a small scoped `<style>` block; three cards since 2026-10-26 (the Wolfe Retreat short and tour, Brain to AI), each a local 540 by 960 mp4 |
+| `/community-social-services/` | `community` | `#page-scene`, from its `scene.js`. Unlinked from the nav and footer since 2026-11-01, awaiting his ruling |
+| `/ai-readiness/` | `ai-readiness` | `#page-scene`, from its `scene.js`. Unlinked from the nav and footer since 2026-11-01, awaiting his ruling |
+| `/ai-readiness/start/` | `ai-readiness` | none; uses the scroll-motion kit instead |
+
+`/organizations/` and `/videos/` answer 301 to `/reporting/` and `/video/` from `netlify.toml`; the sample diagnosis keeps its old path, so the organizations rule is exact rather than a splat.
 
 Every page that loads `main.js` also gets `#nature-canvas`, a fluid wave canvas `main.js` inserts behind everything. All three canvases are fixed, full viewport, `z-index: 0`, `pointer-events: none`; `main`, `header`, and `footer` sit above at `z-index: 1`.
 
@@ -124,7 +129,7 @@ Sentence case everywhere, headings and buttons included.
 
 ## Masthead and nav
 
-Six links on every site page: For individuals, For organizations, Demos, Videos, About, Contact (`.nav-cta`, to `/#contact`). Below 56rem they live in a `details` disclosure labelled "menu" whose toggle is a plus in two hairlines; from 56rem up the panel is held open with `::details-content` and the toggle is hidden. No script is needed. `main.js` sets `aria-current` for in-page anchors and closes the panel after a link is used.
+Four items on every site page: Services, Work, About, Contact. Services is a `.nav-group` holding a nested `details.nav-sub-disclosure` that opens the four service pages (Reporting alignment, Video, Events, Software builds), each with a one-line `.nav-sub-note`; on a phone it is a plain indented sublist, from 56rem up it is a hover and focus panel. Work goes to the proof strip on home (`#work` on home, `/#work` elsewhere). Contact (`.nav-cta`) goes to the page's own `#contact` on home and the four service pages, and to `/#contact` on every other page. Below 56rem the row lives in a `details` disclosure labelled "menu" whose toggle is a plus in two hairlines; from 56rem up the panel is held open with `::details-content` and the toggle is hidden. No script is needed. `main.js` sets `aria-current` for in-page anchors and closes the panel after a link is used; a service page hard codes `aria-current="page"` on its own entry, and the group trigger carries the mark.
 
 The landing page `/ai-readiness/start/` has no nav; the brand mark links home.
 
@@ -148,12 +153,13 @@ The sprout and lens mark on a `0 0 48 48` grid: an open ring ending in a node, a
 
 ## Forms
 
-- Home: `name="contact"`, `data-netlify="true"`, hidden `form-name` input, `netlify-honeypot="referral-source"`. `wireForm()` submits in place and shows the confirmation.
+- Home and the four service pages: the same `name="contact"` form, `data-netlify="true"`, hidden `form-name` input, `netlify-honeypot="referral-source"`, and a hidden `service` input naming the page it was sent from (Home, Reporting alignment, Video, Events, Software builds). `wireForm()` submits in place and shows the confirmation.
 - Landing page: `name="ai-readiness-consult"`, honeypot `company-site`, plain native POST.
 
 ## Structure rules
 
 - One `h1` per page. Sections use `h2`, items `h3`. No skipped levels.
+- A service page is: a `.section-segment-hero` (crumb, eyebrow, `.segment-lede`, `.segment-claim`, two buttons, the first to `#contact`), its sections, an `.also` list of the other three services, then the `.band.contact` section with the form. Every service page ends at contact.
 - The site works with no JavaScript: links navigate, the nav opens, forms post natively.
 - Responsive from 360px with no horizontal overflow. Check 375px and 1280px on any change, 768px near a breakpoint. Tap targets are at least 44px; small links grow their hit area with a transparent `::after`.
 - No analytics, no cookies, no third party requests from site pages. The booking link to cal.com is a plain link.
@@ -165,11 +171,16 @@ The sprout and lens mark on a `0 0 48 48` grid: an open ring ending in a node, a
 ## Content rules
 
 - Canadian English, sentence case, first person plural.
+- Public sentences on this site are his. Reuse a sentence already on the site, a verbatim ruling, or a plain label; cut and reorder, but do not write new marketing sentences. Where a sentence does not exist yet, the page carries a visible `[NET-NEW n: what it must say]` placeholder until he says it.
+- Never mention AI tools or automation in site text.
 - No em dashes, and none of: "leverage", "seamless", "empower", "transform", "cutting-edge", "unlock", or hype adjectives. Comments and metadata included. This is why the CSS uses `translate`, and why this file says so.
-- No client or employer names. Sectors only.
+- No client or employer names. Sectors only. Nothing from Kenora Chiefs Advisory (name, logo or work) until written clearance exists; no EMHware logo until the countersigned agreement is in hand. The barbershop quote on `/demos/` predates this rule and stands until ruled.
 - No outcome numbers, user counts, "in use", or "trusted by". Built things are described as built, not in service.
 - Every audience page states what we are not claiming, in a `.bounds` paragraph.
-- Prices: the initial consultation is free, and diagnosis and intervention is $3,500 CAD flat on `/organizations/`. No other prices.
+- Prices, the only public ones (ruled 2026-11-01): diagnosis and intervention is $3,500 CAD flat on `/reporting/`, with the initial consultation free; video is from $300 for a one-off and from $800 a month for a package, with two rounds of revisions; events are quoted one at a time; everything else is quoted after a call. No other price or range anywhere.
+- The deal path, where a page states next steps: a 30-minute call, then a proposal; a 50 percent deposit to start.
+- The video proof is "the Wolfe Retreat video", never Wolfe Lodge.
+- The positioning sentence on home, his words: "One team for everything: we align it, integrate it, and deliver consultant-quality work at half the price." The brand line stays as the `h1`.
 
 ## Known loose ends in `styles.css`
 
