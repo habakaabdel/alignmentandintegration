@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alignment Integration | Align what matters. Integrate how you move forward.</title>
-<meta name="description" content="Alignment and integration for organizational work. Understand the whole situation, clarify what matters, and connect the pieces into a practical response. The initial consultation is free.">
+<meta name="description" content="One team for everything: we align it, integrate it, and deliver consultant-quality work at half the price. Reporting alignment, video, events and software builds. The initial consultation is free.">
 <link rel="canonical" href="https://alignmentandintegration.com/">
 <meta name="theme-color" content="#edefee">
 <meta name="color-scheme" content="light">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Alignment Integration">
 <meta property="og:locale" content="en_CA">
 <meta property="og:title" content="Alignment Integration | Align what matters. Integrate how you move forward.">
-<meta property="og:description" content="One approach for organizational work. The initial consultation is free.">
+<meta property="og:description" content="One team for everything: we align it, integrate it, and deliver consultant-quality work at half the price.">
 <meta property="og:url" content="https://alignmentandintegration.com/">
 <meta property="og:image" content="https://alignmentandintegration.com/media/brand/og-card.png">
 <meta property="og:image:width" content="1200">
@@ -21,7 +21,7 @@
 <meta property="og:image:alt" content="Alignment Integration. Align what matters. Integrate how you move forward.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Alignment Integration | Align what matters. Integrate how you move forward.">
-<meta name="twitter:description" content="One approach for organizational work. The initial consultation is free.">
+<meta name="twitter:description" content="One team for everything: we align it, integrate it, and deliver consultant-quality work at half the price.">
 <meta name="twitter:image" content="https://alignmentandintegration.com/media/brand/og-card.png">
 
 <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -30,6 +30,12 @@
 
 <link rel="preload" href="/media/fonts/plus-jakarta-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
+<style>
+  /* Scoped to this page. The four doors sit two by two on a tablet and four
+     across on a desktop; the shared .segments grid is tuned for three. */
+  .doors { grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
+  .hero-lead { margin-top: var(--s6); }
+</style>
 </head>
 <body>
 <script>document.documentElement.classList.add('js')</script>
@@ -57,18 +63,30 @@
       <span class="brand-name">Alignment Integration</span>
     </a>
     <nav class="nav" aria-label="Main">
-      <!-- Four destinations, flat. On a phone the whole thing is a disclosure;
-           from 68rem up the panel is held open and reads as a single row.
-           No script involved. -->
+      <!-- Services opens the four service pages. On a phone the whole thing is
+           a disclosure; from 56rem up the panel is held open and reads as a
+           single row. No script involved. -->
       <details class="nav-disclosure">
         <summary class="nav-toggle">
           <span>menu</span>
           <span class="nav-toggle-mark" aria-hidden="true"></span>
         </summary>
         <ul class="nav-list">
-          <li><a href="/organizations/">For organizations</a></li>
-          <li><a href="/demos/">Demos</a></li>
-          <li><a href="/videos/">Videos</a></li>
+          <li class="nav-group">
+            <details class="nav-sub-disclosure">
+              <summary class="nav-sub-toggle">
+                <span>Services</span>
+                <span class="nav-sub-mark" aria-hidden="true"></span>
+              </summary>
+              <ul class="nav-sub">
+            <li><a href="/reporting/">Reporting alignment<span class="nav-sub-note">on any platform</span></a></li>
+            <li><a href="/video/">Video<span class="nav-sub-note">one-off or a monthly package</span></a></li>
+            <li><a href="/events/">Events<span class="nav-sub-note">quoted one at a time</span></a></li>
+            <li><a href="/demos/">Software builds<span class="nav-sub-note">five demos to open</span></a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="#work">Work</a></li>
           <li><a href="/about/">About</a></li>
           <li><a href="#contact" class="nav-cta">Contact</a></li>
         </ul>
@@ -81,162 +99,105 @@
 
   <span id="top"></span>
 
-  <!-- 01 -->
+  <!-- 01 the brand line and his positioning sentence -->
   <section class="hero" id="what-we-do" data-eco>
     <div class="wrap">
       <h1 class="hero-title" id="h-what-we-do">Align what matters. Integrate how you move forward.</h1>
-      <div class="hero-grid">
-        <div>
-          <p class="hero-claim">For organizations that want the work to run better. Understand the whole situation, clarify what matters, and connect the pieces into a practical response.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">
-              Start the conversation
-              <span class="btn-well" aria-hidden="true">
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg>
-              </span>
-            </a>
-            <a class="btn btn-quiet" href="/demos/">All demos</a>
-          </div>
-        </div>
-
-        <div class="bezel rise" style="transition-delay:120ms">
-          <div class="bezel-core figure-core" id="fig" data-state="integrated">
-            <div class="figure-head">
-              <span class="mono">fig. 01</span>
-            </div>
-            <div class="stage">
-              <ul class="pieces">
-                <li class="piece">
-                  <span class="piece-glyph" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none" stroke="var(--mark)" stroke-width="1.4" stroke-linecap="round"><circle cx="14" cy="20" r="6"/><circle cx="31" cy="26" r="6"/><path d="M20 20h5"/></svg></span>
-                  <span class="piece-name">Consultation</span>
-                </li>
-                <li class="piece">
-                  <span class="piece-glyph" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none" stroke="var(--mark)" stroke-width="1.4" stroke-linecap="round"><path d="M8 12h28M8 22h20M8 32h12"/></svg></span>
-                  <span class="piece-name">Planning</span>
-                </li>
-                <li class="piece">
-                  <span class="piece-glyph" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none" stroke="var(--mark)" stroke-width="1.4" stroke-linecap="round"><path d="M6 34c8 0 8-10 16-10s8-14 16-14"/><circle cx="22" cy="24" r="2.5"/></svg></span>
-                  <span class="piece-name">Process changes</span>
-                </li>
-                <li class="piece">
-                  <span class="piece-glyph" aria-hidden="true"><svg viewBox="0 0 44 44" fill="none" stroke="var(--mark)" stroke-width="1.4" stroke-linecap="round"><rect x="8" y="10" width="28" height="22" rx="2"/><path d="M8 18h28"/><circle cx="14" cy="14" r="1.6"/></svg></span>
-                  <span class="piece-name">Tools and software</span>
-                </li>
-              </ul>
-            </div>
-            <div class="figure-key">
-              <span class="key"><i style="background:var(--trace-raw)"></i> now</span>
-              <span class="key"><i style="background:var(--mark)"></i> aligned and integrated</span>
-            </div>
-          </div>
+      <div class="hero-lead">
+        <p class="hero-claim">One team for everything: we align it, integrate it, and deliver consultant-quality work at half the price.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">
+            Contact us
+            <span class="btn-well" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg>
+            </span>
+          </a>
+          <a class="btn btn-quiet" href="#services">The services</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 2. CLAIM. Editorial band. One statement, nothing else. -->
-  <section class="claim" data-eco>
-    <div class="wrap claim-inner rise">
-      <span class="mono">who this is for</span>
-      <p>Organizations that want the work to run better. Health and social services came first, because that is <strong>the work we know from the inside.</strong> It is not the only fit.</p>
+  <!-- 02 the four doors, one per service -->
+  <section class="section" id="services" aria-labelledby="h-services" data-eco>
+    <div class="wrap">
+      <div class="section-head rise">
+        <div class="island">
+          <h2 id="h-services">What you can buy</h2>
+        </div>
+      </div>
+
+      <ul class="segments doors rise">
+        <li class="segment">
+          <a href="/reporting/">
+            <p class="segment-market">on any platform</p>
+            <h3 class="segment-name">Reporting alignment</h3>
+            <p class="segment-body">Reporting that comes out of the work instead of being done after it.</p>
+            <p class="segment-go">Open the page</p>
+          </a>
+        </li>
+        <li class="segment">
+          <a href="/video/">
+            <p class="segment-market">one-off or a monthly package</p>
+            <h3 class="segment-name">Video</h3>
+            <p class="segment-body">Low-cost, high-quality video: Airbnb walkthroughs, restaurants, one-off videos or a monthly package.</p>
+            <p class="segment-go">Open the page</p>
+          </a>
+        </li>
+        <li class="segment">
+          <a href="/events/">
+            <p class="segment-market">quoted one at a time</p>
+            <h3 class="segment-name">Events</h3>
+            <p class="segment-body">MC an event or run the night, coordinate the event, set up activities, data collection, the software so it runs smoothly, and screen animations as people walk in.</p>
+            <p class="segment-go">Open the page</p>
+          </a>
+        </li>
+        <li class="segment">
+          <a href="/demos/">
+            <p class="segment-market">five demos to open</p>
+            <h3 class="segment-name">Software builds</h3>
+            <p class="segment-body">Five things you can open right now, in your browser, all on sample data.</p>
+            <p class="segment-go">Open the page</p>
+          </a>
+        </li>
+      </ul>
     </div>
   </section>
 
-  <!-- 3. WHAT IS BUILT -->
-  <section class="section section-built" id="what-is-built" aria-labelledby="h-built">
+  <!-- 03 the proof strip -->
+  <section class="section" id="work" aria-labelledby="h-work" data-eco>
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head rise">
         <div class="island">
-          <h2 id="h-built">What is built</h2>
+          <h2 id="h-work">What is built</h2>
           <p class="section-intro">The honest state of it, today.</p>
         </div>
       </div>
 
       <ul class="status rise island">
         <li class="status-row is-built">
-          <p class="status-name">The engine</p>
-          <p class="status-state">built, and we can show it to you</p>
+          <p class="status-name"><a href="/video/#wolfe-retreat">The Wolfe Retreat video</a></p>
+          <p class="status-state">shot from an iPhone</p>
         </li>
         <li class="status-row is-built">
-          <p class="status-name">Two staff portals in the health and social services sector, with a real backend</p>
-          <p class="status-state">in use, built inside my employment</p>
+          <p class="status-name"><a href="/organizations/sample-diagnosis/">Sample diagnosis, on fictional data</a></p>
+          <p class="status-state">demonstration on fictional data</p>
         </li>
         <li class="status-row is-built">
-          <p class="status-name"><a href="/demos/bpss-ses/">Diagnostic and intervention map</a></p>
-          <p class="status-state">built, and we can show it to you</p>
-        </li>
-        <li class="status-row is-built">
-          <p class="status-name"><a href="/demos/restaurant-ops/">Restaurant operations</a></p>
-          <p class="status-state">demo live</p>
-        </li>
-        <li class="status-row is-built">
-          <p class="status-name"><a href="/community-social-services/">Community and social services</a></p>
-          <p class="status-state">demo live</p>
+          <p class="status-name"><a href="/demos/">The demonstrations</a></p>
+          <p class="status-state">five to open</p>
         </li>
       </ul>
-
-      <div class="actions" style="margin-top:var(--s5)">
-        <a class="btn btn-quiet" href="/demos/">All demos</a>
-      </div>
-
-      <p class="status-note">Client builds are instances on the engine, not one-offs. Everything here was built for organizations.</p>
     </div>
   </section>
 
-  <!-- 4. THE INTEGRATED RESPONSE. Four parts, not a sequence. -->
-  <section class="band engine" id="integrated-response" data-eco>
-    <div class="wrap">
-      <div class="engine-head rise island">
-        <h2 id="h-response">An integrated response</h2>
-        <p>The response follows what the situation needs. Each part supports the same goal and fits the life and culture of the people it serves.</p>
-      </div>
-      <div class="beats beats-4 rise island" style="transition-delay:100ms">
-        <div class="beat">
-          <div class="beat-glyph" aria-hidden="true">
-            <svg viewBox="0 0 44 44" fill="none" stroke="var(--mark)" stroke-width="1.4" stroke-linecap="round">
-              <circle cx="14" cy="20" r="6"/><circle cx="31" cy="26" r="6"/><path d="M20 20h5"/>
-            </svg>
-          </div>
-          <h3>Consultation</h3>
-          <p>A conversation about the whole situation: what matters, what is in the way, and what needs to fit together.</p>
-        </div>
-        <div class="beat">
-          <div class="beat-glyph" aria-hidden="true">
-            <svg viewBox="0 0 44 44" fill="none" stroke="var(--mark)" stroke-width="1.4" stroke-linecap="round">
-              <path d="M8 12h28M8 22h20M8 32h12"/>
-            </svg>
-          </div>
-          <h3>Planning</h3>
-          <p>The shape of the response on paper, in order. You see it before anything is built or changed.</p>
-        </div>
-        <div class="beat">
-          <div class="beat-glyph" aria-hidden="true">
-            <svg viewBox="0 0 44 44" fill="none" stroke="var(--mark)" stroke-width="1.4" stroke-linecap="round">
-              <path d="M6 34c8 0 8-10 16-10s8-14 16-14"/><circle cx="22" cy="24" r="2.5"/>
-            </svg>
-          </div>
-          <h3>Process changes</h3>
-          <p>Changes to how the day runs, sized to what people can actually carry.</p>
-        </div>
-        <div class="beat">
-          <div class="beat-glyph" aria-hidden="true">
-            <svg viewBox="0 0 44 44" fill="none" stroke="var(--mark)" stroke-width="1.4" stroke-linecap="round">
-              <rect x="8" y="10" width="28" height="22" rx="2"/><path d="M8 18h28"/><circle cx="14" cy="14" r="1.6"/>
-            </svg>
-          </div>
-          <h3>Tools and software</h3>
-          <p>Built only when the work calls for it, on top of what you already have. Nothing gets ripped out to make room.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. CONTACT -->
+  <!-- 04 contact -->
   <section class="band contact" id="contact" data-eco>
     <div class="wrap contact-grid">
       <div class="rise island">
         <h2 id="h-contact">Tell us what needs to <em>fit together</em>.</h2>
         <p class="contact-note" style="margin-top:var(--s5)">The initial consultation is free. It is a conversation about your situation or your work, and you get a plan out of it whether or not you build anything with us.</p>
+        <p class="contact-note" style="margin-top:var(--s3)">A 30-minute call, then a proposal. A 50 percent deposit to start.</p>
         <div class="actions" style="margin-top:var(--s5)">
           <a class="btn btn-primary" href="https://cal.com/align-integrate-l8uyvp/30min" rel="noopener">Book the call</a>
         </div>
@@ -255,6 +216,7 @@
           netlify-honeypot="referral-source">
 
           <input type="hidden" name="form-name" value="contact">
+          <input type="hidden" name="service" value="Home">
 
           <p class="offscreen-field">
             <label for="referral-source">Leave this field empty</label>
@@ -309,29 +271,31 @@
 <footer class="footer">
   <div class="wrap footer-map">
     <div>
-      <p class="h-quiet">Who we build for</p>
+      <p class="h-quiet">Services</p>
       <ul class="footer-list">
-        <li><a href="/organizations/">For organizations</a></li>
-        <li><a href="/community-social-services/">Community and social services</a></li>
-        <li><a href="/ai-readiness/">AI readiness</a></li>
+        <li><a href="/reporting/">Reporting alignment</a></li>
+        <li><a href="/video/">Video</a></li>
+        <li><a href="/events/">Events</a></li>
+        <li><a href="/demos/">Software builds</a></li>
       </ul>
     </div>
     <div>
-      <p class="h-quiet">The demonstrations</p>
+      <p class="h-quiet">Work</p>
       <ul class="footer-list">
+        <li><a href="/video/#wolfe-retreat">The Wolfe Retreat video</a></li>
+        <li><a href="/organizations/sample-diagnosis/">Sample diagnosis, on fictional data</a></li>
         <li><a href="/demos/bpss-ses/">Diagnostic and intervention map</a></li>
         <li><a href="/demos/community-hub-portal/">Community hub portal</a></li>
         <li><a href="/demos/emr-portal/">Staff portal over a clinical record</a></li>
         <li><a href="/demos/cswb-portal/">Community safety and well-being portal</a></li>
         <li><a href="/demos/restaurant-ops/">Restaurant operations</a></li>
-        <li><a href="/demos/">All demos</a></li>
       </ul>
     </div>
     <div>
       <p class="h-quiet">Alignment Integration</p>
       <ul class="footer-list">
         <li><a href="/about/">About</a></li>
-        <li><a href="/#contact">Contact</a></li>
+        <li><a href="#contact">Contact</a></li>
         <li><a href="https://cal.com/align-integrate-l8uyvp/30min" rel="noopener">Book a call</a></li>
         <li><a href="/privacy/">Privacy</a></li>
         <li><a href="https://www.instagram.com/align_and_integrate/" rel="noopener">Instagram</a></li>
@@ -374,39 +338,6 @@ window.addEventListener('load', function () {
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Word reveal on the two above-the-fold statements. Plain spans, so the
-     accessible text is untouched. Words rise in sequence on load. */
-  if (!reduce) {
-    document.querySelectorAll('.wsplit').forEach(function (el) {
-      var idx = 0;
-      function split(node) {
-        Array.prototype.slice.call(node.childNodes).forEach(function (child) {
-          if (child.nodeType === 3) {
-            var frag = document.createDocumentFragment();
-            child.textContent.split(/(\s+)/).forEach(function (piece) {
-              if (!piece) return;
-              if (/^\s+$/.test(piece)) { frag.appendChild(document.createTextNode(piece)); return; }
-              var s = document.createElement('span');
-              s.className = 'w';
-              s.style.setProperty('--wi', idx++);
-              s.textContent = piece;
-              frag.appendChild(s);
-            });
-            node.replaceChild(frag, child);
-          } else if (child.nodeType === 1) {
-            split(child);
-          }
-        });
-      }
-      split(el);
-    });
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        document.querySelectorAll('.wsplit').forEach(function (el) { el.classList.add('win'); });
-      });
-    });
-  }
-
   /* Entry reveals. IntersectionObserver, never a scroll listener. */
   var rises = document.querySelectorAll('.rise');
   if (reduce || !('IntersectionObserver' in window)) {
@@ -427,167 +358,6 @@ window.addEventListener('load', function () {
       });
     }, 2200);
   }
-
-  /* fig. 01. The four parts of a response start loose. The visitor drags
-     each one into line, or simply scrolls, and the four close into one
-     block. This is the thesis, so the visitor does it rather than watches
-     it. Under reduced motion the settled block is the still frame. */
-  var fig = document.getElementById('fig');
-  if (!fig || reduce) return;
-  var stage = fig.querySelector('.stage');
-  var list = fig.querySelector('.pieces');
-  var els = Array.prototype.slice.call(list.children);
-
-  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
-  function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
-
-  /* Where each part lies before it is lined up. Across the row: a place on
-     the stage, as fractions of it. Down the column: an offset from its slot.
-     The third number is the tilt. */
-  var ROW = [[0.03, 0.03, -13], [0.50, 0, 8], [0.22, 0.50, 15], [0.70, 0.44, -8]];
-  var COL = [[-0.09, 4, -7], [0.09, -5, 6], [-0.07, -5, -4], [0.08, -10, 9]];
-  var GAP = 10;
-
-  var geo = [], reach = 260, high = 0, lock = 0, lockAt = null;
-  var done = false, visible = true, raf = 0, state = '', io2 = null;
-  var parts = els.map(function () {
-    return { a: 0, x: 0, y: 0, r: 0, held: false, placed: false, home: false, t0: 0 };
-  });
-
-  function measure() {
-    var W = stage.clientWidth, H = stage.clientHeight;
-    var col = els[1].offsetTop > els[0].offsetTop;
-    geo = els.map(function (el, i) {
-      var nx = el.offsetLeft + list.offsetLeft, ny = el.offsetTop + list.offsetTop;
-      var gx = col ? 0 : (i - 1.5) * GAP, gy = col ? (i - 1.5) * GAP : 0;
-      return {
-        gx: gx, gy: gy,
-        sx: col ? COL[i][0] * W : ROW[i][0] * W - nx - gx,
-        sy: col ? COL[i][1] : ROW[i][1] * H - ny,
-        sr: (col ? COL : ROW)[i][2],
-        minX: -nx - gx - 16, maxX: W - nx - gx - el.offsetWidth + 16,
-        minY: -ny - gy - 16, maxY: H - ny - gy - el.offsetHeight + 16
-      };
-    });
-    /* how far the page scrolls before all four are in line */
-    var r = stage.getBoundingClientRect();
-    reach = Math.max(260, r.top + window.scrollY + r.height / 2 - window.innerHeight * 0.55);
-  }
-
-  function setState(s) {
-    if (s !== state) { state = s; fig.setAttribute('data-state', s); }
-  }
-
-  function finish() {
-    done = true;
-    cancelAnimationFrame(raf);
-    els.forEach(function (el) { el.style.transform = ''; el.classList.remove('held'); });
-    setState('integrated');
-    window.removeEventListener('scroll', onScroll);
-    window.removeEventListener('resize', onResize);
-    if (io2) io2.disconnect();
-  }
-
-  function tick(ts) {
-    var all = true, any = false;
-    els.forEach(function (el, i) {
-      var g = geo[i], p = parts[i];
-      if (p.held) {
-        p.r *= 0.9;
-      } else if (p.placed) {
-        /* let go: it settles into its slot from wherever it was dropped */
-        if (!p.t0) p.t0 = ts;
-        var u = clamp((ts - p.t0) / 420, 0, 1), e = 1 - Math.pow(1 - u, 3);
-        p.x = p.fx * (1 - e); p.y = p.fy * (1 - e); p.r = p.fr * (1 - e);
-        if (u === 1) p.home = true;
-      } else {
-        /* untouched: scroll lines it up, one part a little after the last */
-        var target = ease(clamp(high * 1.45 - 0.45 * i / 3, 0, 1));
-        p.a += (target - p.a) * 0.14;
-        if (target === 1 && p.a > 0.998) { p.a = 1; p.home = true; }
-        var loose = 1 - p.a;
-        p.x = (g.sx + Math.sin(ts / 1900 + i * 1.7) * 3) * loose;
-        p.y = (g.sy + Math.cos(ts / 2300 + i * 2.3) * 3) * loose;
-        p.r = (g.sr + Math.sin(ts / 2600 + i) * 1.2) * loose;
-      }
-      if (!p.home) all = false;
-      if (p.held || p.placed || p.a > 0.02) any = true;
-    });
-
-    /* all four in line: the gaps close and they become one */
-    if (all) {
-      if (lockAt === null) lockAt = ts + 260;
-      var k = clamp((ts - lockAt) / 520, 0, 1);
-      lock = ease(k);
-      if (k === 1) { finish(); return; }
-    }
-    setState(any ? 'aligning' : 'scattered');
-
-    els.forEach(function (el, i) {
-      var g = geo[i], p = parts[i];
-      el.style.transform = 'translate(' + (g.gx * (1 - lock) + p.x).toFixed(2) + 'px,' +
-        (g.gy * (1 - lock) + p.y).toFixed(2) + 'px) rotate(' + p.r.toFixed(2) + 'deg)';
-    });
-  }
-
-  function loop(ts) {
-    tick(ts);
-    if (!done && visible) raf = requestAnimationFrame(loop);
-  }
-
-  function onScroll() {
-    high = Math.max(high, clamp(window.scrollY / reach, 0, 1));
-    if (high === 1 && !visible) finish();
-  }
-
-  var rt;
-  function onResize() {
-    clearTimeout(rt);
-    rt = setTimeout(measure, 140);
-  }
-
-  els.forEach(function (el, i) {
-    var p = parts[i];
-    el.addEventListener('pointerdown', function (e) {
-      if (done || lockAt !== null || e.button) return;
-      p.held = true; p.placed = false; p.home = false; p.t0 = 0;
-      p.px = e.clientX - p.x; p.py = e.clientY - p.y;
-      el.setPointerCapture(e.pointerId);
-      el.classList.add('held');
-    });
-    el.addEventListener('pointermove', function (e) {
-      if (!p.held) return;
-      p.x = clamp(e.clientX - p.px, geo[i].minX, geo[i].maxX);
-      p.y = clamp(e.clientY - p.py, geo[i].minY, geo[i].maxY);
-    });
-    function drop() {
-      if (!p.held) return;
-      p.held = false; p.placed = true; p.t0 = 0;
-      p.fx = p.x; p.fy = p.y; p.fr = p.r;
-      el.classList.remove('held');
-    }
-    el.addEventListener('pointerup', drop);
-    el.addEventListener('pointercancel', drop);
-  });
-
-  /* A page that opens already scrolled past the hero keeps the settled block. */
-  measure();
-  if (window.scrollY >= reach) return;
-
-  tick(performance.now());
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onResize);
-  if ('IntersectionObserver' in window) {
-    io2 = new IntersectionObserver(function (entries) {
-      visible = entries[0].isIntersecting;
-      if (done) return;
-      if (!visible && high === 1) { finish(); return; }
-      if (visible && !raf) raf = requestAnimationFrame(loop);
-      if (!visible) { cancelAnimationFrame(raf); raf = 0; }
-    });
-    io2.observe(stage);
-  }
-  raf = requestAnimationFrame(loop);
 })();
 </script>
 </body>
