@@ -35,12 +35,26 @@
 
 [[redirects]]
   from = "/videos/holistics/*"
-  to = "/videos/"
+  to = "/video/"
   status = 301
 
 [[redirects]]
   from = "/videos/references/*"
-  to = "/videos/"
+  to = "/video/"
+  status = 301
+
+# Service pages, November 2026: one landing page per service. The organizations
+# page became /reporting/ and the videos page became /video/. The sample
+# diagnosis stays at /organizations/sample-diagnosis/, so the first rule is
+# exact rather than a splat.
+[[redirects]]
+  from = "/organizations/"
+  to = "/reporting/"
+  status = 301
+
+[[redirects]]
+  from = "/videos/*"
+  to = "/video/:splat"
   status = 301
 
 [[redirects]]
@@ -63,7 +77,7 @@
 
 [[redirects]]
   from = "/enterprise/*"
-  to = "/organizations/"
+  to = "/reporting/"
   status = 301
 
 [[redirects]]
