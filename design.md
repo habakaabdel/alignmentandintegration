@@ -20,9 +20,7 @@ Since 2026-11-01 the site is one simple home page and one landing page per servi
 | `/demos/` | none | `#page-scene`, from its `scene.js`. The Software builds page; the five demos, the barbershop quote, the bounds line |
 | `/privacy/` | none | none (the canvas is in the markup, no script loads) |
 | `/about/` | none | none. Since 2026-11-01, five sections for a customer of any service: who we are, the four doors, how we work, the proof, contact. One small scoped `<style>` block for the portrait grid |
-| `/community-social-services/` | `community` | `#page-scene`, from its `scene.js`. Unlinked from the nav and footer since 2026-11-01, awaiting his ruling |
-| `/ai-readiness/` | `ai-readiness` | `#page-scene`, from its `scene.js`. Unlinked from the nav and footer since 2026-11-01, awaiting his ruling |
-| `/ai-readiness/start/` | `ai-readiness` | none; uses the scroll-motion kit instead |
+| `/community-social-services/`, `/ai-readiness/`, `/ai-readiness/start/` | Retired 2 November 2026 on Abdel's word; 301 to `/reporting/` and the home page in `netlify.toml`. | |
 
 `/organizations/` and `/videos/` answer 301 to `/reporting/` and `/video/` from `netlify.toml`; the sample diagnosis keeps its old path, so the organizations rule is exact rather than a splat.
 
