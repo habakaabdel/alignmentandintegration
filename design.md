@@ -184,6 +184,18 @@ Comp G, picked 1 November 2026, built 2 November on the existing tokens and comp
 
 His own sentences keep the first person singular; the company sentences (the positioning sentence, the deal path, the solutions-company line) say "we" or name the company. The employer's track record (the three case panels and the background timeline) is off the page until written clearance exists; PR 41 lists the removed sections. Photographs live in `about/media/`; only the portrait is on the page, the other files stay in the folder.
 
+## The sample diagnosis page
+
+`/organizations/sample-diagnosis/` was reworked on 2026-11-02 on his words of 1 November: "this page needs visuals throughout and less words after the first visual". Above and including the two process maps the page is as it was. Below them every section leads with a visual and the words are labels, numbers and at most one line of his per section; every word was already on the page. Everything is in the page's own `<style>` block on the existing tokens; no new colour, font or script, and `data-reveal` is the only motion.
+
+- **The pull line** under the maps (`.sd-pull`): his "We will build within your systems..." sentence at `--t-lead` with a 3px `--mark` rule on the left.
+- **02 The numbers**: three `.sd-measure` panels (Time, Data accuracy, Cost), one column below 62rem. Each is one inline SVG `role="img"` with an `aria-label` that states its numbers, plus a visually hidden table. The SVG has no `viewBox`: it is 100% wide with a fixed height and its geometry is in percentages of the width, so the text keeps its CSS size at every width. Before is `--ink-muted`, after is `--mark`, the empty dots in the grids are `--line`.
+- **Hours, before and after**: two stacked bars on one scale (62 h is the full width, 18 h is 29 percent of it) with 2px `--panel` gaps between segments and the step number and hours in `--paper` inside each. `.sd-hours` is a size container: every segment is labelled from 760px, every segment of 3 h or more from 520px, below that every segment of 4 h or more carries its number and 6 h or more its hours. The key under each bar (`.sd-key`, two columns from 520px) carries every step name and its hours; the after key ends with the five steps deleted outright, struck through.
+- **Pays back after 2.8 reports**: the saving per report ($1,848 each) as a `--mark` line with a dot at each report, the one-time fix ($5,180) as a dashed `--ink-muted` line, the crossing marked, a key with the fix broken out, and his "If you can set up something properly..." line as the caption (`.sd-say`).
+- **03 What you receive**: three `.sd-card`s in the home card style (the 42px `--tint-sage` square, 22px icons at 1.6px in `--mark-deep`), each with its title and one existing line.
+- **The two weeks**: `.sd-timeline`, four nodes (a 40px `--tint-sage` circle with the counter) on a `--line-strong` rail, vertical below 48rem and horizontal from it, each with its name and one phrase cut from his sentence.
+- Contrast on the `organizations` theme, measured 2026-11-02: `--ink-muted` 6.35:1 on a panel and 5.76:1 on the paper; `--mark` 8.43:1 on a panel; `--paper` 5.76:1 on `--ink-muted` and 7.64:1 on `--mark` (the segment labels); `--mark-deep` 8.12:1 on `--tint-sage`; `--line-strong` 4.29:1 on a panel and 3.89:1 on the paper (the axis and the rail).
+
 ## Content rules
 
 - Canadian English, sentence case, first person plural.
