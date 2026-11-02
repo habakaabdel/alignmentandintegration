@@ -16,9 +16,7 @@ One simple home page and one landing page per service, since November 2026 (Brie
 | `/demos/` | Software builds. The five demonstrations, the barbershop quote, the bounds line, contact. |
 | `/about/` | About, for a customer of any service: who we are, the four services, how we work, why trust the quality, contact. Ends at the same contact form as the service pages. |
 | `/privacy/` | Privacy notice. Linked from the footer and the form. |
-| `/community-social-services/` | Sector page for community and social services. Theme `community`. Live but unlinked from the nav and footer since November 2026, awaiting a ruling. |
-| `/ai-readiness/` | AI readiness page. Theme `ai-readiness`. Live but unlinked from the nav and footer since November 2026, awaiting a ruling. |
-| `/ai-readiness/start/` | Landing page for the AI readiness consultation. No nav, its own Netlify form. |
+| `/community-social-services/`, `/ai-readiness/`, `/ai-readiness/start/` | Retired 2 November 2026 on Abdel's word; 301 to `/reporting/` and the home page in `netlify.toml`. |
 | `/brand/` | Logo system preview. Not linked from the site. |
 
 ## Demos

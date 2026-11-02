@@ -48,6 +48,16 @@
 # diagnosis stays at /organizations/sample-diagnosis/, so the first rule is
 # exact rather than a splat.
 [[redirects]]
+  from = "/community-social-services/*"
+  to = "/reporting/"
+  status = 301
+
+[[redirects]]
+  from = "/ai-readiness/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
   from = "/organizations/"
   to = "/reporting/"
   status = 301
