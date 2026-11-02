@@ -42,17 +42,30 @@
       <span class="brand-name">Alignment Integration</span>
     </a>
     <nav class="nav" aria-label="Main">
-      <!-- Four destinations, flat. On a phone the whole thing is a disclosure;
-           from 68rem up the panel is held open and reads as a single row.
-           No script involved. -->
+      <!-- Services opens the four service pages. On a phone the whole thing is
+           a disclosure; from 56rem up the panel is held open and reads as a
+           single row. No script involved. -->
       <details class="nav-disclosure">
         <summary class="nav-toggle">
           <span>menu</span>
           <span class="nav-toggle-mark" aria-hidden="true"></span>
         </summary>
         <ul class="nav-list">
-          <li><a href="/organizations/">For organizations</a></li>
-          <li><a href="/demos/">Demos</a></li>
+          <li class="nav-group">
+            <details class="nav-sub-disclosure">
+              <summary class="nav-sub-toggle">
+                <span>Services</span>
+                <span class="nav-sub-mark" aria-hidden="true"></span>
+              </summary>
+              <ul class="nav-sub">
+            <li><a href="/reporting/">Reporting alignment<span class="nav-sub-note">on any platform</span></a></li>
+            <li><a href="/video/">Video<span class="nav-sub-note">one-off or a monthly package</span></a></li>
+            <li><a href="/events/">Events<span class="nav-sub-note">quoted one at a time</span></a></li>
+            <li><a href="/demos/">Software builds<span class="nav-sub-note">five demos to open</span></a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="/#work">Work</a></li>
           <li><a href="/about/">About</a></li>
           <li><a href="/#contact" class="nav-cta">Contact</a></li>
         </ul>
@@ -75,8 +88,10 @@
       </div>
       <ul class="lost-list">
         <li><a href="/">Home</a></li>
-        <li><a href="/organizations/">For organizations</a></li>
-        <li><a href="/demos/">Demos</a></li>
+        <li><a href="/reporting/">Reporting alignment</a></li>
+        <li><a href="/video/">Video</a></li>
+        <li><a href="/events/">Events</a></li>
+        <li><a href="/demos/">Software builds</a></li>
         <li><a href="/about/">About</a></li>
         <li><a href="/#contact">Contact</a></li>
       </ul>
@@ -88,22 +103,24 @@
 <footer class="footer">
   <div class="wrap footer-map">
     <div>
-      <p class="h-quiet">Who we build for</p>
+      <p class="h-quiet">Services</p>
       <ul class="footer-list">
-        <li><a href="/organizations/">For organizations</a></li>
-        <li><a href="/community-social-services/">Community and social services</a></li>
-        <li><a href="/ai-readiness/">AI readiness</a></li>
+        <li><a href="/reporting/">Reporting alignment</a></li>
+        <li><a href="/video/">Video</a></li>
+        <li><a href="/events/">Events</a></li>
+        <li><a href="/demos/">Software builds</a></li>
       </ul>
     </div>
     <div>
-      <p class="h-quiet">The demonstrations</p>
+      <p class="h-quiet">Work</p>
       <ul class="footer-list">
+        <li><a href="/video/#wolfe-retreat">The Wolfe Retreat video</a></li>
+        <li><a href="/organizations/sample-diagnosis/">Sample diagnosis, on fictional data</a></li>
         <li><a href="/demos/bpss-ses/">Diagnostic and intervention map</a></li>
         <li><a href="/demos/community-hub-portal/">Community hub portal</a></li>
         <li><a href="/demos/emr-portal/">Staff portal over a clinical record</a></li>
         <li><a href="/demos/cswb-portal/">Community safety and well-being portal</a></li>
         <li><a href="/demos/restaurant-ops/">Restaurant operations</a></li>
-        <li><a href="/demos/">All demos</a></li>
       </ul>
     </div>
     <div>
