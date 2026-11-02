@@ -6,7 +6,7 @@
 <title>Alignment Integration | Align what matters. Integrate how you move forward.</title>
 <meta name="description" content="One team for everything: we align it, integrate it, and deliver consultant-quality work at half the price. Reporting alignment, video, events and software builds. The initial consultation is free.">
 <link rel="canonical" href="https://alignmentandintegration.com/">
-<meta name="theme-color" content="#edefee">
+<meta name="theme-color" content="#1d332a">
 <meta name="color-scheme" content="light">
 
 <meta property="og:type" content="website">
@@ -30,14 +30,8 @@
 
 <link rel="preload" href="/media/fonts/plus-jakarta-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
-<style>
-  /* Scoped to this page. The four doors sit two by two on a tablet and four
-     across on a desktop; the shared .segments grid is tuned for three. */
-  .doors { grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
-  .hero-lead { margin-top: var(--s6); }
-</style>
 </head>
-<body>
+<body class="home">
 <script>document.documentElement.classList.add('js')</script>
 
 <a class="skip" href="#main">Skip to content</a>
@@ -47,6 +41,8 @@
      the page is complete without it. -->
 <canvas id="eco" aria-hidden="true"></canvas>
 
+<!-- On this page the masthead sits on the deep sage band with the hero; the
+     rules for that are scoped on body.home in styles.css. Same component. -->
 <header class="masthead">
   <div class="wrap masthead-inner">
     <a class="brand" href="#top" aria-label="Alignment Integration, back to top">
@@ -99,67 +95,152 @@
 
   <span id="top"></span>
 
-  <!-- 01 the brand line and his positioning sentence -->
-  <section class="hero" id="what-we-do" data-eco>
+  <!-- 01 the band: the brand line and his positioning sentence on deep sage.
+       The monogram sits very large and faint in the top right corner, behind
+       the words and off the edge; it is decoration, so it is hidden from
+       screen readers. -->
+  <section class="home-hero" id="what-we-do" data-eco>
+    <div class="home-ghost" aria-hidden="true">
+      <svg viewBox="0 0 48 48" width="600" height="600" aria-hidden="true">
+        <g>
+          <path d="M35.5 6.4 A21 21 0 1 0 44.1 18.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="41" cy="11.7" r="2.6" fill="currentColor"/>
+          <path d="M24 38 C24 30 24 27 24 23" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/>
+          <path d="M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z" fill="currentColor"/>
+          <path d="M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="12" cy="12" r="2.4" fill="currentColor"/>
+        </g>
+      </svg>
+    </div>
     <div class="wrap">
-      <h1 class="hero-title" id="h-what-we-do">Align what matters. Integrate how you move forward.</h1>
-      <div class="hero-lead">
-        <p class="hero-claim">One team for everything: we align it, integrate it, and deliver consultant-quality work at half the price.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">
+      <p class="home-pill">Reporting &middot; Video &middot; Events &middot; Software builds</p>
+      <h1 class="home-title" id="h-what-we-do">Align what matters. <span>Integrate how you move forward.</span></h1>
+      <div class="home-hero-foot">
+        <p class="home-claim">One team for everything: we align it, integrate it, and deliver consultant-quality work at half the price.</p>
+        <a class="btn btn-paper" href="#contact">
+          Contact us
+          <span class="btn-well" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 seven cards and the start card, overlapping the foot of the band.
+       The four services first, then data, strategy and parts of systems (his
+       words, 1 November 2026). Each line drawing is decorative; the sentence
+       before it carries the same content for a screen reader. The heading
+       keeps the outline (h1, h2, h3) and is not drawn. -->
+  <section class="section home-cards-section" id="services" aria-labelledby="h-services" data-eco>
+    <div class="wrap">
+      <h2 class="visually-hidden" id="h-services">What you can buy</h2>
+
+      <ul class="home-cards rise">
+
+        <li class="home-card">
+          <div class="home-card-top">
+            <span class="home-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 13h8"/><path d="M8 17h8"/><path d="M8 9h2"/></svg>
+            </span>
+            <p class="home-card-n">01</p>
+          </div>
+          <h3 class="home-card-name">Reporting alignment</h3>
+          <p class="visually-hidden">Intake form, case notes and funder template become one monthly report.</p>
+          <svg class="home-card-join" viewBox="0 0 260 100" width="100%" aria-hidden="true"><rect x="0.5" y="5.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="8" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="13.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">intake form</text><path d="M151 10 L214 10 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="0.5" y="25.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="28" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="33.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">case notes</text><path d="M151 30 L214 30 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="0.5" y="45.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="48" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="53.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">funder template</text><path d="M151 50 L214 50 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><path d="M232 30.0 L240 30.0" stroke="var(--ink-muted)" stroke-width="1"/><rect x="240" y="24.0" width="12" height="12" fill="var(--mark)"/><path d="M246 36.0 L246 80 L16 80" fill="none" stroke="var(--mark)" stroke-width="1" stroke-dasharray="2 3"/><text x="16" y="93" font-family="IBM Plex Mono" font-size="11.5" font-weight="500" fill="var(--mark)">one monthly report</text></svg>
+          <a class="home-card-go" href="/reporting/">Open the page <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg></a>
+        </li>
+
+        <li class="home-card">
+          <div class="home-card-top">
+            <span class="home-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m16 13 5.2 3.5a.5.5 0 0 0 .8-.4V7.9a.5.5 0 0 0-.8-.4L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>
+            </span>
+            <p class="home-card-n">02</p>
+          </div>
+          <h3 class="home-card-name">Video</h3>
+          <p class="visually-hidden">Script, shoot and edit become one finished walkthrough.</p>
+          <svg class="home-card-join" viewBox="0 0 260 100" width="100%" aria-hidden="true"><rect x="0.5" y="5.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="8" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="13.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">script</text><path d="M151 10 L214 10 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="0.5" y="25.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="28" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="33.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">shoot</text><path d="M151 30 L214 30 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="0.5" y="45.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="48" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="53.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">edit</text><path d="M151 50 L214 50 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><path d="M232 30.0 L240 30.0" stroke="var(--ink-muted)" stroke-width="1"/><rect x="240" y="24.0" width="12" height="12" fill="var(--mark)"/><path d="M246 36.0 L246 80 L16 80" fill="none" stroke="var(--mark)" stroke-width="1" stroke-dasharray="2 3"/><text x="16" y="93" font-family="IBM Plex Mono" font-size="11.5" font-weight="500" fill="var(--mark)">one finished walkthrough</text></svg>
+          <a class="home-card-go" href="/video/">Open the page <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg></a>
+        </li>
+
+        <li class="home-card">
+          <div class="home-card-top">
+            <span class="home-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></svg>
+            </span>
+            <p class="home-card-n">03</p>
+          </div>
+          <h3 class="home-card-name">Events</h3>
+          <p class="visually-hidden">MC, activities, sign-in data and screens become one night that runs smoothly.</p>
+          <svg class="home-card-join" viewBox="0 0 260 120" width="100%" aria-hidden="true"><rect x="0.5" y="5.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="8" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="13.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">MC</text><path d="M151 10 L214 10 L232 40.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="0.5" y="25.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="28" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="33.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">activities</text><path d="M151 30 L214 30 L232 40.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="0.5" y="45.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="48" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="53.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">sign-in data</text><path d="M151 50 L214 50 L232 40.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="0.5" y="65.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="68" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="73.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">screens</text><path d="M151 70 L214 70 L232 40.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><path d="M232 40.0 L240 40.0" stroke="var(--ink-muted)" stroke-width="1"/><rect x="240" y="34.0" width="12" height="12" fill="var(--mark)"/><path d="M246 46.0 L246 100 L16 100" fill="none" stroke="var(--mark)" stroke-width="1" stroke-dasharray="2 3"/><text x="16" y="113" font-family="IBM Plex Mono" font-size="11.5" font-weight="500" fill="var(--mark)">one night that runs smoothly</text></svg>
+          <a class="home-card-go" href="/events/">Open the page <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg></a>
+        </li>
+
+        <li class="home-card">
+          <div class="home-card-top">
+            <span class="home-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8h20"/><path d="m10 12-2 2 2 2"/><path d="m14 12 2 2-2 2"/></svg>
+            </span>
+            <p class="home-card-n">04</p>
+          </div>
+          <h3 class="home-card-name">Software builds</h3>
+          <p class="visually-hidden">A process on paper, a spreadsheet and an inbox become one tool in your browser.</p>
+          <svg class="home-card-join" viewBox="0 0 260 100" width="100%" aria-hidden="true"><rect x="0.5" y="5.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="8" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="13.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">a process on paper</text><path d="M151 10 L214 10 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="0.5" y="25.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="28" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="33.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">a spreadsheet</text><path d="M151 30 L214 30 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="0.5" y="45.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="48" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="53.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">an inbox</text><path d="M151 50 L214 50 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><path d="M232 30.0 L240 30.0" stroke="var(--ink-muted)" stroke-width="1"/><rect x="240" y="24.0" width="12" height="12" fill="var(--mark)"/><path d="M246 36.0 L246 80 L16 80" fill="none" stroke="var(--mark)" stroke-width="1" stroke-dasharray="2 3"/><text x="16" y="93" font-family="IBM Plex Mono" font-size="11.5" font-weight="500" fill="var(--mark)">one tool in your browser</text></svg>
+          <a class="home-card-go" href="/demos/">Open the page <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg></a>
+        </li>
+
+        <li class="home-card">
+          <div class="home-card-top">
+            <span class="home-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+            </span>
+            <p class="home-card-n">05</p>
+          </div>
+          <h3 class="home-card-name">Data</h3>
+          <p class="visually-hidden">Five spreadsheets and five sites become one live dashboard.</p>
+          <svg class="home-card-join" viewBox="0 0 260 80" width="100%" aria-hidden="true"><rect x="0.5" y="5.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="8" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="13.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">five spreadsheets</text><path d="M151 10 L214 10 L232 20.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="0.5" y="25.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="28" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="33.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">five sites</text><path d="M151 30 L214 30 L232 20.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><path d="M232 20.0 L240 20.0" stroke="var(--ink-muted)" stroke-width="1"/><rect x="240" y="14.0" width="12" height="12" fill="var(--mark)"/><path d="M246 26.0 L246 60 L16 60" fill="none" stroke="var(--mark)" stroke-width="1" stroke-dasharray="2 3"/><text x="16" y="73" font-family="IBM Plex Mono" font-size="11.5" font-weight="500" fill="var(--mark)">one live dashboard</text></svg>
+          <a class="home-card-go" href="/reporting/">Open Reporting alignment <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg></a>
+        </li>
+
+        <li class="home-card">
+          <div class="home-card-top">
+            <span class="home-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            </span>
+            <p class="home-card-n">06</p>
+          </div>
+          <h3 class="home-card-name">Strategy</h3>
+          <p class="visually-hidden">Plan, budget and staff hours become one workplan you can track.</p>
+          <svg class="home-card-join" viewBox="0 0 260 100" width="100%" aria-hidden="true"><rect x="0.5" y="5.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="8" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="13.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">plan</text><path d="M151 10 L214 10 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="0.5" y="25.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="28" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="33.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">budget</text><path d="M151 30 L214 30 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="0.5" y="45.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="48" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="53.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">staff hours</text><path d="M151 50 L214 50 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><path d="M232 30.0 L240 30.0" stroke="var(--ink-muted)" stroke-width="1"/><rect x="240" y="24.0" width="12" height="12" fill="var(--mark)"/><path d="M246 36.0 L246 80 L16 80" fill="none" stroke="var(--mark)" stroke-width="1" stroke-dasharray="2 3"/><text x="16" y="93" font-family="IBM Plex Mono" font-size="11.5" font-weight="500" fill="var(--mark)">one workplan you can track</text></svg>
+          <a class="home-card-go" href="/reporting/">Open Reporting alignment <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg></a>
+        </li>
+
+        <li class="home-card">
+          <div class="home-card-top">
+            <span class="home-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>
+            </span>
+            <p class="home-card-n">07</p>
+          </div>
+          <h3 class="home-card-name">Parts of systems</h3>
+          <p class="visually-hidden">Referral form, case record and calendar become one flow, nothing typed twice.</p>
+          <svg class="home-card-join" viewBox="0 0 260 100" width="100%" aria-hidden="true"><rect x="0.5" y="5.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="8" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="13.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">referral form</text><path d="M151 10 L214 10 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="0.5" y="25.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="28" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="33.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">case record</text><path d="M151 30 L214 30 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="0.5" y="45.5" width="8" height="8" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><rect x="3" y="48" width="3" height="3" fill="var(--ink-muted)"/><text x="16" y="53.5" font-family="IBM Plex Mono" font-size="10.5" fill="var(--ink-muted)">calendar</text><path d="M151 50 L214 50 L232 30.0" fill="none" stroke="var(--ink-muted)" stroke-width="1"/><path d="M232 30.0 L240 30.0" stroke="var(--ink-muted)" stroke-width="1"/><rect x="240" y="24.0" width="12" height="12" fill="var(--mark)"/><path d="M246 36.0 L246 80 L16 80" fill="none" stroke="var(--mark)" stroke-width="1" stroke-dasharray="2 3"/><text x="16" y="93" font-family="IBM Plex Mono" font-size="11.5" font-weight="500" fill="var(--mark)">one flow, nothing typed twice</text></svg>
+          <a class="home-card-go" href="/demos/">Open Software builds <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg></a>
+        </li>
+
+        <li class="home-card home-card-start">
+          <p class="home-card-n">Start here</p>
+          <h3 class="home-card-start-title">Tell us what needs to fit together.</h3>
+          <p class="home-card-start-line">A 30-minute call, then a proposal.</p>
+          <a class="btn btn-primary btn-deep" href="#contact">
             Contact us
             <span class="btn-well" aria-hidden="true">
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg>
             </span>
           </a>
-          <a class="btn btn-quiet" href="#services">The services</a>
-        </div>
-      </div>
-    </div>
-  </section>
+        </li>
 
-  <!-- 02 the four doors, one per service -->
-  <section class="section" id="services" aria-labelledby="h-services" data-eco>
-    <div class="wrap">
-      <div class="section-head rise">
-        <div class="island">
-          <h2 id="h-services">What you can buy</h2>
-        </div>
-      </div>
-
-      <ul class="segments doors rise">
-        <li class="segment">
-          <a href="/reporting/">
-            <p class="segment-market">on any platform</p>
-            <h3 class="segment-name">Reporting alignment</h3>
-            <p class="segment-body">Reporting that comes out of the work instead of being done after it.</p>
-            <p class="segment-go">Open the page</p>
-          </a>
-        </li>
-        <li class="segment">
-          <a href="/video/">
-            <p class="segment-market">one-off or a monthly package</p>
-            <h3 class="segment-name">Video</h3>
-            <p class="segment-body">Low-cost, high-quality video: Airbnb walkthroughs, restaurants, one-off videos or a monthly package.</p>
-            <p class="segment-go">Open the page</p>
-          </a>
-        </li>
-        <li class="segment">
-          <a href="/events/">
-            <p class="segment-market">quoted one at a time</p>
-            <h3 class="segment-name">Events</h3>
-            <p class="segment-body">MC an event or run the night, coordinate the event, set up activities, data collection, the software so it runs smoothly, and screen animations as people walk in.</p>
-            <p class="segment-go">Open the page</p>
-          </a>
-        </li>
-        <li class="segment">
-          <a href="/demos/">
-            <p class="segment-market">five demos to open</p>
-            <h3 class="segment-name">Software builds</h3>
-            <p class="segment-body">Five things you can open right now, in your browser, all on sample data.</p>
-            <p class="segment-go">Open the page</p>
-          </a>
-        </li>
       </ul>
     </div>
   </section>

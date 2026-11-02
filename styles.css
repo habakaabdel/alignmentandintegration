@@ -1938,6 +1938,7 @@ a:hover { color: var(--mark-deep); }
   .js .rise.in > .offer,
   .js .rise.in > .segment,
   .js .rise.in > .beat,
+  .js .rise.in > .home-card,
   .js .rise.in > .status-row {
     animation: child-rise 680ms var(--ease) backwards;
   }
@@ -2056,4 +2057,247 @@ html.reveal-ready [data-reveal].reveal-in {
   width: 44px;
   height: 44px;
   margin-bottom: var(--s4);
+}
+
+/* ---------- the home page, comp G (picked 2026-11-01) ----------
+   Scoped on body.home. A deep sage band carries the masthead and the brand
+   line; seven cards and a start card overlap its foot by 56px. Tokens only:
+   no new colour, font or script. The comp's 1240px container comes through
+   --measure, so every .wrap on the page lines up with it. */
+
+body.home { --measure: 1240px; }
+
+/* The masthead on the band. Same component, paper type on deep sage. --ink and
+   --ink-muted never move (design.md), so the colours are set one by one. The
+   phone panel (.nav-list) stays paper with its own ink links, so below 56rem
+   only the brand and the toggle change. */
+.home .masthead {
+  background: var(--mark-deep);
+  border-bottom-color: transparent;
+}
+.home .masthead .brand,
+.home .masthead .nav-toggle { color: var(--paper); }
+.home .masthead .mono-mark { stroke: var(--paper); }
+.home .masthead .mono-mark-fill { fill: var(--paper); }
+.home .masthead .mono-node { fill: var(--tint-sage); }
+.home .masthead .nav-toggle { border-color: color-mix(in srgb, var(--tint-sage) 40%, transparent); }
+.home .masthead .nav-disclosure[open] .nav-toggle { border-color: var(--paper); }
+.home .masthead .nav-toggle-mark::before,
+.home .masthead .nav-toggle-mark::after { background: var(--paper); }
+
+/* focus on the band is paper; inside the paper panel it stays ink */
+.home .skip { background: var(--paper); color: var(--ink); }
+.home .masthead :focus-visible,
+.home-hero :focus-visible { outline-color: var(--paper); }
+.home .masthead .nav-list :focus-visible { outline-color: var(--ink); }
+
+@media (min-width: 56rem) {
+  .home .masthead .nav-list > li > a,
+  .home .masthead .nav-sub-toggle { color: var(--tint-sage); }
+  .home .masthead .nav-list > li > a:hover,
+  .home .masthead .nav-list > li > a[aria-current],
+  .home .masthead .nav-group:hover .nav-sub-toggle,
+  .home .masthead .nav-group:focus-within .nav-sub-toggle { color: var(--paper); }
+  .home .masthead .nav a::after { background: var(--tint-sage); }
+  .home .masthead .nav a.nav-cta {
+    color: var(--paper) !important;
+    border-color: color-mix(in srgb, var(--tint-sage) 40%, transparent);
+  }
+  .home .masthead .nav a.nav-cta:hover { background: color-mix(in srgb, var(--paper) 10%, transparent); }
+  /* the row sits on the band; the Services panel is still a white sheet */
+  .home .masthead .nav-list :focus-visible { outline-color: var(--paper); }
+  .home .masthead .nav-sub :focus-visible { outline-color: var(--ink); }
+}
+
+/* the band */
+.home-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--mark-deep);
+  color: var(--paper);
+  border-radius: 0 0 28px 28px;
+  padding-bottom: 88px;
+}
+.home-hero .wrap { position: relative; z-index: 1; }
+
+/* the monogram, very large and faint, partly off the top right corner */
+.home-ghost {
+  position: absolute;
+  right: -90px;
+  top: -70px;
+  width: 600px;
+  height: 600px;
+  color: var(--tint-sage);
+  opacity: 0.09;
+  pointer-events: none;
+}
+.home-ghost svg { display: block; width: 100%; height: 100%; }
+
+.home-pill {
+  display: inline-block;
+  margin: clamp(2rem, 8vh, 6rem) 0 26px;
+  padding: 8px 16px;
+  border: 1px solid color-mix(in srgb, var(--tint-sage) 40%, transparent);
+  border-radius: var(--radius-pill);
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.04em;
+  color: var(--tint-sage);
+  /* on a phone it takes two lines; balanced, so the second is not one word */
+  text-wrap: balance;
+}
+
+.home-title {
+  font-size: clamp(2.4rem, 6vw, 5.4rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  max-width: 13ch;
+}
+.home-title span { font-weight: 300; color: var(--tint-sage); }
+
+.home-hero-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: var(--s6);
+  margin-top: clamp(2rem, 8vh, 6rem);
+}
+.home-claim {
+  max-width: 430px;
+  font-size: var(--t-body);
+  line-height: 1.6;
+  color: var(--tint-stone);
+}
+
+/* the outlined button on the band */
+.btn-paper { border-color: var(--tint-sage); color: var(--paper); }
+.btn-paper .btn-well { background: color-mix(in srgb, var(--paper) 12%, transparent); }
+.btn-paper:hover { background: color-mix(in srgb, var(--paper) 8%, transparent); }
+
+/* the cards. One column, then two from 601px, four from 1001px. The grid
+   overlaps the band from two columns up; on a phone it sits under it. */
+.home-cards-section { padding-block: 0; }
+
+.home-cards {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s4);
+  margin: var(--s5) 0 72px;
+}
+@media (min-width: 37.5625rem) {
+  .home-cards { grid-template-columns: repeat(2, 1fr); margin-top: -56px; }
+}
+@media (min-width: 62.5625rem) {
+  .home-cards { grid-template-columns: repeat(4, 1fr); }
+}
+
+.home-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 22px 22px;
+  background: var(--panel);
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius-card);
+  transition: border-color var(--fast) var(--ease);
+}
+.home-card:hover { border-color: var(--line-strong); }
+.home-card:focus-within { border-color: var(--ink); }
+
+.home-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-card-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius);
+  background: var(--tint-sage);
+  color: var(--mark-deep);
+}
+.home-card-icon svg { display: block; }
+
+.home-card-n {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+  color: var(--sage-deep);
+}
+
+.home-card-name {
+  margin: 14px 0 16px;
+  font-size: 1.125rem;
+}
+
+.home-card-join {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 16px;
+}
+.home-card-join text { font-family: var(--mono); }
+
+/* the one link in a card; its hit area is the whole card */
+.home-card-go {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  align-self: flex-start;
+  margin-top: auto;
+  font-family: var(--mono);
+  font-size: var(--t-label);
+  color: var(--mark);
+  text-decoration: none;
+}
+.home-card-go svg { width: 12px; height: 12px; flex: none; }
+.home-card-go::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.home-card:hover .home-card-go { color: var(--mark-deep); text-decoration: underline; }
+
+/* the start card. The comp sets its label in --sage-deep and its line in
+   --ink-muted; on the full tint those read 3.26:1 and 4.17:1, so the label
+   takes --mark (6.38:1) and the line takes --ink (11.11:1). */
+.home-card-start { background: var(--tint-sage); border-color: var(--tint-sage); }
+.home-card-start .home-card-n { color: var(--mark); }
+.home-card-start-title {
+  margin-top: 10px;
+  font-size: 1.375rem;
+  line-height: 1.2;
+}
+.home-card-start-line {
+  margin: var(--s2) 0 22px;
+  font-size: var(--t-small);
+  color: var(--ink);
+}
+.home-card-start .btn { align-self: flex-start; margin-top: auto; }
+.btn-deep { background: var(--mark-deep); }
+.btn-deep:hover { background: var(--mark); }
+
+@media (max-width: 37.5rem) {
+  .home-hero { border-radius: 0 0 20px 20px; padding-bottom: var(--s8); }
+  .home-ghost { width: 340px; height: 340px; right: -110px; top: -40px; }
+  .home-hero-foot { flex-direction: column; align-items: start; }
+}
+
+/* ---------- visually hidden ----------
+   Text for a screen reader that is not drawn: the home cards' heading and the
+   sentence each line drawing stands for. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }

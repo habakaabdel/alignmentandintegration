@@ -4,7 +4,7 @@ What `styles.css` and the pages do today. When the code and this file disagree, 
 
 The look: a warm linen sheet, soft charcoal type, deep sage marks. One grid, one type system, one monogram. A page that wants its own ground moves only the ground and the accent through a `data-theme` token block. Soft background scenes move behind the content; the content never depends on them.
 
-Since 2026-11-01 the site is one simple home page and one landing page per service (Brief 109): Reporting alignment at `/reporting/`, Video at `/video/`, Events at `/events/`, Software builds at `/demos/`. The doors are services, not audiences; clients are anyone. Every service page ends at its own contact section. The full visual redesign is a later, separate change; this one reused the existing tokens and components.
+Since 2026-11-01 the site is one simple home page and one landing page per service (Brief 109): Reporting alignment at `/reporting/`, Video at `/video/`, Events at `/events/`, Software builds at `/demos/`. The doors are services, not audiences; clients are anyone. Every service page ends at its own contact section. The home page took comp G (his pick, 1 November 2026) on 2026-11-02: a deep sage band, seven cards and a start card, on the existing tokens and components; see The home page below. The service pages keep the earlier look until he picks for them.
 
 ---
 
@@ -12,7 +12,7 @@ Since 2026-11-01 the site is one simple home page and one landing page per servi
 
 | Page | `data-theme` | Background scene |
 |---|---|---|
-| `/` | none (default tokens) | `#eco`, from `eco.js` (Three.js). Hero, the four doors (`.segments.doors`), the proof strip (`#work`), contact |
+| `/` | none (`body.home`, which only widens `--measure`) | `#eco`, from `eco.js` (Three.js). The band (`.masthead` and `.home-hero` on `--mark-deep`), the eight `.home-card`s, the proof strip (`#work`), contact |
 | `/reporting/` | `organizations` | none. The Reporting alignment page; it was `/organizations/` until 2026-11-01 and keeps that theme block |
 | `/organizations/sample-diagnosis/` | `organizations` | none; its own scoped styles. Reached from `/reporting/` |
 | `/video/` | none | none; a small scoped `<style>` block. The Wolfe Retreat video (the short and the tour) and the Brain to AI reel, each a local 540 by 960 mp4, and a marked `.slot` for the case study that has no files yet |
@@ -109,7 +109,7 @@ Sentence case everywhere, headings and buttons included.
 ## Space, radius, surfaces
 
 - Spacing on a 4px base: `--s1` 0.25rem through `--s9` 6rem (4, 8, 12, 16, 24, 32, 48, 64, 96px).
-- Container `--measure` 1100px, gutter `clamp(1.25rem, 4vw, 3rem)`.
+- Container `--measure` 1100px, gutter `clamp(1.25rem, 4vw, 3rem)`. `body.home` sets `--measure` to 1240px (comp G's container), so every `.wrap` on the home page, masthead and footer included, lines up with the cards.
 - `.section` padding `clamp(2.5rem, 6vw, 6rem)`; `.band` 6rem.
 - Radii: `--radius` 12px, `--radius-card` 16px (offers, islands), `--radius-leaf` `24px 4px 24px 4px` (home segment cards, the hero bezel), `--radius-pill` 999px (buttons), and `--radius-sm` 6px (added 2026-10-12 from Sage Garden, unused so far, for tags, chips and small panels). Inputs are 10px.
 - Surfaces:
@@ -133,15 +133,17 @@ Four items on every site page: Services, Work, About, Contact. Services is a `.n
 
 The landing page `/ai-readiness/start/` has no nav; the brand mark links home.
 
+On the home page the masthead sits on the deep sage band (`body.home .masthead`): `--mark-deep` ground, no bottom hairline, paper brand and toggle, the monogram in paper with `--tint-sage` nodes. From 56rem the row's links are `--tint-sage` with paper on hover and current, the current rule is `--tint-sage`, and Contact's border is `--tint-sage` at 40 percent. Below 56rem the panel stays paper with its ink links, so only the brand and the toggle change. Focus rings on the band are paper; inside the paper panel and the white Services sheet they stay ink. Every colour is set explicitly because `--ink` and `--ink-muted` never move.
+
 ## Motion
 
 Tokens: `--fast` 140ms, `--base` 240ms, ease `cubic-bezier(0.2, 0, 0, 1)`.
 
 Two reveal systems, never mixed on one element:
 - `data-reveal`, the shared one, used on the audience, sector, and demos pages. The hidden state exists only under `html.reveal-ready`, which `main.js` sets after confirming motion is welcome and IntersectionObserver exists. Elements rise 14px over 0.7s; stagger with `--rv` (70ms per step).
-- `.rise`, used on home, gated on the `.js` class set inline in the head. 20px over 760ms.
+- `.rise`, used on home, gated on the `.js` class set inline in the head. 20px over 760ms. The children that stagger inside a risen group are `.step`, `.offer`, `.segment`, `.beat`, `.home-card` and `.status-row`.
 
-Home also has a word split on the hero line (`.wsplit`), the hero figure (`initPlot3D()` on canvas with the flat `drawPlot()` fallback), and the eco scene. The community page carries three `data-walk` walkthroughs driven by `wireWalkthroughs()`, with frames in `media/walk/`.
+Home also has the eco scene; the band and the cards carry no reveal of their own beyond `.rise` on the grid. The word split (`.wsplit`) and the hero figure (`initPlot3D()`, `drawPlot()`) are still in `main.js` and `styles.css` but no page carries their markup since 2026-11-01. The community page carries three `data-walk` walkthroughs driven by `wireWalkthroughs()`, with frames in `media/walk/`.
 
 The landing page uses the vendored scroll-motion kit (`vendor/gsap.min.js`, `ScrollTrigger`, `ScrollSmoother`, `motion.js`, `motion.css`), tuned inline in its own `Motion.init()`. Its page classes are `lp-` prefixed so they never collide with sitewide names.
 
@@ -163,6 +165,18 @@ The sprout and lens mark on a `0 0 48 48` grid: an open ring ending in a node, a
 - The site works with no JavaScript: links navigate, the nav opens, forms post natively.
 - Responsive from 360px with no horizontal overflow. Check 375px and 1280px on any change, 768px near a breakpoint. Tap targets are at least 44px; small links grow their hit area with a transparent `::after`.
 - No analytics, no cookies, no third party requests from site pages. The booking link to cal.com is a plain link.
+
+## The home page
+
+Comp G, picked 1 November 2026, built 2 November on the existing tokens and components. Every rule is scoped on `body.home` or a `home-` class at the end of `styles.css`.
+
+- **The band.** `.home-hero` on `--mark-deep` with paper type, 28px rounded bottom corners (20px on a phone), 88px of bottom padding. The masthead sits on it (above). Inside: `.home-pill`, an outlined `--mono` label at `--t-micro` in `--tint-sage` with a 40 percent `--tint-sage` border, reading "Reporting · Video · Events · Software builds"; the `h1` `.home-title` at `clamp(2.4rem, 6vw, 5.4rem)`, line height 1, `-0.04em`, capped at 13ch, "Align what matters." at 600 and "Integrate how you move forward." in a span at 300 in `--tint-sage`; then `.home-hero-foot`, the positioning sentence (`.home-claim`, `--t-body` in `--tint-stone`, 430px) on the left and `.btn.btn-paper` (a `--tint-sage` outline with paper text and the usual `.btn-well` arrow) on the right. Under 600px the foot stacks. The spacing above the pill and above the foot is `clamp(2rem, 8vh, 6rem)`.
+- **The ghost.** `.home-ghost`, the monogram at 600px (340px on a phone) in `--tint-sage` at 0.09 opacity, positioned off the top right corner of the band, `pointer-events: none`, `aria-hidden`. His words: "that empty circle in top right should be the logo faded in background".
+- **The cards.** `.home-cards`, a `ul` of eight `.home-card`s on `--panel` with a `--line` hairline and `--radius-card`, 16px gaps, padding 20px 22px 22px. One column by default, two from 601px, four from 1001px; from two columns up the grid overlaps the band by 56px, on a phone it sits 24px under it. The grid rises as one `.rise` group and the cards stagger. In order: 01 Reporting alignment, 02 Video, 03 Events, 04 Software builds, 05 Data, 06 Strategy, 07 Parts of systems (his words, 1 November), then the start card. Each card: `.home-card-top` holding `.home-card-icon` (a 42px square at `--radius` on `--tint-sage`, a 22px stroke icon at 1.6px in `--mark-deep`, matching what the card is) and `.home-card-n` (`--mono`, `--t-micro`, `--sage-deep`); the `h3` `.home-card-name` at 1.125rem; a visually hidden sentence saying what the drawing shows; the drawing `.home-card-join`, inline SVG, `aria-hidden`, pieces in `--ink-muted` and the result in `--mark` with `--mono` text; and `.home-card-go`, the one link, `--mono` at `--t-label` in `--mark` with the site's arrow, whose `::after` makes the whole card its hit area. Hover darkens the hairline to `--line-strong`; focus within turns it `--ink`.
+- **The start card.** `.home-card-start` on `--tint-sage`: the label "Start here" in `--mark` (the comp's `--sage-deep` reads 3.26:1 on this tint), the `h3` "Tell us what needs to fit together." at 1.375rem, the line "A 30-minute call, then a proposal." in `--ink` (the comp's `--ink-muted` reads 4.17:1 here), and `.btn.btn-primary.btn-deep` to `#contact`, `--mark-deep` with `--mark` on hover.
+- **Below the cards** the page is as before: the `#work` proof strip and the `.band.contact` form, both on their islands. The cards' heading, "What you can buy", is kept as an `h2` for the outline and hidden with `.visually-hidden`.
+- Contrast on the band, measured 2026-11-02: paper 12.45:1, `--tint-sage` 8.85:1, `--tint-stone` 10.80:1. On a card: `--ink-muted` 6.35:1, `--mark` 9.72:1, `--sage-deep` 4.97:1. On the start card: `--mark` 6.38:1, `--ink` 11.11:1.
+- `.visually-hidden` is the utility for text a screen reader gets and the page does not draw. `.offscreen-field` stays the honeypot's own rule.
 
 ## The about page
 
@@ -187,5 +201,6 @@ His own sentences keep the first person singular; the company sentences (the pos
 ## Known loose ends in `styles.css`
 
 - `--slow` and `--ink-faint` are used but never defined.
+- The old home hero and its figure (`.hero`, `.hero-title`, `.hero-grid`, `.hero-claim`, `.hero-actions`, `.bezel`, `.bezel-core`, `.figure-*`, `.stage`, `.pieces`, `.piece`, `.plot-*`, the `.wsplit` reveal) have no markup on any page since 2026-11-01. `.segments` still carries the about page's four doors.
 - The header comment and a few section comments (the nav, the Student Pal embed) describe earlier versions.
 - The unused theme blocks noted above, and `.tile` in the print rules, which no site page uses.
