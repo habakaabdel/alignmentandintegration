@@ -19,7 +19,7 @@ Since 2026-11-01 the site is one simple home page and one landing page per servi
 | `/events/` | none | none. New on 2026-11-01; its sentences are `[NET-NEW n]` placeholders until he says them |
 | `/demos/` | none | `#page-scene`, from its `scene.js`. The Software builds page; the five demos, the barbershop quote, the bounds line |
 | `/privacy/` | none | none (the canvas is in the markup, no script loads) |
-| `/about/` | none | none; loads `/about/about.css` and `/about/about.js` after the site files |
+| `/about/` | none | none. Since 2026-11-01, five sections for a customer of any service: who we are, the four doors, how we work, the proof, contact. One small scoped `<style>` block for the portrait grid |
 | `/community-social-services/` | `community` | `#page-scene`, from its `scene.js`. Unlinked from the nav and footer since 2026-11-01, awaiting his ruling |
 | `/ai-readiness/` | `ai-readiness` | `#page-scene`, from its `scene.js`. Unlinked from the nav and footer since 2026-11-01, awaiting his ruling |
 | `/ai-readiness/start/` | `ai-readiness` | none; uses the scroll-motion kit instead |
@@ -129,7 +129,7 @@ Sentence case everywhere, headings and buttons included.
 
 ## Masthead and nav
 
-Four items on every site page: Services, Work, About, Contact. Services is a `.nav-group` holding a nested `details.nav-sub-disclosure` that opens the four service pages (Reporting alignment, Video, Events, Software builds), each with a one-line `.nav-sub-note`; on a phone it is a plain indented sublist, from 56rem up it is a hover and focus panel. Work goes to the proof strip on home (`#work` on home, `/#work` elsewhere). Contact (`.nav-cta`) goes to the page's own `#contact` on home and the four service pages, and to `/#contact` on every other page. Below 56rem the row lives in a `details` disclosure labelled "menu" whose toggle is a plus in two hairlines; from 56rem up the panel is held open with `::details-content` and the toggle is hidden. No script is needed. `main.js` sets `aria-current` for in-page anchors and closes the panel after a link is used; a service page hard codes `aria-current="page"` on its own entry, and the group trigger carries the mark.
+Four items on every site page: Services, Work, About, Contact. Services is a `.nav-group` holding a nested `details.nav-sub-disclosure` that opens the four service pages (Reporting alignment, Video, Events, Software builds), each with a one-line `.nav-sub-note`; on a phone it is a plain indented sublist, from 56rem up it is a hover and focus panel. Work goes to the proof strip on home (`#work` on home, `/#work` elsewhere). Contact (`.nav-cta`) goes to the page's own `#contact` on home, the four service pages and the about page, and to `/#contact` on every other page. Below 56rem the row lives in a `details` disclosure labelled "menu" whose toggle is a plus in two hairlines; from 56rem up the panel is held open with `::details-content` and the toggle is hidden. No script is needed. `main.js` sets `aria-current` for in-page anchors and closes the panel after a link is used; a service page hard codes `aria-current="page"` on its own entry (the about page does the same on About), and the group trigger carries the mark.
 
 The landing page `/ai-readiness/start/` has no nav; the brand mark links home.
 
@@ -153,20 +153,22 @@ The sprout and lens mark on a `0 0 48 48` grid: an open ring ending in a node, a
 
 ## Forms
 
-- Home and the four service pages: the same `name="contact"` form, `data-netlify="true"`, hidden `form-name` input, `netlify-honeypot="referral-source"`, and a hidden `service` input naming the page it was sent from (Home, Reporting alignment, Video, Events, Software builds). `wireForm()` submits in place and shows the confirmation.
+- Home, the four service pages and the about page: the same `name="contact"` form, `data-netlify="true"`, hidden `form-name` input, `netlify-honeypot="referral-source"`, and a hidden `service` input naming the page it was sent from (Home, Reporting alignment, Video, Events, Software builds, About). `wireForm()` submits in place and shows the confirmation.
 - Landing page: `name="ai-readiness-consult"`, honeypot `company-site`, plain native POST.
 
 ## Structure rules
 
 - One `h1` per page. Sections use `h2`, items `h3`. No skipped levels.
-- A service page is: a `.section-segment-hero` (crumb, eyebrow, `.segment-lede`, `.segment-claim`, two buttons, the first to `#contact`), its sections, an `.also` list of the other three services, then the `.band.contact` section with the form. Every service page ends at contact.
+- A service page is: a `.section-segment-hero` (crumb, eyebrow, `.segment-lede`, `.segment-claim`, two buttons, the first to `#contact`), its sections, an `.also` list of the other three services, then the `.band.contact` section with the form. Every service page ends at contact. The about page follows the same shape, with the four doors in place of the `.also` list.
 - The site works with no JavaScript: links navigate, the nav opens, forms post natively.
 - Responsive from 360px with no horizontal overflow. Check 375px and 1280px on any change, 768px near a breakpoint. Tap targets are at least 44px; small links grow their hit area with a transparent `::after`.
 - No analytics, no cookies, no third party requests from site pages. The booking link to cal.com is a plain link.
 
 ## The about page
 
-`/about/` is Abdel's page, first person singular, on the default tokens. The first screen is a stage: the four-level map (person, program, agency, region) on the left, a tab strip and one panel on the right; nodes and tabs are one control (`about.js`), the selected node fills with `--mark`, cases fold open with native `details`, and `#agency` style hashes deep-link. Below it a slow ticker of his lines, the hire list as `.builds`, a contained photograph, background as a timeline, and a contact block that points at the home page form. Photographs live in `about/media/`.
+`/about/` is the company's page for a customer of any service, rebuilt on 2026-11-01 on the default tokens with the service-page components only. In order: a `.section-segment-hero` (crumb, eyebrow, the `h1` "One team for everything.", his translate-and-integrate line as the `.segment-claim`, Contact us and The services); 01 Who we are (`.section-head`, then three `.beats`: the method, complexity to simplicity, alignment and integration); 02 One team, four services (the positioning sentence, then the same four `.segments.doors` as home, word for word); 03 How we work (`.process-grid` with four `.steps`: the call, the deposit, the work, finishing the job); 04 Why trust the quality (the `.status` rows from the home proof strip plus the basketball league case study row, one sentence of the barbershop quote as a `.proof-quote` without the name or logo, and the `.offer-who` list beside the portrait in the page's own `.who` grid); then the `.band.contact` form with `service` set to About. The page loads `main.js` only; `about.css` and `about.js` went with the level map, the tabs, the ticker and the timeline.
+
+His own sentences keep the first person singular; the company sentences (the positioning sentence, the deal path, the solutions-company line) say "we" or name the company. The employer's track record (the three case panels and the background timeline) is off the page until written clearance exists; PR 41 lists the removed sections. Photographs live in `about/media/`; only the portrait is on the page, the other files stay in the folder.
 
 ## Content rules
 
@@ -174,7 +176,7 @@ The sprout and lens mark on a `0 0 48 48` grid: an open ring ending in a node, a
 - Public sentences on this site are his. Reuse a sentence already on the site, a verbatim ruling, or a plain label; cut and reorder, but do not write new marketing sentences. Where a sentence does not exist yet, the page carries a visible `[NET-NEW n: what it must say]` placeholder until he says it.
 - Never mention AI tools or automation in site text.
 - No em dashes, and none of: "leverage", "seamless", "empower", "transform", "cutting-edge", "unlock", or hype adjectives. Comments and metadata included. This is why the CSS uses `translate`, and why this file says so.
-- No client or employer names. Sectors only. Nothing from Kenora Chiefs Advisory (name, logo or work) until written clearance exists; no EMHware logo until the countersigned agreement is in hand. The barbershop quote on `/demos/` predates this rule and stands until ruled.
+- No client or employer names. Sectors only. Nothing from Kenora Chiefs Advisory (name, logo or work) until written clearance exists; no EMHware logo until the countersigned agreement is in hand. The barbershop quote on `/demos/` predates this rule and stands until ruled; `/about/` repeats one of its sentences without the name or logo and links to `/demos/#customer`.
 - No outcome numbers, user counts, "in use", or "trusted by". Built things are described as built, not in service.
 - Every audience page states what we are not claiming, in a `.bounds` paragraph.
 - Prices, the only public ones (ruled 2026-11-01): diagnosis and intervention is $3,500 CAD flat on `/reporting/`, with the initial consultation free; video is from $300 for a one-off and from $800 a month for a package, with two rounds of revisions; events are quoted one at a time; everything else is quoted after a call. No other price or range anywhere.
