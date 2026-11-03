@@ -79,6 +79,8 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'"
+    Strict-Transport-Security = "max-age=31536000"
 
 # Digital business card: iPhone opens the Contacts sheet only with this type.
 [[headers]]

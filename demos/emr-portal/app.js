@@ -47,10 +47,21 @@
   const PROGRAMS_AVAILABLE = () => GUIDE_PROGRAMS.filter((p) => p.status === 'available');
 
   const MY_PROGRAM_KEY = 'riverbend-portal-my-program';
-  const getMyProgram = () => localStorage.getItem(MY_PROGRAM_KEY) || '';
+  const memoryStorage = new Map();
+  function readPreference(key) {
+    if (memoryStorage.has(key)) return memoryStorage.get(key);
+    try { return localStorage.getItem(key); } catch { return null; }
+  }
+  function writePreference(key, value) {
+    memoryStorage.set(key, value);
+    try {
+      if (value) localStorage.setItem(key, value);
+      else localStorage.removeItem(key);
+    } catch { /* Preferences remain available for this page visit. */ }
+  }
+  const getMyProgram = () => readPreference(MY_PROGRAM_KEY) || '';
   const setMyProgram = (v) => {
-    if (v) localStorage.setItem(MY_PROGRAM_KEY, v);
-    else localStorage.removeItem(MY_PROGRAM_KEY);
+    writePreference(MY_PROGRAM_KEY, v);
   };
 
   /* ---------------- theme ---------------- */
@@ -61,7 +72,8 @@
       (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
   };
-  let themeMode = localStorage.getItem(THEME_KEY) || 'system';
+  let themeMode = readPreference(THEME_KEY) || 'system';
+  if (!['system', 'light', 'dark'].includes(themeMode)) themeMode = 'system';
   applyTheme(themeMode);
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
     if (themeMode === 'system') applyTheme('system');
@@ -1053,7 +1065,7 @@
     if (themeBtn) {
       const next = { system: 'light', light: 'dark', dark: 'system' };
       themeMode = next[themeMode];
-      localStorage.setItem(THEME_KEY, themeMode);
+      writePreference(THEME_KEY, themeMode);
       applyTheme(themeMode);
       render();
       return;

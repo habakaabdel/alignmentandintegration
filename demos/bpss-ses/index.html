@@ -703,7 +703,7 @@ function simulate(id){
       <div class="top"><span class="k">Realized system relief</span><span class="v">${(gain*100).toFixed(0)}%</span></div>
       <div class="track"><div class="fill" id="simFill"></div></div>
       <div class="simnote">Nudging <b>${src.label}</b> eases <b>${eased}</b> downstream factor${eased!==1?'s':''}, with the effect decaying by distance.</div>
-      <div class="simnote">Pull toward the goal: <b>${(a0*100).toFixed(0)}%</b> to <b class="proj">${(a1*100).toFixed(0)}%</b> on <b>${GOAL.name}</b>.</div>
+      <div class="simnote">Pull toward the goal: <b>${(a0*100).toFixed(0)}%</b> to <b class="proj">${(a1*100).toFixed(0)}%</b> on <b>${escapeHtml(GOAL.name)}</b>.</div>
     </div>
     <div class="rank">
       <div class="rh">Best targets by system reach</div>
@@ -715,6 +715,9 @@ function simulate(id){
 }
 
 /* ---------- GOAL AT THE CENTRE ---------- */
+function escapeHtml(value){
+  return String(value).replace(/[&<>"']/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
 function setGauge(a, proj){
   const shown = proj!=null ? proj : a;
   const fill=document.getElementById('gaugeFill');
@@ -726,9 +729,9 @@ function setGauge(a, proj){
 }
 function renderGoal(){
   document.getElementById('goalName').textContent=GOAL.name;
-  document.getElementById('goalInds').innerHTML=GOAL.ind.filter(Boolean).map(i=>`<span>${i}</span>`).join('');
-  const inds=GOAL.ind.filter(Boolean).map(i=>'<b>'+i+'</b>').join(' and ') || 'nothing yet';
-  document.getElementById('mapCap').innerHTML=`<b>Goal:</b> ${GOAL.name}, measured by ${inds}. Tap the centre to change.`;
+  document.getElementById('goalInds').innerHTML=GOAL.ind.filter(Boolean).map(i=>`<span>${escapeHtml(i)}</span>`).join('');
+  const inds=GOAL.ind.filter(Boolean).map(i=>'<b>'+escapeHtml(i)+'</b>').join(' and ') || 'nothing yet';
+  document.getElementById('mapCap').innerHTML=`<b>Goal:</b> ${escapeHtml(GOAL.name)}, measured by ${inds}. Tap the centre to change.`;
   setGauge(baseAlign(), null);
   renderMapCenter();
 }
