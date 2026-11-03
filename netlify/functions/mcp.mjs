@@ -15,6 +15,7 @@ import {
 const READ_ONLY = { readOnlyHint: true, destructiveHint: false, openWorldHint: true };
 const NO_SIGN_IN = { securitySchemes: [{ type: "noauth" }] };
 const MAX_BODY_BYTES = 512 * 1024;
+const MAX_BATCH_MESSAGES = 10;
 const REQUEST_TIMEOUT_MS = 45000;
 const RESPONSE_HEADERS = {
   "Cache-Control": "no-store",
@@ -120,13 +121,17 @@ async function handle(req) {
       if (error instanceof BodyTooLargeError) return rpcError(413, -32000, "Request body too large");
       return rpcError(400, -32700, "Invalid JSON");
     }
-    // A batch bypasses the per-HTTP-request rate limit by multiplying tool calls.
-    if (Array.isArray(body)) return rpcError(400, -32600, "JSON-RPC batches are not supported");
-    const references = body?.params?.arguments?.references;
-    // Reject oversized collections before Zod allocates per-element issues.
-    if (Array.isArray(references) && references.length > MAX_REFERENCES) {
-      return rpcError(400, -32602, "Too many references");
+    // Protocol 2025-03-26 allows batches, so keep them, but bound them: one
+    // HTTP request may not do more Crossref work than one full check.
+    const messages = Array.isArray(body) ? body : [body];
+    if (messages.length > MAX_BATCH_MESSAGES) return rpcError(400, -32600, "Batch too large");
+    let lookups = 0;
+    for (const message of messages) {
+      const references = message?.params?.arguments?.references;
+      lookups += Array.isArray(references) ? references.length : message?.method === "tools/call" ? 1 : 0;
     }
+    // Reject oversized collections before Zod allocates per-element issues.
+    if (lookups > MAX_REFERENCES) return rpcError(400, -32602, "Too many references");
     server = getServer(signal);
     const transport = new WebStandardStreamableHTTPServerTransport({
       sessionIdGenerator: undefined,

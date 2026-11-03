@@ -37,10 +37,30 @@ test("MCP initialization, discovery, notifications and method rejection still wo
   assert.equal(get.headers.get("allow"), "POST");
 });
 
-test("MCP rejects JSON-RPC batches before any Crossref work", async () => {
-  const response = await handler(request([call("find_reference", { title: "x" }), call("find_reference", { title: "x" }, 2)]));
-  assert.equal(response.status, 400);
-  assert.equal((await response.json()).error.code, -32600);
+test("MCP keeps small batches for protocol 2025-03-26 clients", async () => {
+  const init = await handler(request({ jsonrpc: "2.0", id: 1, method: "initialize", params: {
+    protocolVersion: "2025-03-26", capabilities: {}, clientInfo: { name: "offline-test", version: "1" },
+  } }));
+  assert.equal(init.status, 200);
+  const response = await handler(request([
+    { jsonrpc: "2.0", id: 2, method: "ping" },
+    { jsonrpc: "2.0", id: 3, method: "tools/list" },
+  ]));
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.length, 2);
+  assert.equal(body.find((r) => r.id === 3).result.tools.length, 2);
+});
+
+test("MCP rejects batches that exceed the message or lookup budget before any Crossref work", async () => {
+  const many = Array.from({ length: 11 }, (_, i) => ({ jsonrpc: "2.0", id: i + 1, method: "ping" }));
+  const tooMany = await handler(request(many));
+  assert.equal(tooMany.status, 400);
+  assert.equal((await tooMany.json()).error.code, -32600);
+  const refs = Array.from({ length: 13 }, (_, i) => ({ text: `ref ${i}` }));
+  const overBudget = await handler(request([call("check_references", { references: refs }), call("check_references", { references: refs }, 2)]));
+  assert.equal(overBudget.status, 400);
+  assert.equal((await overBudget.json()).error.code, -32602);
 });
 
 test("MCP rejects oversized reference collections before schema validation", async () => {
