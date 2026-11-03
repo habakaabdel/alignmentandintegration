@@ -80,6 +80,12 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
+# Digital business card: iPhone opens the Contacts sheet only with this type.
+[[headers]]
+  for = "/card/*.vcf"
+  [headers.values]
+    Content-Type = "text/vcard; charset=utf-8"
+
 [[redirects]]
   from = "/small-business/*"
   to = "/demos/restaurant-ops/"
