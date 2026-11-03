@@ -379,7 +379,7 @@ function wireForm() {
     let sending = false;
 
     form.addEventListener('submit', function (event) {
-      if (typeof window.fetch !== 'function' || !form.reportValidity()) return;
+      if (typeof window.fetch !== 'function' || typeof AbortController !== 'function' || !form.reportValidity()) return;
 
       event.preventDefault();
       if (sending) return;
@@ -392,11 +392,14 @@ function wireForm() {
       }
 
       const body = new URLSearchParams(new FormData(form)).toString();
+      const controller = new AbortController();
+      const timeout = window.setTimeout(function () { controller.abort(); }, 20000);
 
       window.fetch(form.getAttribute('action') || window.location.pathname, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body
+        body: body,
+        signal: controller.signal
       }).then(function (response) {
         if (!response.ok) throw new Error('rejected');
         form.hidden = true;
@@ -409,6 +412,8 @@ function wireForm() {
           button.innerHTML = idle;
         }
         if (error) error.hidden = false;
+      }).finally(function () {
+        window.clearTimeout(timeout);
       });
     });
   });
