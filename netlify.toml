@@ -85,7 +85,6 @@
   for = "/card/*.vcf"
   [headers.values]
     Content-Type = "text/vcard; charset=utf-8"
-    Content-Disposition = "attachment; filename=\"Abdel Habaka.vcf\""
 
 [[redirects]]
   from = "/small-business/*"
