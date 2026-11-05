@@ -16,7 +16,7 @@ Since 2026-11-01 the site is one simple home page and one landing page per servi
 | `/reporting/` | `organizations` | none. The Reporting alignment page; it was `/organizations/` until 2026-11-01 and keeps that theme block |
 | `/organizations/sample-diagnosis/` | `organizations` | none; its own scoped styles. Reached from `/reporting/` |
 | `/video/` | none | none; a small scoped `<style>` block. The Wolfe Retreat video (the short and the tour) and the Brain to AI reel, each a local 540 by 960 mp4, and a marked `.slot` for the case study that has no files yet |
-| `/events/` | none | none. New on 2026-11-01; its sentences are `[NET-NEW n]` placeholders until he says them |
+| `/events/` | none | none. New on 2026-11-01; filled on 2026-11-05 except the proof slot, which stays a placeholder |
 | `/demos/` | none | `#page-scene`, from its `scene.js`. The Software builds page; the five demos, the barbershop quote, the bounds line |
 | `/privacy/` | none | none (the canvas is in the markup, no script loads) |
 | `/about/` | none | none. Since 2026-11-01, five sections for a customer of any service: who we are, the four doors, how we work, the proof, contact. One small scoped `<style>` block for the portrait grid |
@@ -198,6 +198,7 @@ His own sentences keep the first person singular; the company sentences (the pos
 
 - Canadian English, sentence case, first person plural.
 - Public sentences on this site are his. Reuse a sentence already on the site, a verbatim ruling, or a plain label; cut and reorder, but do not write new marketing sentences. Where a sentence does not exist yet, the page carries a visible `[NET-NEW n: what it must say]` placeholder until he says it.
+- Exception, 5 November 2026, the four service pages only: he asked for each service explained in full with examples, written confidently. The "What it looks like" scenarios, the Data, Strategy and Parts of systems sections and the filled Events lines are new sentences under that ruling. Scenarios describe the kind of work, never a named client, a testimonial or a measured outcome.
 - Never mention AI tools or automation in site text.
 - No em dashes, and none of: "leverage", "seamless", "empower", "transform", "cutting-edge", "unlock", or hype adjectives. Comments and metadata included. This is why the CSS uses `translate`, and why this file says so.
 - No client or employer names. Sectors only. Nothing from Kenora Chiefs Advisory (name, logo or work) until written clearance exists; no EMHware logo until the countersigned agreement is in hand. The barbershop quote on `/demos/` predates this rule and stands until ruled; `/about/` repeats one of its sentences without the name or logo and links to `/demos/#customer`.

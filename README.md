@@ -9,11 +9,11 @@ One simple home page and one landing page per service, since November 2026 (Brie
 | Path | What it is |
 |---|---|
 | `/` | Home. The brand line and the positioning sentence on a deep sage band, seven cards (Reporting alignment, Video, Events, Software builds, Data, Strategy, Parts of systems) and a start card, the proof strip (`#work`), and the contact form. Comp G, picked November 2026. |
-| `/reporting/` | Reporting alignment, on any platform. Theme `organizations`. The process, the three offers (the $3,500 diagnosis is the only priced one), the two weeks, the engine, where we have built, contact. Was `/organizations/`, which now redirects here. |
+| `/reporting/` | Reporting alignment, on any platform. Theme `organizations`. What it looks like (four scenarios and the platform partner panel), the process, the three offers (the $3,500 diagnosis is the only priced one), the two weeks, the engine, Data (`#data`) and Strategy (`#strategy`), where we have built, the bounds line, contact. Was `/organizations/`, which now redirects here. |
 | `/organizations/sample-diagnosis/` | The sample diagnosis, on fictional data. Reached from `/reporting/`. |
-| `/video/` | Video. The Wolfe Retreat video (the short and the tour), the Brain to AI reel, the prices (from $300 one-off, from $800 a month), a marked slot for the case study, contact. Was `/videos/`, which now redirects here. |
-| `/events/` | Events. The six things we do at an event, how it works, a proof slot, contact. Its sentences are `[NET-NEW n]` placeholders until the owner says them. |
-| `/demos/` | Software builds. The five demonstrations, the barbershop quote, the bounds line, contact. |
+| `/video/` | Video. The Wolfe Retreat video (the short and the tour), the Brain to AI reel, what it looks like (five scenarios), how it works, the prices (from $300 one-off, from $800 a month), a marked slot for the case study, contact. Was `/videos/`, which now redirects here. |
+| `/events/` | Events. The six things we do at an event, what it looks like (four scenarios), how it works, a proof slot (still a placeholder), contact. |
+| `/demos/` | Software builds. The five demonstrations, the barbershop quote, the bounds line, what we build (five scenarios), how a build runs, Parts of systems (`#parts-of-systems`), contact. |
 | `/about/` | About, for a customer of any service: who we are, the four services, how we work, why trust the quality, contact. Ends at the same contact form as the service pages. |
 | `/privacy/` | Privacy notice. Linked from the footer and the form. |
 | `/community-social-services/`, `/ai-readiness/`, `/ai-readiness/start/` | Retired 2 November 2026 on Abdel's word; 301 to `/reporting/` and the home page in `netlify.toml`. |
