@@ -907,6 +907,23 @@ a:hover { color: var(--mark-deep); }
 
 .field-submit { display: grid; gap: var(--s3); justify-items: start; }
 
+/* sending: the button holds still, says so, and turns a small ring until the
+   reply comes back; with reduced motion the ring stays still */
+.btn[aria-busy="true"] { cursor: progress; transform: none; padding-right: 1.25rem; }
+.btn[aria-busy="true"]::after {
+  content: "";
+  width: 0.875em;
+  height: 0.875em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-busy 0.8s linear infinite;
+}
+@keyframes btn-busy { to { transform: rotate(1turn); } }
+@media (prefers-reduced-motion: reduce) {
+  .btn[aria-busy="true"]::after { animation: none; }
+}
+
 .form-error {
   font-size: var(--t-label);
   color: var(--second);

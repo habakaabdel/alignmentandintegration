@@ -388,6 +388,7 @@ function wireForm() {
       if (error) error.hidden = true;
       if (button) {
         button.disabled = true;
+        button.setAttribute('aria-busy', 'true');
         button.textContent = busy;
       }
 
@@ -406,6 +407,7 @@ function wireForm() {
         sending = false;
         if (button) {
           button.disabled = false;
+          button.removeAttribute('aria-busy');
           button.innerHTML = idle;
         }
         if (error) error.hidden = false;

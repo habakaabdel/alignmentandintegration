@@ -158,7 +158,7 @@ The sprout and lens mark on a `0 0 48 48` grid: an open ring ending in a node, a
 
 ## Forms
 
-- Home, the four service pages and the about page: the same `name="contact"` form, `data-netlify="true"`, hidden `form-name` input, `netlify-honeypot="referral-source"`, and a hidden `service` input naming the page it was sent from (Home, Reporting alignment, Video, Events, Software builds, About). `wireForm()` submits in place and shows the confirmation.
+- Home, the four service pages and the about page: the same `name="contact"` form, `data-netlify="true"`, hidden `form-name` input, `netlify-honeypot="referral-source"`, and a hidden `service` input naming the page it was sent from (Home, Reporting alignment, Video, Events, Software builds, About). `wireForm()` submits in place and shows the confirmation. While the request is out the button is disabled, reads the form's `data-sending` word ("Starting") and carries `aria-busy="true"`, which draws a small turning ring after the word (still under reduced motion); on failure the button comes back as it was and the error line shows. Motion on this site is for feedback like this, not decoration.
 - Landing page: `name="ai-readiness-consult"`, honeypot `company-site`, plain native POST.
 
 ## Structure rules
