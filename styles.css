@@ -2158,25 +2158,13 @@ body.home { --measure: 1240px; }
 }
 .home-ghost svg { display: block; width: 100%; height: 100%; }
 
-.home-pill {
-  display: inline-block;
-  margin: clamp(2rem, 8vh, 6rem) 0 26px;
-  padding: 8px 16px;
-  border: 1px solid color-mix(in srgb, var(--tint-sage) 40%, transparent);
-  border-radius: var(--radius-pill);
-  font-family: var(--mono);
-  font-size: var(--t-micro);
-  letter-spacing: 0.04em;
-  color: var(--tint-sage);
-  /* on a phone it takes two lines; balanced, so the second is not one word */
-  text-wrap: balance;
-}
 
 .home-title {
   font-size: clamp(2.4rem, 6vw, 5.4rem);
   line-height: 1;
   letter-spacing: -0.04em;
   max-width: 13ch;
+  margin-top: clamp(2rem, 8vh, 6rem);
 }
 .home-title span { font-weight: 300; color: var(--tint-sage); }
 
@@ -2198,6 +2186,10 @@ body.home { --measure: 1240px; }
 .btn-paper { border-color: var(--tint-sage); color: var(--paper); }
 .btn-paper .btn-well { background: color-mix(in srgb, var(--paper) 12%, transparent); }
 .btn-paper:hover { background: color-mix(in srgb, var(--paper) 8%, transparent); }
+/* the main action on the band: filled paper, so it reads before the outline one */
+.btn-paper-fill { background: var(--paper); color: var(--mark-deep); }
+.btn-paper-fill .btn-well { background: color-mix(in srgb, var(--mark-deep) 10%, transparent); }
+.btn-paper-fill:hover { background: var(--tint-sage); }
 
 /* the cards. One column, then two from 601px, four from 1001px. The grid
    overlaps the band from two columns up; on a phone it sits under it. */
