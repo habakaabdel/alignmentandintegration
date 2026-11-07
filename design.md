@@ -207,7 +207,7 @@ His own sentences keep the first person singular; the company sentences (the pos
 - Prices, the only public ones (ruled 2026-11-01): diagnosis and intervention is $3,500 CAD flat on `/reporting/`, with the initial consultation free; video is from $300 for a one-off and from $800 a month for a package, with two rounds of revisions; events are quoted one at a time; everything else is quoted after a call. No other price or range anywhere.
 - The deal path, where a page states next steps: a 30-minute call, then a proposal; a 50 percent deposit to start.
 - The video proof is "the Wolfe Retreat video", never Wolfe Lodge.
-- The positioning sentence on home, his words: "One team for everything: we align it, integrate it, and deliver consultant-quality work at half the price." The brand line stays as the `h1`.
+- The positioning sentence on home, his words: "One team for everything: we align it and integrate it." (the price and quality claim was cut under the "remove fake stuff" ruling). The brand line stays as the `h1`.
 
 ## Known loose ends in `styles.css`
 
