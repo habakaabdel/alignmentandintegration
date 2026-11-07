@@ -62,6 +62,7 @@ Contrast, measured 2026-10-12 against the 4.5:1 floor for text:
 - `--sage` is 3.4:1 on white and 3.15:1 on `--paper`, so it never carries text and never sits behind text.
 - `--sage-deep` is 4.97:1 on white and 4.5:1 or better on every page `--paper` (4.59 default, 4.58 `individuals`, 4.50 `organizations`, 4.52 `community`, 4.57 `ai-readiness`). It drops to 4.28:1 on `--panel-deep` and below 4:1 on the tints, so no sage text on those.
 - `--ink-navy` and `--ink` both clear 9.6:1 on every ground and tint above. Text on a tint uses one of them; `--ink-muted` falls to 3.72:1 on `--tint-moss`, so muted text stays off that fill.
+- Text dimmed with `opacity` on a `--mark` fill stays at 0.8 or above: `--paper` at 0.8 on the `organizations` `--mark` reads 5.57:1, at 0.6 it read 3.9:1 (the reporting lead offer's tag until 2026-11-07). A rendered sweep of every page at 375 and 1280 on 2026-11-07 found no other text under 4.5:1.
 
 Theme blocks on `body[data-theme="..."]` in use today:
 
@@ -86,8 +87,9 @@ Rules:
 
 Self-hosted from `media/fonts/` with `@font-face` at the top of `styles.css`, `font-display: swap`, Latin subset. No Google Fonts request on any site page.
 
-- `--sans`: Plus Jakarta Sans, variable 300 to 700. All prose, headings, buttons.
-- `--mono`: IBM Plex Mono 400 and 500. Indices, eyebrows, figure keys, offer tags, the nav toggle label.
+- `--sans`: Plus Jakarta Sans, variable 300 to 700. All prose, headings, buttons. `button` elements inherit it explicitly (browsers default them to a system font; the form submit buttons rendered in Arial until 2026-11-07).
+- `--mono`: IBM Plex Mono 400 and 500. Indices, eyebrows, figure keys, offer tags, the nav toggle label, and the labels this file names on the home cards. Only these. Words a visitor reads to act (nav links, form labels, error lines, the footer legal line) are `--sans`; they moved off mono on 2026-11-07.
+- Numbers that stack or sit in columns use tabular figures: mono numerals already are; a sans number in a column, counter or stacked comparison takes `font-variant-numeric: tabular-nums` (today `.step-n` and the sample diagnosis `.sd-key`). Numbers inside a sentence stay proportional.
 
 | Token | Value |
 |---|---|
@@ -104,12 +106,15 @@ Body line height 1.65, headings 1.2 at weight 600 with `-0.01em` tracking. The p
 
 Sentence case everywhere, headings and buttons included.
 
+Wrapping, since 2026-11-07: `h1`, `h2` and `h3` carry `text-wrap: balance` so a heading never ends on one word; `p`, `li`, `dd` and `figcaption` carry `text-wrap: pretty`. Browsers without support wrap as before.
+
 ## Space, radius, surfaces
 
 - Spacing on a 4px base: `--s1` 0.25rem through `--s9` 6rem (4, 8, 12, 16, 24, 32, 48, 64, 96px).
 - Container `--measure` 1100px, gutter `clamp(1.25rem, 4vw, 3rem)`. `body.home` sets `--measure` to 1240px (comp G's container), so every `.wrap` on the home page, masthead and footer included, lines up with the cards.
 - `.section` padding `clamp(2.5rem, 6vw, 6rem)`; `.band` 6rem.
 - Radii: `--radius` 12px, `--radius-card` 16px (offers, islands), `--radius-leaf` `24px 4px 24px 4px` (home segment cards, the hero bezel), `--radius-pill` 999px (buttons), and `--radius-sm` 6px (added 2026-10-12 from Sage Garden, unused so far, for tags, chips and small panels). Inputs are 10px.
+- Nested radius, since 2026-11-07: a surface that sits inside another, inset by the outer one's padding, takes the outer radius minus that padding, floored at 0 (`max(0px, outer - padding)`), so the two curves stay parallel. Today that is `.bezel-core` inside `.bezel`: the 24px and 4px leaf minus `--bezel-pad` (10px, 6px on the sample diagnosis below 40rem) gives 14px and 0. Elements that do not fill their parent (the 42px icon squares, inputs, buttons) keep their own radius.
 - Surfaces:
   - `.island`: prose on home sits on solid `--panel`, 1px `--line`, card radius. No blur since the background scenes went on 2026-11-07.
   - `.bezel-core`: the one frame around a figure, a white plate on a `--line` hairline at card radius, no tray and no shadow. The double frame went on 2026-11-07 (tell 9 in the web-design-tells checklist).
@@ -149,7 +154,7 @@ The sprout and lens mark on a `0 0 48 48` grid: an open ring ending in a node, a
 
 ## Forms
 
-- Home, the four service pages and the about page: the same `name="contact"` form, `data-netlify="true"`, hidden `form-name` input, `netlify-honeypot="referral-source"`, and a hidden `service` input naming the page it was sent from (Home, Reporting alignment, Video, Events, Software builds, About). `wireForm()` submits in place and shows the confirmation.
+- Home, the four service pages and the about page: the same `name="contact"` form, `data-netlify="true"`, hidden `form-name` input, `netlify-honeypot="referral-source"`, and a hidden `service` input naming the page it was sent from (Home, Reporting alignment, Video, Events, Software builds, About). `wireForm()` submits in place and shows the confirmation. While the request is out the button is disabled, reads the form's `data-sending` word ("Starting") and carries `aria-busy="true"`, which draws a small turning ring after the word (still under reduced motion); on failure the button comes back as it was and the error line shows. Motion on this site is for feedback like this, not decoration.
 - Landing page: `name="ai-readiness-consult"`, honeypot `company-site`, plain native POST.
 
 ## Structure rules
@@ -165,7 +170,7 @@ The sprout and lens mark on a `0 0 48 48` grid: an open ring ending in a node, a
 
 Comp G, picked 1 November 2026, built 2 November on the existing tokens and components. Every rule is scoped on `body.home` or a `home-` class at the end of `styles.css`.
 
-- **The band.** `.home-hero` on `--mark-deep` with paper type, 28px rounded bottom corners (20px on a phone), 88px of bottom padding. The masthead sits on it (above). Inside: `.home-pill`, a plain `--mono` label at `--t-micro` in `--tint-sage`, no border, no pill shape (it was an outlined pill until 2026-11-07, tell 4), reading "Reporting · Video · Events · Software builds"; the `h1` `.home-title` at `clamp(2.4rem, 6vw, 5.4rem)`, line height 1, `-0.04em`, capped at 13ch, "Align what matters." at 600 and "Integrate how you move forward." in a span at 300 in `--tint-sage`; then `.home-hero-foot`, the positioning sentence (`.home-claim`, `--t-body` in `--tint-stone`, 430px) on the left and `.btn.btn-paper` (a `--tint-sage` outline with paper text and the usual `.btn-well` arrow) on the right. Under 600px the foot stacks. The spacing above the pill and above the foot is `clamp(2rem, 8vh, 6rem)`.
+- **The band.** `.home-hero` on `--mark-deep` with paper type, 28px rounded bottom corners (20px on a phone), 88px of bottom padding. The masthead sits on it (above). Inside: the `h1` `.home-title` at `clamp(2.4rem, 6vw, 5.4rem)`, line height 1, `-0.04em`, capped at 13ch, "Align what matters." at 600 and "Integrate how you move forward." in a span at 300 in `--tint-sage`; then `.home-hero-foot`, the positioning sentence (`.home-claim`, `--t-body` in `--tint-stone`, 430px) on the left and `.btn.btn-paper` (a `--tint-sage` outline with paper text and the usual `.btn-well` arrow) on the right, with "Book the call" as `.btn.btn-paper-fill` (filled paper with `--mark-deep` text) so the main action reads first. Under 600px the foot stacks. The spacing above the h1 and above the foot is `clamp(2rem, 8vh, 6rem)`. Ruled 7 November 2026 (TikTok audit, his "recs"): the service pill is cut because it repeated the Services menu and the cards, and the 01 02 03 card numbers are cut because three cards need no order.
 - **The ghost.** `.home-ghost`, the monogram at 600px (340px on a phone) in `--tint-sage` at 0.09 opacity, positioned off the top right corner of the band, `pointer-events: none`, `aria-hidden`. His words: "that empty circle in top right should be the logo faded in background".
 - **The cards.** `.home-cards`, a `ul` of eight `.home-card`s on `--panel` with a `--line` hairline and `--radius-card`, 16px gaps, padding 20px 22px 22px. One column by default, two from 601px, four from 1001px; from two columns up the grid overlaps the band by 56px, on a phone it sits 24px under it. The grid rises as one `.rise` group and the cards stagger. In order: Reporting alignment, Video, Events, Software builds, Data, Strategy, Parts of systems (his words, 1 November), then the start card. Cards carry no numbers and the icon has no container (the 01 to 03 labels and the tinted 42px square went on 2026-11-07, tells 7 and 12). Each card: the `h3` `.home-card-name` at 1.125rem, holding `.home-card-icon` inline before the name (a 22px stroke icon at 1.6px in `--mark-deep`, matching what the card is); a visually hidden sentence saying what the drawing shows; the drawing `.home-card-join`, inline SVG, `aria-hidden`, pieces in `--ink-muted` and the result in `--mark` with `--mono` text; and `.home-card-go`, the one link, `--mono` at `--t-label` in `--mark` with the site's arrow, whose `::after` makes the whole card its hit area. Hover darkens the hairline to `--line-strong`; focus within turns it `--ink`.
 - **The start card.** `.home-card-start` on `--tint-sage`: the label "Start here" in `--mark` (the comp's `--sage-deep` reads 3.26:1 on this tint), the `h3` "Tell us what needs to fit together." at 1.375rem, the line "A 30-minute call, then a proposal." in `--ink` (the comp's `--ink-muted` reads 4.17:1 here), and `.btn.btn-primary.btn-deep` to `#contact`, `--mark-deep` with `--mark` on hover.
