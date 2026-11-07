@@ -237,7 +237,12 @@ h1, h2, h3 {
   line-height: 1.2;
   font-weight: 600;
   letter-spacing: -0.01em;
+  /* even line lengths, so a heading never ends on one word */
+  text-wrap: balance;
 }
+
+/* prose avoids a one-word last line; headings balance above */
+p, li, dd, figcaption { text-wrap: pretty; }
 
 p, ul, ol { margin: 0; }
 ul, ol { padding: 0; list-style: none; }

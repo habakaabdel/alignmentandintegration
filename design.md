@@ -105,6 +105,8 @@ Body line height 1.65, headings 1.2 at weight 600 with `-0.01em` tracking. The p
 
 Sentence case everywhere, headings and buttons included.
 
+Wrapping, since 2026-11-07: `h1`, `h2` and `h3` carry `text-wrap: balance` so a heading never ends on one word; `p`, `li`, `dd` and `figcaption` carry `text-wrap: pretty`. Browsers without support wrap as before.
+
 ## Space, radius, surfaces
 
 - Spacing on a 4px base: `--s1` 0.25rem through `--s9` 6rem (4, 8, 12, 16, 24, 32, 48, 64, 96px).
