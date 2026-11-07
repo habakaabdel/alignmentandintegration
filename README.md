@@ -8,7 +8,7 @@ One simple home page and one landing page per service, since November 2026 (Brie
 
 | Path | What it is |
 |---|---|
-| `/` | Home. The brand line and the positioning sentence on a deep sage band, seven cards (Reporting alignment, Video, Events, Software builds, Data, Strategy, Parts of systems) and a start card, the proof strip (`#work`), and the contact form. Comp G, picked November 2026. |
+| `/` | Home. The brand line and the positioning sentence on a deep sage band, a primary block (Reporting alignment, the diagnosis offer, Data, Strategy), a smaller block labelled Other services (Video, Events, Software builds, Parts of systems), the proof strip (`#work`), and the contact form. Comp G, picked November 2026. |
 | `/reporting/` | Reporting alignment, on any platform. Theme `organizations`. What it looks like (four scenarios and the platform partner panel), the process, the three offers (the $3,500 diagnosis is the only priced one), the two weeks, the engine, Data (`#data`) and Strategy (`#strategy`), where we have built, the bounds line, contact. Was `/organizations/`, which now redirects here. |
 | `/organizations/sample-diagnosis/` | The sample diagnosis, on fictional data. Reached from `/reporting/`. |
 | `/video/` | Video. The Wolfe Retreat video (the short and the tour), the Brain to AI reel, what it looks like (five scenarios), how it works, the prices (from $300 one-off, from $800 a month), a marked slot for the case study, contact. Was `/videos/`, which now redirects here. |
