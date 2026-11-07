@@ -1105,17 +1105,7 @@ a:hover { color: var(--mark-deep); }
   background: var(--panel);
   border: var(--hair) solid var(--line-strong);
   border-radius: var(--radius-leaf);
-  transition: border-color var(--fast) var(--ease), translate var(--fast) var(--ease);
-}
-
-.segment::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 3px;
-  background: var(--mark);
+  transition: border-color var(--fast) var(--ease);
 }
 
 .segment > a {
@@ -1127,7 +1117,7 @@ a:hover { color: var(--mark-deep); }
   text-decoration: none;
 }
 
-.segment:hover { border-color: var(--ink); translate: 0 -2px; }
+.segment:hover { border-color: var(--ink); }
 .segment:focus-within { border-color: var(--ink); }
 .segment:hover .segment-name { color: var(--mark-deep); }
 
