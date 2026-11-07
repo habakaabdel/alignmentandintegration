@@ -162,10 +162,10 @@
               '<div style="width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0">' + LOGO + '</div>' +
               '<div>' +
                 '<div style="font-family:var(--ff-display);font-size:17px;color:#fff">' + esc(AGENCY.name) + '</div>' +
-                '<div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mute)">' + esc(AGENCY.sub) + '</div>' +
+                '<div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mute)">' + esc(AGENCY.sub) + '</div>' +
               '</div>' +
             '</div>' +
-            '<p style="font-size:13px;line-height:1.6;opacity:0.75;max-width:280px;margin:0">' +
+            '<p style="font-size:16px;line-height:1.6;opacity:0.75;max-width:280px;margin:0">' +
               'The staff portal is an internal reference for Riverbend teams across ' + esc(AGENCY.region) + '. ' +
               'Every screen here is a demonstration.' +
             '</p>' +
@@ -309,7 +309,7 @@
           '<h1 class="display-xl">Everything <span class="hero-ani">EMR</span>, in one place.</h1>' +
           '<p class="lede" style="margin-top:20px;max-width:560px">Program guides, videos, and step by step help for the case management system. The working reference for every Riverbend program.</p>' +
           '<div style="margin-top:28px;max-width:600px">' + searchBar(true, 'Try "contact note" or "referral"…') + '</div>' +
-          '<div style="margin-top:18px;display:flex;gap:20px;align-items:center;font-size:13px;color:var(--ink-mute);flex-wrap:wrap">' +
+          '<div style="margin-top:18px;display:flex;gap:20px;align-items:center;font-size:16px;color:var(--ink-mute);flex-wrap:wrap">' +
             '<span>Popular:</span>' +
             '<a href="#/program-guides" style="color:var(--primary);text-decoration:none;font-weight:600">My program guide</a>' +
             '<a href="#/videos" style="color:var(--primary);text-decoration:none;font-weight:600">Training videos</a>' +
@@ -326,7 +326,7 @@
           '</div>' +
           '<div style="margin-top:20px;padding:18px 16px;background:rgba(255,255,255,0.08);border-radius:var(--r-md);border:1px solid rgba(255,255,255,0.12);text-align:center">' +
             '<div style="font-family:var(--ff-display);font-size:24px;font-weight:500;color:#fff;margin-bottom:6px">One sign in</div>' +
-            '<div style="font-size:13px;color:rgba(255,255,255,0.75)">Use your Riverbend work account.</div>' +
+            '<div style="font-size:16px;color:rgba(255,255,255,0.75)">Use your Riverbend work account.</div>' +
           '</div>' +
           '<button class="btn btn-primary" data-signin style="margin-top:16px;width:100%;justify-content:center">' + icon('KeyRound', 18) + ' Sign in to the EMR</button>' +
           '<div class="signin-note">' + icon('Sparkles', 16, 'color:var(--accent);flex-shrink:0') +
@@ -368,7 +368,7 @@
     '<section class="section-tight"><div class="container">' +
       '<div class="card" style="padding:0;overflow:hidden;background:var(--surface-subtle);border:1px solid var(--border);max-width:680px;margin:0 auto">' +
         '<div style="padding:24px 28px">' +
-          '<div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;margin-bottom:8px">Fastest path</div>' +
+          '<div style="font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;margin-bottom:8px">Fastest path</div>' +
           '<div style="font-family:var(--ff-display);font-size:22px;font-weight:700;margin-bottom:14px;line-height:1.2;color:var(--ink-heading)">New to the EMR? Start here.</div>' +
           '<div style="display:flex;flex-direction:column;gap:2px">' +
           [['1', 'Sign in with your Riverbend work account', '#/faq/0'],
@@ -376,8 +376,8 @@
            ['3', 'Open your program guide', '#/program-guides'],
            ['4', 'Write your first contact note, steps are in your guide', '#/program-guides']]
             .map((s) => '<a href="' + s[2] + '" style="display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);text-decoration:none;color:var(--ink)">' +
-              '<div style="width:26px;height:26px;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;font-size:12px;font-weight:600;flex-shrink:0;color:var(--primary)">' + s[0] + '</div>' +
-              '<span style="flex:1;font-size:14px">' + esc(s[1]) + '</span>' + icon('ArrowRight', 16, 'color:var(--ink-mute)') +
+              '<div style="width:26px;height:26px;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;font-size:13px;font-weight:600;flex-shrink:0;color:var(--primary)">' + s[0] + '</div>' +
+              '<span style="flex:1;font-size:16px">' + esc(s[1]) + '</span>' + icon('ArrowRight', 16, 'color:var(--ink-mute)') +
             '</a>').join('') +
           '</div>' +
         '</div>' +
@@ -418,20 +418,20 @@
     const mine = GUIDE_PROGRAMS.filter((p) => p.slug === mySlug)[0];
     const liveCount = PROGRAMS_AVAILABLE().length;
     const H = (t) => '<h2 class="display-sm" style="margin-bottom:18px;padding-bottom:8px;border-bottom:2px solid var(--primary);display:inline-block">' + esc(t) + '</h2>';
-    const tag = (kind) => 'font-size:9.5px;font-weight:800;letter-spacing:.05em;padding:2px 6px;border-radius:5px;flex-shrink:0;' +
+    const tag = (kind) => 'font-size:13px;font-weight:800;letter-spacing:.05em;padding:2px 6px;border-radius:5px;flex-shrink:0;' +
       (kind === 'start'
         ? 'background:var(--primary-subtle);color:var(--primary-subtle-ink);border:1px solid var(--primary-subtle-border)'
         : 'background:var(--surface-subtle);color:var(--ink-mute);border:1px solid var(--border)');
     const lane = (sys, fnd, strm) =>
       '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:13px;text-align:center">' +
-        '<div style="font-family:var(--ff-display);font-size:15px;font-weight:700;color:var(--ink)">' + esc(sys) + '</div>' +
-        '<div style="font-size:12.5px;color:var(--ink-mute);margin-top:3px">' + esc(fnd) + '</div>' +
-        '<div style="font-size:11.5px;color:var(--primary);font-weight:600;margin-top:6px">' + esc(strm) + '</div>' +
+        '<div style="font-family:var(--ff-display);font-size:16px;font-weight:700;color:var(--ink)">' + esc(sys) + '</div>' +
+        '<div style="font-size:13px;color:var(--ink-mute);margin-top:3px">' + esc(fnd) + '</div>' +
+        '<div style="font-size:13px;color:var(--primary);font-weight:600;margin-top:6px">' + esc(strm) + '</div>' +
       '</div>';
     const spine = (t, d) =>
       '<div style="background:var(--surface-dark);border:1px solid var(--border-strong);border-radius:10px;padding:12px">' +
-        '<div style="font-family:var(--ff-display);font-size:13.5px;font-weight:700;color:#fff;margin-bottom:3px">' + esc(t) + '</div>' +
-        '<div style="font-size:12px;color:#A9B6BB;line-height:1.45">' + esc(d) + '</div>' +
+        '<div style="font-family:var(--ff-display);font-size:16px;font-weight:700;color:#fff;margin-bottom:3px">' + esc(t) + '</div>' +
+        '<div style="font-size:13px;color:#A9B6BB;line-height:1.45">' + esc(d) + '</div>' +
       '</div>';
 
     return pageHeader({
@@ -446,26 +446,26 @@
       '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:48px">' +
         OVERVIEW_STAGES.map((s) =>
           '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px">' +
-            '<div style="font-size:11px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.06em">' + esc(s.n) + '</div>' +
+            '<div style="font-size:13px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.06em">' + esc(s.n) + '</div>' +
             '<div style="font-family:var(--ff-display);font-size:16px;font-weight:700;margin:2px 0 9px;color:var(--ink)">' + esc(s.t) + '</div>' +
-            '<div style="font-size:12.5px;color:var(--ink-soft);display:flex;gap:6px;margin-bottom:5px;align-items:flex-start;line-height:1.35"><span style="' + tag('start') + '">START</span>' + esc(s.s) + '</div>' +
-            '<div style="font-size:12.5px;color:var(--ink-soft);display:flex;gap:6px;align-items:flex-start;line-height:1.35"><span style="' + tag('end') + '">END</span>' + esc(s.e) + '</div>' +
+            '<div style="font-size:13px;color:var(--ink-soft);display:flex;gap:6px;margin-bottom:5px;align-items:flex-start;line-height:1.35"><span style="' + tag('start') + '">START</span>' + esc(s.s) + '</div>' +
+            '<div style="font-size:13px;color:var(--ink-soft);display:flex;gap:6px;align-items:flex-start;line-height:1.35"><span style="' + tag('end') + '">END</span>' + esc(s.e) + '</div>' +
           '</div>').join('') +
       '</div>' +
 
       H('Front doors, then central intake') +
       '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:48px">' +
         '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px">' +
-          '<div style="font-family:var(--ff-display);font-size:15px;font-weight:700;margin-bottom:10px">Front doors</div>' +
+          '<div style="font-family:var(--ff-display);font-size:16px;font-weight:700;margin-bottom:10px">Front doors</div>' +
           '<div style="display:flex;flex-wrap:wrap;gap:7px">' +
           ['Walk in', 'Phone or verbal', 'Crisis line', 'Family and community',
            'Partners: Cedarline · Harbourlight · Northgate', 'Justice: probation, parole, court']
             .map((c) => '<span class="chip">' + esc(c) + '</span>').join('') +
           '</div></div>' +
         '<div style="background:var(--primary-subtle);border:2px solid var(--primary);border-radius:var(--r-lg);padding:16px 18px">' +
-          '<div style="font-size:12px;font-weight:700;color:var(--primary-subtle-ink);letter-spacing:.04em;margin-bottom:6px">CENTRAL INTAKE</div>' +
-          '<div style="font-family:var(--ff-display);font-size:15px;font-weight:700;margin-bottom:8px">One referral form, triage, route</div>' +
-          '<div style="font-size:13.5px;color:var(--ink-soft);line-height:1.5">Verbal referrals are accepted and transcribed. Two programs keep their own direct intake: <strong>the community hub and residential youth treatment</strong>.</div>' +
+          '<div style="font-size:13px;font-weight:700;color:var(--primary-subtle-ink);letter-spacing:.04em;margin-bottom:6px">CENTRAL INTAKE</div>' +
+          '<div style="font-family:var(--ff-display);font-size:16px;font-weight:700;margin-bottom:8px">One referral form, triage, route</div>' +
+          '<div style="font-size:16px;color:var(--ink-soft);line-height:1.5">Verbal referrals are accepted and transcribed. Two programs keep their own direct intake: <strong>the community hub and residential youth treatment</strong>.</div>' +
         '</div>' +
       '</div>' +
 
@@ -476,12 +476,12 @@
             '<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">' +
             '<a href="#/program-guides/' + mine.slug + '" class="btn btn-primary">Open your guide ' + icon('ArrowRight', 16) + '</a>' + programSelect(mySlug) + '</div>'
           : '<div style="min-width:220px;flex:1"><div class="eyebrow" style="margin-bottom:4px">Make this page yours</div>' +
-            '<div style="font-size:14px;color:var(--ink-soft)">Pick your program once and the portal opens your guide first, on every visit from this device.</div></div>' +
+            '<div style="font-size:16px;color:var(--ink-soft)">Pick your program once and the portal opens your guide first, on every visit from this device.</div></div>' +
             programSelect(mySlug)) +
       '</div>' +
 
       H('The eight streams, pick your program') +
-      '<p style="font-size:14px;color:var(--ink-mute);margin-top:-4px;margin-bottom:20px">' + liveCount +
+      '<p style="font-size:16px;color:var(--ink-mute);margin-top:-4px;margin-bottom:20px">' + liveCount +
         ' guides are live now, highlighted below. The rest open a placeholder until their guide is written.</p>' +
       '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:48px">' +
         STREAMS.map((st) => {
@@ -489,17 +489,17 @@
           return '<div data-stream="' + st.id + '" class="stream-card" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px">' +
             '<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px">' +
               '<span class="stream-letter" style="font-family:var(--ff-display);font-size:20px;font-weight:800;line-height:1">' + st.id + '</span>' +
-              '<span style="font-family:var(--ff-display);font-size:15px;font-weight:700;color:var(--ink);line-height:1.2">' + esc(st.name) + '</span>' +
+              '<span style="font-family:var(--ff-display);font-size:16px;font-weight:700;color:var(--ink);line-height:1.2">' + esc(st.name) + '</span>' +
             '</div>' +
-            '<div class="stream-chip" style="font-size:11px;border-radius:6px;padding:3px 8px;display:inline-block;margin-bottom:14px;letter-spacing:.02em">Reports to ' + esc(st.report) + '</div>' +
+            '<div class="stream-chip" style="font-size:13px;border-radius:6px;padding:3px 8px;display:inline-block;margin-bottom:14px;letter-spacing:.02em">Reports to ' + esc(st.report) + '</div>' +
             '<div style="display:flex;flex-direction:column;gap:6px">' +
               progs.map((p) =>
                 '<a href="#/program-guides/' + p.slug + '" style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;border-radius:10px;text-decoration:none;border:1px solid var(--border);background:' +
                   (p.status === 'available' ? 'var(--primary-subtle)' : 'var(--surface)') + '">' +
-                  '<span style="font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.35">' + esc(p.title) + '</span>' +
+                  '<span style="font-size:16px;font-weight:600;color:var(--ink);line-height:1.35">' + esc(p.title) + '</span>' +
                   (p.status === 'available'
-                    ? '<span style="font-size:10px;font-weight:700;color:var(--primary-subtle-ink);display:inline-flex;align-items:center;gap:3px;flex-shrink:0;letter-spacing:.04em">GUIDE READY ' + icon('ArrowRight', 12) + '</span>'
-                    : '<span style="font-size:10px;font-weight:600;color:var(--ink-faint);flex-shrink:0;letter-spacing:.04em">SOON ›</span>') +
+                    ? '<span style="font-size:13px;font-weight:700;color:var(--primary-subtle-ink);display:inline-flex;align-items:center;gap:3px;flex-shrink:0;letter-spacing:.04em">GUIDE READY ' + icon('ArrowRight', 12) + '</span>'
+                    : '<span style="font-size:13px;font-weight:600;color:var(--ink-faint);flex-shrink:0;letter-spacing:.04em">SOON ›</span>') +
                 '</a>').join('') +
             '</div></div>';
         }).join('') +
@@ -507,8 +507,8 @@
 
       H('Every program runs on the same spine') +
       '<div style="background:var(--surface-dark);border-radius:var(--r-lg);padding:20px 22px;margin-bottom:48px">' +
-        '<div style="font-family:var(--ff-display);font-size:15px;font-weight:700;color:#fff;margin-bottom:4px">The shared spine</div>' +
-        '<div style="font-size:13.5px;color:#A9B6BB;margin-bottom:16px">This is what makes twenty one programs teachable as one system.</div>' +
+        '<div style="font-family:var(--ff-display);font-size:16px;font-weight:700;color:#fff;margin-bottom:4px">The shared spine</div>' +
+        '<div style="font-size:16px;color:#A9B6BB;margin-bottom:16px">This is what makes twenty one programs teachable as one system.</div>' +
         '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">' +
           spine('Layered activities', 'A global library plus program specific additions, and each lead trims down.') +
           spine('Time, two ways', 'Client contact against workload, with direct and indirect minutes on every contact.') +
@@ -526,9 +526,9 @@
         lane('Community transfer', 'Community wellness funding', 'Stream H') +
       '</div>' +
 
-      '<div style="background:linear-gradient(100deg,#0F4152,#17566B);border-radius:var(--r-lg);padding:24px 28px;color:#fff">' +
+      '<div style="background:#0F4152;border-radius:var(--r-lg);padding:24px 28px;color:#fff">' +
         '<div style="font-family:var(--ff-display);font-size:21px;font-weight:800;line-height:1.3">Staff deliver one service, not twenty one.</div>' +
-        '<div style="font-size:15px;margin-top:8px;color:#CFE6EE;line-height:1.55;max-width:880px">The programs differ mostly by funder, not by what a worker actually does in the room. The EMR lets a worker deliver one service to one person, then splits the data underneath so every funder gets its report.</div>' +
+        '<div style="font-size:16px;margin-top:8px;color:#CFE6EE;line-height:1.55;max-width:880px">The programs differ mostly by funder, not by what a worker actually does in the room. The EMR lets a worker deliver one service to one person, then splits the data underneath so every funder gets its report.</div>' +
       '</div>' +
 
     '</div></section>';
@@ -538,7 +538,7 @@
 
   function guideTable(headers, rows) {
     return '<div style="overflow-x:auto;border-radius:var(--r-lg);border:1px solid var(--border)">' +
-      '<table style="width:100%;border-collapse:collapse;font-size:14px"><thead><tr style="background:var(--surface-subtle)">' +
+      '<table style="width:100%;border-collapse:collapse;font-size:16px"><thead><tr style="background:var(--surface-subtle)">' +
       headers.map((h) => '<th style="padding:10px 16px;text-align:left;font-weight:700;color:var(--ink-heading);border-bottom:1px solid var(--border);white-space:nowrap;font-family:var(--ff-display)">' + esc(h) + '</th>').join('') +
       '</tr></thead><tbody>' +
       rows.map((row, ri) =>
@@ -549,7 +549,7 @@
   }
 
   function uniqueTag(label) {
-    return '<span style="display:inline-flex;align-items:center;gap:3px;background:var(--accent-subtle);color:var(--accent-deep);border:1px solid var(--accent-subtle-border);border-radius:var(--r-pill);font-size:11px;font-weight:600;padding:2px 7px;margin-left:6px;vertical-align:middle;letter-spacing:.04em">' + esc(label) + '</span>';
+    return '<span style="display:inline-flex;align-items:center;gap:3px;background:var(--accent-subtle);color:var(--accent-deep);border:1px solid var(--accent-subtle-border);border-radius:var(--r-pill);font-size:13px;font-weight:600;padding:2px 7px;margin-left:6px;vertical-align:middle;letter-spacing:.04em">' + esc(label) + '</span>';
   }
 
   function callout(variant, title, body) {
@@ -560,7 +560,7 @@
     };
     const s = map[variant] || map.neutral;
     return '<div style="background:' + s[0] + ';border:1px solid ' + s[1] + ';border-left:4px solid ' + s[2] + ';border-radius:var(--r-lg);padding:16px 20px">' +
-      (title ? '<div style="font-family:var(--ff-display);font-size:15px;font-weight:600;color:' + s[3] + ';margin-bottom:8px">' + esc(title) + '</div>' : '') +
+      (title ? '<div style="font-family:var(--ff-display);font-size:16px;font-weight:600;color:' + s[3] + ';margin-bottom:8px">' + esc(title) + '</div>' : '') +
       body + '</div>';
   }
 
@@ -605,8 +605,8 @@
         return '<button data-stage="' + st.id + '" style="flex:1 1 0;min-width:96px;display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 8px;border:none;cursor:pointer;border-radius:var(--r-lg);background:' + (on ? 'var(--primary-subtle)' : 'transparent') + '">' +
           '<div style="width:44px;height:44px;border-radius:50%;background:' + (on ? 'var(--primary)' : 'var(--surface)') + ';border:' + (on ? 'none' : '2px solid var(--border)') + ';color:' + (on ? '#fff' : 'var(--ink-mute)') + ';display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-size:17px;font-weight:700;flex-shrink:0">' + (i + 1) + '</div>' +
           '<div style="text-align:center">' +
-            '<div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:3px">' + esc(st.label) + '</div>' +
-            '<div style="font-size:13px;font-weight:600;color:' + (on ? 'var(--primary)' : 'var(--ink)') + ';line-height:1.3">' + esc(st.title) + '</div>' +
+            '<div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:3px">' + esc(st.label) + '</div>' +
+            '<div style="font-size:16px;font-weight:600;color:' + (on ? 'var(--primary)' : 'var(--ink)') + ';line-height:1.3">' + esc(st.title) + '</div>' +
           '</div></button>' +
           (i < guide.stages.length - 1 ? '<div style="align-self:flex-start;margin-top:28px;color:var(--ink-faint);font-size:20px;flex-shrink:0;line-height:1">›</div>' : '');
       }).join('') + '</div></div>';
@@ -616,79 +616,79 @@
       ? '<div style="background:var(--surface-subtle);border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:var(--r-lg);padding:20px 24px;margin-bottom:24px">' +
         '<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:baseline;margin-bottom:10px">' +
           '<span class="chip chip-forest">' + esc(stageData.label) + ': ' + esc(stageData.title) + '</span>' +
-          '<span style="font-size:13px;color:var(--ink-mute)">Who: ' + esc(stageData.who) + '</span>' +
-        '</div><p style="margin:0;font-size:15px;color:var(--ink-soft);line-height:1.65">' + esc(stageData.desc) + '</p></div>'
-      : '<div style="color:var(--ink-faint);font-size:14px;margin-bottom:16px;text-align:center;padding:8px 0">Select a stage above to see the detail.</div>';
+          '<span style="font-size:16px;color:var(--ink-mute)">Who: ' + esc(stageData.who) + '</span>' +
+        '</div><p style="margin:0;font-size:16px;color:var(--ink-soft);line-height:1.65">' + esc(stageData.desc) + '</p></div>'
+      : '<div style="color:var(--ink-faint);font-size:16px;margin-bottom:16px;text-align:center;padding:8px 0">Select a stage above to see the detail.</div>';
 
     const sections = [
       { id: 'client-journey', label: 'Client Journey', content:
         sectionTitle('Client Journey') +
-        '<p style="font-size:15px;color:var(--ink-soft);margin-bottom:24px">Press any stage to see who does what and what to expect.</p>' +
+        '<p style="font-size:16px;color:var(--ink-soft);margin-bottom:24px">Press any stage to see who does what and what to expect.</p>' +
         stageFlow + stageDetail +
         '<div style="margin-top:24px">' + callout('neutral', 'Discharge reasons',
           '<ul style="margin:4px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:4px">' +
-          guide.discharge.map((r) => '<li style="font-size:14px;color:var(--ink-soft);line-height:1.5">' + esc(r) + '</li>').join('') +
+          guide.discharge.map((r) => '<li style="font-size:16px;color:var(--ink-soft);line-height:1.5">' + esc(r) + '</li>').join('') +
           '</ul>') + '</div>' },
 
       { id: 'document-contact', label: 'Document a Contact', content:
         sectionTitle('How to Document a Contact') +
-        '<p style="font-size:15px;color:var(--ink-soft);margin-bottom:24px;line-height:1.65">Most of what you record is a <strong>client contact</strong>: a service that already happened.</p>' +
+        '<p style="font-size:16px;color:var(--ink-soft);margin-bottom:24px;line-height:1.65">Most of what you record is a <strong>client contact</strong>: a service that already happened.</p>' +
         steps(guide.docSteps) +
         '<div style="margin-top:20px">' + callout('info', null,
-          '<p style="margin:0;font-size:14px;color:var(--primary-subtle-ink);line-height:1.6">' + esc(guide.docTip) + '</p>') + '</div>' +
+          '<p style="margin:0;font-size:16px;color:var(--primary-subtle-ink);line-height:1.6">' + esc(guide.docTip) + '</p>') + '</div>' +
         '<div style="margin-top:20px">' + callout('neutral', 'Locations picklist',
-          '<p style="margin:0;font-size:14px;color:var(--ink-soft);line-height:1.6">' + esc(guide.locations) + '</p>') + '</div>' },
+          '<p style="margin:0;font-size:16px;color:var(--ink-soft);line-height:1.6">' + esc(guide.locations) + '</p>') + '</div>' },
 
       { id: 'document-workload', label: 'Workload Time', content:
         sectionTitle('How to Document Workload Time') +
-        '<p style="font-size:15px;color:var(--ink-soft);margin-bottom:24px;line-height:1.65">' + esc(guide.workloadIntro) + '</p>' +
+        '<p style="font-size:16px;color:var(--ink-soft);margin-bottom:24px;line-height:1.65">' + esc(guide.workloadIntro) + '</p>' +
         steps(guide.workloadSteps) },
 
       { id: 'activities', label: 'Activities', content:
         sectionTitle('Activities') +
         '<div style="font-family:var(--ff-display);font-size:16px;font-weight:700;color:var(--ink-heading);margin-bottom:6px;margin-top:4px">Client contact activities</div>' +
-        '<p style="font-size:14px;color:var(--ink-mute);margin-bottom:12px">Direct service, linked to a client file.</p>' +
+        '<p style="font-size:16px;color:var(--ink-mute);margin-bottom:12px">Direct service, linked to a client file.</p>' +
         guideTable(['Activity', 'When to use'], guide.activities.clientContact.map((a) =>
           [esc(a.name) + (a.unique ? uniqueTag(uniqueLabel) : ''), esc(a.when)])) +
         (uniqueCount
-          ? '<div style="margin-top:10px;font-size:13px;color:var(--ink-mute);display:flex;align-items:center;gap:6px">' +
+          ? '<div style="margin-top:10px;font-size:16px;color:var(--ink-mute);display:flex;align-items:center;gap:6px">' +
             uniqueTag(uniqueLabel) + '<span>These activities exist only in this program.</span></div>'
           : '') +
         '<div style="font-family:var(--ff-display);font-size:16px;font-weight:700;color:var(--ink-heading);margin:28px 0 6px">Workload activities</div>' +
-        '<p style="font-size:14px;color:var(--ink-mute);margin-bottom:12px">' + esc(guide.workloadNote) + '</p>' +
+        '<p style="font-size:16px;color:var(--ink-mute);margin-bottom:12px">' + esc(guide.workloadNote) + '</p>' +
         guideTable(['Activity', 'When to use'], guide.activities.workload.map((a) =>
           [esc(a.name) + (a.unique ? uniqueTag(uniqueLabel) : ''), esc(a.when)])) },
 
       { id: 'attachments', label: 'Attachments', content:
         sectionTitle('Attachments') +
-        '<p style="font-size:15px;color:var(--ink-soft);margin-bottom:18px">When adding a file to a contact, a case note, or a case data record, pick the matching attachment type. The type is what makes a file findable a year later.</p>' +
+        '<p style="font-size:16px;color:var(--ink-soft);margin-bottom:18px">When adding a file to a contact, a case note, or a case data record, pick the matching attachment type. The type is what makes a file findable a year later.</p>' +
         guideTable(['Attachment type', 'Example'], guide.attachments.map((a) =>
           [esc(a.type) + (a.unique ? uniqueTag(uniqueLabel) : ''), esc(a.example)])) },
 
       { id: 'case-forms', label: 'Case Data Forms', content:
         sectionTitle('Case Data Forms') +
-        '<p style="font-size:15px;color:var(--ink-soft);margin-bottom:18px">Case data holds the structured program forms. Not narrative notes, but trackable fields that the reports read.</p>' +
+        '<p style="font-size:16px;color:var(--ink-soft);margin-bottom:18px">Case data holds the structured program forms. Not narrative notes, but trackable fields that the reports read.</p>' +
         guideTable(['Form', 'When to complete', 'Who'], guide.caseForms.map((f) => [esc(f.form), esc(f.when), esc(f.who)])) +
         '<div style="margin-top:20px">' + callout('neutral', 'Referral sources picklist',
-          '<p style="margin:0;font-size:14px;color:var(--ink-soft);line-height:1.6">' + esc(guide.referralSources) + '</p>') + '</div>' },
+          '<p style="margin:0;font-size:16px;color:var(--ink-soft);line-height:1.6">' + esc(guide.referralSources) + '</p>') + '</div>' },
 
       { id: 'goal-planning', label: 'Goal Planning', content:
         sectionTitle('Goal Planning') +
-        '<p style="font-size:15px;color:var(--ink-soft);margin-bottom:24px">Goal planning tracks care goals and progress over time. One goal record per focus area.</p>' +
+        '<p style="font-size:16px;color:var(--ink-soft);margin-bottom:24px">Goal planning tracks care goals and progress over time. One goal record per focus area.</p>' +
         steps(guide.goalPlanning) },
 
       { id: 'critical-flag', label: 'Critical Flag', content:
         sectionTitle('When to Use the Critical Flag') +
-        '<p style="font-size:15px;color:var(--ink-soft);margin-bottom:18px">Check the <strong>critical</strong> box on any contact or case note when the content involves:</p>' +
+        '<p style="font-size:16px;color:var(--ink-soft);margin-bottom:18px">Check the <strong>critical</strong> box on any contact or case note when the content involves:</p>' +
         callout('warning', 'Flag as critical for any of these',
           '<ul style="margin:4px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px">' +
-          guide.criticalFlag.map((c) => '<li style="font-size:14px;color:var(--accent-deep);line-height:1.55">' + esc(c) + '</li>').join('') +
+          guide.criticalFlag.map((c) => '<li style="font-size:16px;color:var(--accent-deep);line-height:1.55">' + esc(c) + '</li>').join('') +
           '</ul>') +
-        '<p style="font-size:14px;color:var(--ink-mute);margin-top:14px">Critical notes land in the critical note summary, which supervisors read weekly across every active client.</p>' },
+        '<p style="font-size:16px;color:var(--ink-mute);margin-top:14px">Critical notes land in the critical note summary, which supervisors read weekly across every active client.</p>' },
 
       { id: 'reports', label: 'Reports', content:
         sectionTitle('Reports') +
-        '<p style="font-size:15px;color:var(--ink-soft);margin-bottom:18px">Each report below is run by the program lead unless the guide says otherwise. Numbers shown anywhere in this demonstration are invented.</p>' +
+        '<p style="font-size:16px;color:var(--ink-soft);margin-bottom:18px">Each report below is run by the program lead unless the guide says otherwise. Numbers shown anywhere in this demonstration are invented.</p>' +
         guideTable(['Report', 'How often', 'Why'], guide.reports.map((r) => [esc(r.name), esc(r.freq), esc(r.why)])) },
     ];
 
@@ -738,7 +738,7 @@
           '<div class="guide-section-head"><span class="guide-section-count">Section ' + (activeIndex + 1) + ' of ' + sections.length + '</span></div>' +
           (guide.notice
             ? '<div style="margin-bottom:24px">' + callout('info', null,
-              '<div style="font-size:14px;color:var(--primary-subtle-ink);line-height:1.55"><strong>Note:</strong> ' + esc(guide.notice) + '</div>') + '</div>'
+              '<div style="font-size:16px;color:var(--primary-subtle-ink);line-height:1.55"><strong>Note:</strong> ' + esc(guide.notice) + '</div>') + '</div>'
             : '') +
           sections.map((s) => '<div id="' + s.id + '" class="guide-tab-panel' + (s.id === activeId ? ' is-active' : '') + '">' + s.content + '</div>').join('') +
           '<div class="guide-pager">' +
@@ -746,27 +746,27 @@
             (next ? '<a href="#/program-guides/' + slug + '/' + next.id + '" class="btn btn-primary">' + esc(next.label) + ' ' + icon('ArrowRight', 16) + '</a>' : '') +
           '</div>' +
           '<div style="border-top:1px solid var(--border);padding-top:20px;margin-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">' +
-            '<div style="font-size:13px;color:var(--ink-faint)">Guide content follows the configuration sheet for this fictional program. Demonstration build.</div>' +
-            '<a href="#/program-guides" class="btn btn-ghost" style="font-size:13px">' + icon('ArrowLeft', 16) + ' All programs</a>' +
+            '<div style="font-size:16px;color:var(--ink-faint)">Guide content follows the configuration sheet for this fictional program. Demonstration build.</div>' +
+            '<a href="#/program-guides" class="btn btn-ghost" style="font-size:16px">' + icon('ArrowLeft', 16) + ' All programs</a>' +
           '</div>' +
         '</div>' +
 
         '<aside class="guide-toc"><h5>Program at a glance</h5>' +
           '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;display:flex;flex-direction:column;gap:14px">' +
-            '<div><div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:3px">Funder</div>' +
-              '<div style="font-size:13px;color:var(--ink);font-weight:500">' + esc(guide.funder) + '</div></div>' +
-            '<div><div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:3px">Who documents</div>' +
-              '<div style="font-size:13px;color:var(--ink);font-weight:500">' + esc(guide.who) + '</div></div>' +
+            '<div><div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:3px">Funder</div>' +
+              '<div style="font-size:16px;color:var(--ink);font-weight:500">' + esc(guide.funder) + '</div></div>' +
+            '<div><div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:3px">Who documents</div>' +
+              '<div style="font-size:16px;color:var(--ink);font-weight:500">' + esc(guide.who) + '</div></div>' +
             '<div style="height:1px;background:var(--border)"></div>' +
             [['Stages of care', guide.stages.length],
              ['Client activities', guide.activities.clientContact.length],
              ['Case data forms', guide.caseForms.length],
              ['Attachment types', guide.attachments.length]]
-              .map((r) => '<div style="display:flex;justify-content:space-between;font-size:13px">' +
+              .map((r) => '<div style="display:flex;justify-content:space-between;font-size:16px">' +
                 '<span style="color:var(--ink-mute)">' + r[0] + '</span>' +
                 '<span style="font-weight:600;color:var(--ink-heading)">' + r[1] + '</span></div>').join('') +
             '<div style="height:1px;background:var(--border)"></div>' +
-            '<button data-signin style="font-size:13px;color:var(--primary);font-weight:600;display:inline-flex;align-items:center;gap:4px;padding:0">Sign in to the EMR ' + icon('ArrowRight', 16) + '</button>' +
+            '<button data-signin style="font-size:16px;color:var(--primary);font-weight:600;display:inline-flex;align-items:center;gap:4px;padding:0">Sign in to the EMR ' + icon('ArrowRight', 16) + '</button>' +
           '</div>' +
         '</aside>' +
 
@@ -792,7 +792,7 @@
         '<div style="display:flex;gap:6px;flex-wrap:wrap">' +
           ['All'].concat(cats).map((c) => '<button class="tweaks-opt' + (c === active ? ' active' : '') + '" data-vidcat="' + esc(c) + '">' + esc(c) + '</button>').join('') +
         '</div>' +
-        '<span style="font-size:13px;color:var(--ink-mute)">' + list.length + ' of ' + VIDEOS.length + ' modules</span>' +
+        '<span style="font-size:16px;color:var(--ink-mute)">' + list.length + ' of ' + VIDEOS.length + ' modules</span>' +
       '</div>' +
       '<div class="video-grid">' + list.map((v, i) =>
         '<button class="video-card" data-video="' + esc(v.title) + '" style="text-align:left;padding:0;width:100%">' +
@@ -802,7 +802,7 @@
             '<div class="video-duration" style="z-index:2">' + esc(v.len) + '</div>' +
           '</div>' +
           '<div class="video-body"><div class="video-title">' + esc(v.title) + '</div>' +
-            '<div class="video-meta"><span class="chip" style="font-size:11px;padding:2px 8px">' + esc(v.category) + '</span>' +
+            '<div class="video-meta"><span class="chip" style="font-size:13px;padding:2px 8px">' + esc(v.category) + '</span>' +
             '<span>Demonstration tile</span></div>' +
           '</div>' +
         '</button>').join('') + '</div>' +
@@ -848,10 +848,10 @@
           '<div class="card" style="padding:28px 32px">' +
             '<div style="display:flex;gap:12px;margin-bottom:12px;align-items:center">' +
               '<span class="chip chip-cedar">' + esc(n.tag) + '</span>' +
-              '<span style="font-size:12px;color:var(--ink-mute);font-weight:500;letter-spacing:0.08em;text-transform:uppercase">' + esc(n.date) + '</span>' +
+              '<span style="font-size:13px;color:var(--ink-mute);font-weight:500;letter-spacing:0.08em;text-transform:uppercase">' + esc(n.date) + '</span>' +
             '</div>' +
             '<h3 class="display-sm" style="margin-bottom:10px">' + esc(n.title) + '</h3>' +
-            '<p style="color:var(--ink-soft);font-size:15px;line-height:1.6;margin:0;text-wrap:pretty">' + esc(n.excerpt) + '</p>' +
+            '<p style="color:var(--ink-soft);font-size:16px;line-height:1.6;margin:0;text-wrap:pretty">' + esc(n.excerpt) + '</p>' +
           '</div>').join('') +
       '</div>' +
     '</div></section>';
@@ -870,15 +870,15 @@
         '<h2 class="display-md" style="margin-bottom:32px">Three steps, start to finish</h2>' +
         '<div class="process">' +
           '<div class="process-step"><h4>The people team hears first</h4>' +
-            '<p style="color:var(--ink-soft);font-size:14px;line-height:1.6;margin:0">Human resources is the first to know that someone is arriving or leaving. They own the trigger for the whole process, which is why nothing here starts with IT.</p></div>' +
+            '<p style="color:var(--ink-soft);font-size:16px;line-height:1.6;margin:0">Human resources is the first to know that someone is arriving or leaving. They own the trigger for the whole process, which is why nothing here starts with IT.</p></div>' +
           '<div class="process-step"><h4>Check the role guide</h4>' +
-            '<p style="color:var(--ink-soft);font-size:14px;line-height:1.6;margin:0 0 10px">The role guide decides whether the role needs an EMR account at all.</p>' +
-            '<ul style="font-size:13px;color:var(--ink-soft);padding-left:16px;margin:0;line-height:1.5">' +
+            '<p style="color:var(--ink-soft);font-size:16px;line-height:1.6;margin:0 0 10px">The role guide decides whether the role needs an EMR account at all.</p>' +
+            '<ul style="font-size:16px;color:var(--ink-soft);padding-left:16px;margin:0;line-height:1.5">' +
               '<li><strong>No</strong>, the standard IT account setup runs on its own.</li>' +
               '<li><strong>Yes</strong>, two parallel requests go out: IT for single sign on, support desk for the account.</li>' +
             '</ul></div>' +
           '<div class="process-step"><h4>Sign on and account, in parallel</h4>' +
-            '<p style="color:var(--ink-soft);font-size:14px;line-height:1.6;margin:0">IT sets up single sign on while the support desk creates the account and the program access. Both have to finish before the person can sign in, and the second one is usually what is missing.</p></div>' +
+            '<p style="color:var(--ink-soft);font-size:16px;line-height:1.6;margin:0">IT sets up single sign on while the support desk creates the account and the program access. Both have to finish before the person can sign in, and the second one is usually what is missing.</p></div>' +
         '</div>' +
       '</div>' +
 
@@ -897,13 +897,13 @@
         '</div>' +
         '<div style="display:flex;flex-direction:column;gap:16px">' +
           '<div class="card" style="background:var(--primary);color:#fff;border:none">' +
-            '<div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:8px">At a glance</div>' +
+            '<div style="font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:8px">At a glance</div>' +
             '<div class="stat-grid">' +
               '<div><div class="stat-num">21</div><div class="stat-lab">Programs</div></div>' +
               '<div><div class="stat-num">84</div><div class="stat-lab">Staff with access</div></div>' +
               '<div><div class="stat-num">2</div><div class="stat-lab">Business days to set up</div></div>' +
             '</div>' +
-            '<div style="border-top:1px solid rgba(255,255,255,0.14);padding-top:14px;font-size:13px;color:rgba(255,255,255,0.85)">Program rosters are held by the people team. Program leads confirm their own team before each onboarding cycle. All figures on this page are invented.</div>' +
+            '<div style="border-top:1px solid rgba(255,255,255,0.14);padding-top:14px;font-size:16px;color:rgba(255,255,255,0.85)">Program rosters are held by the people team. Program leads confirm their own team before each onboarding cycle. All figures on this page are invented.</div>' +
           '</div>' +
           '<div class="demo-note">' + icon('AlertTriangle', 16, 'flex-shrink:0;margin-top:2px') +
             '<div><strong>Offboarding runs the same two requests in reverse.</strong> The account closes the same day the person leaves, and open notes are reassigned to the supervisor rather than left authenticated under a closed account.</div>' +
@@ -919,12 +919,12 @@
         '<div class="card">' +
           '<div style="font-family:var(--ff-display);font-size:24px;color:var(--ink-heading);margin-bottom:6px;font-weight:700">Central intake</div>' +
           '<div class="eyebrow" style="margin-bottom:12px">System owner</div>' +
-          '<p style="font-size:14px;color:var(--ink-soft);margin:0;line-height:1.6">Central intake owns the system: day to day support, configuration changes, and reporting questions. One team, so the answer does not change depending on who picks it up.</p>' +
+          '<p style="font-size:16px;color:var(--ink-soft);margin:0;line-height:1.6">Central intake owns the system: day to day support, configuration changes, and reporting questions. One team, so the answer does not change depending on who picks it up.</p>' +
         '</div>' +
         '<div class="card">' +
           '<div style="font-family:var(--ff-display);font-size:24px;color:var(--ink-heading);margin-bottom:6px;font-weight:700">Program leads</div>' +
           '<div class="eyebrow" style="margin-bottom:12px">Working partners</div>' +
-          '<p style="font-size:14px;color:var(--ink-soft);margin:0;line-height:1.6">Each program lead approves the configuration for their own program and confirms the activity list their staff see. Nothing is added to a picklist without a lead asking for it.</p>' +
+          '<p style="font-size:16px;color:var(--ink-soft);margin:0;line-height:1.6">Each program lead approves the configuration for their own program and confirms the activity list their staff see. Nothing is added to a picklist without a lead asking for it.</p>' +
         '</div>' +
       '</div>' +
     '</div></section>';
@@ -954,14 +954,14 @@
           '<div class="trouble-body">' +
             t.faq.map((fi) =>
               '<div style="margin-bottom:14px">' +
-                '<div style="font-weight:600;font-size:14px;color:var(--ink-heading);margin-bottom:4px">' + esc(FAQ[fi].q) + '</div>' +
-                '<p style="margin:0;font-size:14px;color:var(--ink-soft);line-height:1.6">' + esc(FAQ[fi].a) + '</p>' +
+                '<div style="font-weight:600;font-size:16px;color:var(--ink-heading);margin-bottom:4px">' + esc(FAQ[fi].q) + '</div>' +
+                '<p style="margin:0;font-size:16px;color:var(--ink-soft);line-height:1.6">' + esc(FAQ[fi].a) + '</p>' +
               '</div>').join('') +
-            t.links.map((l) => '<a href="' + l.href + '" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--primary);font-weight:600;text-decoration:none;margin-right:16px">' + esc(l.label) + ' ' + icon('ArrowRight', 14) + '</a>').join('') +
+            t.links.map((l) => '<a href="' + l.href + '" style="display:inline-flex;align-items:center;gap:6px;font-size:16px;color:var(--primary);font-weight:600;text-decoration:none;margin-right:16px">' + esc(l.label) + ' ' + icon('ArrowRight', 14) + '</a>').join('') +
           '</div></details>').join('') +
       '</div>' +
       '<div style="margin-top:32px;text-align:center;padding:24px 20px">' +
-        '<div style="font-size:14px;color:var(--ink-soft)">Not listed here? Send it to the support desk. Every question asked once gets added to this page for the next person.</div>' +
+        '<div style="font-size:16px;color:var(--ink-soft)">Not listed here? Send it to the support desk. Every question asked once gets added to this page for the next person.</div>' +
       '</div>' +
     '</div></section>';
   }

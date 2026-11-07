@@ -14,8 +14,8 @@
   <style>
     /* Design tokens */
     :root {
-      --font-serif: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
-      --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: "AI Sans", system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+      --font-sans: "AI Sans", system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
 
       --bg-warm: #FAF9F6;
       --bg-pure: #FFFFFF;
@@ -37,7 +37,7 @@
         0 12px 30px -10px rgba(127, 34, 141, 0.05),
         0 1px 3px rgba(0, 0, 0, 0.02),
         0 24px 48px -12px rgba(0, 0, 0, 0.04);
-      --spring-transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      --spring-transition: all 0.2s ease-out;
     }
 
     * {
@@ -76,13 +76,13 @@
       color: #FFFFFF;
       padding: 0.75rem 1.5rem;
       border-radius: 99px;
-      font-size: 0.85rem;
+      font-size: 1rem;
       font-weight: 600;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
       border: 1px solid rgba(255, 255, 255, 0.15);
       opacity: 0;
       visibility: hidden;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.3s ease-out;
       z-index: 2000;
       pointer-events: none;
       text-align: center;
@@ -98,7 +98,7 @@
     .demobar {
       background: #1C1917;
       color: #FAF9F6;
-      font-size: 0.8rem;
+      font-size: 0.875rem;
       font-weight: 600;
       text-align: center;
       padding: 0.5rem 1rem;
@@ -111,14 +111,12 @@
       text-transform: none;
       letter-spacing: 0.01em;
       opacity: 0.75;
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
     }
 
     /* Header */
     header {
-      background: rgba(250, 249, 246, 0.9);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: var(--bg-warm);
       border-bottom: 1px solid var(--border-color);
       position: sticky;
       top: 0;
@@ -151,7 +149,7 @@
     .demo-pill {
       background: rgba(127, 34, 141, 0.1);
       color: var(--primary-purple);
-      font-size: 0.75rem;
+      font-size: 0.875rem;
       font-weight: 600;
       padding: 0.15rem 0.5rem;
       border-radius: 99px;
@@ -168,7 +166,7 @@
 
     .sc-sec {
       display: none; /* controlled by the active tour step */
-      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: fadeIn 0.4s ease-out forwards;
     }
 
     .sc-sec.sc-open {
@@ -185,7 +183,7 @@
     }
 
     .sc-kicker {
-      font-size: 0.85rem;
+      font-size: 0.875rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -226,7 +224,7 @@
     }
 
     .partner-strip {
-      font-size: 0.85rem;
+      font-size: 1rem;
       font-weight: 600;
       color: var(--primary-purple);
       background: rgba(127, 34, 141, 0.05);
@@ -246,10 +244,10 @@
     }
 
     .sc-quote {
-      border-left: 3px solid var(--primary-purple);
+      border: 1px solid var(--border-color);
       background: var(--bg-pure);
       padding: 1.5rem;
-      border-radius: 0 12px 12px 0;
+      border-radius: 12px;
       box-shadow: var(--shadow-flat);
     }
 
@@ -286,7 +284,7 @@
     }
 
     .sc-stat-l {
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--text-muted);
       line-height: 1.4;
     }
@@ -321,7 +319,7 @@
       padding: 0.5rem 1.5rem;
       font-family: var(--font-sans);
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 1rem;
       color: var(--text-muted);
       cursor: pointer;
       z-index: 2;
@@ -342,7 +340,7 @@
       padding: 0.75rem 1.75rem;
       font-family: var(--font-sans);
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 1rem;
       border-radius: 8px;
       border: 1px solid transparent;
       cursor: pointer;
@@ -357,7 +355,6 @@
     }
     .btn-primary:hover {
       background-color: var(--primary-hover);
-      transform: translateY(-2px);
       box-shadow: 0 6px 18px -4px rgba(127, 34, 141, 0.35);
     }
     .btn-primary:active {
@@ -379,7 +376,6 @@
     }
     .btn-outline:hover {
       border-color: var(--text-main);
-      transform: translateY(-1px);
     }
     .btn-outline:active {
       transform: translateY(1px) scale(0.98);
@@ -389,7 +385,7 @@
       background: transparent;
       border: 1px solid var(--border-color);
       padding: 0.4rem 1rem;
-      font-size: 0.8rem;
+      font-size: 0.875rem;
       border-radius: 6px;
       font-weight: 600;
       cursor: pointer;
@@ -430,7 +426,7 @@
       padding: 0.5rem 1.25rem;
       border-radius: 20px;
       font-family: var(--font-sans);
-      font-size: 0.85rem;
+      font-size: 1rem;
       font-weight: 600;
       color: var(--text-muted);
       cursor: pointer;
@@ -439,7 +435,6 @@
     }
     .chip:hover {
       border-color: var(--text-main);
-      transform: translateY(-1px);
     }
     .chip.active {
       background: var(--primary-purple);
@@ -496,7 +491,7 @@
 
     .result-badge {
       display: inline-block;
-      font-size: 0.75rem;
+      font-size: 0.875rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -512,7 +507,7 @@
     }
 
     .result-block h4 {
-      font-size: 0.85rem;
+      font-size: 0.875rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -541,8 +536,6 @@
     }
     .result-card:hover {
       border-color: var(--border-accent);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-premium);
     }
 
     .res-card-header {
@@ -555,11 +548,11 @@
 
     .res-card-title {
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 1rem;
     }
 
     .res-card-tag {
-      font-size: 0.7rem;
+      font-size: 0.8125rem;
       font-weight: 600;
       color: var(--text-muted);
       background: rgba(0,0,0,0.04);
@@ -569,7 +562,7 @@
     }
 
     .res-card-body {
-      font-size: 0.85rem;
+      font-size: 1rem;
       color: var(--text-muted);
       margin-bottom: 1rem;
       line-height: 1.4;
@@ -601,7 +594,7 @@
 
     .sc-path-column h3 {
       font-family: var(--font-sans);
-      font-size: 0.85rem;
+      font-size: 0.875rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -615,13 +608,12 @@
       border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 0.75rem;
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: 500;
       text-align: center;
       transition: var(--spring-transition);
     }
     .path-node:hover {
-      transform: scale(1.02);
       border-color: var(--text-main);
     }
 
@@ -648,14 +640,14 @@
     }
 
     .node-subtitle {
-      font-size: 0.8rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
       font-weight: 600;
       margin: 0.25rem 0;
     }
 
     .node-sla {
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       color: var(--text-muted);
       line-height: 1.3;
       border-top: 1px solid var(--border-color);
@@ -680,14 +672,14 @@
     }
     .sc-doors h3 {
       font-family: var(--font-sans);
-      font-size: 0.95rem;
+      font-size: 0.875rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-bottom: 0.5rem;
     }
     .sc-doors .meta {
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--text-muted);
       margin-bottom: 1.25rem;
     }
@@ -703,14 +695,13 @@
       border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 0.5rem 1rem;
-      font-size: 0.85rem;
+      font-size: 1rem;
       font-weight: 600;
       box-shadow: var(--shadow-flat);
       transition: var(--spring-transition);
     }
     .sc-door:hover {
       border-color: var(--primary-purple);
-      transform: translateY(-1px);
     }
 
     /* 3. Living registry and review queue */
@@ -723,14 +714,14 @@
 
     .loop-block-left h3, .loop-block-right h3 {
       font-family: var(--font-sans);
-      font-size: 0.95rem;
+      font-size: 0.875rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-bottom: 0.25rem;
     }
     .meta-text {
-      font-size: 0.85rem;
+      font-size: 1rem;
       color: var(--text-muted);
       margin-bottom: 1.5rem;
     }
@@ -752,7 +743,6 @@
     .loop-svc-card:hover {
       border-color: var(--border-accent);
       box-shadow: var(--shadow-premium);
-      transform: translateY(-2px);
     }
 
     .svc-header {
@@ -760,7 +750,7 @@
       margin-bottom: 0.25rem;
     }
     .meta-agency {
-      font-size: 0.75rem;
+      font-size: 0.875rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -768,13 +758,13 @@
       margin-bottom: 0.75rem;
     }
     .svc-body-text {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--text-muted);
       margin-bottom: 0.75rem;
       line-height: 1.4;
     }
     .svc-contact-line {
-      font-size: 0.85rem;
+      font-size: 1rem;
       font-weight: 500;
       margin-bottom: 1rem;
     }
@@ -803,7 +793,7 @@
     }
 
     .queue-badge {
-      font-size: 0.7rem;
+      font-size: 0.875rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -820,13 +810,13 @@
     }
 
     .corroborate-badge {
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       font-weight: 600;
       color: var(--text-muted);
     }
 
     .queue-content p {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--text-main);
       margin-bottom: 1rem;
     }
@@ -835,7 +825,7 @@
       background: var(--bg-warm);
       border-radius: 6px;
       padding: 0.5rem 0.75rem;
-      font-size: 0.85rem;
+      font-size: 1rem;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       margin-bottom: 0.75rem;
       overflow-wrap: anywhere;
@@ -853,7 +843,7 @@
     }
 
     .reports-audit {
-      font-size: 0.8rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
       margin-bottom: 1rem;
     }
@@ -879,7 +869,7 @@
     }
 
     .sc-kpi-l {
-      font-size: 0.8rem;
+      font-size: 0.875rem;
       font-weight: 600;
       color: var(--text-muted);
       line-height: 1.3;
@@ -897,7 +887,7 @@
     }
 
     .sc-kpi-c {
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       display: flex;
       align-items: center;
       gap: 0.25rem;
@@ -940,7 +930,7 @@
       margin-bottom: 0.25rem;
     }
     .sc-seven-contexts-timeline .meta {
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--text-muted);
       margin-bottom: 2rem;
     }
@@ -949,7 +939,7 @@
       background: var(--primary-purple);
       color: #FFFFFF;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 1rem;
       display: inline-block;
       padding: 0.4rem 1.25rem;
       border-radius: 20px;
@@ -973,7 +963,6 @@
       transition: var(--spring-transition);
     }
     .timeline-node-wrap:hover {
-      transform: scale(1.01) translateY(-2px);
       border-color: var(--border-accent);
       box-shadow: var(--shadow-premium);
     }
@@ -1000,12 +989,12 @@
 
     .timeline-bubble-label {
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--text-main);
     }
 
     .timeline-bubble-note {
-      font-size: 0.85rem;
+      font-size: 1rem;
       color: var(--text-muted);
     }
 
@@ -1019,7 +1008,7 @@
 
     .sc-unknown h3 {
       font-family: var(--font-sans);
-      font-size: 0.95rem;
+      font-size: 0.875rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -1027,7 +1016,7 @@
       margin-bottom: 0.5rem;
     }
     .sc-unknown p {
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--text-main);
       max-width: 100%;
     }
@@ -1064,12 +1053,10 @@
     }
     .sc-hubdot-node:hover {
       background: rgba(127, 34, 141, 0.3);
-      transform: scale(1.15);
     }
     .sc-hubdot-node.selected {
       background: var(--primary-purple);
       border-color: var(--primary-purple);
-      box-shadow: 0 0 10px rgba(127, 34, 141, 0.4);
     }
 
     .network-info-card {
@@ -1085,7 +1072,7 @@
     }
 
     .network-info-label {
-      font-size: 0.75rem;
+      font-size: 0.875rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -1102,7 +1089,7 @@
 
     .sc-netcol h3 {
       font-family: var(--font-sans);
-      font-size: 0.95rem;
+      font-size: 0.875rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -1120,7 +1107,7 @@
       margin-bottom: 0.15rem;
     }
     .sc-netitem span {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--text-muted);
     }
 
@@ -1139,7 +1126,7 @@
       margin-bottom: 0.25rem;
     }
     .sc-identity p {
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--text-muted);
     }
 
@@ -1157,7 +1144,7 @@
       border-bottom: 1px solid var(--border-color);
       display: flex;
       padding: 1rem 1.5rem;
-      font-size: 0.8rem;
+      font-size: 0.875rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -1179,11 +1166,11 @@
     .sc-slot-l {
       width: 50%;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 1rem;
     }
     .sc-slot-c-val {
       width: 50%;
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--text-muted);
     }
 
@@ -1195,7 +1182,7 @@
     }
     .sc-localize ul {
       margin-left: 1.25rem;
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--text-muted);
       display: flex;
       flex-direction: column;
@@ -1213,14 +1200,13 @@
       margin-bottom: 0.5rem;
     }
     .sc-close .meta {
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--text-muted);
     }
 
     /* Honest edge notes */
     .sc-honest {
-      font-size: 0.95rem;
-      font-style: italic;
+      font-size: 1rem;
       color: var(--text-muted);
       border-top: 1px dashed var(--border-color);
       padding-top: 1.5rem;
@@ -1230,7 +1216,7 @@
     footer {
       text-align: center;
       padding: 3rem 2rem;
-      font-size: 0.8rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
       border-top: 1px solid var(--border-color);
       background: var(--bg-warm);
@@ -1250,11 +1236,9 @@
       transform: translateX(-50%);
       width: calc(100% - 40px);
       max-width: 700px;
-      background: rgba(28, 25, 23, 0.96);
+      background: #1C1917;
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       border-radius: 99px;
       display: flex;
       align-items: center;
@@ -1269,7 +1253,7 @@
       border: none;
       color: #FAF9F6;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 1rem;
       cursor: pointer;
       padding: 0.5rem 1.25rem;
       border-radius: 99px;
@@ -1322,12 +1306,10 @@
     }
     .sc-dot.active {
       background: #C46BD1;
-      transform: scale(1.35);
-      box-shadow: 0 0 8px var(--primary-purple);
     }
 
     .sc-tour-label {
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       font-weight: 500;
       opacity: 0.8;
     }
@@ -1392,11 +1374,11 @@
       }
       .sc-tour-btn {
         padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
+        font-size: 0.875rem;
       }
       .segmented-control button {
         padding: 0.5rem 1rem;
-        font-size: 0.8rem;
+        font-size: 0.875rem;
       }
       body {
         padding-bottom: 110px;
@@ -1419,7 +1401,7 @@
       .sc-slots-head span,
       .sc-slot-l,
       .sc-slot-c-val {
-        font-size: 0.85rem;
+        font-size: 1rem;
       }
       .timeline-node-wrap {
         gap: 0.9rem;
@@ -1450,9 +1432,9 @@
 @media (max-width:48rem){.ai-crumb{display:none}.ai-right span{display:none}.ai-brand span{display:none}}
 .ai-bar a,.ai-foot a{color:inherit;text-decoration:none}
 .ai-bar a:hover,.ai-foot a:hover{color:#1d332a;text-decoration:underline}
-.ai-brand{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.9375rem;min-height:44px}
+.ai-brand{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size: 1rem;min-height:44px}
 .ai-brand svg{flex:none}
-.ai-crumb,.ai-right,.ai-foot .h-quiet{font-family:"AI Mono",ui-monospace,monospace;font-size:.8125rem;letter-spacing:.06em;color:#5e605d}
+.ai-crumb,.ai-right,.ai-foot .h-quiet{font-family:"AI Mono",ui-monospace,monospace;font-size: 0.875rem;letter-spacing:.06em;color:#5e605d}
 .ai-crumb{margin:0 0 0 .5rem}
 .ai-right{display:inline-flex;align-items:center;gap:1.25rem;margin:0}
 .ai-right a{display:inline-flex;align-items:center;min-height:44px;color:#2d4a3e}
@@ -1461,7 +1443,7 @@
 .ai-foot .h-quiet{margin:0 0 .5rem}
 .ai-foot ul{list-style:none;margin:0;padding:0;display:grid;gap:.15rem}
 .ai-foot li{margin:0;padding:0}
-.ai-foot a{display:inline-flex;align-items:center;min-height:40px;font-size:.9375rem}
+.ai-foot a{display:inline-flex;align-items:center;min-height:40px;font-size: 1rem}
 </style>
 <header class="ai-bar">
   <div class="ai-bar-in">
@@ -1559,7 +1541,7 @@
 
         <div class="result-block" id="decision-block" style="display:none;">
           <h4 style="color:var(--primary-purple);">System decision context</h4>
-          <p class="result-desc" id="decision-text" style="font-size:0.95rem; font-style:italic; margin-top:0.25rem; border-left:2px solid var(--primary-purple); padding-left:1rem;"></p>
+          <p class="result-desc" id="decision-text" style="font-size:1rem; margin-top:0.25rem;"></p>
         </div>
 
         <div class="result-block">
@@ -1638,7 +1620,7 @@
       </div>
 
       <div class="sc-doors">
-        <h3>Doors that stay open <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:none; letter-spacing:normal;">(illustrative sample configuration)</span></h3>
+        <h3>Doors that stay open <span style="font-size:0.8125rem; font-weight:600; color:var(--text-muted); text-transform:none; letter-spacing:normal;">(illustrative sample configuration)</span></h3>
         <p class="meta">No wrong door only works if the doors that need to stay open, stay open. These skip intake on purpose, because barriers kill referrals.</p>
         <div class="sc-door-row" id="open-doors-row"></div>
       </div>
@@ -1688,7 +1670,7 @@
                     <li>Outreach, next morning</li>
                   </ul>
                 </div>
-                <button type="button" class="btn btn-primary" id="corroborate-btn" style="padding:0.4rem 1rem; font-size:0.8rem; width:100%;" disabled onclick="approveCorrection()">Waiting for corroboration</button>
+                <button type="button" class="btn btn-primary" id="corroborate-btn" style="padding:0.4rem 1rem; font-size:0.875rem; width:100%;" disabled onclick="approveCorrection()">Waiting for corroboration</button>
               </div>
             </div>
           </div>
@@ -1700,7 +1682,7 @@
 
     <!-- Step 5: the data surface -->
     <section class="sc-sec" data-step="4" aria-labelledby="h-data">
-      <p class="sc-kicker">The data surface <span class="demo-pill" style="font-size:0.65rem; padding:0.1rem 0.4rem;">sample data</span></p>
+      <p class="sc-kicker">The data surface <span class="demo-pill" style="font-size:0.8125rem; padding:0.1rem 0.4rem;">sample data</span></p>
       <h2 id="h-data">Every number carries a comparison. The surface admits what it does not know.</h2>
       <p class="sc-sub">Pulled from contact notes, not from extra paperwork. If a metric does not change a decision, it does not get a tile.</p>
 
@@ -2276,7 +2258,7 @@
           '<span class="res-card-tag"></span>' +
         '</div>' +
         '<div class="res-card-body"></div>' +
-        '<button type="button" class="btn btn-primary" style="padding:0.4rem 0.8rem; font-size:0.75rem;">Refer in one tap</button>';
+        '<button type="button" class="btn btn-primary" style="padding:0.4rem 0.8rem; font-size:0.8125rem;">Refer in one tap</button>';
       wrap.querySelector('.res-card-title').textContent = title;
       wrap.querySelector('.res-card-tag').textContent = tag;
       wrap.querySelector('.res-card-body').textContent = body;

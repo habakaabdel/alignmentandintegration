@@ -13,10 +13,10 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
+  @font-face{font-family:"Plus Jakarta Sans";font-weight:300 700;font-display:swap;src:url("/media/fonts/plus-jakarta-sans-latin-var.woff2") format("woff2")}
+  @font-face{font-family:"IBM Plex Mono";font-weight:400;font-display:swap;src:url("/media/fonts/ibm-plex-mono-latin-400.woff2") format("woff2")}
+  @font-face{font-family:"IBM Plex Mono";font-weight:500;font-display:swap;src:url("/media/fonts/ibm-plex-mono-latin-500.woff2") format("woff2")}
   /* Alignment Integration, demonstration page.
      Same tokens, type, and border language as the main sheet. The only
      addition is a four-hue category ramp, because a data visual needs hue
@@ -35,10 +35,10 @@
     --spi:#6b3566; --spi-fill:#e0d3de;
     --rein:#9c3b2c; --bal:#0b5a44;
 
-    --sans:"IBM Plex Sans",ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --sans:"Plus Jakarta Sans",ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,"Liberation Mono",monospace;
 
-    --t-micro:0.75rem; --t-label:0.8125rem; --t-small:0.9375rem; --t-body:1.0625rem;
+    --t-micro:0.8125rem; --t-label:0.875rem; --t-small:1rem; --t-body:1.0625rem;
     --t-h3:clamp(1.125rem,1.02rem + 0.4vw,1.3125rem);
     --t-h2:clamp(1.5rem,1.24rem + 1.05vw,2rem);
 
@@ -93,7 +93,6 @@
     padding:var(--s3) var(--s4);cursor:pointer;margin-bottom:-1px;min-height:44px}
   .tab:hover{color:var(--ink)}
   .tab.active{color:var(--ink);border-bottom-color:var(--mark)}
-  .tab .n{color:var(--mark);margin-right:var(--s2)}
 
   .board{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,360px);gap:var(--s5);align-items:start}
   /* the figure cards scroll sideways below their drawn width, so the tracks and
@@ -299,8 +298,8 @@
   </header>
 
   <div class="tabs">
-    <button class="tab active" data-tab="map"><span class="n">1</span>The map</button>
-    <button class="tab" data-tab="net"><span class="n">2</span>The network</button>
+    <button class="tab active" data-tab="map">The map</button>
+    <button class="tab" data-tab="net">The network</button>
   </div>
 
   <!-- ================= TAB 1: MAP ================= -->
