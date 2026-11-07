@@ -26,7 +26,7 @@ Since 2026-11-01 the site is one simple home page and one landing page per servi
 
 No page has a background scene. The fluid wave canvas (`#nature-canvas`), the home ecosystem (`eco.js`, Three.js) and the demos scene (`scene.js`) were removed on 2026-11-07 on Abdel's approval: ambient motion where nothing changes is tell 13 in the web-design-tells checklist. Do not add a background scene back.
 
-The demos under `demos/<name>/` are self-contained. They carry their own stylesheets (two still load Google Fonts), their own scripts, and no site nav. Nothing in this file applies to them.
+The demos under `demos/<name>/` are self-contained. They carry their own stylesheets (none loads Google Fonts since 2026-11-07, and they follow the web-design-tells checklist too), their own scripts, and no site nav. Nothing in this file applies to them.
 
 ## Colour
 
