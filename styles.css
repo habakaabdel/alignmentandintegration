@@ -247,6 +247,9 @@ p, li, dd, figcaption { text-wrap: pretty; }
 p, ul, ol { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 
+/* browsers give buttons a system font; the submit buttons take the site's */
+button { font-family: inherit; }
+
 /* the attribute wins over any display value set below */
 [hidden] { display: none !important; }
 

@@ -87,7 +87,7 @@ Rules:
 
 Self-hosted from `media/fonts/` with `@font-face` at the top of `styles.css`, `font-display: swap`, Latin subset. No Google Fonts request on any site page.
 
-- `--sans`: Plus Jakarta Sans, variable 300 to 700. All prose, headings, buttons.
+- `--sans`: Plus Jakarta Sans, variable 300 to 700. All prose, headings, buttons. `button` elements inherit it explicitly (browsers default them to a system font; the form submit buttons rendered in Arial until 2026-11-07).
 - `--mono`: IBM Plex Mono 400 and 500. Indices, eyebrows, figure keys, offer tags, the nav toggle label, and the labels this file names on the home cards. Only these. Words a visitor reads to act (nav links, form labels, error lines, the footer legal line) are `--sans`; they moved off mono on 2026-11-07.
 - Numbers that stack or sit in columns use tabular figures: mono numerals already are; a sans number in a column, counter or stacked comparison takes `font-variant-numeric: tabular-nums` (today `.step-n` and the sample diagnosis `.sd-key`). Numbers inside a sentence stay proportional.
 
