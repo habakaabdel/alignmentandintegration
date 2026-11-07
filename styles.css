@@ -775,7 +775,7 @@ a:hover { color: var(--mark-deep); }
   justify-content: space-between; min-height: 20rem; position: relative; overflow: hidden;
 }
 .offer-lead p { color: inherit; opacity: 0.82; }
-.offer-lead .offer-tag { color: inherit; opacity: 0.6; }
+.offer-lead .offer-tag { color: inherit; opacity: 0.8; } /* 5.57:1 on the organizations --mark; 0.6 read 3.9:1 */
 .offer-lead::after {
   content: ""; position: absolute; right: -16%; bottom: -28%;
   width: 74%; aspect-ratio: 1; border-radius: 50%;

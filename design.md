@@ -62,6 +62,7 @@ Contrast, measured 2026-10-12 against the 4.5:1 floor for text:
 - `--sage` is 3.4:1 on white and 3.15:1 on `--paper`, so it never carries text and never sits behind text.
 - `--sage-deep` is 4.97:1 on white and 4.5:1 or better on every page `--paper` (4.59 default, 4.58 `individuals`, 4.50 `organizations`, 4.52 `community`, 4.57 `ai-readiness`). It drops to 4.28:1 on `--panel-deep` and below 4:1 on the tints, so no sage text on those.
 - `--ink-navy` and `--ink` both clear 9.6:1 on every ground and tint above. Text on a tint uses one of them; `--ink-muted` falls to 3.72:1 on `--tint-moss`, so muted text stays off that fill.
+- Text dimmed with `opacity` on a `--mark` fill stays at 0.8 or above: `--paper` at 0.8 on the `organizations` `--mark` reads 5.57:1, at 0.6 it read 3.9:1 (the reporting lead offer's tag until 2026-11-07). A rendered sweep of every page at 375 and 1280 on 2026-11-07 found no other text under 4.5:1.
 
 Theme blocks on `body[data-theme="..."]` in use today:
 
