@@ -113,6 +113,7 @@ Wrapping, since 2026-11-07: `h1`, `h2` and `h3` carry `text-wrap: balance` so a 
 - Container `--measure` 1100px, gutter `clamp(1.25rem, 4vw, 3rem)`. `body.home` sets `--measure` to 1240px (comp G's container), so every `.wrap` on the home page, masthead and footer included, lines up with the cards.
 - `.section` padding `clamp(2.5rem, 6vw, 6rem)`; `.band` 6rem.
 - Radii: `--radius` 12px, `--radius-card` 16px (offers, islands), `--radius-leaf` `24px 4px 24px 4px` (home segment cards, the hero bezel), `--radius-pill` 999px (buttons), and `--radius-sm` 6px (added 2026-10-12 from Sage Garden, unused so far, for tags, chips and small panels). Inputs are 10px.
+- Nested radius, since 2026-11-07: a surface that sits inside another, inset by the outer one's padding, takes the outer radius minus that padding, floored at 0 (`max(0px, outer - padding)`), so the two curves stay parallel. Today that is `.bezel-core` inside `.bezel`: the 24px and 4px leaf minus `--bezel-pad` (10px, 6px on the sample diagnosis below 40rem) gives 14px and 0. Elements that do not fill their parent (the 42px icon squares, inputs, buttons) keep their own radius.
 - Surfaces:
   - `.island`: prose on home sits on frosted paper, `--panel` at 88% with a 3px backdrop blur, 1px `--line`, card radius. Keeps the eco scene behind the words, not through them.
   - `.bezel` / `.bezel-core`: the hero figure's double frame, a faint tray around a white plate with a soft lift shadow.
