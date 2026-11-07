@@ -12,19 +12,19 @@ Since 2026-11-01 the site is one simple home page and one landing page per servi
 
 | Page | `data-theme` | Background scene |
 |---|---|---|
-| `/` | none (`body.home`, which only widens `--measure`) | `#eco`, from `eco.js` (Three.js). The band (`.masthead` and `.home-hero` on `--mark-deep`), the `.home-card`s in two blocks (primary, then Other services), the proof strip (`#work`), contact |
+| `/` | none (`body.home`, which only widens `--measure`) | none. The band (`.masthead` and `.home-hero` on `--mark-deep`), the `.home-card`s in two blocks (primary, then Other services), the proof strip (`#work`), contact |
 | `/reporting/` | `organizations` | none. The Reporting alignment page; it was `/organizations/` until 2026-11-01 and keeps that theme block |
 | `/organizations/sample-diagnosis/` | `organizations` | none; its own scoped styles. Reached from `/reporting/` |
 | `/video/` | none | none; a small scoped `<style>` block. The Wolfe Retreat video (the short and the tour) and the Brain to AI reel, each a local 540 by 960 mp4, and a marked `.slot` for the case study that has no files yet |
 | `/events/` | none | none. New on 2026-11-01; filled on 2026-11-05 except the proof slot, which stays a placeholder |
-| `/demos/` | none | `#page-scene`, from its `scene.js`. The Software builds page; the five demos, the barbershop quote, the bounds line |
-| `/privacy/` | none | none (the canvas is in the markup, no script loads) |
+| `/demos/` | none | none. The Software builds page; the five demos, the barbershop quote, the bounds line |
+| `/privacy/` | none | none |
 | `/about/` | none | none. Since 2026-11-01, five sections for a customer of any service: who we are, the four doors, how we work, the proof, contact. One small scoped `<style>` block for the portrait grid |
 | `/community-social-services/`, `/ai-readiness/`, `/ai-readiness/start/` | Retired 2 November 2026 on Abdel's word; 301 to `/reporting/` and the home page in `netlify.toml`. | |
 
 `/organizations/` and `/videos/` answer 301 to `/reporting/` and `/video/` from `netlify.toml`; the sample diagnosis keeps its old path, so the organizations rule is exact rather than a splat.
 
-Every page that loads `main.js` also gets `#nature-canvas`, a fluid wave canvas `main.js` inserts behind everything. All three canvases are fixed, full viewport, `z-index: 0`, `pointer-events: none`; `main`, `header`, and `footer` sit above at `z-index: 1`.
+No page has a background scene. The fluid wave canvas (`#nature-canvas`), the home ecosystem (`eco.js`, Three.js) and the demos scene (`scene.js`) were removed on 2026-11-07 on Abdel's approval: ambient motion where nothing changes is tell 13 in the web-design-tells checklist. Do not add a background scene back.
 
 The demos under `demos/<name>/` are self-contained. They carry their own stylesheets (two still load Google Fonts), their own scripts, and no site nav. Nothing in this file applies to them.
 
@@ -111,7 +111,7 @@ Sentence case everywhere, headings and buttons included.
 - `.section` padding `clamp(2.5rem, 6vw, 6rem)`; `.band` 6rem.
 - Radii: `--radius` 12px, `--radius-card` 16px (offers, islands), `--radius-leaf` `24px 4px 24px 4px` (home segment cards, the hero bezel), `--radius-pill` 999px (buttons), and `--radius-sm` 6px (added 2026-10-12 from Sage Garden, unused so far, for tags, chips and small panels). Inputs are 10px.
 - Surfaces:
-  - `.island`: prose on home sits on frosted paper, `--panel` at 88% with a 3px backdrop blur, 1px `--line`, card radius. Keeps the eco scene behind the words, not through them.
+  - `.island`: prose on home sits on solid `--panel`, 1px `--line`, card radius. No blur since the background scenes went on 2026-11-07.
   - `.bezel-core`: the one frame around a figure, a white plate on a `--line` hairline at card radius, no tray and no shadow. The double frame went on 2026-11-07 (tell 9 in the web-design-tells checklist).
   - `.offer` in a `.bento` grid: the lead offer spans two rows on `--mark` with paper text; the other two stack beside it. One column below 58rem.
   - `.build` rows and `.proof` panels carry the audience pages.
@@ -137,15 +137,11 @@ On the home page the masthead sits on the deep sage band (`body.home .masthead`)
 
 Tokens: `--fast` 140ms, `--base` 240ms, ease `cubic-bezier(0.2, 0, 0, 1)`.
 
-Two reveal systems, never mixed on one element:
-- `data-reveal`, the shared one, used on the audience, sector, and demos pages. The hidden state exists only under `html.reveal-ready`, which `main.js` sets after confirming motion is welcome and IntersectionObserver exists. Elements rise 14px over 0.7s; stagger with `--rv` (70ms per step).
-- `.rise`, used on home, gated on the `.js` class set inline in the head. 20px over 760ms. The children that stagger inside a risen group are `.step`, `.offer`, `.segment`, `.beat`, `.home-card` and `.status-row`.
-
-Home also has the eco scene; the band and the cards carry no reveal of their own beyond `.rise` on the grid. The word split (`.wsplit`) and the hero figure (`initPlot3D()`, `drawPlot()`) are still in `main.js` and `styles.css` but no page carries their markup since 2026-11-01. The community page carries three `data-walk` walkthroughs driven by `wireWalkthroughs()`, with frames in `media/walk/`.
+No entrance motion. The `data-reveal` and `.rise` reveal systems and their staggers were removed on 2026-11-07 (tell 13: animate only when something changes); content is on the page when it loads. Leftover `data-reveal` and `rise` attributes in markup do nothing. The word split (`.wsplit`) and the hero figure (`initPlot3D()`, `drawPlot()`) are still in `main.js` but no page carries their markup since 2026-11-01. The community page carries three `data-walk` walkthroughs driven by `wireWalkthroughs()`, with frames in `media/walk/`.
 
 The landing page uses the vendored scroll-motion kit (`vendor/gsap.min.js`, `ScrollTrigger`, `ScrollSmoother`, `motion.js`, `motion.css`), tuned inline in its own `Motion.init()`. Its page classes are `lp-` prefixed so they never collide with sitewide names.
 
-Under `prefers-reduced-motion: reduce` reveals render settled, smooth scrolling is off, background scenes draw one still frame or nothing, and the hero figure is static. Nothing is only legible after it moves.
+Under `prefers-reduced-motion: reduce` smooth scrolling is off and transitions are cut to 1ms. Nothing is only legible after it moves.
 
 ## Monogram
 

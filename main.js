@@ -333,37 +333,6 @@ function wireWalkthroughs() {
   });
 }
 
-/* ---------- shared reveals ----------
-   Elements tagged data-reveal rise into place the first time they are seen.
-   The hidden state in styles.css is scoped under html.reveal-ready, which is
-   only set here once motion is welcome and IntersectionObserver exists, so
-   nothing is ever hidden without a way to reveal it. */
-
-function wireReveals() {
-  const tagged = document.querySelectorAll('[data-reveal]');
-  if (!tagged.length || !motionOK || !('IntersectionObserver' in window)) return;
-
-  document.documentElement.classList.add('reveal-ready');
-
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('reveal-in');
-      observer.unobserve(entry.target);
-    });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
-
-  tagged.forEach(function (el) {
-    const rect = el.getBoundingClientRect();
-    /* anything already in view, or above it after a deep link or restored
-       scroll, arrives settled, not late; only what is still below waits */
-    if (rect.top < window.innerHeight * 0.9) {
-      el.classList.add('reveal-in');
-    } else {
-      observer.observe(el);
-    }
-  });
-}
 
 /* ---------- contact form ---------- */
 
@@ -416,7 +385,6 @@ function wireForm() {
 
 trackSections();
 wireNav();
-wireReveals();
 
 let dimensional = false;
 try { dimensional = initPlot3D(); } catch (err) { dimensional = false; }
@@ -426,68 +394,4 @@ wireEngine();
 wireWalkthroughs();
 wireForm();
 
-/* ---------- nature organic fluid wave canvas ---------- */
-function initNatureCanvas() {
-  if (!motionOK) return;
-
-  let canvas = document.getElementById('nature-canvas');
-  if (!canvas) {
-    canvas = document.createElement('canvas');
-    canvas.id = 'nature-canvas';
-    document.body.prepend(canvas);
-  }
-
-  const ctx = canvas.getContext('2d');
-  let width = canvas.width = window.innerWidth;
-  let height = canvas.height = window.innerHeight;
-  let animId = null;
-
-  window.addEventListener('resize', function () {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  });
-
-  let step = 0;
-
-  function drawOrganicWaves() {
-    if (!motionOK) {
-      if (animId) cancelAnimationFrame(animId);
-      if (canvas && canvas.parentNode) canvas.parentNode.removeChild(canvas);
-      return;
-    }
-
-    ctx.clearRect(0, 0, width, height);
-    step += 0.005;
-
-    ctx.beginPath();
-    ctx.fillStyle = 'rgba(226, 232, 228, 0.4)';
-    ctx.moveTo(0, height * 0.45);
-    for (let x = 0; x <= width + 12; x += 12) {
-      const y = Math.sin(x * 0.002 + step) * 35 + Math.cos(x * 0.001 + step * 0.5) * 25 + height * 0.35;
-      ctx.lineTo(x, y);
-    }
-    ctx.lineTo(width, height);
-    ctx.lineTo(0, height);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.fillStyle = 'rgba(212, 163, 115, 0.05)';
-    ctx.moveTo(0, height * 0.55);
-    for (let x = 0; x <= width + 12; x += 12) {
-      const y = Math.cos(x * 0.003 - step * 0.8) * 45 + Math.sin(x * 0.0015 + step) * 20 + height * 0.48;
-      ctx.lineTo(x, y);
-    }
-    ctx.lineTo(width, height);
-    ctx.lineTo(0, height);
-    ctx.closePath();
-    ctx.fill();
-
-    animId = requestAnimationFrame(drawOrganicWaves);
-  }
-
-  drawOrganicWaves();
-}
-
-initNatureCanvas();
 
