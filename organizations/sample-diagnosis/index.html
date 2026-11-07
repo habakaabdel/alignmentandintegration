@@ -40,8 +40,7 @@
 
 @media (max-width: 40rem) {
   .sd-fig { margin-inline: calc(-1 * var(--s3)); }
-  .sd-fig.bezel { padding: 6px; }
-  .sd-fig .bezel-core { padding: var(--s4) var(--s3); }
+    .sd-fig .bezel-core { padding: var(--s4) var(--s3); }
 }
 
 /* the step diagrams */
@@ -123,9 +122,9 @@
 .sd-cards { display: grid; gap: var(--s4); margin-top: var(--s5); }
 @media (min-width: 52rem) { .sd-cards { grid-template-columns: 1fr 1fr 1fr; } }
 .sd-card { padding: 20px 22px 22px; background: var(--panel); border: var(--hair) solid var(--line); border-radius: var(--radius-card); }
-.sd-card-icon { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: var(--radius); background: var(--tint-sage); color: var(--mark-deep); }
+.sd-card-icon { display: inline-flex; flex: none; color: var(--mark-deep); }
 .sd-card-icon svg { display: block; }
-.sd-card h3 { margin: 14px 0 8px; font-size: 1.125rem; }
+.sd-card h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; font-size: 1.125rem; }
 .sd-card p { font-size: var(--t-small); color: var(--ink-muted); }
 
 /* the two weeks: a timeline, vertical on a phone, horizontal from 48rem */
@@ -219,7 +218,6 @@
   <section class="section" aria-labelledby="h-maps">
     <div class="wrap">
       <div class="section-head" data-reveal>
-        <p class="index">01</p>
         <div>
           <h2 id="h-maps">The process map, before and after</h2>
           <p class="section-intro">People understood the mess because they lived in it.</p>
@@ -228,7 +226,7 @@
 
       <div class="sd-maps">
 
-        <figure class="sd-fig bezel" data-reveal style="--rv: 1" aria-labelledby="h-before">
+        <figure class="sd-fig" data-reveal style="--rv: 1" aria-labelledby="h-before">
           <div class="bezel-core">
             <div class="sd-fig-head">
               <h3 id="h-before">Before: as it runs today</h3>
@@ -378,7 +376,7 @@
           </div>
         </figure>
 
-        <figure class="sd-fig bezel" data-reveal style="--rv: 2" aria-labelledby="h-after">
+        <figure class="sd-fig" data-reveal style="--rv: 2" aria-labelledby="h-after">
           <div class="bezel-core">
             <div class="sd-fig-head">
               <h3 id="h-after">After: the same report, redesigned</h3>
@@ -483,7 +481,6 @@
   <section class="section" aria-labelledby="h-numbers">
     <div class="wrap">
       <div class="section-head" data-reveal>
-        <p class="index">02</p>
         <div>
           <h2 id="h-numbers">The numbers, before and after</h2>
           <p class="section-intro">Only certain people would be able to get that data, or it would take programs and teams full days of pulling data manually.</p>
@@ -576,7 +573,7 @@
 
       </div>
 
-      <figure class="sd-fig bezel" data-reveal style="margin-top: var(--s6)" aria-labelledby="h-hours">
+      <figure class="sd-fig" data-reveal style="margin-top: var(--s6)" aria-labelledby="h-hours">
         <div class="bezel-core">
           <div class="sd-fig-head">
             <h3 id="h-hours">Hours, before and after</h3>
@@ -670,7 +667,7 @@
         </div>
       </figure>
 
-      <figure class="sd-fig bezel" data-reveal style="margin-top: var(--s6)" aria-labelledby="h-payback">
+      <figure class="sd-fig" data-reveal style="margin-top: var(--s6)" aria-labelledby="h-payback">
         <div class="bezel-core">
           <div class="sd-fig-head">
             <h3 id="h-payback">Pays back after 2.8 reports</h3>
@@ -732,7 +729,6 @@
   <section class="section" aria-labelledby="h-receive">
     <div class="wrap">
       <div class="section-head" data-reveal>
-        <p class="index">03</p>
         <div>
           <h2 id="h-receive">What you receive</h2>
         </div>
@@ -740,24 +736,15 @@
 
       <div class="sd-cards">
         <article class="sd-card" data-reveal style="--rv: 1">
-          <span class="sd-card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="3" width="7" height="5" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/><rect x="14" y="16" width="7" height="5" rx="1.5"/><path d="M12 8v4M6.5 12h11M6.5 12v4M17.5 12v4"/></svg>
-          </span>
-          <h3>A process map</h3>
+          <h3><span class="sd-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="3" width="7" height="5" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/><rect x="14" y="16" width="7" height="5" rx="1.5"/><path d="M12 8v4M6.5 12h11M6.5 12v4M17.5 12v4"/></svg></span>A process map</h3>
           <p>Before: every step, loop, exception case, and place the same fact lives.</p>
         </article>
         <article class="sd-card" data-reveal style="--rv: 2">
-          <span class="sd-card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m7.5 9 1.5 1.5L11.5 8"/><path d="M14 9.5h3"/><path d="m7.5 15 1.5 1.5L11.5 14"/><path d="M14 15.5h3"/></svg>
-          </span>
-          <h3>The initial plan</h3>
+          <h3><span class="sd-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m7.5 9 1.5 1.5L11.5 8"/><path d="M14 9.5h3"/><path d="m7.5 15 1.5 1.5L11.5 14"/><path d="M14 15.5h3"/></svg></span>The initial plan</h3>
           <p>What to delete, what to change in the records system, in what order.</p>
         </article>
         <article class="sd-card" data-reveal style="--rv: 3">
-          <span class="sd-card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16"/><path d="M4 8h14"/><path d="M4 12h8"/><path d="M4 16h11"/></svg>
-          </span>
-          <h3>The three measures</h3>
+          <h3><span class="sd-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16"/><path d="M4 8h14"/><path d="M4 12h8"/><path d="M4 16h11"/></svg></span>The three measures</h3>
           <p>Before and as planned: time, data accuracy, cost.</p>
         </article>
       </div>
