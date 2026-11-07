@@ -12,21 +12,21 @@ Since 2026-11-01 the site is one simple home page and one landing page per servi
 
 | Page | `data-theme` | Background scene |
 |---|---|---|
-| `/` | none (`body.home`, which only widens `--measure`) | `#eco`, from `eco.js` (Three.js). The band (`.masthead` and `.home-hero` on `--mark-deep`), the `.home-card`s in two blocks (primary, then Other services), the proof strip (`#work`), contact |
+| `/` | none (`body.home`, which only widens `--measure`) | none. The band (`.masthead` and `.home-hero` on `--mark-deep`), the `.home-card`s in two blocks (primary, then Other services), the proof strip (`#work`), contact |
 | `/reporting/` | `organizations` | none. The Reporting alignment page; it was `/organizations/` until 2026-11-01 and keeps that theme block |
 | `/organizations/sample-diagnosis/` | `organizations` | none; its own scoped styles. Reached from `/reporting/` |
 | `/video/` | none | none; a small scoped `<style>` block. The Wolfe Retreat video (the short and the tour) and the Brain to AI reel, each a local 540 by 960 mp4, and a marked `.slot` for the case study that has no files yet |
 | `/events/` | none | none. New on 2026-11-01; filled on 2026-11-05 except the proof slot, which stays a placeholder |
-| `/demos/` | none | `#page-scene`, from its `scene.js`. The Software builds page; the five demos, the barbershop quote, the bounds line |
-| `/privacy/` | none | none (the canvas is in the markup, no script loads) |
+| `/demos/` | none | none. The Software builds page; the five demos, the barbershop quote, the bounds line |
+| `/privacy/` | none | none |
 | `/about/` | none | none. Since 2026-11-01, five sections for a customer of any service: who we are, the four doors, how we work, the proof, contact. One small scoped `<style>` block for the portrait grid |
 | `/community-social-services/`, `/ai-readiness/`, `/ai-readiness/start/` | Retired 2 November 2026 on Abdel's word; 301 to `/reporting/` and the home page in `netlify.toml`. | |
 
 `/organizations/` and `/videos/` answer 301 to `/reporting/` and `/video/` from `netlify.toml`; the sample diagnosis keeps its old path, so the organizations rule is exact rather than a splat.
 
-Every page that loads `main.js` also gets `#nature-canvas`, a fluid wave canvas `main.js` inserts behind everything. All three canvases are fixed, full viewport, `z-index: 0`, `pointer-events: none`; `main`, `header`, and `footer` sit above at `z-index: 1`.
+No page has a background scene. The fluid wave canvas (`#nature-canvas`), the home ecosystem (`eco.js`, Three.js) and the demos scene (`scene.js`) were removed on 2026-11-07 on Abdel's approval: ambient motion where nothing changes is tell 13 in the web-design-tells checklist. Do not add a background scene back.
 
-The demos under `demos/<name>/` are self-contained. They carry their own stylesheets (two still load Google Fonts), their own scripts, and no site nav. Nothing in this file applies to them.
+The demos under `demos/<name>/` are self-contained. They carry their own stylesheets (none loads Google Fonts since 2026-11-07, and they follow the web-design-tells checklist too), their own scripts, and no site nav. Nothing in this file applies to them.
 
 ## Colour
 
@@ -75,7 +75,7 @@ Theme blocks on `body[data-theme="..."]` in use today:
 
 `ai-readiness` also sets `--row-tint` inline on its page, and the landing page sets the motion kit's `--fill` and `--stroke` on its `body[data-theme]`.
 
-`styles.css` still holds `enterprise`, `small-business`, and `students` theme blocks, plus a `students` bordered-card treatment. No page uses them; those URLs now redirect in `netlify.toml`.
+`styles.css` still holds `enterprise` and `small-business` theme blocks (the `students` theme and its bordered-card treatment were deleted on 2026-11-07). No page uses them; those URLs now redirect in `netlify.toml`.
 
 Rules:
 - A theme block reassigns tokens only. `--ink` and `--ink-muted` never move.
@@ -116,11 +116,11 @@ Wrapping, since 2026-11-07: `h1`, `h2` and `h3` carry `text-wrap: balance` so a 
 - Radii: `--radius` 12px, `--radius-card` 16px (offers, islands), `--radius-leaf` `24px 4px 24px 4px` (home segment cards, the hero bezel), `--radius-pill` 999px (buttons), and `--radius-sm` 6px (added 2026-10-12 from Sage Garden, unused so far, for tags, chips and small panels). Inputs are 10px.
 - Nested radius, since 2026-11-07: a surface that sits inside another, inset by the outer one's padding, takes the outer radius minus that padding, floored at 0 (`max(0px, outer - padding)`), so the two curves stay parallel. Today that is `.bezel-core` inside `.bezel`: the 24px and 4px leaf minus `--bezel-pad` (10px, 6px on the sample diagnosis below 40rem) gives 14px and 0. Elements that do not fill their parent (the 42px icon squares, inputs, buttons) keep their own radius.
 - Surfaces:
-  - `.island`: prose on home sits on frosted paper, `--panel` at 88% with a 3px backdrop blur, 1px `--line`, card radius. Keeps the eco scene behind the words, not through them.
-  - `.bezel` / `.bezel-core`: the hero figure's double frame, a faint tray around a white plate with a soft lift shadow.
+  - `.island`: prose on home sits on solid `--panel`, 1px `--line`, card radius. No blur since the background scenes went on 2026-11-07.
+  - `.bezel-core`: the one frame around a figure, a white plate on a `--line` hairline at card radius, no tray and no shadow. The double frame went on 2026-11-07 (tell 9 in the web-design-tells checklist).
   - `.offer` in a `.bento` grid: the lead offer spans two rows on `--mark` with paper text; the other two stack beside it. One column below 58rem.
   - `.build` rows and `.proof` panels carry the audience pages.
-- Shadows exist but stay soft: `--lift` on the primary button and the bezel plate only.
+- Shadows exist but stay soft: `--lift` on the primary button only.
 - The section rule: every `.section` that follows another gets a 1px `--line` hairline with a row of `--line-strong` ticks every 9px under it, at 0.75 opacity.
 
 ## Buttons and focus
@@ -142,15 +142,11 @@ On the home page the masthead sits on the deep sage band (`body.home .masthead`)
 
 Tokens: `--fast` 140ms, `--base` 240ms, ease `cubic-bezier(0.2, 0, 0, 1)`.
 
-Two reveal systems, never mixed on one element:
-- `data-reveal`, the shared one, used on the audience, sector, and demos pages. The hidden state exists only under `html.reveal-ready`, which `main.js` sets after confirming motion is welcome and IntersectionObserver exists. Elements rise 14px over 0.7s; stagger with `--rv` (70ms per step).
-- `.rise`, used on home, gated on the `.js` class set inline in the head. 20px over 760ms. The children that stagger inside a risen group are `.step`, `.offer`, `.segment`, `.beat`, `.home-card` and `.status-row`.
-
-Home also has the eco scene; the band and the cards carry no reveal of their own beyond `.rise` on the grid. The word split (`.wsplit`) and the hero figure (`initPlot3D()`, `drawPlot()`) are still in `main.js` and `styles.css` but no page carries their markup since 2026-11-01. The community page carries three `data-walk` walkthroughs driven by `wireWalkthroughs()`, with frames in `media/walk/`.
+No entrance motion. The `data-reveal` and `.rise` reveal systems and their staggers were removed on 2026-11-07 (tell 13: animate only when something changes); content is on the page when it loads. Leftover `data-reveal` and `rise` attributes in markup do nothing. The word split (`.wsplit`) and the hero figure (`initPlot3D()`, `drawPlot()`) are still in `main.js` but no page carries their markup since 2026-11-01. The community page carries three `data-walk` walkthroughs driven by `wireWalkthroughs()`, with frames in `media/walk/`.
 
 The landing page uses the vendored scroll-motion kit (`vendor/gsap.min.js`, `ScrollTrigger`, `ScrollSmoother`, `motion.js`, `motion.css`), tuned inline in its own `Motion.init()`. Its page classes are `lp-` prefixed so they never collide with sitewide names.
 
-Under `prefers-reduced-motion: reduce` reveals render settled, smooth scrolling is off, background scenes draw one still frame or nothing, and the hero figure is static. Nothing is only legible after it moves.
+Under `prefers-reduced-motion: reduce` smooth scrolling is off and transitions are cut to 1ms. Nothing is only legible after it moves.
 
 ## Monogram
 
@@ -167,6 +163,7 @@ The sprout and lens mark on a `0 0 48 48` grid: an open ring ending in a node, a
 - A service page is: a `.section-segment-hero` (crumb, eyebrow, `.segment-lede`, `.segment-claim`, two buttons, the first to `#contact`), its sections, an `.also` list of the other three services, then the `.band.contact` section with the form. Every service page ends at contact. The about page follows the same shape, with the four doors in place of the `.also` list.
 - The site works with no JavaScript: links navigate, the nav opens, forms post natively.
 - Responsive from 360px with no horizontal overflow. Check 375px and 1280px on any change, 768px near a breakpoint. Tap targets are at least 44px; small links grow their hit area with a transparent `::after`.
+- Design tells (ruled 2026-11-07): none of the 15 in the web-design-tells checklist (`~/.claude/skills/web-design-tells/SKILL.md`) appears on a site page, and that ruling overrides earlier settled comps where they carry one. Removed on that day: the margin index numerals (`.index`) and the spelled-out build labels (`.build-no`) on the service pages, the home card numbers, the icon squares on the home and sample diagnosis cards, the double frame, the `.proof` side stripe (now a 1px border all round), the outlined pill above the home headline, the glow on the lead offer, and the `.offer` hover lift. Kept on purpose: the `.island` and `.masthead` blur (they sit over a moving scene or a sticky bar).
 - No analytics, no cookies, no third party requests from site pages. The booking link to cal.com is a plain link.
 
 ## The home page
@@ -175,7 +172,7 @@ Comp G, picked 1 November 2026, built 2 November on the existing tokens and comp
 
 - **The band.** `.home-hero` on `--mark-deep` with paper type, 28px rounded bottom corners (20px on a phone), 88px of bottom padding. The masthead sits on it (above). Inside: the `h1` `.home-title` at `clamp(2.4rem, 6vw, 5.4rem)`, line height 1, `-0.04em`, capped at 13ch, "Align what matters." at 600 and "Integrate how you move forward." in a span at 300 in `--tint-sage`; then `.home-hero-foot`, the positioning sentence (`.home-claim`, `--t-body` in `--tint-stone`, 430px) on the left and `.btn.btn-paper` (a `--tint-sage` outline with paper text and the usual `.btn-well` arrow) on the right, with "Book the call" as `.btn.btn-paper-fill` (filled paper with `--mark-deep` text) so the main action reads first. Under 600px the foot stacks. The spacing above the h1 and above the foot is `clamp(2rem, 8vh, 6rem)`. Ruled 7 November 2026 (TikTok audit, his "recs"): the service pill is cut because it repeated the Services menu and the cards, and the 01 02 03 card numbers are cut because three cards need no order.
 - **The ghost.** `.home-ghost`, the monogram at 600px (340px on a phone) in `--tint-sage` at 0.09 opacity, positioned off the top right corner of the band, `pointer-events: none`, `aria-hidden`. His words: "that empty circle in top right should be the logo faded in background".
-- **The cards.** `.home-cards`, a `ul` of eight `.home-card`s on `--panel` with a `--line` hairline and `--radius-card`, 16px gaps, padding 20px 22px 22px. One column by default, two from 601px, four from 1001px; from two columns up the grid overlaps the band by 56px, on a phone it sits 24px under it. The grid rises as one `.rise` group and the cards stagger. In order: 01 Reporting alignment, 02 Video, 03 Events, 04 Software builds, 05 Data, 06 Strategy, 07 Parts of systems (his words, 1 November), then the start card. Each card: `.home-card-top` holding `.home-card-icon` (a 42px square at `--radius` on `--tint-sage`, a 22px stroke icon at 1.6px in `--mark-deep`, matching what the card is) and `.home-card-n` (`--mono`, `--t-micro`, `--sage-deep`); the `h3` `.home-card-name` at 1.125rem; a visually hidden sentence saying what the drawing shows; the drawing `.home-card-join`, inline SVG, `aria-hidden`, pieces in `--ink-muted` and the result in `--mark` with `--mono` text; and `.home-card-go`, the one link, `--mono` at `--t-label` in `--mark` with the site's arrow, whose `::after` makes the whole card its hit area. Hover darkens the hairline to `--line-strong`; focus within turns it `--ink`.
+- **The cards.** `.home-cards`, a `ul` of eight `.home-card`s on `--panel` with a `--line` hairline and `--radius-card`, 16px gaps, padding 20px 22px 22px. One column by default, two from 601px, four from 1001px; from two columns up the grid overlaps the band by 56px, on a phone it sits 24px under it. The grid rises as one `.rise` group and the cards stagger. In order: Reporting alignment, Video, Events, Software builds, Data, Strategy, Parts of systems (his words, 1 November), then the start card. Cards carry no numbers and the icon has no container (the 01 to 03 labels and the tinted 42px square went on 2026-11-07, tells 7 and 12). Each card: the `h3` `.home-card-name` at 1.125rem, holding `.home-card-icon` inline before the name (a 22px stroke icon at 1.6px in `--mark-deep`, matching what the card is); a visually hidden sentence saying what the drawing shows; the drawing `.home-card-join`, inline SVG, `aria-hidden`, pieces in `--ink-muted` and the result in `--mark` with `--mono` text; and `.home-card-go`, the one link, `--mono` at `--t-label` in `--mark` with the site's arrow, whose `::after` makes the whole card its hit area. Hover darkens the hairline to `--line-strong`; focus within turns it `--ink`.
 - **The start card.** `.home-card-start` on `--tint-sage`: the label "Start here" in `--mark` (the comp's `--sage-deep` reads 3.26:1 on this tint), the `h3` "Tell us what needs to fit together." at 1.375rem, the line "A 30-minute call, then a proposal." in `--ink` (the comp's `--ink-muted` reads 4.17:1 here), and `.btn.btn-primary.btn-deep` to `#contact`, `--mark-deep` with `--mark` on hover.
 - **Below the cards** the page is as before: the `#work` proof strip and the `.band.contact` form, both on their islands. The cards' heading, "What you can buy", is kept as an `h2` for the outline and hidden with `.visually-hidden`.
 - Contrast on the band, measured 2026-11-02: paper 12.45:1, `--tint-sage` 8.85:1, `--tint-stone` 10.80:1. On a card: `--ink-muted` 6.35:1, `--mark` 9.72:1, `--sage-deep` 4.97:1. On the start card: `--mark` 6.38:1, `--ink` 11.11:1.
@@ -183,7 +180,7 @@ Comp G, picked 1 November 2026, built 2 November on the existing tokens and comp
 
 ## The about page
 
-`/about/` is the company's page for a customer of any service, rebuilt on 2026-11-01 on the default tokens with the service-page components only. In order: a `.section-segment-hero` (crumb, eyebrow, the `h1` "One team for everything.", his translate-and-integrate line as the `.segment-claim`, Contact us and The services); 01 Who we are (`.section-head`, then three `.beats`: the method, complexity to simplicity, alignment and integration); 02 One team, four services (the positioning sentence, then the same four `.segments.doors` as home, word for word); 03 How we work (`.process-grid` with four `.steps`: the call, the deposit, the work, finishing the job); 04 Why trust the quality (the `.status` rows from the home proof strip plus the basketball league case study row, one sentence of the barbershop quote as a `.proof-quote` without the name or logo, and the `.offer-who` list beside the portrait in the page's own `.who` grid); then the `.band.contact` form with `service` set to About. The page loads `main.js` only; `about.css` and `about.js` went with the level map, the tabs, the ticker and the timeline.
+`/about/` is the company's page for a customer of any service, rebuilt on 2026-11-01 on the default tokens with the service-page components only. In order: a `.section-segment-hero` (crumb, eyebrow, the `h1` "One team for everything.", his translate-and-integrate line as the `.segment-claim`, Contact us and The services); Who we are (`.section-head`, then three `.beats`: the method, complexity to simplicity, alignment and integration); One team, four services (the positioning sentence, then the same four `.segments.doors` as home, word for word); How we work (`.process-grid` with four `.steps`: the call, the deposit, the work, finishing the job); Why trust the quality (the `.status` rows from the home proof strip plus the basketball league case study row, one sentence of the barbershop quote as a `.proof-quote` without the name or logo, and the `.offer-who` list beside the portrait in the page's own `.who` grid); then the `.band.contact` form with `service` set to About. The page loads `main.js` only; `about.css` and `about.js` went with the level map, the tabs, the ticker and the timeline.
 
 His own sentences keep the first person singular; the company sentences (the positioning sentence, the deal path, the solutions-company line) say "we" or name the company. The employer's track record (the three case panels and the background timeline) is off the page until written clearance exists; PR 41 lists the removed sections. Photographs live in `about/media/`; only the portrait is on the page, the other files stay in the folder.
 
@@ -192,10 +189,10 @@ His own sentences keep the first person singular; the company sentences (the pos
 `/organizations/sample-diagnosis/` was reworked on 2026-11-02 on his words of 1 November: "this page needs visuals throughout and less words after the first visual". Above and including the two process maps the page is as it was. Below them every section leads with a visual and the words are labels, numbers and at most one line of his per section; every word was already on the page. Everything is in the page's own `<style>` block on the existing tokens; no new colour, font or script, and `data-reveal` is the only motion.
 
 - **The pull line** under the maps (`.sd-pull`): his "We will build within your systems..." sentence at `--t-lead` with a 3px `--mark` rule on the left.
-- **02 The numbers**: three `.sd-measure` panels (Time, Data accuracy, Cost), one column below 62rem. Each is one inline SVG `role="img"` with an `aria-label` that states its numbers, plus a visually hidden table. The SVG has no `viewBox`: it is 100% wide with a fixed height and its geometry is in percentages of the width, so the text keeps its CSS size at every width. Before is `--ink-muted`, after is `--mark`, the empty dots in the grids are `--line`.
+- **The numbers**: three `.sd-measure` panels (Time, Data accuracy, Cost), one column below 62rem. Each is one inline SVG `role="img"` with an `aria-label` that states its numbers, plus a visually hidden table. The SVG has no `viewBox`: it is 100% wide with a fixed height and its geometry is in percentages of the width, so the text keeps its CSS size at every width. Before is `--ink-muted`, after is `--mark`, the empty dots in the grids are `--line`.
 - **Hours, before and after**: two stacked bars on one scale (62 h is the full width, 18 h is 29 percent of it) with 2px `--panel` gaps between segments and the step number and hours in `--paper` inside each. `.sd-hours` is a size container: every segment is labelled from 760px, every segment of 3 h or more from 520px, below that every segment of 4 h or more carries its number and 6 h or more its hours. The key under each bar (`.sd-key`, two columns from 520px) carries every step name and its hours; the after key ends with the five steps deleted outright, struck through.
 - **Pays back after 2.8 reports**: the saving per report ($1,848 each) as a `--mark` line with a dot at each report, the one-time fix ($5,180) as a dashed `--ink-muted` line, the crossing marked, a key with the fix broken out, and his "If you can set up something properly..." line as the caption (`.sd-say`).
-- **03 What you receive**: three `.sd-card`s in the home card style (the 42px `--tint-sage` square, 22px icons at 1.6px in `--mark-deep`), each with its title and one existing line.
+- **What you receive**: three `.sd-card`s in the home card style (a 22px icon at 1.6px in `--mark-deep` inline before the title, no container), each with its title and one existing line.
 - **The two weeks**: `.sd-timeline`, four nodes (a 40px `--tint-sage` circle with the counter) on a `--line-strong` rail, vertical below 48rem and horizontal from it, each with its name and one phrase cut from his sentence.
 - Contrast on the `organizations` theme, measured 2026-11-02: `--ink-muted` 6.35:1 on a panel and 5.76:1 on the paper; `--mark` 8.43:1 on a panel; `--paper` 5.76:1 on `--ink-muted` and 7.64:1 on `--mark` (the segment labels); `--mark-deep` 8.12:1 on `--tint-sage`; `--line-strong` 4.29:1 on a panel and 3.89:1 on the paper (the axis and the rail).
 
@@ -217,8 +214,8 @@ His own sentences keep the first person singular; the company sentences (the pos
 ## Known loose ends in `styles.css`
 
 - `--slow` and `--ink-faint` are used but never defined.
-- The old home hero and its figure (`.hero`, `.hero-title`, `.hero-grid`, `.hero-claim`, `.hero-actions`, `.bezel`, `.bezel-core`, `.figure-*`, `.stage`, `.pieces`, `.piece`, `.plot-*`, the `.wsplit` reveal) have no markup on any page since 2026-11-01. `.segments` still carries the about page's four doors.
+- The old home hero and its figure (`.hero`, `.hero-title`, `.hero-grid`, `.hero-claim`, `.hero-actions`, `.figure-*`, `.stage`, `.pieces`, `.piece`, `.plot-*`, the `.wsplit` reveal) have no markup on any page since 2026-11-01. `.segments` still carries the about page's four doors.
 - The header comment and a few section comments (the nav, the Student Pal embed) describe earlier versions.
 - The unused theme blocks noted above, and `.tile` in the print rules, which no site page uses.
 
-- **Home focus layout (November 2026).** The cards are split in two. `.home-cards-primary` leads: `.home-card-lead` (Reporting alignment, wide, 1.75rem name, `--mark` border), `.home-card-offer` (the diagnosis, on `--tint-sage`, with a `.btn-deep` Book the call), then Data and Strategy as ordinary cards numbered 02 and 03. `.home-cards-other` follows under the quiet label "Other services" (`.h-quiet`): `.home-card-compact` cards with no number and no line drawing. The start card is gone; the band carries Contact us and Book the call (`.home-hero-actions`).
+- **Home focus layout (November 2026).** The cards are split in two. `.home-cards-primary` leads: `.home-card-lead` (Reporting alignment, wide, 1.75rem name, `--mark` border), `.home-card-offer` (the diagnosis, on `--tint-sage`, with a `.btn-deep` Book the call), then Data and Strategy as ordinary cards. `.home-cards-other` follows under the quiet label "Other services" (`.h-quiet`): `.home-card-compact` cards with no line drawing. The start card is gone; the band carries Contact us and Book the call (`.home-hero-actions`).

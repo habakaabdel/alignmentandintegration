@@ -40,10 +40,8 @@ Every site page (not the demos or the landing page) carries the same four items:
 Plain HTML, CSS, and vanilla JavaScript. No framework, no build.
 
 - `styles.css`: one sitewide stylesheet, tokens and themes included.
-- `main.js`: progressive enhancement for the home, audience, sector, AI readiness, and demos index pages (nav state, reveals, hero figure, walkthroughs, contact form, background canvas).
-- `eco.js`: the home page background scene (Three.js, from `vendor/`).
-- `scene.js` in `community-social-services/`, `ai-readiness/`, and `demos/`: that page's own background scene.
-- `vendor/`: Three.js and the scroll-motion kit used by `/ai-readiness/start/`.
+- `main.js`: progressive enhancement for the home, audience, sector, AI readiness, and demos index pages (nav state, hero figure, walkthroughs, contact form).
+- `vendor/`: the scroll-motion kit used by `/ai-readiness/start/`.
 - `media/`: self-hosted fonts and the captured frames for the walkthroughs on the community page.
 - Forms post to Netlify Forms: `contact` on the home page, the four service pages and the about page (a hidden `service` field names the page), `ai-readiness-consult` on the landing page.
 
