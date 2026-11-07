@@ -2281,6 +2281,47 @@ body.home { --measure: 1240px; }
 .btn-deep { background: var(--mark-deep); }
 .btn-deep:hover { background: var(--mark); }
 
+/* two buttons on the band */
+.home-hero-actions { display: flex; flex-wrap: wrap; gap: var(--s3); }
+
+/* the primary block. Reporting alignment is the wide card, the diagnosis sits
+   beside it, Data and Strategy under the diagnosis. Order in the markup is
+   the order on a phone. */
+.home-card-lead { padding: 28px 30px 30px; border-color: var(--mark); }
+.home-card-lead .home-card-name { margin: 20px 0; font-size: 1.75rem; line-height: 1.15; }
+.home-card-lead .home-card-icon { width: 52px; height: 52px; }
+.home-card-lead .home-card-icon svg { width: 28px; height: 28px; }
+.home-card-lead .home-card-join { margin-bottom: 24px; }
+.home-card-offer { background: var(--tint-sage); border-color: var(--tint-sage); }
+.home-card-offer .home-card-n { color: var(--mark); }
+.home-card-offer-title { margin-top: 10px; font-size: 1.375rem; line-height: 1.2; }
+.home-card-offer-line { margin: var(--s2) 0 0; font-size: var(--t-small); color: var(--ink); }
+.home-card-offer-note {
+  margin: var(--s3) 0 22px;
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mark);
+}
+.home-card-offer .btn { align-self: flex-start; margin-top: auto; }
+@media (min-width: 37.5625rem) {
+  .home-card-lead, .home-card-offer { grid-column: 1 / -1; }
+}
+@media (min-width: 62.5625rem) {
+  .home-cards-primary .home-card-lead { grid-column: 1 / 3; grid-row: 1 / 3; }
+  .home-cards-primary .home-card-offer { grid-column: 3 / 5; grid-row: 1; }
+}
+
+/* the other services: smaller, no line drawing, no number */
+.home-other { padding-top: var(--s6); }
+.home-cards-other { margin: var(--s4) 0 72px; }
+.home-card-compact { padding: 14px 18px 16px; }
+.home-card-compact .home-card-icon { width: 34px; height: 34px; }
+.home-card-compact .home-card-icon svg { width: 18px; height: 18px; }
+.home-card-compact .home-card-name { margin: 10px 0 12px; font-size: 1rem; }
+.home-card-compact .home-card-join { display: none; }
+
 @media (max-width: 37.5rem) {
   .home-hero { border-radius: 0 0 20px 20px; padding-bottom: var(--s8); }
   .home-ghost { width: 340px; height: 340px; right: -110px; top: -40px; }

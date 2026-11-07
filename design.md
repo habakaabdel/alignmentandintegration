@@ -12,7 +12,7 @@ Since 2026-11-01 the site is one simple home page and one landing page per servi
 
 | Page | `data-theme` | Background scene |
 |---|---|---|
-| `/` | none (`body.home`, which only widens `--measure`) | `#eco`, from `eco.js` (Three.js). The band (`.masthead` and `.home-hero` on `--mark-deep`), the eight `.home-card`s, the proof strip (`#work`), contact |
+| `/` | none (`body.home`, which only widens `--measure`) | `#eco`, from `eco.js` (Three.js). The band (`.masthead` and `.home-hero` on `--mark-deep`), the `.home-card`s in two blocks (primary, then Other services), the proof strip (`#work`), contact |
 | `/reporting/` | `organizations` | none. The Reporting alignment page; it was `/organizations/` until 2026-11-01 and keeps that theme block |
 | `/organizations/sample-diagnosis/` | `organizations` | none; its own scoped styles. Reached from `/reporting/` |
 | `/video/` | none | none; a small scoped `<style>` block. The Wolfe Retreat video (the short and the tour) and the Brain to AI reel, each a local 540 by 960 mp4, and a marked `.slot` for the case study that has no files yet |
@@ -215,3 +215,5 @@ His own sentences keep the first person singular; the company sentences (the pos
 - The old home hero and its figure (`.hero`, `.hero-title`, `.hero-grid`, `.hero-claim`, `.hero-actions`, `.bezel`, `.bezel-core`, `.figure-*`, `.stage`, `.pieces`, `.piece`, `.plot-*`, the `.wsplit` reveal) have no markup on any page since 2026-11-01. `.segments` still carries the about page's four doors.
 - The header comment and a few section comments (the nav, the Student Pal embed) describe earlier versions.
 - The unused theme blocks noted above, and `.tile` in the print rules, which no site page uses.
+
+- **Home focus layout (November 2026).** The cards are split in two. `.home-cards-primary` leads: `.home-card-lead` (Reporting alignment, wide, 1.75rem name, `--mark` border), `.home-card-offer` (the diagnosis, on `--tint-sage`, with a `.btn-deep` Book the call), then Data and Strategy as ordinary cards numbered 02 and 03. `.home-cards-other` follows under the quiet label "Other services" (`.h-quiet`): `.home-card-compact` cards with no number and no line drawing. The start card is gone; the band carries Contact us and Book the call (`.home-hero-actions`).
