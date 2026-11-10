@@ -80,17 +80,15 @@
       var name = document.createElement('h4');
       name.className = 'rc-gap';
       name.textContent = g.gap;
-      var cost = document.createElement('p');
-      if (g.cost) {
-        cost.textContent = g.cost;
-      } else {
-        // No approved sentence yet: the page shows the gap, per design.md.
-        cost.className = 'rc-new';
-        cost.textContent = '[NET-NEW ' + g.n + ': one sentence on what this gap usually costs an agency]';
-      }
       box.appendChild(from);
       box.appendChild(name);
-      box.appendChild(cost);
+      // One sentence on what the gap usually costs an agency, once he has said
+      // it: data-cost on the question's fieldset. Until then the name stands alone.
+      if (g.cost) {
+        var cost = document.createElement('p');
+        cost.textContent = g.cost;
+        box.appendChild(cost);
+      }
       li.appendChild(box);
       gapsEl.appendChild(li);
     });
