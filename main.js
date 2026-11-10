@@ -424,7 +424,7 @@ function wireForm() {
 
 /* Filled at install from the Leadfeeder Lite account (the id in the snippet
    the account shows). While it is empty the loader does nothing. */
-const LEADFEEDER_ID = '';
+const LEADFEEDER_ID = 'lAxoEaKjdg14OYGd';
 
 const VISITOR_CHOICE_KEY = 'ai-visitor-id';
 const VISITOR_NOTICE_KEY = 'ai-visitor-notice';
