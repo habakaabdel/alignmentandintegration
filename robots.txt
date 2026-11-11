@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /demos/
+Allow: /demos/$
 Disallow: /brand/
 
 Sitemap: https://alignmentandintegration.com/sitemap.xml
