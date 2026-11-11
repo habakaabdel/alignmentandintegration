@@ -337,7 +337,9 @@ function wireWalkthroughs() {
 /* ---------- contact form ---------- */
 
 function wireForm() {
-  document.querySelectorAll('form[data-netlify][data-confirm]').forEach(function (form) {
+  // Netlify removes data-netlify from the served page, so the forms are found
+  // by data-confirm alone.
+  document.querySelectorAll('form[data-confirm]').forEach(function (form) {
     const confirmation = document.querySelector(form.getAttribute('data-confirm'));
     if (!confirmation) return;
 
