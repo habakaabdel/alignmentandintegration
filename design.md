@@ -14,6 +14,7 @@ Since 2026-11-01 the site is one simple home page and one landing page per servi
 |---|---|---|
 | `/` | none (`body.home`, which only widens `--measure`) | none. The band (`.masthead` and `.home-hero` on `--mark-deep`), the `.home-card`s in two blocks (primary, then Other services), the proof strip (`#work`), contact |
 | `/reporting/` | `organizations` | none. The Reporting alignment page; it was `/organizations/` until 2026-11-01 and keeps that theme block |
+| `/reporting/readiness-check/` | `organizations` | none; its own scoped styles (`rc-` classes) and `check.js`. Reached from `/reporting/`; see The readiness check below |
 | `/organizations/sample-diagnosis/` | `organizations` | none; its own scoped styles. Reached from `/reporting/` |
 | `/video/` | none | none; a small scoped `<style>` block. The Wolfe Retreat video (the short and the tour) and the Brain to AI reel, each a local 540 by 960 mp4, and a marked `.slot` for the case study that has no files yet |
 | `/events/` | none | none. New on 2026-11-01; filled on 2026-11-05 except the proof slot, which stays a placeholder |
@@ -155,6 +156,7 @@ The sprout and lens mark on a `0 0 48 48` grid: an open ring ending in a node, a
 ## Forms
 
 - Home, the four service pages and the about page: the same `name="contact"` form, `data-netlify="true"`, hidden `form-name` input, `netlify-honeypot="referral-source"`, and a hidden `service` input naming the page it was sent from (Home, Reporting alignment, Video, Events, Software builds, About). `wireForm()` submits in place and shows the confirmation. While the request is out the button is disabled, reads the form's `data-sending` word ("Starting") and carries `aria-busy="true"`, which draws a small turning ring after the word (still under reduced motion); on failure the button comes back as it was and the error line shows. Motion on this site is for feedback like this, not decoration.
+- Readiness check: `name="readiness-check"`, the same honeypot, one form around the twelve questions and the email fields. `wireForm()` handles it like the contact form, except the form carries `data-confirm-hides="#readiness-send"`, so only the email fields give way to the confirmation and the result stays on screen. Any form may use `data-confirm-hides`; without it the whole form is hidden as before.
 - Landing page: `name="ai-readiness-consult"`, honeypot `company-site`, plain native POST.
 
 ## Structure rules
@@ -195,6 +197,16 @@ His own sentences keep the first person singular; the company sentences (the pos
 - **What you receive**: three `.sd-card`s in the home card style (a 22px icon at 1.6px in `--mark-deep` inline before the title, no container), each with its title and one existing line.
 - **The two weeks**: `.sd-timeline`, four nodes (a 40px `--tint-sage` circle with the counter) on a `--line-strong` rail, vertical below 48rem and horizontal from it, each with its name and one phrase cut from his sentence.
 - Contrast on the `organizations` theme, measured 2026-11-02: `--ink-muted` 6.35:1 on a panel and 5.76:1 on the paper; `--mark` 8.43:1 on a panel; `--paper` 5.76:1 on `--ink-muted` and 7.64:1 on `--mark` (the segment labels); `--mark-deep` 8.12:1 on `--tint-sage`; `--line-strong` 4.29:1 on a panel and 3.89:1 on the paper (the axis and the rail).
+
+## The readiness check
+
+`/reporting/readiness-check/`, built 2026-11-10 from the question set he ruled on the 10 November walk: twelve questions in four groups, each with three answers worth 2, 1 and 0, a score out of 24, three levels (Aligned and Integrated from 19, Partly aligned from 10, Not aligned below), and the three lowest-scoring questions shown by their gap names, ties to the earlier question. The price line on the result is his ruling; `/reporting/` still owns the price.
+
+- **All wording is in the markup.** Each question is a `fieldset.rc-q` with `data-q` (its number) and `data-gap` (its gap name); each level is a row of `table.rc-key` with `data-min`, `data-max` and `data-line`. `check.js` holds no copy except the three forms of the gaps heading, so the next question set (homelessness, ISC-funded, MCCSS-funded) is a new page of markup and no new script.
+- **Without script** the page is the twelve questions and the email fields, and the form posts natively. With script the email fields wait behind "See my result", an unanswered question is marked "Not answered" and takes focus, and the result recalculates when an answer changes.
+- **The gap sentences are not written yet.** Each gap can carry one sentence on what it usually costs an agency, read from `data-cost` on the question's fieldset. Until he says one, that gap shows its name alone; no placeholder is drawn (his screenshot of 10 November).
+- **Layout.** One column capped at 46rem. An answer is a `.rc-a` label row on `--panel` with a `--line` hairline, at least 44px tall; the chosen one takes a `--mark` border and a 6 percent `--mark` wash through `:has(input:checked)`. The level is the result's `h2` at `--t-h1`, the score sits under it, and the three levels are a plain table with the current row in `--ink` at 600. No bar, no icons, no motion.
+- Checked 2026-11-10 at 1280 and in the 375px iframe harness: no sideways scroll, twelve questions, the missing-answer state, the three score bands, the tie rule and the send confirmation.
 
 ## Content rules
 

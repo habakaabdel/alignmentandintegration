@@ -341,6 +341,11 @@ function wireForm() {
     const confirmation = document.querySelector(form.getAttribute('data-confirm'));
     if (!confirmation) return;
 
+    // A form that keeps something on screen after sending names the part to
+    // hide in data-confirm-hides; otherwise the whole form gives way.
+    const hidesSelector = form.getAttribute('data-confirm-hides');
+    const hides = (hidesSelector && form.querySelector(hidesSelector)) || form;
+
     const error = form.querySelector('[data-form-error]');
     const button = form.querySelector('[data-submit]');
     const idle = button ? button.innerHTML : '';
@@ -369,7 +374,7 @@ function wireForm() {
         body: body
       }).then(function (response) {
         if (!response.ok) throw new Error('rejected');
-        form.hidden = true;
+        hides.hidden = true;
         confirmation.hidden = false;
         confirmation.focus && confirmation.focus();
       }).catch(function () {
