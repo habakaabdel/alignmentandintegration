@@ -34,7 +34,6 @@
    One summary rule, then a two-pane map (indicator list, lineage detail) that
    stacks on phones. Status colours mark real states: ready, check, gap. */
 .im { --ok: var(--mark); --check: #8a5420; --gap: #9b2f2f; --ok-bg: #e3e8dc; --check-bg: #f3e6d6; --gap-bg: #f4dede; }
-.im-status { margin-top: var(--s5); font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
 .im-k { font-family: var(--mono); font-size: var(--t-label); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin: 0 0 6px; }
 .im-summary { display: flex; flex-wrap: wrap; gap: var(--s3) var(--s7); align-items: baseline; padding-bottom: var(--s5); border-bottom: 1px solid var(--line); }
 .im-stat { display: grid; gap: 2px; }
@@ -151,7 +150,6 @@
       <p class="eyebrow">sample deliverable</p>
       <h1 class="segment-lede" id="h-seg">Indicator Map for a community mental health and addictions agency</h1>
       <p class="segment-claim">Every number the agency reports to Ontario Health, defined once, traced to the data elements it is built from, and checked against the move from PDS 1.0 to PDS 2.0. Nothing on this page is agency data. It is built only from Ontario Health's public PDS documents.</p>
-      <p class="im-status">Draft · awaiting agency sign-off</p>
     </div>
   </section>
 
@@ -382,8 +380,7 @@ function show(i) {
     </div>
     <div class="im-signoff">
       <div><span>Definition source</span><b>Provider Reports &amp; Metrics, metric ${x.n}</b></div>
-      <div><span>Approved by</span><b>Agency data lead, pending</b></div>
-      <div><span>Status</span><b>Draft</b></div>
+      <div><span>Approved by</span><b>Agency data lead</b></div>
     </div>`;
 }
 list.addEventListener("click", ev => {
