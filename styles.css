@@ -1742,11 +1742,13 @@ body.home { --measure: 1240px; }
 .home-ghost svg { display: block; width: 100%; height: 100%; }
 
 
+/* the public line is a thirteen-word sentence, so the size steps down from
+   the two-word brand line it replaced and the measure opens to 17ch */
 .home-title {
-  font-size: clamp(2.4rem, 6vw, 5.4rem);
-  line-height: 1;
-  letter-spacing: -0.04em;
-  max-width: 13ch;
+  font-size: clamp(2.1rem, 4.6vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  max-width: 17ch;
   margin-top: clamp(2rem, 8vh, 6rem);
 }
 .home-title span { font-weight: 300; color: var(--tint-sage); }
@@ -1758,8 +1760,8 @@ body.home { --measure: 1240px; }
   gap: var(--s6);
   margin-top: clamp(2rem, 8vh, 6rem);
 }
+.home-claims { display: grid; gap: var(--s3); max-width: 520px; }
 .home-claim {
-  max-width: 430px;
   font-size: var(--t-body);
   line-height: 1.6;
   color: var(--tint-stone);
@@ -1901,6 +1903,43 @@ body.home { --measure: 1240px; }
   .home-cards-primary .home-card-lead { grid-column: 1 / 3; grid-row: 1 / 3; }
   .home-cards-primary .home-card-offer { grid-column: 3 / 5; grid-row: 1; }
 }
+
+/* the four doors. Each card is a visitor's sentence, then what they get.
+   Door two sits on the tint and takes the same heading as the others. */
+.home-card-line { margin: 0 0 var(--s3); font-size: 1rem; color: var(--ink); }
+.home-card-lead .home-card-line { max-width: 52ch; }
+@media (min-width: 62.5625rem) { .home-card-lead .home-card-line { font-size: var(--t-lead); } }
+.home-card-line + .home-card-go,
+.home-card-line + .home-card-links { margin-top: auto; padding-top: var(--s2); }
+.home-card-offer .home-card-name { margin-top: 0; font-size: 1.375rem; line-height: 1.2; }
+/* door two, the three packages: name on the left, price on the right,
+   stacked on a phone */
+.home-card-prices { list-style: none; margin: 0 0 var(--s4); padding: 0; border-top: 1px solid var(--line-strong); }
+.home-card-prices li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px var(--s4);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line-strong);
+  font-size: 1rem;
+  color: var(--ink);
+}
+.home-card-price-name { font-weight: 600; }
+.home-card-price { font-variant-numeric: tabular-nums; }
+@media (max-width: 37.5rem) { .home-card-price { font-size: var(--t-small); } }
+.home-card-quote { margin: var(--s2) 0 0; }
+.home-card-quote p { font-size: 1.125rem; font-weight: 600; color: var(--ink); }
+.home-card-cite { margin: var(--s1) 0 var(--s3); font-size: var(--t-small); }
+.home-card-cite a { color: var(--mark-deep); }
+.home-card-fine { margin: 0 0 22px; font-size: var(--t-small); color: var(--ink); }
+/* a door with two ways in: each link is its own target, so neither one
+   stretches over the card */
+.home-card-links { display: flex; flex-wrap: wrap; gap: 0 var(--s5); margin: 0; }
+.home-card-links .home-card-go { margin-top: 0; padding-block: 14px; }
+.home-card-links .home-card-go::after { content: none; }
+.home-card-links .home-card-go:hover { color: var(--mark-deep); text-decoration: underline; }
+.home-card:hover .home-card-links .home-card-go:not(:hover) { color: var(--mark); text-decoration: none; }
 
 /* the other services: smaller, no line drawing, no number */
 .home-other { padding-top: var(--s6); }
