@@ -1912,6 +1912,22 @@ body.home { --measure: 1240px; }
 .home-card-line + .home-card-go,
 .home-card-line + .home-card-links { margin-top: auto; padding-top: var(--s2); }
 .home-card-offer .home-card-name { margin-top: 0; font-size: 1.375rem; line-height: 1.2; }
+/* door two, the three packages: name on the left, price on the right,
+   stacked on a phone */
+.home-card-prices { list-style: none; margin: 0 0 var(--s4); padding: 0; border-top: 1px solid var(--line-strong); }
+.home-card-prices li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px var(--s4);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line-strong);
+  font-size: 1rem;
+  color: var(--ink);
+}
+.home-card-price-name { font-weight: 600; }
+.home-card-price { font-variant-numeric: tabular-nums; }
+@media (max-width: 37.5rem) { .home-card-price { font-size: var(--t-small); } }
 .home-card-quote { margin: var(--s2) 0 0; }
 .home-card-quote p { font-size: 1.125rem; font-weight: 600; color: var(--ink); }
 .home-card-cite { margin: var(--s1) 0 var(--s3); font-size: var(--t-small); }

@@ -8,7 +8,7 @@ Since 11 November 2026 the home page is organized by the visitor and their probl
 
 | Path | What it is |
 |---|---|
-| `/` | Home. The public line and the two build paths on a deep sage band, the four doors (`#fit`: agency `#agency`, small business `#small-business`, team `#team`, a system of our own `#system`), How we work (`#how-we-work`, the three routes), the proof strip (`#work`), and the contact form. Comp G, picked November 2026, refilled with the doors on 11 November 2026. |
+| `/` | Home. The public line and the two build paths on a deep sage band, the four doors (`#fit`: agency `#agency`, small business `#small-business` with the three packages and their prices, team `#team`, a system of our own `#system`), How we work (`#how-we-work`, the three routes), the proof strip (`#work`), and the contact form. Comp G, picked November 2026, refilled with the doors on 11 November 2026. |
 | `/reporting/` | Reporting alignment, on any platform. Theme `organizations`. What it looks like (four scenarios and the platform partner panel), the process, the three offers (the $3,500 diagnosis is the only priced one), the two weeks, the engine, Data (`#data`) and Strategy (`#strategy`), where we have built, the bounds line, contact. Was `/organizations/`, which now redirects here. |
 | `/reporting/readiness-check/` | The reporting readiness check. Twelve questions in four groups, scored in the browser out of 24 into three levels, with the three lowest-scoring questions shown as gaps. Reached from `/reporting/`. The mental health and addictions question set is the first; another set is another page of markup. |
 | `/organizations/sample-diagnosis/` | The sample diagnosis, on fictional data. Reached from `/reporting/`. |
