@@ -251,7 +251,17 @@ a:hover { color: var(--mark-deep); }
 
 .notice a { color: var(--mark); text-decoration: underline; text-underline-offset: 0.15em; }
 
-.notice .btn { padding: 0.35rem 0.9rem; font-size: var(--t-label); }
+.notice .btn { position: relative; padding: 0.35rem 0.9rem; font-size: var(--t-label); }
+
+/* the button stays small on the bar; the hit area is grown to 44px */
+.notice .btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -7px;
+  bottom: -7px;
+}
 
 /* ---------- masthead ---------- */
 
