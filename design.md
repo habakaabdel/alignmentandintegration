@@ -168,7 +168,7 @@ The sprout and lens mark on a `0 0 48 48` grid: an open ring ending in a node, a
 - The site works with no JavaScript: links navigate, the nav opens, forms post natively.
 - Responsive from 360px with no horizontal overflow. Check 375px and 1280px on any change, 768px near a breakpoint. Tap targets are at least 44px; small links grow their hit area with a transparent `::after`.
 - Design tells (ruled 2026-11-07): none of the 15 in the web-design-tells checklist (`~/.claude/skills/web-design-tells/SKILL.md`) appears on a site page, and that ruling overrides earlier settled comps where they carry one. Removed on that day: the margin index numerals (`.index`) and the spelled-out build labels (`.build-no`) on the service pages, the home card numbers, the icon squares on the home and sample diagnosis cards, the double frame, the `.proof` side stripe (now a 1px border all round), the outlined pill above the home headline, the glow on the lead offer, and the `.offer` hover lift. Kept on purpose: the `.island` and `.masthead` blur (they sit over a moving scene or a sticky bar).
-- No analytics, no cookies, no third party requests from site pages. The booking link to cal.com is a plain link.
+- No analytics and no advertising trackers. One third party script, ruled 17 and 18 October 2026: the Leadfeeder loader in `main.js`, which identifies visiting organizations, never people, and sets one cookie, `_lfa`. It stays off when the privacy page switch is off, when the browser sends Do Not Track or Global Privacy Control, and in Quebec until the visitor turns it on. The notice bar under the masthead and the footer sentence point to the switch on `/privacy/`. The booking link to cal.com is a plain link.
 
 ## Structure, ruled 11 November 2026
 
