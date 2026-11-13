@@ -25,7 +25,7 @@
 
 /* Alignment Integration
    Look: a measured engineering sheet. Cool paper, ink slate type, spruce green
-   marks, hairline tick rules, monospace coordinates in the margin.
+   marks, hairline tick rules.
    Token record and editing rules live in design.md. */
 
 /* ---------- tokens ---------- */
@@ -119,12 +119,6 @@ body[data-theme="community"] {
   --mark-deep:    #1d332a;
 }
 
-body[data-theme="students"] {
-  --paper:        #f5f4f9;
-  --mark:         #5a3d9e;
-  --mark-deep:    #432b78;
-}
-
 body[data-theme="individuals"] {
   --paper:        #f9f5f3;
   --mark:         #7d3650;
@@ -143,50 +137,6 @@ body[data-theme="ai-readiness"] {
   --mark-deep:    #5e3812;
 }
 
-
-/* ---------- Bordered-card surface treatment for students ---------- */
-
-body[data-theme="students"] .segment,
-body[data-theme="students"] .panel,
-body[data-theme="students"] .form-shell,
-body[data-theme="students"] .plot {
-  background: #ffffff;
-  border: 1px solid var(--ink);
-  border-radius: 16px;
-}
-
-/* This theme carries the bordered-card treatment above, which pins the card
-   corner at --radius-card. The leaf radius on .proof and .walk-stage would put a
-   second corner language on the same page, so they follow the card here.
-    Radius only - .proof keeps its own accent border. */
-body[data-theme="students"] .proof,
-body[data-theme="students"] .walk-stage {
-  border-radius: var(--radius-card);
-}
-
-body[data-theme="students"] .btn-primary {
-  background: #b9a7ec;
-  color: var(--ink);
-  border: 1px solid var(--ink);
-  border-radius: 999px;
-}
-body[data-theme="students"] .btn-primary:hover {
-  background: #a894e5;
-  color: var(--ink);
-  border-color: var(--ink);
-}
-
-body[data-theme="students"] .btn-quiet {
-  background: transparent;
-  color: var(--ink);
-  border: 1px solid var(--ink);
-  border-radius: 999px;
-}
-body[data-theme="students"] .btn-quiet:hover {
-  background: #ffffff;
-  color: var(--ink);
-  border-color: var(--ink);
-}
 
 
 /* ---------- base ---------- */
@@ -212,21 +162,6 @@ body {
   position: relative;
 }
 
-/* The background canvases: the fluid ground (main.js), the ecosystem
-   (eco.js, home only), and each audience page's own scene (scene.js,
-   one per page). Fixed behind everything; content stacks above. */
-#nature-canvas,
-#eco,
-#page-scene {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  pointer-events: none;
-}
-
 main, header, footer, .masthead {
   position: relative;
   z-index: 1;
@@ -237,10 +172,18 @@ h1, h2, h3 {
   line-height: 1.2;
   font-weight: 600;
   letter-spacing: -0.01em;
+  /* even line lengths, so a heading never ends on one word */
+  text-wrap: balance;
 }
+
+/* prose avoids a one-word last line; headings balance above */
+p, li, dd, figcaption { text-wrap: pretty; }
 
 p, ul, ol { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
+
+/* browsers give buttons a system font; the submit buttons take the site's */
+button { font-family: inherit; }
 
 /* the attribute wins over any display value set below */
 [hidden] { display: none !important; }
@@ -357,11 +300,11 @@ a:hover { color: var(--mark-deep); }
    sector from a product without opening anything. */
 
 .nav {
-  font-family: var(--mono);
   font-size: var(--t-label);
 }
 
 .nav-toggle {
+  font-family: var(--mono);
   display: inline-flex;
   align-items: center;
   gap: var(--s2);
@@ -501,12 +444,9 @@ a:hover { color: var(--mark-deep); }
   line-height: 1.35;
   letter-spacing: 0.02em;
   color: var(--ink-muted);
-  opacity: 0.8;
 }
-.nav-sub a:hover .nav-sub-note,
-.nav-sub a[aria-current] .nav-sub-note { opacity: 1; }
 
-/* ---------- section frame: the tick rule and the margin index ---------- */
+/* ---------- section frame: the tick rule ---------- */
 
 .section {
   padding-block: clamp(2.5rem, 6vw, var(--s9));
@@ -532,14 +472,6 @@ a:hover { color: var(--mark-deep); }
   opacity: 0.75;
 }
 
-.index {
-  font-family: var(--mono);
-  font-size: var(--t-label);
-  font-weight: 500;
-  color: var(--mark);
-  letter-spacing: 0.14em;
-}
-
 .eyebrow {
   margin-top: var(--s1);
   font-family: var(--mono);
@@ -561,7 +493,7 @@ a:hover { color: var(--mark-deep); }
   margin-top: var(--s3);
   max-width: 62ch;
   color: var(--ink-muted);
-  font-size: var(--t-small);
+  font-size: 1rem;
 }
 
 .group-head { margin-top: var(--s6); }
@@ -586,22 +518,11 @@ a:hover { color: var(--mark-deep); }
 .hero-claim { font-size: var(--t-lead); color: var(--ink-muted); max-width: 40ch; line-height: 1.5; }
 .hero-actions { margin-top: var(--s6); display: flex; flex-wrap: wrap; gap: var(--s3); }
 
-/* double bezel: outer tray, inner plate */
-.bezel {
-  --shell:      rgba(28,29,28,0.035);
-  --shell-ring: rgba(28,29,28,0.07);
-  background: var(--shell);
-  border: 1px solid var(--shell-ring);
-  border-radius: var(--radius-leaf);
-  padding: 10px;
-}
-
+/* one frame: a white plate on a hairline */
 .bezel-core {
-  --inner-hi:   inset 0 1px 0 rgba(255,255,255,0.9);
-  --lift:       0 1px 2px rgba(29,51,42,0.04), 0 12px 32px -12px rgba(29,51,42,0.12);
   background: var(--panel);
-  border-radius: calc(30px - 10px) calc(6px - 5px) calc(30px - 10px) calc(6px - 5px);
-  box-shadow: var(--inner-hi), var(--lift);
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius-card);
   overflow: hidden;
 }
 
@@ -719,7 +640,7 @@ a:hover { color: var(--mark-deep); }
 .btn-well {
   width: 28px; height: 28px; border-radius: var(--radius-pill);
   display: grid; place-items: center; flex: none;
-  transition: transform var(--slow) var(--ease), background var(--fast) var(--ease);
+  transition: background var(--fast) var(--ease);
 }
 .btn-well svg { width: 13px; height: 13px; }
 .btn:hover .btn-well { transform: translate(2px, -2px); }
@@ -766,7 +687,7 @@ a:hover { color: var(--mark-deep); }
   .process-aside { position: sticky; top: 108px; }
 }
 .process-aside h2 { font-size: var(--t-h2); max-width: 14ch; }
-.process-aside p { margin-top: var(--s4); color: var(--ink-muted); font-size: var(--t-small); max-width: 34ch; }
+.process-aside p { margin-top: var(--s4); color: var(--ink-muted); font-size: 1rem; max-width: 34ch; }
 .steps { display: grid; gap: 0; list-style: none; margin: 0; padding: 0; counter-reset: step; }
 .step { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); gap: var(--s4); padding-block: var(--s6); border-top: 1px solid var(--line); }
 .step:first-child { border-top: 0; padding-top: 0; }
@@ -778,7 +699,7 @@ a:hover { color: var(--mark-deep); }
 }
 .step-n::before { content: counter(step, decimal-leading-zero); }
 .step h3 { font-size: var(--t-h3); }
-.step p { margin-top: var(--s2); color: var(--ink-muted); font-size: var(--t-small); max-width: 52ch; }
+.step p { margin-top: var(--s2); color: var(--ink-muted); font-size: 1rem; max-width: 52ch; }
 
 /* ---------- 4. OFFERS: asymmetric bento, 1 lead + 2 stacked ---------- */
 .offers-head { display: grid; gap: var(--s4); margin-bottom: var(--s7); }
@@ -791,31 +712,20 @@ a:hover { color: var(--mark-deep); }
   border-radius: var(--radius-card); padding: var(--s6);
   border: 1px solid var(--line); background: var(--panel);
   display: flex; flex-direction: column; gap: var(--s3);
-  transition: transform var(--slow) var(--ease), box-shadow var(--slow) var(--ease);
-}
-.offer:hover {
-  --lift:       0 1px 2px rgba(29,51,42,0.04), 0 12px 32px -12px rgba(29,51,42,0.12);
-  transform: translateY(-3px); box-shadow: var(--lift);
 }
 
 .offer h3 { font-size: var(--t-h3); }
-.offer p { color: var(--ink-muted); font-size: var(--t-small); }
+.offer p { color: var(--ink-muted); font-size: 1rem; }
 .offer-lead {
   grid-row: span 2; background: var(--mark); color: var(--paper); border-color: var(--mark);
   justify-content: space-between; min-height: 20rem; position: relative; overflow: hidden;
 }
 .offer-lead p { color: inherit; opacity: 0.82; }
-.offer-lead .offer-tag { color: inherit; opacity: 0.6; }
-.offer-lead::after {
-  content: ""; position: absolute; right: -16%; bottom: -28%;
-  width: 74%; aspect-ratio: 1; border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.14), transparent 62%);
-  pointer-events: none;
-}
-.offer-tag { font-family: var(--mono); font-size: var(--t-micro); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+.offer-lead .offer-tag { color: inherit; opacity: 0.8; } /* 5.57:1 on the organizations --mark; 0.6 read 3.9:1 */
+.offer-tag { font-family: var(--mono); font-size: var(--t-micro); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); }
 .offer-body { display: grid; gap: var(--s3); }
 .offer-price { margin-top: var(--s6); font-size: var(--t-small); color: var(--ink-muted); max-width: 54ch; }
-.offer-note { margin-top: var(--s2); font-family: var(--mono); font-size: var(--t-micro); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+.offer-note { margin-top: var(--s2); font-family: var(--mono); font-size: var(--t-micro); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); }
 .offer-who { margin-top: var(--s6); font-size: var(--t-small); color: var(--ink-muted); max-width: 54ch; }
 .offer-who ul { list-style: none; margin: var(--s2) 0; padding: 0; display: grid; gap: var(--s1); }
 
@@ -833,7 +743,7 @@ a:hover { color: var(--mark-deep); }
 @media (min-width: 68rem) { .beats-4 { grid-template-columns: repeat(4, 1fr); } }
 .beat { display: grid; gap: var(--s3); align-content: start; padding-top: var(--s5); border-top: 2px solid var(--mark); }
 .beat h3 { font-size: 1.0625rem; max-width: 20ch; }
-.beat p { font-size: var(--t-small); color: var(--ink-muted); }
+.beat p { font-size: 1rem; color: var(--ink-muted); }
 .beat-glyph { height: 44px; margin-bottom: var(--s2); }
 .beat-glyph svg { height: 100%; width: auto; }
 
@@ -904,7 +814,7 @@ a:hover { color: var(--mark-deep); }
 .status-note {
   margin-top: var(--s5);
   max-width: 68ch;
-  font-size: var(--t-small);
+  font-size: 1rem;
   color: var(--ink-muted);
 }
 
@@ -917,21 +827,37 @@ a:hover { color: var(--mark-deep); }
 .contact-note { color: var(--ink-muted); max-width: 40ch; }
 
 .field { display: grid; gap: var(--s2); margin-bottom: var(--s4); }
-.field label { font-family: var(--mono); font-size: var(--t-label); font-weight: 500; }
+.field label { font-size: var(--t-label); font-weight: 600; }
 .field input, .field textarea {
-  font: inherit; font-size: var(--t-small); color: var(--ink);
+  font: inherit; font-size: 1rem; color: var(--ink);
   background: var(--panel); border: 1px solid var(--line);
   border-radius: 10px; padding: 0.7rem 0.85rem; width: 100%;
 }
 .field textarea { min-height: 6.5rem; resize: vertical; }
-.field input::placeholder, .field textarea::placeholder { color: var(--ink-faint); }
+.field input::placeholder, .field textarea::placeholder { color: var(--ink-muted); }
 .field input:focus, .field textarea:focus { outline: 2px solid var(--mark); outline-offset: 1px; border-color: transparent; }
-.field-help { font-size: var(--t-micro); color: var(--ink-muted); }
+.field-help { font-size: 1rem; color: var(--ink-muted); }
 
 .field-submit { display: grid; gap: var(--s3); justify-items: start; }
 
+/* sending: the button holds still, says so, and turns a small ring until the
+   reply comes back; with reduced motion the ring stays still */
+.btn[aria-busy="true"] { cursor: progress; transform: none; padding-right: 1.25rem; }
+.btn[aria-busy="true"]::after {
+  content: "";
+  width: 0.875em;
+  height: 0.875em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-busy 0.8s linear infinite;
+}
+@keyframes btn-busy { to { transform: rotate(1turn); } }
+@media (prefers-reduced-motion: reduce) {
+  .btn[aria-busy="true"]::after { animation: none; }
+}
+
 .form-error {
-  font-family: var(--mono);
   font-size: var(--t-label);
   color: var(--second);
 }
@@ -1008,7 +934,6 @@ a:hover { color: var(--mark-deep); }
 
 .footer-meta,
 .footer-top {
-  font-family: var(--mono);
   font-size: var(--t-label);
   color: var(--ink-muted);
 }
@@ -1176,10 +1101,6 @@ a:hover { color: var(--mark-deep); }
 }
 
 @media (min-width: 48rem) {
-  /* The 4rem track carries the section index numeral. The home page dropped its
-     numerals in the recomposition, so the track is conditional on one being
-     there - otherwise the header's only child lands in a 64px column. */
-  .section-head:has(.index) { grid-template-columns: 4rem 1fr; }
   .idea { grid-template-columns: 4rem 1fr; }
   .offer { grid-template-columns: 7.5rem 1fr; }
   .steps { padding-top: var(--s7); }
@@ -1222,24 +1143,7 @@ a:hover { color: var(--mark-deep); }
   background: var(--panel);
   border: var(--hair) solid var(--line-strong);
   border-radius: var(--radius-leaf);
-  transition: border-color var(--fast) var(--ease), translate var(--fast) var(--ease);
-}
-
-.segment::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 3px;
-  background: var(--mark);
-}
-
-/* an unbuilt segment carries the hatched band, same as an in development tile */
-.segment.is-early::before {
-  height: 8px;
-  background: repeating-linear-gradient(45deg, var(--line-strong) 0 1.5px, transparent 1.5px 7px);
-  opacity: 0.8;
+  transition: border-color var(--fast) var(--ease);
 }
 
 .segment > a {
@@ -1251,7 +1155,7 @@ a:hover { color: var(--mark-deep); }
   text-decoration: none;
 }
 
-.segment:hover { border-color: var(--ink); translate: 0 -2px; }
+.segment:hover { border-color: var(--ink); }
 .segment:focus-within { border-color: var(--ink); }
 .segment:hover .segment-name { color: var(--mark-deep); }
 
@@ -1269,7 +1173,7 @@ a:hover { color: var(--mark-deep); }
 
 .segment-body {
   margin-top: var(--s3);
-  font-size: var(--t-small);
+  font-size: 1rem;
   color: var(--ink-muted);
 }
 
@@ -1281,8 +1185,6 @@ a:hover { color: var(--mark-deep); }
   font-size: var(--t-label);
   color: var(--mark);
 }
-
-.segment.is-early .segment-go { color: var(--ink-muted); }
 
 .segment-engine { background: var(--panel-deep); }
 .segment-engine .segment-market { color: var(--mark); }
@@ -1329,19 +1231,12 @@ a:hover { color: var(--mark-deep); }
   border-bottom: var(--hair) solid var(--line);
 }
 
-.build-no {
-  font-family: var(--mono);
-  font-size: var(--t-label);
-  letter-spacing: 0.08em;
-  color: var(--mark);
-}
-
 .build h3 { font-size: var(--t-h3); }
 
 .build p {
   margin-top: var(--s3);
   max-width: 64ch;
-  font-size: var(--t-small);
+  font-size: 1rem;
   color: var(--ink-muted);
 }
 
@@ -1351,22 +1246,26 @@ a:hover { color: var(--mark-deep); }
   padding: clamp(1.25rem, 3vw, var(--s6));
   background: var(--panel);
   border: var(--hair) solid var(--line);
-  border-left: 3px solid var(--mark);
   border-radius: var(--radius-leaf);
 }
-
-.proof.is-early { border-left-color: var(--line-strong); }
 
 .proof h3 { font-size: var(--t-h3); margin-top: var(--s2); }
 
 .proof p {
   margin-top: var(--s3);
   max-width: 64ch;
-  font-size: var(--t-small);
+  font-size: 1rem;
   color: var(--ink-muted);
 }
 
 .proof .actions { margin-top: var(--s5); }
+.proof-quote blockquote { margin: var(--s3) 0 0; }
+.proof-quote blockquote p { font-size: var(--t-h3); color: var(--ink); line-height: 1.35; }
+.proof-quote .proof-by { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3) var(--s4); margin-top: var(--s4); }
+.proof-quote .proof-by .proof-cite { margin-top: 0; color: var(--ink); }
+/* client logos sit on their own dark tile so light marks stay legible */
+.client-logo { display: inline-flex; padding: 0.6rem 0.9rem; background: #111; border-radius: var(--radius-leaf); }
+.client-logo img { display: block; width: auto; height: 2rem; max-width: 100%; }
 
 /* the honest-state line, reused from the status grid vocabulary */
 .proof-state {
@@ -1375,7 +1274,6 @@ a:hover { color: var(--mark-deep); }
   letter-spacing: 0.06em;
   color: var(--mark);
 }
-.proof.is-early .proof-state { color: var(--ink-muted); }
 
 /* a short restatement of the method on a segment page, linking home for the
    full version rather than repeating it in six places */
@@ -1385,31 +1283,13 @@ a:hover { color: var(--mark-deep); }
   margin-top: var(--s5);
 }
 
-.method-item {
-  padding-left: var(--s4);
-  border-left: 2px solid var(--line-strong);
-}
-
-.method-item dt {
-  font-family: var(--mono);
-  font-size: var(--t-label);
-  letter-spacing: 0.08em;
-  color: var(--mark);
-}
-
-.method-item dd {
-  margin: var(--s1) 0 0;
-  font-size: var(--t-small);
-  color: var(--ink-muted);
-}
-
 /* the boundary note. Every segment page states what we are not claiming. */
 .bounds {
   margin-top: var(--s6);
   padding-top: var(--s4);
   border-top: var(--hair) solid var(--line);
   max-width: 68ch;
-  font-size: var(--t-small);
+  font-size: 1rem;
   color: var(--ink-muted);
 }
 
@@ -1441,10 +1321,6 @@ a:hover { color: var(--mark-deep); }
 
 @media (min-width: 40rem) {
   .method-short { grid-template-columns: repeat(3, 1fr); gap: var(--s5); }
-}
-
-@media (min-width: 48rem) {
-  .build { grid-template-columns: 7.5rem 1fr; }
 }
 
 /* ---------- demo walkthrough ----------
@@ -1661,63 +1537,6 @@ a:hover { color: var(--mark-deep); }
 .rec-bar { fill: none; stroke: var(--line-strong); stroke-width: 1; }
 .rec-3 { fill: var(--mark); stroke: none; }
 
-/* ---------- the segment figures ----------
-   Each tile opens with a small drawing of its product's key screen, in the
-   sheet's own language: the small business bars, the community network, the
-   sites reporting to one desk, the student's cards and calendar, the coded
-   caseload rows, the pocket, and the engine's layers. Figures are numbered on
-   from the hero because the page is one sheet. Static by default; the hover
-   moves live at the bottom of this file with the rest of the motion. */
-
-.seg-viz {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin-bottom: var(--s4);
-  border: var(--hair) solid var(--line);
-  border-radius: var(--radius);
-}
-
-.viz-grid { stroke: var(--line); stroke-width: 1; opacity: 0.45; }
-
-.viz-fig {
-  font-family: var(--mono);
-  font-size: 11px;
-  fill: var(--line-strong);
-  letter-spacing: 0.06em;
-}
-
-.viz-base { stroke: var(--line-strong); stroke-width: 1; opacity: 0.8; }
-.viz-bar { fill: none; stroke: var(--line-strong); stroke-width: 1.2; }
-.viz-bar-on { fill: var(--mark); stroke: none; }
-
-.viz-edge { stroke: var(--line-strong); stroke-width: 1; opacity: 0.8; }
-.viz-edge-live { stroke: var(--mark); stroke-dasharray: 3 4; opacity: 1; }
-.viz-node { fill: var(--panel); stroke: var(--line-strong); stroke-width: 1.2; }
-.viz-node-on { fill: var(--mark); stroke: none; }
-
-.viz-hq { fill: var(--panel); stroke: var(--ink); stroke-width: 1.2; }
-.viz-hq-core { fill: var(--mark); }
-
-.viz-card { fill: var(--panel); stroke: var(--line-strong); stroke-width: 1; }
-.viz-card-line { stroke: var(--line-strong); stroke-width: 1.4; opacity: 0.7; }
-.viz-day { fill: none; stroke: var(--line-strong); stroke-width: 1; opacity: 0.8; }
-.viz-day-due { fill: var(--second); stroke: none; opacity: 1; }
-
-.viz-time { stroke: var(--line-strong); stroke-width: 1.2; }
-.viz-slot { fill: none; stroke: var(--line-strong); stroke-width: 1.1; }
-.viz-slot-done { fill: var(--mark); stroke: none; }
-.viz-slot-due { fill: var(--second); stroke: none; }
-.viz-avatar { fill: none; stroke: var(--line-strong); stroke-width: 1.2; }
-
-.viz-pocket { fill: none; stroke: var(--ink); stroke-width: 1.4; }
-.viz-held { fill: var(--mark); }
-.viz-drift { fill: none; stroke: var(--mark); stroke-width: 1.2; }
-
-.viz-strut { stroke: var(--line-strong); stroke-width: 1; opacity: 0.7; }
-.viz-plane { fill: none; stroke: var(--line-strong); stroke-width: 1.1; }
-.viz-plane-top { stroke: var(--mark); stroke-width: 1.4; }
-
 /* ---------- page figures on the audience pages ----------
    Same sheet, page scale. Each audience page may carry one drawn figure that
    proves its own headline. Static by design: the resting state is the claim. */
@@ -1754,16 +1573,7 @@ a:hover { color: var(--mark-deep); }
 
 /* ---------- motion ---------- */
 
-/* ---------- reveal on entry ----------
-   Gated on .js so the page is fully legible with no script at all.
-   Without this gate a slow or failed script leaves the page blank. */
-.js .rise { opacity: 0; transform: translateY(20px); }
-@media (prefers-reduced-motion: no-preference) {
-  .js .rise { transition: opacity 760ms var(--ease), transform 760ms var(--ease); }
-}
-.js .rise.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
-  .js .rise { opacity: 1; transform: none; transition: none; }
   .btn, .offer, .aud { transition: none; }
 }
 
@@ -1841,88 +1651,12 @@ a:hover { color: var(--mark-deep); }
   @keyframes eng-noise { from { opacity: 0; translate: 20px 0; } to { opacity: 0.45; } }
   @keyframes eng-keep { from { opacity: 0; translate: -56px 0; } }
   @keyframes eng-rec { from { opacity: 0; translate: 0 10px; } }
-
-  /* the segment figures answer the pointer: each tile's drawing performs its
-     one move when you consider it. Resting state is the finished drawing. */
-
-  .seg-viz rect, .seg-viz path, .seg-viz g { transform-box: fill-box; }
-
-  .segment:hover .viz-smb .viz-bar,
-  .segment:focus-within .viz-smb .viz-bar {
-    transform-origin: bottom;
-    animation: viz-grow 420ms var(--ease) backwards;
-  }
-  /* the first rect in the figure is the grid ground, so the bars run 2 to 9 */
-  .segment:hover .viz-smb .viz-bar:nth-of-type(3) { animation-delay: 40ms; }
-  .segment:hover .viz-smb .viz-bar:nth-of-type(4) { animation-delay: 80ms; }
-  .segment:hover .viz-smb .viz-bar:nth-of-type(5) { animation-delay: 120ms; }
-  .segment:hover .viz-smb .viz-bar:nth-of-type(6) { animation-delay: 160ms; }
-  .segment:hover .viz-smb .viz-bar:nth-of-type(7) { animation-delay: 200ms; }
-  .segment:hover .viz-smb .viz-bar:nth-of-type(8) { animation-delay: 240ms; }
-  .segment:hover .viz-smb .viz-bar:nth-of-type(9) { animation-delay: 280ms; }
-
-  .segment:hover .viz-community .viz-edge,
-  .segment:focus-within .viz-community .viz-edge {
-    stroke-dasharray: 90;
-    stroke-dashoffset: 90;
-    animation: draw 360ms var(--ease) forwards;
-  }
-  .segment:hover .viz-community .viz-edge:nth-of-type(2) { animation-delay: 90ms; }
-  .segment:hover .viz-community .viz-edge:nth-of-type(3) { animation-delay: 180ms; }
-  .segment:hover .viz-community .viz-edge:nth-of-type(4) { animation-delay: 270ms; }
-  .segment:hover .viz-community .viz-edge:nth-of-type(5) { animation-delay: 120ms; }
-  .segment:hover .viz-community .viz-node-on,
-  .segment:focus-within .viz-community .viz-node-on { animation: eng-in 240ms var(--ease) 480ms backwards; }
-
-  .segment:hover .viz-enterprise .viz-edge,
-  .segment:focus-within .viz-enterprise .viz-edge {
-    stroke-dasharray: 130;
-    stroke-dashoffset: 130;
-    animation: draw 380ms var(--ease) forwards;
-  }
-  .segment:hover .viz-enterprise .viz-edge:nth-of-type(2) { animation-delay: 60ms; }
-  .segment:hover .viz-enterprise .viz-edge:nth-of-type(3) { animation-delay: 120ms; }
-  .segment:hover .viz-enterprise .viz-edge:nth-of-type(4) { animation-delay: 90ms; }
-  .segment:hover .viz-enterprise .viz-edge:nth-of-type(5) { animation-delay: 150ms; }
-  .segment:hover .viz-enterprise .viz-edge:nth-of-type(6) { animation-delay: 210ms; }
-  .segment:hover .viz-enterprise .viz-hq-core,
-  .segment:focus-within .viz-enterprise .viz-hq-core { animation: eng-in 240ms var(--ease) 420ms backwards; }
-
-  .viz-card-front { transition: translate var(--base) var(--ease); }
-  .segment:hover .viz-card-front,
-  .segment:focus-within .viz-card-front { translate: 0 -4px; }
-  .segment:hover .viz-day-due,
-  .segment:focus-within .viz-day-due { animation: viz-flag 480ms var(--ease); }
-
-  .segment:hover .viz-individuals .viz-edge,
-  .segment:focus-within .viz-individuals .viz-edge {
-    stroke-dasharray: 120;
-    stroke-dashoffset: 120;
-    animation: draw 420ms var(--ease) forwards;
-  }
-  /* the pocket is the first path in the figure, so the edges run 2 to 4 */
-  .segment:hover .viz-individuals .viz-edge:nth-of-type(3) { animation-delay: 90ms; }
-  .segment:hover .viz-individuals .viz-edge:nth-of-type(4) { animation-delay: 180ms; }
-  .segment:hover .viz-individuals .viz-held,
-  .segment:focus-within .viz-individuals .viz-held { animation: eng-in 260ms var(--ease) 520ms backwards; }
-
-  .viz-layer { transition: translate var(--base) var(--ease); }
-  .segment:hover .viz-layer-top,
-  .segment:focus-within .viz-layer-top { translate: 0 -5px; }
-  .segment:hover .viz-layer-low,
-  .segment:focus-within .viz-layer-low { translate: 0 5px; }
-
-  @keyframes viz-grow { from { scale: 1 0.25; } }
-  @keyframes viz-flag { 50% { opacity: 0.3; } }
-  @keyframes viz-row { from { opacity: 0; translate: -8px 0; } }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto !important;
   }
-  /* Under reduced motion the ecosystem renders one settled still frame;
-     it stays visible but never animates. */
   *, *::before, *::after {
     animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;
@@ -1930,96 +1664,17 @@ a:hover { color: var(--mark-deep); }
   }
 }
 
-/* ---------- the ecosystem: motion choreography ---------- */
-
-/* The hero title and claim carry no reveal: they are the largest paint on the
-   page and are drawn on the first frame. */
-
-/* Word reveal on the above-the-fold statements. Spans are plain, so the
-   accessible text is untouched; under reduced motion the split never runs. */
-.js .wsplit .w {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(0.55em);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .js .wsplit .w {
-    transition: opacity 640ms var(--ease), transform 640ms var(--ease);
-    transition-delay: calc(var(--wi, 0) * 42ms);
-  }
-}
-.js .wsplit.win .w { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  .js .wsplit .w { opacity: 1; transform: none; transition: none; }
-}
-
-/* Children of a rising group arrive in sequence, not as one slab. The hidden
-   parent covers the pre-entrance state, and an animation (not a transition)
-   carries the stagger so hover transitions on the cards are never delayed. */
-@media (prefers-reduced-motion: no-preference) {
-  .js .rise.in > .step,
-  .js .rise.in > .offer,
-  .js .rise.in > .segment,
-  .js .rise.in > .beat,
-  .js .rise.in > .status-row {
-    animation: child-rise 680ms var(--ease) backwards;
-  }
-  .js .rise.in > :nth-child(2) { animation-delay: 75ms; }
-  .js .rise.in > :nth-child(3) { animation-delay: 150ms; }
-  .js .rise.in > :nth-child(4) { animation-delay: 225ms; }
-  .js .rise.in > :nth-child(5) { animation-delay: 300ms; }
-  .js .rise.in > :nth-child(6) { animation-delay: 375ms; }
-  .js .rise.in > :nth-child(7) { animation-delay: 440ms; }
-  .js .rise.in > :nth-child(8) { animation-delay: 500ms; }
-  .js .rise.in > :nth-child(9) { animation-delay: 555ms; }
-  @keyframes child-rise {
-    from { opacity: 0; transform: translateY(22px); }
-  }
-}
-
-/* The hero figure breathes, slowly. The entrance transition lives on the
-   outer .bezel, so the loop sits on the core and never fights it. */
-@media (prefers-reduced-motion: no-preference) {
-  .hero .bezel-core { animation: eco-float 7s ease-in-out infinite alternate; }
-  @keyframes eco-float {
-    from { transform: translateY(0); }
-    to { transform: translateY(-8px); }
-  }
-}
-
-/* Section rules draw themselves in as they enter the viewport.
-   Scroll-driven animation, harmless where unsupported. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .rule {
-      transform-origin: left center;
-      animation: rule-grow linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 90%;
-    }
-    @keyframes rule-grow {
-      from { scale: 0 1; }
-      to { scale: 1 1; }
-    }
-  }
-}
-
-/* Islands: prose that used to sit directly on the field now sits on a
-   bordered sheet of frosted paper, so the ecosystem flows behind the words
-   rather than through them. Same surface language as the offer cards. */
+/* Islands: prose sits on a bordered sheet of paper. Same surface language
+   as the offer cards. */
 .island {
-  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
   padding: var(--s6);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
 }
 
-/* The two deep bands let the world show through faintly, so the structure
-   assembling behind the engine section stays part of the story. Both carry
-   the sage tint. */
-.claim, .engine { background: color-mix(in srgb, var(--tint-sage) 70%, transparent); }
+/* The two deep bands carry the sage tint. */
+.claim, .engine { background: color-mix(in srgb, var(--tint-sage) 70%, var(--paper)); }
 
 @media print {
   .masthead, .nav, .skip, .notice, .footer-top { display: none; }
@@ -2031,45 +1686,6 @@ a:hover { color: var(--mark-deep); }
   .engine { background: #ffffff; }
 }
 
-/* ---------- shared reveal grammar (all pages) ----------
-   Elements tagged data-reveal rise into place the first time they are seen.
-   The hidden state only exists once main.js confirms JavaScript, motion is
-   welcome, and IntersectionObserver is present (html.reveal-ready), so the
-   page is complete with any of those absent. Stagger with --rv on the
-   element: transition-delay = --rv x 70ms. */
-
-html.reveal-ready [data-reveal] {
-  opacity: 0;
-  transform: translateY(14px);
-}
-
-/* The rise is a one-shot animation rather than a transition, for two load
-   bearing reasons: entering the hidden state stays instant (content must
-   never be seen fading out on load), and the element's own transition
-   property stays free for each page's hover and press work. */
-html.reveal-ready [data-reveal].reveal-in {
-  opacity: 1;
-  transform: none;
-  animation: reveal-rise 0.7s var(--ease) both;
-  animation-delay: calc(var(--rv, 0) * 70ms);
-}
-
-@keyframes reveal-rise {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html.reveal-ready [data-reveal] {
-    opacity: 1;
-    transform: none;
-    transition: none;
-    animation: none;
-  }
-}
-
 /* ---------- segment marks ----------
    Each audience page carries its own derivative of the Sprout & Lens mark
    above the breadcrumb: same open ring and coordinate node, its own interior
@@ -2079,4 +1695,307 @@ html.reveal-ready [data-reveal].reveal-in {
   width: 44px;
   height: 44px;
   margin-bottom: var(--s4);
+}
+
+/* ---------- the home page, comp G (picked 2026-11-01) ----------
+   Scoped on body.home. A deep sage band carries the masthead and the brand
+   line; seven cards and a start card overlap its foot by 56px. Tokens only:
+   no new colour, font or script. The comp's 1240px container comes through
+   --measure, so every .wrap on the page lines up with it. */
+
+body.home { --measure: 1240px; }
+
+/* The masthead on the band. Same component, paper type on deep sage. --ink and
+   --ink-muted never move (design.md), so the colours are set one by one. The
+   phone panel (.nav-list) stays paper with its own ink links, so below 56rem
+   only the brand and the toggle change. */
+.home .masthead {
+  background: var(--mark-deep);
+  border-bottom-color: transparent;
+}
+.home .masthead .brand,
+.home .masthead .nav-toggle { color: var(--paper); }
+.home .masthead .mono-mark { stroke: var(--paper); }
+.home .masthead .mono-mark-fill { fill: var(--paper); }
+.home .masthead .mono-node { fill: var(--tint-sage); }
+.home .masthead .nav-toggle { border-color: color-mix(in srgb, var(--tint-sage) 40%, transparent); }
+.home .masthead .nav-disclosure[open] .nav-toggle { border-color: var(--paper); }
+.home .masthead .nav-toggle-mark::before,
+.home .masthead .nav-toggle-mark::after { background: var(--paper); }
+
+/* focus on the band is paper; inside the paper panel it stays ink */
+.home .skip { background: var(--paper); color: var(--ink); }
+.home .masthead :focus-visible,
+.home-hero :focus-visible { outline-color: var(--paper); }
+.home .masthead .nav-list :focus-visible { outline-color: var(--ink); }
+
+@media (min-width: 56rem) {
+  .home .masthead .nav-list > li > a,
+  .home .masthead .nav-sub-toggle { color: var(--tint-sage); }
+  .home .masthead .nav-list > li > a:hover,
+  .home .masthead .nav-list > li > a[aria-current],
+  .home .masthead .nav-group:hover .nav-sub-toggle,
+  .home .masthead .nav-group:focus-within .nav-sub-toggle { color: var(--paper); }
+  .home .masthead .nav a::after { background: var(--tint-sage); }
+  .home .masthead .nav a.nav-cta {
+    color: var(--paper) !important;
+    border-color: color-mix(in srgb, var(--tint-sage) 40%, transparent);
+  }
+  .home .masthead .nav a.nav-cta:hover { background: color-mix(in srgb, var(--paper) 10%, transparent); }
+  /* the row sits on the band; the Services panel is still a white sheet */
+  .home .masthead .nav-list :focus-visible { outline-color: var(--paper); }
+  .home .masthead .nav-sub :focus-visible { outline-color: var(--ink); }
+}
+
+/* the band */
+.home-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--mark-deep);
+  color: var(--paper);
+  border-radius: 0 0 28px 28px;
+  padding-bottom: 88px;
+}
+.home-hero .wrap { position: relative; z-index: 1; }
+
+/* the monogram, very large and faint, partly off the top right corner */
+.home-ghost {
+  position: absolute;
+  right: -90px;
+  top: -70px;
+  width: 600px;
+  height: 600px;
+  color: var(--tint-sage);
+  opacity: 0.09;
+  pointer-events: none;
+}
+.home-ghost svg { display: block; width: 100%; height: 100%; }
+
+
+/* the public line is a thirteen-word sentence, so the size steps down from
+   the two-word brand line it replaced and the measure opens to 17ch */
+.home-title {
+  font-size: clamp(2.1rem, 4.6vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  max-width: 17ch;
+  margin-top: clamp(2rem, 8vh, 6rem);
+}
+.home-title span { font-weight: 300; color: var(--tint-sage); }
+
+.home-hero-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: var(--s6);
+  margin-top: clamp(2rem, 8vh, 6rem);
+}
+.home-claims { display: grid; gap: var(--s3); max-width: 520px; }
+.home-claim {
+  font-size: var(--t-body);
+  line-height: 1.6;
+  color: var(--tint-stone);
+}
+
+/* the outlined button on the band */
+.btn-paper { border-color: var(--tint-sage); color: var(--paper); }
+.btn-paper .btn-well { background: color-mix(in srgb, var(--paper) 12%, transparent); }
+.btn-paper:hover { background: color-mix(in srgb, var(--paper) 8%, transparent); }
+/* the main action on the band: filled paper, so it reads before the outline one */
+.btn-paper-fill { background: var(--paper); color: var(--mark-deep); }
+.btn-paper-fill .btn-well { background: color-mix(in srgb, var(--mark-deep) 10%, transparent); }
+.btn-paper-fill:hover { background: var(--tint-sage); }
+
+/* the cards. One column, then two from 601px, four from 1001px. The grid
+   overlaps the band from two columns up; on a phone it sits under it. */
+.home-cards-section { padding-block: 0; }
+
+.home-cards {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s4);
+  margin: var(--s5) 0 72px;
+}
+@media (min-width: 37.5625rem) {
+  .home-cards { grid-template-columns: repeat(2, 1fr); margin-top: -56px; }
+}
+@media (min-width: 62.5625rem) {
+  .home-cards { grid-template-columns: repeat(4, 1fr); }
+}
+
+.home-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 22px 22px;
+  background: var(--panel);
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius-card);
+  transition: border-color var(--fast) var(--ease);
+}
+.home-card:hover { border-color: var(--line-strong); }
+.home-card:focus-within { border-color: var(--ink); }
+
+.home-card-icon {
+  display: inline-flex;
+  flex: none;
+  color: var(--mark-deep);
+}
+.home-card-icon svg { display: block; width: 22px; height: 22px; }
+
+.home-card-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0 16px;
+  font-size: 1.125rem;
+}
+
+.home-card-join {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 16px;
+}
+.home-card-join text { font-family: var(--mono); }
+
+/* the one link in a card; its hit area is the whole card */
+.home-card-go {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  align-self: flex-start;
+  margin-top: auto;
+  font-family: var(--mono);
+  font-size: var(--t-label);
+  color: var(--mark);
+  text-decoration: none;
+}
+.home-card-go svg { width: 12px; height: 12px; flex: none; }
+.home-card-go::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.home-card:hover .home-card-go { color: var(--mark-deep); text-decoration: underline; }
+
+/* the start card. The comp sets its label in --sage-deep and its line in
+   --ink-muted; on the full tint those read 3.26:1 and 4.17:1, so the label
+   takes --mark (6.38:1) and the line takes --ink (11.11:1). */
+.home-card-start { background: var(--tint-sage); border-color: var(--tint-sage); }
+.home-card-start-title {
+  margin-top: 10px;
+  font-size: 1.375rem;
+  line-height: 1.2;
+}
+.home-card-start-line {
+  margin: var(--s2) 0 22px;
+  font-size: var(--t-small);
+  color: var(--ink);
+}
+.home-card-start .btn { align-self: flex-start; margin-top: auto; }
+.btn-deep { background: var(--mark-deep); }
+.btn-deep:hover { background: var(--mark); }
+
+/* two buttons on the band */
+.home-hero-actions { display: flex; flex-wrap: wrap; gap: var(--s3); }
+
+/* the primary block. Reporting alignment is the wide card, the diagnosis sits
+   beside it, Data and Strategy under the diagnosis. Order in the markup is
+   the order on a phone. */
+.home-card-lead { padding: 28px 30px 30px; border-color: var(--mark); }
+.home-card-lead .home-card-name { margin: 20px 0; font-size: 1.75rem; line-height: 1.15; }
+.home-card-lead .home-card-icon svg { width: 28px; height: 28px; }
+.home-card-lead .home-card-join { margin-bottom: 24px; }
+.home-card-offer { background: var(--tint-sage); border-color: var(--tint-sage); }
+.home-card-tag {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+  color: var(--mark);
+}
+.home-card-offer-title { margin-top: 10px; font-size: 1.375rem; line-height: 1.2; }
+.home-card-offer-line { margin: var(--s2) 0 0; font-size: 1rem; color: var(--ink); }
+.home-card-offer-note {
+  margin: var(--s3) 0 22px;
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mark);
+}
+.home-card-offer .btn { align-self: flex-start; margin-top: auto; }
+@media (min-width: 37.5625rem) {
+  .home-card-lead, .home-card-offer { grid-column: 1 / -1; }
+}
+@media (min-width: 62.5625rem) {
+  .home-cards-primary .home-card-lead { grid-column: 1 / 3; grid-row: 1 / 3; }
+  .home-cards-primary .home-card-offer { grid-column: 3 / 5; grid-row: 1; }
+}
+
+/* the four doors. Each card is a visitor's sentence, then what they get.
+   Door two sits on the tint and takes the same heading as the others. */
+.home-card-line { margin: 0 0 var(--s3); font-size: 1rem; color: var(--ink); }
+.home-card-lead .home-card-line { max-width: 52ch; }
+@media (min-width: 62.5625rem) { .home-card-lead .home-card-line { font-size: var(--t-lead); } }
+.home-card-line + .home-card-go,
+.home-card-line + .home-card-links { margin-top: auto; padding-top: var(--s2); }
+.home-card-offer .home-card-name { margin-top: 0; font-size: 1.375rem; line-height: 1.2; }
+/* door two, the three packages: name on the left, price on the right,
+   stacked on a phone */
+.home-card-prices { list-style: none; margin: 0 0 var(--s4); padding: 0; border-top: 1px solid var(--line-strong); }
+.home-card-prices li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px var(--s4);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line-strong);
+  font-size: 1rem;
+  color: var(--ink);
+}
+.home-card-price-name { font-weight: 600; }
+.home-card-price { font-variant-numeric: tabular-nums; }
+@media (max-width: 37.5rem) { .home-card-price { font-size: var(--t-small); } }
+.home-card-quote { margin: var(--s2) 0 0; }
+.home-card-quote p { font-size: 1.125rem; font-weight: 600; color: var(--ink); }
+.home-card-cite { margin: var(--s1) 0 var(--s3); font-size: var(--t-small); }
+.home-card-cite a { color: var(--mark-deep); }
+.home-card-fine { margin: 0 0 22px; font-size: var(--t-small); color: var(--ink); }
+/* a door with two ways in: each link is its own target, so neither one
+   stretches over the card */
+.home-card-links { display: flex; flex-wrap: wrap; gap: 0 var(--s5); margin: 0; }
+.home-card-links .home-card-go { margin-top: 0; padding-block: 14px; }
+.home-card-links .home-card-go::after { content: none; }
+.home-card-links .home-card-go:hover { color: var(--mark-deep); text-decoration: underline; }
+.home-card:hover .home-card-links .home-card-go:not(:hover) { color: var(--mark); text-decoration: none; }
+
+/* the other services: smaller, no line drawing, no number */
+.home-other { padding-top: var(--s6); }
+.home-cards-other { margin: var(--s4) 0 72px; }
+.home-card-compact { padding: 14px 18px 16px; }
+.home-card-compact .home-card-icon svg { width: 18px; height: 18px; }
+.home-card-compact .home-card-name { margin: 10px 0 12px; font-size: 1rem; }
+.home-card-compact .home-card-join { display: none; }
+
+@media (max-width: 37.5rem) {
+  .home-hero { border-radius: 0 0 20px 20px; padding-bottom: var(--s8); }
+  .home-ghost { width: 340px; height: 340px; right: -110px; top: -40px; }
+  .home-hero-foot { flex-direction: column; align-items: start; }
+}
+
+/* ---------- visually hidden ----------
+   Text for a screen reader that is not drawn: the home cards' heading and the
+   sentence each line drawing stands for. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }

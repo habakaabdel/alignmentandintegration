@@ -35,12 +35,36 @@
 
 [[redirects]]
   from = "/videos/holistics/*"
-  to = "/videos/"
+  to = "/video/"
   status = 301
 
 [[redirects]]
   from = "/videos/references/*"
-  to = "/videos/"
+  to = "/video/"
+  status = 301
+
+# Service pages, November 2026: one landing page per service. The organizations
+# page became /reporting/ and the videos page became /video/. The sample
+# diagnosis stays at /organizations/sample-diagnosis/, so the first rule is
+# exact rather than a splat.
+[[redirects]]
+  from = "/community-social-services/*"
+  to = "/reporting/"
+  status = 301
+
+[[redirects]]
+  from = "/ai-readiness/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/organizations/"
+  to = "/reporting/"
+  status = 301
+
+[[redirects]]
+  from = "/videos/*"
+  to = "/video/:splat"
   status = 301
 
 [[redirects]]
@@ -56,6 +80,12 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
+# Digital business card: iPhone opens the Contacts sheet only with this type.
+[[headers]]
+  for = "/card/*.vcf"
+  [headers.values]
+    Content-Type = "text/vcard; charset=utf-8"
+
 [[redirects]]
   from = "/small-business/*"
   to = "/demos/restaurant-ops/"
@@ -63,7 +93,7 @@
 
 [[redirects]]
   from = "/enterprise/*"
-  to = "/organizations/"
+  to = "/reporting/"
   status = 301
 
 [[redirects]]

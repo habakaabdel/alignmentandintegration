@@ -42,7 +42,6 @@
 </head>
 <body>
 
-<canvas id="page-scene" aria-hidden="true"></canvas>
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -71,9 +70,21 @@
           <span class="nav-toggle-mark" aria-hidden="true"></span>
         </summary>
         <ul class="nav-list">
-          <li><a href="/organizations/">For organizations</a></li>
-          <li><a href="/demos/">Demos</a></li>
-          <li><a href="/videos/">Videos</a></li>
+          <li class="nav-group">
+            <details class="nav-sub-disclosure">
+              <summary class="nav-sub-toggle">
+                <span>Find your fit</span>
+                <span class="nav-sub-mark" aria-hidden="true"></span>
+              </summary>
+              <ul class="nav-sub">
+            <li><a href="/reporting/">I run an agency<span class="nav-sub-note">and reporting runs us</span></a></li>
+            <li><a href="/#small-business">I run a small business<span class="nav-sub-note">and my tools do not talk</span></a></li>
+            <li><a href="/#team">I lead a team<span class="nav-sub-note">and people need to live our mission</span></a></li>
+            <li><a href="/demos/">We need a system of our own<span class="nav-sub-note">five demos to open</span></a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="/#work">Work</a></li>
           <li><a href="/about/">About</a></li>
           <li><a href="/#contact" class="nav-cta">Contact</a></li>
         </ul>
@@ -124,28 +135,31 @@
 <footer class="footer">
   <div class="wrap footer-map">
     <div>
-      <p class="h-quiet">Who we build for</p>
+      <p class="h-quiet">Services</p>
       <ul class="footer-list">
-        <li><a href="/organizations/">For organizations</a></li>
-        <li><a href="/community-social-services/">Community and social services</a></li>
-        <li><a href="/ai-readiness/">AI readiness</a></li>
+        <li><a href="/reporting/">Reporting alignment</a></li>
+        <li><a href="/video/">Video</a></li>
+        <li><a href="/events/">Events</a></li>
+        <li><a href="/demos/">Software builds</a></li>
       </ul>
     </div>
     <div>
-      <p class="h-quiet">The demonstrations</p>
+      <p class="h-quiet">Work</p>
       <ul class="footer-list">
+        <li><a href="/video/#wolfe-retreat">The Wolfe Retreat video</a></li>
+        <li><a href="/organizations/sample-diagnosis/">Sample diagnosis, on fictional data</a></li>
         <li><a href="/demos/bpss-ses/">Diagnostic and intervention map</a></li>
         <li><a href="/demos/community-hub-portal/">Community hub portal</a></li>
         <li><a href="/demos/emr-portal/">Staff portal over a clinical record</a></li>
         <li><a href="/demos/cswb-portal/">Community safety and well-being portal</a></li>
         <li><a href="/demos/restaurant-ops/">Restaurant operations</a></li>
-        <li><a href="/demos/">All demos</a></li>
       </ul>
     </div>
     <div>
       <p class="h-quiet">Alignment Integration</p>
       <ul class="footer-list">
         <li><a href="/about/">About</a></li>
+        <li><a href="/about/#partners">Partners</a></li>
         <li><a href="/#contact">Contact</a></li>
         <li><a href="https://cal.com/align-integrate-l8uyvp/30min" rel="noopener">Book a call</a></li>
         <li><a href="/privacy/">Privacy</a></li>
@@ -167,7 +181,7 @@
       </svg>
       Alignment Integration
     </p>
-    <p class="footer-meta">Mississauga, Ontario. One script identifies visiting organizations, not people. The privacy page has the switch.</p>
+    <p class="footer-meta">&copy; 2026 Alignment Integration Solutions Inc. Ontario and Manitoba. No cookies, no tracking on this page.</p>
     <p class="footer-top"><a href="/">Home</a></p>
   </div>
 </footer>

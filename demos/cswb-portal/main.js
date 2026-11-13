@@ -375,7 +375,7 @@
         // trigger animation redraw
         panel.style.animation = 'none';
         panel.offsetHeight; // trigger reflow
-        panel.style.animation = 'fadeUpCard 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+        panel.style.animation = 'fadeUpCard 0.4s ease-out forwards';
       } else {
         panel.classList.remove('active-panel');
       }

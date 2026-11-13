@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reporting readiness check | Alignment Integration</title>
+<meta name="description" content="Twelve questions about how your agency collects and reports its numbers. About four minutes. You get a one-page result with your three biggest gaps.">
+<link rel="canonical" href="https://alignmentandintegration.com/reporting/readiness-check/">
+<meta name="theme-color" content="#edefee">
+<meta name="color-scheme" content="light">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alignment Integration">
+<meta property="og:locale" content="en_CA">
+<meta property="og:title" content="Reporting readiness check | Alignment Integration">
+<meta property="og:description" content="Twelve questions about how your agency collects and reports its numbers. About four minutes.">
+<meta property="og:url" content="https://alignmentandintegration.com/reporting/readiness-check/">
+<meta property="og:image" content="https://alignmentandintegration.com/media/brand/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Alignment Integration. Align what matters. Integrate how you move forward.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Reporting readiness check | Alignment Integration">
+<meta name="twitter:description" content="Twelve questions about how your agency collects and reports its numbers. About four minutes.">
+<meta name="twitter:image" content="https://alignmentandintegration.com/media/brand/og-card.png">
+
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Page-local styles for the readiness check. Tokens come from styles.css. */
+.rc-who { margin-top: var(--s4); max-width: 56ch; color: var(--ink-muted); }
+.rc-who + .rc-who { margin-top: var(--s2); }
+
+.rc-form { max-width: 46rem; }
+.rc-group + .rc-group { margin-top: var(--s8); }
+.rc-group h2 { font-size: var(--t-h2); }
+
+.rc-q { margin: var(--s6) 0 0; padding: 0; border: 0; min-width: 0; }
+.rc-q legend { padding: 0; font-size: var(--t-h3); font-weight: 600; line-height: 1.35; text-wrap: balance; }
+.rc-n { color: var(--mark); font-variant-numeric: tabular-nums; }
+.rc-need { margin-top: var(--s2); font-size: var(--t-small); font-weight: 600; color: var(--mark); }
+
+.rc-a {
+  display: grid; grid-template-columns: 1.25rem minmax(0, 1fr); gap: var(--s3); align-items: start;
+  min-height: 2.75rem; margin-top: var(--s2); padding: 0.7rem 0.85rem;
+  background: var(--panel); border: var(--hair) solid var(--line); border-radius: 10px;
+  font-size: 1rem; cursor: pointer;
+  transition: border-color var(--fast) var(--ease), background var(--fast) var(--ease);
+}
+.rc-q legend + .rc-a, .rc-need + .rc-a { margin-top: var(--s3); }
+.rc-a input { width: 1.125rem; height: 1.125rem; margin: 0.2rem 0 0; accent-color: var(--mark); }
+.rc-a:hover { border-color: var(--line-strong); }
+.rc-a:has(input:checked) { border-color: var(--mark); background: color-mix(in srgb, var(--mark) 6%, var(--panel)); }
+.rc-a:has(input:focus-visible) { outline: 2px solid var(--ink); outline-offset: 2px; }
+.rc-a input:focus-visible { outline: none; }
+
+.rc-go { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s4) var(--s5); margin-top: var(--s7); }
+.rc-count { color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.rc-go .btn { min-height: 2.75rem; padding-right: 1.25rem; cursor: pointer; }
+.rc-actions .btn { min-height: 2.75rem; }
+
+.rc-result { margin-top: var(--s8); padding-top: var(--s7); border-top: var(--hair) solid var(--line-strong); }
+.rc-level { margin-top: var(--s2); font-size: var(--t-h1); letter-spacing: -0.022em; }
+.rc-level { scroll-margin-top: 6rem; }
+.rc-level:focus { outline: none; }
+.rc-score { margin-top: var(--s3); font-size: var(--t-lead); font-variant-numeric: tabular-nums; }
+.rc-line { margin-top: var(--s3); max-width: 56ch; font-size: var(--t-lead); color: var(--ink-muted); }
+
+.rc-key { margin-top: var(--s5); width: 100%; max-width: 26rem; border-collapse: collapse; font-size: 1rem; }
+.rc-key th, .rc-key td { padding: var(--s2) 0; border-top: var(--hair) solid var(--line); text-align: left; font-weight: 400; color: var(--ink-muted); }
+.rc-key td { width: 6.5rem; font-variant-numeric: tabular-nums; }
+.rc-key tr[aria-current] th, .rc-key tr[aria-current] td { color: var(--ink); font-weight: 600; }
+
+.rc-result h3, .rc-gap { font-size: var(--t-h3); }
+.rc-gaps-head { margin-top: var(--s7); }
+.rc-gaps { margin: var(--s4) 0 0; padding: 0; list-style: none; }
+.rc-gaps .proof-state { display: block; margin-bottom: var(--s1); }
+.rc-gaps .build { padding-block: var(--s4); }
+.rc-gap { margin: 0; }
+.rc-gaps .build p { margin-top: var(--s2); }
+
+.rc-send { margin-top: var(--s7); max-width: 30rem; }
+.rc-check { display: grid; grid-template-columns: 1.25rem minmax(0, 1fr); gap: var(--s3); align-items: start; min-height: 2.75rem; margin-bottom: var(--s5); font-size: 1rem; cursor: pointer; }
+.rc-check input { width: 1.125rem; height: 1.125rem; margin: 0.25rem 0 0; accent-color: var(--mark); }
+.rc-send .btn { cursor: pointer; }
+.rc-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3) var(--s4); }
+.rc-small { margin-top: var(--s5); max-width: 56ch; font-size: 1rem; color: var(--ink-muted); }
+.rc-result .confirm { margin-top: var(--s7); max-width: 30rem; }
+</style>
+</head>
+<body data-theme="organizations">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="brand" href="/" aria-label="Alignment Integration, home">
+      <svg class="monogram" viewBox="0 0 48 48" width="30" height="30" role="img" aria-label="A and I monogram">
+        <g>
+          <path class="mono-mark" d="M35.5 6.4 A21 21 0 1 0 44.1 18.5" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+          <circle class="mono-node" cx="41" cy="11.7" r="2.6"/>
+          <path class="mono-mark" d="M24 38 C24 30 24 27 24 23" fill="none" stroke-width="2.7" stroke-linecap="round"/>
+          <path class="mono-mark mono-mark-fill" d="M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z"/>
+          <path class="mono-mark" d="M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle class="mono-node" cx="12" cy="12" r="2.4"/>
+        </g>
+      </svg>
+      <span class="brand-name">Alignment Integration</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <!-- Find your fit opens the four doors. On a phone the whole thing is
+           a disclosure; from 56rem up the panel is held open and reads as a
+           single row. No script involved. -->
+      <details class="nav-disclosure">
+        <summary class="nav-toggle">
+          <span>menu</span>
+          <span class="nav-toggle-mark" aria-hidden="true"></span>
+        </summary>
+        <ul class="nav-list">
+          <li class="nav-group">
+            <details class="nav-sub-disclosure">
+              <summary class="nav-sub-toggle">
+                <span>Find your fit</span>
+                <span class="nav-sub-mark" aria-hidden="true"></span>
+              </summary>
+              <ul class="nav-sub">
+            <li><a href="/reporting/">I run an agency<span class="nav-sub-note">and reporting runs us</span></a></li>
+            <li><a href="/#small-business">I run a small business<span class="nav-sub-note">and my tools do not talk</span></a></li>
+            <li><a href="/#team">I lead a team<span class="nav-sub-note">and people need to live our mission</span></a></li>
+            <li><a href="/demos/">We need a system of our own<span class="nav-sub-note">five demos to open</span></a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="/#work">Work</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="section section-segment-hero" aria-labelledby="h-seg">
+    <div class="wrap">
+      <p class="crumb"><a href="/">Alignment Integration</a> / <a href="/reporting/">reporting alignment</a> / readiness check</p>
+      <h1 class="segment-lede" id="h-seg">Reporting readiness check</h1>
+      <p class="segment-claim">Twelve questions about how your agency collects and reports its numbers. About four minutes.</p>
+      <p class="rc-who">No client information is asked for or stored. You get a one-page result with your three biggest gaps.</p>
+      <p class="rc-who">For mental health and addictions agencies that report service data to a funder.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-label="The twelve questions">
+    <div class="wrap">
+    <form
+      class="rc-form"
+      id="readiness-form"
+      name="readiness-check"
+      method="POST"
+      data-netlify="true"
+      data-confirm="#readiness-confirm"
+      data-confirm-hides="#readiness-send"
+      data-sending="Sending"
+      netlify-honeypot="referral-source">
+
+      <input type="hidden" name="form-name" value="readiness-check">
+      <input type="hidden" name="question-set" value="Mental health and addictions">
+      <input type="hidden" name="score" value="">
+      <input type="hidden" name="level" value="">
+      <input type="hidden" name="gaps" value="">
+
+      <p class="offscreen-field">
+        <label for="referral-source">Leave this field empty</label>
+        <input id="referral-source" name="referral-source" type="text" tabindex="-1" autocomplete="off">
+      </p>
+
+      <section class="rc-group" aria-labelledby="h-g1">
+        <h2 id="h-g1">Knowing what is owed</h2>
+        <fieldset class="rc-q" data-q="1" data-gap="No written inventory of what is reported">
+          <legend><span class="rc-n">1.</span> Do you have a written inventory of everything you report, and to which funder?</legend>
+          <p class="rc-need" hidden>Not answered</p>
+          <label class="rc-a"><input type="radio" name="q01" value="2" required> <span>Yes, one inventory, kept current</span></label>
+          <label class="rc-a"><input type="radio" name="q01" value="1" required> <span>Partly, it lives in a few places or in someone&#x27;s head</span></label>
+          <label class="rc-a"><input type="radio" name="q01" value="0" required> <span>No</span></label>
+        </fieldset>
+        <fieldset class="rc-q" data-q="2" data-gap="Indicators without a funder definition">
+          <legend><span class="rc-n">2.</span> Has your funder given you a written definition for each reporting indicator?</legend>
+          <p class="rc-need" hidden>Not answered</p>
+          <label class="rc-a"><input type="radio" name="q02" value="2" required> <span>Yes, for all or nearly all</span></label>
+          <label class="rc-a"><input type="radio" name="q02" value="1" required> <span>For some</span></label>
+          <label class="rc-a"><input type="radio" name="q02" value="0" required> <span>No, or we have never asked</span></label>
+        </fieldset>
+        <fieldset class="rc-q" data-q="3" data-gap="Not yet mapped to the new requirements">
+          <legend><span class="rc-n">3.</span> Do you know which of your current numbers change under the newer provincial data requirements?</legend>
+          <p class="rc-need" hidden>Not answered</p>
+          <label class="rc-a"><input type="radio" name="q03" value="2" required> <span>Yes, we have gone through them</span></label>
+          <label class="rc-a"><input type="radio" name="q03" value="1" required> <span>We know it is coming but have not mapped it</span></label>
+          <label class="rc-a"><input type="radio" name="q03" value="0" required> <span>Not sure what applies to us</span></label>
+        </fieldset>
+      </section>
+      <section class="rc-group" aria-labelledby="h-g2">
+        <h2 id="h-g2">Where the numbers come from</h2>
+        <fieldset class="rc-q" data-q="4" data-gap="Reported numbers not traced to their fields and calculations">
+          <legend><span class="rc-n">4.</span> Can you trace each reported number back to the fields it comes from, with any calculation or grouping written down?</legend>
+          <p class="rc-need" hidden>Not answered</p>
+          <label class="rc-a"><input type="radio" name="q04" value="2" required> <span>Yes, every one, calculations included</span></label>
+          <label class="rc-a"><input type="radio" name="q04" value="1" required> <span>Most, with a few we work out by hand</span></label>
+          <label class="rc-a"><input type="radio" name="q04" value="0" required> <span>No, or we have no client record system</span></label>
+        </fieldset>
+        <fieldset class="rc-q" data-q="5" data-gap="Indicators entered without a known source">
+          <legend><span class="rc-n">5.</span> Do you know where, how and by whom each indicator is entered?</legend>
+          <p class="rc-need" hidden>Not answered</p>
+          <label class="rc-a"><input type="radio" name="q05" value="2" required> <span>Yes, once, in a known place by a named role</span></label>
+          <label class="rc-a"><input type="radio" name="q05" value="1" required> <span>For some, or it depends on the program</span></label>
+          <label class="rc-a"><input type="radio" name="q05" value="0" required> <span>Entered in more than one place, or on paper first</span></label>
+        </fieldset>
+        <fieldset class="rc-q" data-q="6" data-gap="Reports built by hand">
+          <legend><span class="rc-n">6.</span> When a report is due, how is it put together?</legend>
+          <p class="rc-need" hidden>Not answered</p>
+          <label class="rc-a"><input type="radio" name="q06" value="2" required> <span>It comes out of the system with little cleanup</span></label>
+          <label class="rc-a"><input type="radio" name="q06" value="1" required> <span>Exported, then fixed in a spreadsheet</span></label>
+          <label class="rc-a"><input type="radio" name="q06" value="0" required> <span>Counted by hand or rebuilt each time</span></label>
+        </fieldset>
+      </section>
+      <section class="rc-group" aria-labelledby="h-g3">
+        <h2 id="h-g3">Who holds it</h2>
+        <fieldset class="rc-q" data-q="7" data-gap="Reporting depends on one person">
+          <legend><span class="rc-n">7.</span> If the person who does your reporting left tomorrow, could someone else produce the next report?</legend>
+          <p class="rc-need" hidden>Not answered</p>
+          <label class="rc-a"><input type="radio" name="q07" value="2" required> <span>Yes, the steps are written down</span></label>
+          <label class="rc-a"><input type="radio" name="q07" value="1" required> <span>With difficulty</span></label>
+          <label class="rc-a"><input type="radio" name="q07" value="0" required> <span>No</span></label>
+        </fieldset>
+        <fieldset class="rc-q" data-q="8" data-gap="Staff enter data without knowing its use">
+          <legend><span class="rc-n">8.</span> Do front-line staff know why each field they fill in matters?</legend>
+          <p class="rc-need" hidden>Not answered</p>
+          <label class="rc-a"><input type="radio" name="q08" value="2" required> <span>Yes, it is part of onboarding</span></label>
+          <label class="rc-a"><input type="radio" name="q08" value="1" required> <span>Some do</span></label>
+          <label class="rc-a"><input type="radio" name="q08" value="0" required> <span>Mostly no</span></label>
+        </fieldset>
+        <fieldset class="rc-q" data-q="9" data-gap="No check before submission">
+          <legend><span class="rc-n">9.</span> Does someone check the numbers before they go to the funder?</legend>
+          <p class="rc-need" hidden>Not answered</p>
+          <label class="rc-a"><input type="radio" name="q09" value="2" required> <span>Yes, a second person, every time</span></label>
+          <label class="rc-a"><input type="radio" name="q09" value="1" required> <span>Sometimes</span></label>
+          <label class="rc-a"><input type="radio" name="q09" value="0" required> <span>No, there is no time</span></label>
+        </fieldset>
+      </section>
+      <section class="rc-group" aria-labelledby="h-g4">
+        <h2 id="h-g4">What it costs and what it gives back</h2>
+        <fieldset class="rc-q" data-q="10" data-gap="Reports delivered late or at the last minute">
+          <legend><span class="rc-n">10.</span> When a report is requested, how does it usually get delivered?</legend>
+          <p class="rc-need" hidden>Not answered</p>
+          <label class="rc-a"><input type="radio" name="q10" value="2" required> <span>Early, with time to review</span></label>
+          <label class="rc-a"><input type="radio" name="q10" value="1" required> <span>On the due date, after last-minute back and forth</span></label>
+          <label class="rc-a"><input type="radio" name="q10" value="0" required> <span>Late</span></label>
+        </fieldset>
+        <fieldset class="rc-q" data-q="11" data-gap="Numbers questioned by a funder">
+          <legend><span class="rc-n">11.</span> In the past year, has a funder questioned a number or sent a report back?</legend>
+          <p class="rc-need" hidden>Not answered</p>
+          <label class="rc-a"><input type="radio" name="q11" value="2" required> <span>No</span></label>
+          <label class="rc-a"><input type="radio" name="q11" value="1" required> <span>Once</span></label>
+          <label class="rc-a"><input type="radio" name="q11" value="0" required> <span>More than once</span></label>
+        </fieldset>
+        <fieldset class="rc-q" data-q="12" data-gap="Data collected for the funder only">
+          <legend><span class="rc-n">12.</span> Do you use these numbers, and the story staff tell behind them, for quality improvement and program changes?</legend>
+          <p class="rc-need" hidden>Not answered</p>
+          <label class="rc-a"><input type="radio" name="q12" value="2" required> <span>Yes, regularly</span></label>
+          <label class="rc-a"><input type="radio" name="q12" value="1" required> <span>Occasionally</span></label>
+          <label class="rc-a"><input type="radio" name="q12" value="0" required> <span>No, they only go to the funder</span></label>
+        </fieldset>
+      </section>
+
+      <div class="rc-go" data-go hidden>
+        <button class="btn btn-primary" type="button" data-see>See my result</button>
+        <p class="rc-count" role="status"><span data-count>0</span> of 12 answered</p>
+      </div>
+
+      <div class="rc-result" id="result">
+        <div data-result hidden>
+          <p class="eyebrow">your result</p>
+          <h2 class="rc-level" id="h-result" tabindex="-1" data-level></h2>
+          <p class="rc-score"><span data-score></span> out of 24</p>
+          <p class="rc-line" data-line></p>
+
+          <table class="rc-key">
+            <caption class="visually-hidden">The three levels</caption>
+            <tbody>
+              <tr data-min="19" data-max="24" data-line="Your reporting holds together. The gaps below are the places to tighten."><td>19 to 24</td><th scope="row">Aligned and Integrated</th></tr>
+              <tr data-min="10" data-max="18" data-line="The numbers get out the door, but at a cost in staff time and risk."><td>10 to 18</td><th scope="row">Partly aligned</th></tr>
+              <tr data-min="0" data-max="9" data-line="Reporting depends on effort and memory. A change in staff or requirements would break it."><td>0 to 9</td><th scope="row">Not aligned</th></tr>
+            </tbody>
+          </table>
+
+          <h3 class="rc-gaps-head" data-gaps-head>Your three biggest gaps</h3>
+          <ol class="rc-gaps builds" data-gaps></ol>
+
+          <div class="proof">
+            <h3>What a full diagnosis would do</h3>
+            <p>Two weeks, every reported number traced from the funder's requirement to the field it comes from, gaps flagged, signed off by your data lead. $3,500 CAD flat.</p>
+            <p><a href="/organizations/sample-diagnosis/">See a sample diagnosis, on fictional data</a></p>
+            <p><a href="/reporting/indicator-map/">See a sample Indicator Map, built from Ontario Health's public PDS documents</a></p>
+          </div>
+        </div>
+
+        <div class="rc-send" id="readiness-send">
+          <div class="field">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="agency">Agency name, if you give it</label>
+            <input id="agency" name="agency" type="text" autocomplete="organization">
+          </div>
+          <label class="rc-check"><input type="checkbox" name="alignment-brief" value="yes"> <span>Send me The Alignment Brief, once a month</span></label>
+
+          <div class="rc-actions">
+            <button class="btn btn-primary" type="submit" data-submit>
+              Email me this result
+              <span class="btn-well" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg>
+              </span>
+            </button>
+            <a class="btn btn-quiet" href="https://cal.com/align-integrate-l8uyvp/30min" rel="noopener">Book a 30-minute call</a>
+          </div>
+          <p class="form-error" data-form-error hidden>That did not send. Try once more.</p>
+
+          <p class="rc-small">Answers are scored in your browser. We keep your email, your agency name if you give it, and your twelve answers. No client information is collected. <a href="/privacy/">Privacy</a></p>
+        </div>
+
+        <div class="confirm" id="readiness-confirm" role="status" tabindex="-1" hidden>
+          <p class="confirm-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke-width="2.4" stroke-linecap="square">
+              <path d="M4 13 L9.5 18.5 L20 6"/>
+            </svg>
+          </p>
+          <h3>Received</h3>
+          <p>We will email your result to the address you gave.</p>
+          <p><a href="https://cal.com/align-integrate-l8uyvp/30min" rel="noopener">Book a 30-minute call</a></p>
+        </div>
+      </div>
+    </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-map">
+    <div>
+      <p class="h-quiet">Services</p>
+      <ul class="footer-list">
+        <li><a href="/reporting/">Reporting alignment</a></li>
+        <li><a href="/video/">Video</a></li>
+        <li><a href="/events/">Events</a></li>
+        <li><a href="/demos/">Software builds</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="h-quiet">Work</p>
+      <ul class="footer-list">
+        <li><a href="/video/#wolfe-retreat">The Wolfe Retreat video</a></li>
+        <li><a href="/organizations/sample-diagnosis/">Sample diagnosis, on fictional data</a></li>
+        <li><a href="/demos/bpss-ses/">Diagnostic and intervention map</a></li>
+        <li><a href="/demos/community-hub-portal/">Community hub portal</a></li>
+        <li><a href="/demos/emr-portal/">Staff portal over a clinical record</a></li>
+        <li><a href="/demos/cswb-portal/">Community safety and well-being portal</a></li>
+        <li><a href="/demos/restaurant-ops/">Restaurant operations</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="h-quiet">Alignment Integration</p>
+      <ul class="footer-list">
+        <li><a href="/about/">About</a></li>
+        <li><a href="/about/#partners">Partners</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="https://cal.com/align-integrate-l8uyvp/30min" rel="noopener">Book a call</a></li>
+        <li><a href="/privacy/">Privacy</a></li>
+        <li><a href="https://www.instagram.com/align_and_integrate/" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-inner">
+    <p class="footer-brand">
+      <svg class="monogram" viewBox="0 0 48 48" width="24" height="24" aria-hidden="true">
+        <g>
+          <path class="mono-mark" d="M35.5 6.4 A21 21 0 1 0 44.1 18.5" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+          <circle class="mono-node" cx="41" cy="11.7" r="2.6"/>
+          <path class="mono-mark" d="M24 38 C24 30 24 27 24 23" fill="none" stroke-width="2.7" stroke-linecap="round"/>
+          <path class="mono-mark mono-mark-fill" d="M24 24 C16.5 24 12.5 19 12 12 C19 12.5 24 16.5 24 24 Z"/>
+          <path class="mono-mark" d="M24.5 22 C25.5 16.5 29 13.5 34.5 13 C34 18.5 31 22 25.5 23" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle class="mono-node" cx="12" cy="12" r="2.4"/>
+        </g>
+      </svg>
+      Alignment Integration
+    </p>
+    <p class="footer-meta">&copy; 2026 Alignment Integration Solutions Inc. Ontario and Manitoba. No cookies, no tracking on this page.</p>
+    <p class="footer-top"><a href="/">Home</a></p>
+  </div>
+</footer>
+
+<script src="/main.js" defer></script>
+<script src="/reporting/readiness-check/check.js" defer></script>
+</body>
+</html>

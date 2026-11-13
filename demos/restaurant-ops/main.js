@@ -265,9 +265,8 @@ function renderBook() {
 }
 
 function renderBrief() {
-  $("#brief").innerHTML = DATA.brief.map((b, i) =>
+  $("#brief").innerHTML = DATA.brief.map((b) =>
     "<li>" +
-      '<span class="brief__n">' + String(i + 1).padStart(2, "0") + "</span>" +
       '<span class="brief__txt"><span class="brief__tag"><span class="tag">' + esc(b.tag) + "</span></span>" + esc(b.txt) + "</span>" +
     "</li>"
   ).join("");

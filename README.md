@@ -4,19 +4,20 @@ Marketing and demo site for Alignment Integration, a consultation and software d
 
 ## Pages
 
+Since 11 November 2026 the home page is organized by the visitor and their problem: four doors, with the method under every door. One landing page per service sits under the doors (Brief 109). Every service page ends at its own contact section. The structure and its rules are in `design.md` under "Structure, ruled 11 November 2026".
+
 | Path | What it is |
 |---|---|
-| `/` | Home. Hero, claim, "Two ways in" (links to the two audience pages), the integrated response, what is built, and the contact form. |
-| `/individuals/` | For individuals. Theme `individuals`. |
-| `/organizations/` | For organizations. Theme `organizations`. Carries the process, the three offers, the engine, and where we have built. |
-| `/community-social-services/` | Sector page for community and social services. Theme `community`. Not in the nav; linked from home, organizations, demos, and AI readiness. |
-| `/ai-readiness/` | AI readiness page. Theme `ai-readiness`. Linked from the home footer. |
-| `/ai-readiness/start/` | Landing page for the AI readiness free consultation. No nav, its own Netlify form. |
-| `/privacy/` | Privacy notice. No other page links to it at present. |
-| `/demos/` | Index of the demonstrations. |
-| `/videos/` | Videos. One card per YouTube playlist (Holistic - Nothing Here Moves Alone first), each with a Watch on YouTube link and a References link. In the nav. |
-| `/videos/holistics/` | The series page for Holistic - Nothing Here Moves Alone (the path keeps its first name): six looping clips cut from the first video's map renders, each with the line it carries, the four steps every video follows, and the list of videos. Linked from its card on `/videos/`. |
-| `/videos/references/` | The references for each video, by playlist, APA 7th with DOI links, plus the music credit. Linked from the playlist cards; the video credits point to `/videos`. |
+| `/` | Home. The public line and the two build paths on a deep sage band, the four doors (`#fit`: agency `#agency`, small business `#small-business` with the three packages and their prices, team `#team`, a system of our own `#system`), How we work (`#how-we-work`, the three routes), the proof strip (`#work`), and the contact form. Comp G, picked November 2026, refilled with the doors on 11 November 2026. |
+| `/reporting/` | Reporting alignment, on any platform. Theme `organizations`. What it looks like (four scenarios and the platform partner panel), the process, the three offers (the $3,500 diagnosis is the only priced one), the two weeks, the engine, Data (`#data`) and Strategy (`#strategy`), where we have built, the bounds line, contact. Was `/organizations/`, which now redirects here. |
+| `/reporting/readiness-check/` | The reporting readiness check. Twelve questions in four groups, scored in the browser out of 24 into three levels, with the three lowest-scoring questions shown as gaps. Reached from `/reporting/`. The mental health and addictions question set is the first; another set is another page of markup. |
+| `/organizations/sample-diagnosis/` | The sample diagnosis, on fictional data. Reached from `/reporting/`. |
+| `/video/` | Video. The Wolfe Retreat video (the short and the tour), the Brain to AI reel, what it looks like (five scenarios), how it works, the prices (from $300 one-off, from $800 a month), a marked slot for the case study, contact. Was `/videos/`, which now redirects here. |
+| `/events/` | Events. The six things we do at an event, what it looks like (four scenarios), how it works, a proof slot (still a placeholder), contact. |
+| `/demos/` | Software builds. The five demonstrations, the barbershop quote, the bounds line, what we build (five scenarios), how a build runs, Parts of systems (`#parts-of-systems`), contact. |
+| `/about/` | About, for a visitor from any door: who we are, the four doors, how we work, Work with us as a partner (`#partners`, linked from every footer), why trust the quality, contact. Ends at the same contact form as the service pages. |
+| `/privacy/` | Privacy notice. Linked from the footer and the form. |
+| `/community-social-services/`, `/ai-readiness/`, `/ai-readiness/start/` | Retired 2 November 2026 on Abdel's word; 301 to `/reporting/` and the home page in `netlify.toml`. |
 | `/brand/` | Logo system preview. Not linked from the site. |
 
 ## Demos
@@ -33,19 +34,17 @@ Each demo is a self-contained folder under `demos/` with its own markup, and mos
 
 ## Navigation
 
-Every site page (not the demos or the landing page) carries the same six links: For individuals, For organizations, Demos, Videos, About, Contact. Contact goes to the form on the home page (`/#contact`). Below 56rem the links sit in a `details` disclosure labelled "menu"; no script is needed for it.
+Every site page (not the demos or the landing page) carries the same four items: Find your fit, Work, About, Contact. Find your fit opens the four doors (a nested `details` on a phone, a hover panel from 56rem up): the agency door goes to `/reporting/`, the small business and team doors to their cards on the home page, the system door to `/demos/`. Work goes to the proof strip on the home page (`/#work`). Contact goes to the page's own contact section on home, the service pages and the about page, and to `/#contact` elsewhere. Below 56rem the links sit in a `details` disclosure labelled "menu"; no script is needed for it.
 
 ## Stack
 
 Plain HTML, CSS, and vanilla JavaScript. No framework, no build.
 
 - `styles.css`: one sitewide stylesheet, tokens and themes included.
-- `main.js`: progressive enhancement for the home, audience, sector, AI readiness, and demos index pages (nav state, reveals, hero figure, walkthroughs, contact form, background canvas).
-- `eco.js`: the home page background scene (Three.js, from `vendor/`).
-- `scene.js` in `community-social-services/`, `ai-readiness/`, and `demos/`: that page's own background scene.
-- `vendor/`: Three.js and the scroll-motion kit used by `/ai-readiness/start/`.
+- `main.js`: progressive enhancement for the home, audience, sector, AI readiness, and demos index pages (nav state, hero figure, walkthroughs, contact form).
+- `vendor/`: the scroll-motion kit used by `/ai-readiness/start/`.
 - `media/`: self-hosted fonts and the captured frames for the walkthroughs on the community page.
-- Forms post to Netlify Forms: `contact` on the home page, `ai-readiness-consult` on the landing page.
+- Forms post to Netlify Forms: `contact` on the home page, the four service pages and the about page (a hidden `service` field names the page), `readiness-check` on the readiness check (the twelve answers, the score, the level, the gaps, an email and an unticked newsletter box), `ai-readiness-consult` on the landing page.
 
 Design tokens, themes, and editing rules are in `design.md`.
 

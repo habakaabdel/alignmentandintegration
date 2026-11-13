@@ -42,7 +42,6 @@
 </head>
 <body>
 
-<canvas id="page-scene" aria-hidden="true"></canvas>
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -62,18 +61,30 @@
       <span class="brand-name">Alignment Integration</span>
     </a>
     <nav class="nav" aria-label="Main">
-      <!-- Four destinations, flat. On a phone the whole thing is a disclosure;
-           from 68rem up the panel is held open and reads as a single row.
-           No script involved. -->
+      <!-- Find your fit opens the four doors. On a phone the whole thing is
+           a disclosure; from 56rem up the panel is held open and reads as a
+           single row. No script involved. -->
       <details class="nav-disclosure">
         <summary class="nav-toggle">
           <span>menu</span>
           <span class="nav-toggle-mark" aria-hidden="true"></span>
         </summary>
         <ul class="nav-list">
-          <li><a href="/organizations/">For organizations</a></li>
-          <li><a href="/demos/">Demos</a></li>
-          <li><a href="/videos/">Videos</a></li>
+          <li class="nav-group">
+            <details class="nav-sub-disclosure">
+              <summary class="nav-sub-toggle">
+                <span>Find your fit</span>
+                <span class="nav-sub-mark" aria-hidden="true"></span>
+              </summary>
+              <ul class="nav-sub">
+            <li><a href="/reporting/">I run an agency<span class="nav-sub-note">and reporting runs us</span></a></li>
+            <li><a href="/#small-business">I run a small business<span class="nav-sub-note">and my tools do not talk</span></a></li>
+            <li><a href="/#team">I lead a team<span class="nav-sub-note">and people need to live our mission</span></a></li>
+            <li><a href="/demos/">We need a system of our own<span class="nav-sub-note">five demos to open</span></a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="/#work">Work</a></li>
           <li><a href="/about/">About</a></li>
           <li><a href="/#contact" class="nav-cta">Contact</a></li>
         </ul>
@@ -92,14 +103,15 @@
       <div class="section-head">
         <p class="eyebrow">Privacy</p>
         <h1 id="h-privacy">What we collect, and what we do with it</h1>
-        <p class="section-intro">Alignment Integration is a one person consultancy based in Mississauga, Ontario. This page covers alignmentandintegration.com and the ways you can reach us from it. Last updated 28 September 2026.</p>
+        <p class="section-intro">Alignment Integration is a consultancy based in Ontario and Manitoba. This page covers alignmentandintegration.com and the ways you can reach us from it. Last updated 11 November 2026.</p>
       </div>
 
       <div class="legal">
       <h2>What we collect</h2>
-      <p>We only collect what you type and send. There is no sign up on this site and nothing is gathered in the background.</p>
+      <p>We only collect what you type and send. Nothing is gathered in the background.</p>
       <ul>
         <li><strong>Contact form.</strong> Your name, email address, organisation if you give one, and what you write in the message box.</li>
+        <li><strong>Reporting readiness check.</strong> Your email address, your agency name if you give one, and your twelve answers. If you tick the newsletter box, your email address goes on the list for The Alignment Brief.</li>
         <li><strong>Booking a call.</strong> Booking runs through Cal.com. They collect your name, email address, time zone, and anything you write when you book.</li>
         <li><strong>Email.</strong> If you write to us, we have your email and whatever is in it.</li>
         <li><strong>Server records.</strong> Our host keeps standard technical logs, including IP addresses, for security and reliability. We do not use those logs to build a picture of who you are.</li>
@@ -109,7 +121,7 @@
       <p>To answer you, to prepare for a call you booked, and to keep a record of who asked us for what so nothing gets dropped. That is the whole list. We do not use any of it to target advertising.</p>
 
       <h2>Where it is stored</h2>
-      <p>Form submissions are handled by Netlify and reach us by email through Google. Bookings sit with Cal.com.</p>
+      <p>Form submissions are handled by Netlify and reach us by email through Google. Bookings sit with Cal.com. The newsletter list sits with Brevo.</p>
       <p>Netlify, Google, and Cal.com are based in the United States, so information you send through a form or a booking is stored there and is subject to the laws of that country.</p>
 
       <h2>What we do not do</h2>
@@ -125,7 +137,7 @@
 
       <h2>Your rights</h2>
       <p>Under Canadian privacy law, PIPEDA, you can ask us what we hold about you, ask for a copy of it, ask us to correct it, and ask us to delete it. You can also withdraw consent at any time, though that may mean we can no longer help you with whatever you asked about.</p>
-      <p>Write to <a href="mailto:alignmentandintegration@gmail.com">alignmentandintegration@gmail.com</a> and we will answer within 30 days. There is no form to fill in and no fee. If you are not satisfied with how we handle it, you can complain to the Office of the Privacy Commissioner of Canada at <a href="https://www.priv.gc.ca" rel="noopener">priv.gc.ca</a>.</p>
+      <p>Write to <a href="mailto:director@alignmentandintegration.com">director@alignmentandintegration.com</a> and we will answer within 30 days. There is no form to fill in and no fee. If you are not satisfied with how we handle it, you can complain to the Office of the Privacy Commissioner of Canada at <a href="https://www.priv.gc.ca" rel="noopener">priv.gc.ca</a>.</p>
 
       <h2>Children</h2>
       <p>This site is meant for businesses and adults. We do not knowingly collect information from anyone under 16. If you believe a child has sent us something, write to us and we will delete it.</p>
@@ -134,7 +146,7 @@
       <p>If this policy changes, the date at the top of the page changes with it. If the change affects information we already hold, we will contact the people it affects rather than quietly updating the page.</p>
 
       <h2>Who to contact</h2>
-      <p>Alignment Integration, Mississauga, Ontario, Canada. <a href="mailto:alignmentandintegration@gmail.com">alignmentandintegration@gmail.com</a>.</p>
+      <p>Alignment Integration, Ontario and Manitoba, Canada. <a href="mailto:director@alignmentandintegration.com">director@alignmentandintegration.com</a>.</p>
 
       <p class="footer-top"><a href="/">Back to home</a></p>
       </div>
@@ -146,28 +158,31 @@
 <footer class="footer">
   <div class="wrap footer-map">
     <div>
-      <p class="h-quiet">Who we build for</p>
+      <p class="h-quiet">Services</p>
       <ul class="footer-list">
-        <li><a href="/organizations/">For organizations</a></li>
-        <li><a href="/community-social-services/">Community and social services</a></li>
-        <li><a href="/ai-readiness/">AI readiness</a></li>
+        <li><a href="/reporting/">Reporting alignment</a></li>
+        <li><a href="/video/">Video</a></li>
+        <li><a href="/events/">Events</a></li>
+        <li><a href="/demos/">Software builds</a></li>
       </ul>
     </div>
     <div>
-      <p class="h-quiet">The demonstrations</p>
+      <p class="h-quiet">Work</p>
       <ul class="footer-list">
+        <li><a href="/video/#wolfe-retreat">The Wolfe Retreat video</a></li>
+        <li><a href="/organizations/sample-diagnosis/">Sample diagnosis, on fictional data</a></li>
         <li><a href="/demos/bpss-ses/">Diagnostic and intervention map</a></li>
         <li><a href="/demos/community-hub-portal/">Community hub portal</a></li>
         <li><a href="/demos/emr-portal/">Staff portal over a clinical record</a></li>
         <li><a href="/demos/cswb-portal/">Community safety and well-being portal</a></li>
         <li><a href="/demos/restaurant-ops/">Restaurant operations</a></li>
-        <li><a href="/demos/">All demos</a></li>
       </ul>
     </div>
     <div>
       <p class="h-quiet">Alignment Integration</p>
       <ul class="footer-list">
         <li><a href="/about/">About</a></li>
+        <li><a href="/about/#partners">Partners</a></li>
         <li><a href="/#contact">Contact</a></li>
         <li><a href="https://cal.com/align-integrate-l8uyvp/30min" rel="noopener">Book a call</a></li>
         <li><a href="/privacy/">Privacy</a></li>
@@ -189,7 +204,7 @@
       </svg>
       Alignment Integration
     </p>
-    <p class="footer-meta">Alignment and Integration is a registered business in Ontario. Mississauga, Ontario. No cookies, no tracking on this page.</p>
+    <p class="footer-meta">&copy; 2026 Alignment Integration Solutions Inc. Ontario and Manitoba. No cookies, no tracking on this page.</p>
     <p class="footer-top"><a href="/">Home</a></p>
   </div>
 </footer>
