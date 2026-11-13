@@ -178,5 +178,5 @@
 # them until they turn it on. Files with an extension stay with the CDN.
 [[edge_functions]]
   path = "/*"
-  excludedPath = ["/media/*", "/vendor/*", "/brand/*", "/*.css", "/*.js", "/*.mjs", "/*.svg", "/*.png", "/*.jpg", "/*.jpeg", "/*.webp", "/*.gif", "/*.ico", "/*.xml", "/*.txt", "/*.json", "/*.woff", "/*.woff2", "/*.mp4", "/*.webm", "/*.pdf"]
+  excludedPath = ["/mcp", "/media/*", "/vendor/*", "/brand/*", "/*.css", "/*.js", "/*.mjs", "/*.svg", "/*.png", "/*.jpg", "/*.jpeg", "/*.webp", "/*.gif", "/*.ico", "/*.xml", "/*.txt", "/*.json", "/*.woff", "/*.woff2", "/*.mp4", "/*.webm", "/*.pdf", "/*.vcf", "/*.md"]
   function = "visitor-region"
