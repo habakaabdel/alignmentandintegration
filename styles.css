@@ -868,7 +868,7 @@ a:hover { color: var(--mark-deep); }
 }
 
 .form-error {
-  font-size: var(--t-label);
+  font-size: 1rem;
   color: var(--second);
 }
 
@@ -1967,12 +1967,11 @@ body.home { --measure: 1240px; }
 }
 .home-card-price-name { font-weight: 600; }
 .home-card-price { font-variant-numeric: tabular-nums; }
-@media (max-width: 37.5rem) { .home-card-price { font-size: var(--t-small); } }
 .home-card-quote { margin: var(--s2) 0 0; }
 .home-card-quote p { font-size: 1.125rem; font-weight: 600; color: var(--ink); }
 .home-card-cite { margin: var(--s1) 0 var(--s3); font-size: var(--t-small); }
 .home-card-cite a { color: var(--mark-deep); }
-.home-card-fine { margin: 0 0 22px; font-size: var(--t-small); color: var(--ink); }
+.home-card-fine { margin: 0 0 22px; font-size: 1rem; color: var(--ink); }
 /* a door with two ways in: each link is its own target, so neither one
    stretches over the card */
 .home-card-links { display: flex; flex-wrap: wrap; gap: 0 var(--s5); margin: 0; }

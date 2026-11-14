@@ -37,14 +37,13 @@
 
 /* The card is the anchor for its own corner ticks. The second selector is
    here because the shared reveal rule is more specific than a bare class and
-   would otherwise replace this transition list with its own, leaving the
-   hover lift to snap. Both sets of properties are named so the entrance and
-   the hover keep working together. */
+   would otherwise replace this transition list with its own. Both sets of
+   properties are named so the entrance and the hover border keep working
+   together. The card does not move on hover. */
 .proof,
 html.reveal-ready .proof[data-reveal] {
   position: relative;
   transition:
-    translate var(--base) var(--ease),
     border-color var(--base) var(--ease),
     opacity 0.7s var(--ease),
     transform 0.7s var(--ease);
@@ -52,7 +51,6 @@ html.reveal-ready .proof[data-reveal] {
 
 .proof:hover,
 .proof:focus-within {
-  translate: 0 -2px;
   border-color: var(--line-strong);
   border-left-color: var(--mark-deep);
 }
@@ -68,11 +66,8 @@ html.reveal-ready .proof[data-reveal] {
   height: 14px;
   border: 0 solid var(--mark);
   opacity: 0;
-  scale: 0.35;
   pointer-events: none;
-  transition:
-    opacity var(--base) var(--ease),
-    scale var(--base) var(--ease);
+  transition: opacity var(--base) var(--ease);
 }
 
 .proof::before {
@@ -80,7 +75,6 @@ html.reveal-ready .proof[data-reveal] {
   right: 7px;
   border-top-width: 1px;
   border-right-width: 1px;
-  transform-origin: top right;
 }
 
 .proof::after {
@@ -88,7 +82,6 @@ html.reveal-ready .proof[data-reveal] {
   left: 7px;
   border-bottom-width: 1px;
   border-left-width: 1px;
-  transform-origin: bottom left;
 }
 
 .proof:hover::before,
@@ -96,17 +89,7 @@ html.reveal-ready .proof[data-reveal] {
 .proof:focus-within::before,
 .proof:focus-within::after {
   opacity: 1;
-  scale: 1;
 }
-
-/* The site's one-pixel button lift, kept for the card's primary action. */
-.proof .btn-primary {
-  transition:
-    translate var(--fast) var(--ease),
-    background var(--fast) var(--ease),
-    box-shadow var(--fast) var(--ease);
-}
-.proof .btn-primary:hover { translate: 0 -1px; }
 
 /* The segment list at the foot draws its underline rather than switching it
    on, which keeps the row quiet while the pointer crosses it. */
@@ -130,7 +113,6 @@ html.reveal-ready .proof[data-reveal] {
   html.reveal-ready .proof[data-reveal],
   .proof::before,
   .proof::after,
-  .proof .btn-primary,
   .also-list a { transition: none; }
   .proof:hover,
   .proof:focus-within { translate: none; }
@@ -464,7 +446,7 @@ html.reveal-ready .proof[data-reveal] {
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10"/></svg>
               </span>
             </button>
-            <p class="form-error" data-form-error hidden>That did not send. Try once more.</p>
+            <p class="form-error" data-form-error role="alert" hidden>That did not send. Try once more, or write to <a href="mailto:director@alignmentandintegration.com">director@alignmentandintegration.com</a>.</p>
             <a class="field-help" href="/privacy/">Privacy</a>
           </div>
         </form>
