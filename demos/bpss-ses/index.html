@@ -473,7 +473,7 @@ DOMAINS.forEach((dom,di)=>{
 const gc=document.createElementNS(SVG,'circle');
 gc.setAttribute('cx',cx);gc.setAttribute('cy',cy);gc.setAttribute('r',goalR);
 gc.setAttribute('fill','var(--paper)');gc.setAttribute('stroke','var(--ink)');gc.setAttribute('stroke-width','2');
-gc.setAttribute('class','goalNode');gc.addEventListener('click',openGoal);
+gc.setAttribute('class','goalNode');gc.addEventListener('click',openGoal);keyable(gc,'Edit the goal',openGoal);
 map.appendChild(gc);
 const goalTextG=document.createElementNS(SVG,'g');goalTextG.setAttribute('id','goalTextG');
 goalTextG.style.cursor='pointer';goalTextG.addEventListener('click',openGoal);
@@ -626,7 +626,7 @@ NODES.forEach(n=>{
     t.setAttribute('text-anchor','middle');t.setAttribute('class','nlabel');t.textContent=ln;
     g.appendChild(t);
   });
-  g.addEventListener('click',()=>selectNode(n));
+  g.addEventListener('click',()=>selectNode(n));keyable(g,n.label,()=>selectNode(n));
   net.appendChild(g);nodeEls.push({g,n});
 });
 
@@ -731,13 +731,27 @@ function renderGoal(){
   setGauge(baseAlign(), null);
   renderMapCenter();
 }
+// A drawn target a keyboard can reach: it takes focus, says what it does, and
+// answers Enter and Space the way it answers a click.
+function keyable(el,label,fn){
+  el.setAttribute('tabindex','0');el.setAttribute('role','button');el.setAttribute('aria-label',label);
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fn();}});
+}
+let goalOpener=null;
 function openGoal(){
+  goalOpener=document.activeElement;
   document.getElementById('mGoal').value=GOAL.name;
   document.getElementById('mInd1').value=GOAL.ind[0]||'';
   document.getElementById('mInd2').value=GOAL.ind[1]||'';
   document.getElementById('goalModal').hidden=false;
+  document.getElementById('mGoal').focus();
 }
-function closeGoal(){document.getElementById('goalModal').hidden=true;}
+function closeGoal(){
+  document.getElementById('goalModal').hidden=true;
+  // Focus goes back to whatever opened the dialog.
+  if(goalOpener&&goalOpener.focus)goalOpener.focus();
+  goalOpener=null;
+}
 function saveGoal(){
   GOAL.name=(document.getElementById('mGoal').value.trim())||'(unnamed goal)';
   GOAL.ind=[document.getElementById('mInd1').value.trim(),document.getElementById('mInd2').value.trim()].filter(Boolean);
@@ -747,6 +761,7 @@ document.getElementById('editGoal').onclick=openGoal;
 document.getElementById('mCancel').onclick=closeGoal;
 document.getElementById('mSave').onclick=saveGoal;
 document.getElementById('goalModal').addEventListener('click',e=>{if(e.target.id==='goalModal')closeGoal();});
+document.getElementById('goalModal').addEventListener('keydown',e=>{if(e.key==='Escape')closeGoal();});
 renderGoal();
 
 /* ---------- TABS + THEME ---------- */
