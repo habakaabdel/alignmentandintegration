@@ -23,6 +23,13 @@
   to = "/demos/community-hub-portal/:splat"
   status = 301
 
+# The Alignment Brief sign-up form (Brevo). 302 so the form can be swapped later.
+[[redirects]]
+  from = "/brief"
+  to = "https://bfe24496.sibforms.com/serve/MUIFAMIJCCj3CXtzG01EfbdTQmLTnTUWaWoTniobE2_zXRh5_BjnU2UFk-Pe-VSoZ5_B2th2Cu3FrBXKFOFCrS_IKpisNVxIS_XsP69GRevv1PmvhbtVXzCK4wtr-E2UFhFlWYZ53AJUyh4Wejc6FOuQpF88fN2Ngqm4IOc8njgI_vbtsgn5kUqeYncfcjNxATqXBmfLbOfLrgaLPA=="
+  status = 302
+  force = true
+
 [[redirects]]
   from = "/therapists/*"
   to = "/"
