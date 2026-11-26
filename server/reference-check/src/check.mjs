@@ -26,8 +26,8 @@ function differing(c) {
 
 // The Crossref record whose title is found in the pasted text. When several
 // carry the title, the one that agrees on the most fields wins.
-async function closest(text, fetchImpl) {
-  const candidates = await search(text, 5, fetchImpl);
+async function closest(text, fetchImpl, signal) {
+  const candidates = await search(text, 5, fetchImpl, signal);
   const doi = extractDoi(text);
   let best = null;
   for (const record of candidates) {
@@ -44,14 +44,14 @@ async function closest(text, fetchImpl) {
   return best;
 }
 
-export async function checkOne(reference, fetchImpl) {
+export async function checkOne(reference, fetchImpl, signal) {
   const text = String(reference.text || "").trim();
   const doi = (reference.doi || "").trim() || extractDoi(text);
   const base = { reference: text, doi_given: doi || null };
 
   try {
     if (doi) {
-      const record = await resolveDoi(doi, fetchImpl);
+      const record = await resolveDoi(doi, fetchImpl, signal);
       if (record) {
         const c = compare(record, text, doi);
         const differs = differing(c);
@@ -68,14 +68,14 @@ export async function checkOne(reference, fetchImpl) {
             : `The DOI resolves to this work, but the pasted ${differs.join(" and ")} differs from the Crossref record.`,
         };
         if (differs.includes("title")) {
-          const found = await closest(text, fetchImpl);
+          const found = await closest(text, fetchImpl, signal);
           if (found) out.closest_by_title = publicRecord(found.record);
         }
         return out;
       }
       // The DOI is not in Crossref. A DOI registered elsewhere is real, only
       // out of reach of this check.
-      const agency = await registrationAgency(doi, fetchImpl);
+      const agency = await registrationAgency(doi, fetchImpl, signal);
       if (agency && agency !== "Crossref") {
         return {
           ...base,
@@ -83,7 +83,7 @@ export async function checkOne(reference, fetchImpl) {
           note: `The DOI is registered with ${agency}, not Crossref, so this check cannot confirm the reference either way.`,
         };
       }
-      const found = await closest(text, fetchImpl);
+      const found = await closest(text, fetchImpl, signal);
       if (found) {
         return {
           ...base,
@@ -100,7 +100,7 @@ export async function checkOne(reference, fetchImpl) {
       };
     }
 
-    const found = await closest(text, fetchImpl);
+    const found = await closest(text, fetchImpl, signal);
     if (!found) {
       return {
         ...base,
@@ -127,13 +127,13 @@ export async function checkOne(reference, fetchImpl) {
   }
 }
 
-export async function checkReferences(references, fetchImpl) {
+export async function checkReferences(references, fetchImpl, signal) {
   const results = new Array(references.length);
   let next = 0;
   async function worker() {
     while (next < references.length) {
       const i = next++;
-      results[i] = await checkOne(references[i], fetchImpl);
+      results[i] = await checkOne(references[i], fetchImpl, signal);
     }
   }
   await Promise.all(Array.from({ length: Math.min(CONCURRENCY, references.length) }, worker));
@@ -151,9 +151,9 @@ export async function checkReferences(references, fetchImpl) {
   };
 }
 
-export async function findReference({ title, author }, fetchImpl) {
+export async function findReference({ title, author }, fetchImpl, signal) {
   const query = [title, author].filter(Boolean).join(" ");
-  const records = await search(query, 5, fetchImpl);
+  const records = await search(query, 5, fetchImpl, signal);
   const candidates = records
     .map((r) => ({ ...publicRecord(r), title_similarity: titleSimilarity(r.title, title) }))
     .sort((a, b) => b.title_similarity - a.title_similarity);
