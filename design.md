@@ -25,6 +25,7 @@ Since 2026-11-01 the site is one simple home page and one landing page per servi
 | `/demos/` | none | none. The Software builds page; the five demos, the barbershop quote, the bounds line |
 | `/privacy/` | none | none |
 | `/about/` | none | none. Since 2026-11-01, five sections for a customer of any service: who we are, the four doors, how we work, the proof, contact. One small scoped `<style>` block for the portrait grid |
+| `/anchor/` | none | none. One small scoped `<style>` block for the never list, which reuses `.builds` rows without headings. Hero, `.steps` and `.builds` only |
 | `/community-social-services/`, `/ai-readiness/`, `/ai-readiness/start/` | Retired 2 November 2026 on Abdel's word; 301 to `/reporting/` and the home page in `netlify.toml`. | |
 
 `/organizations/` and `/videos/` answer 301 to `/reporting/` and `/video/` from `netlify.toml`; the sample diagnosis keeps its old path, so the organizations rule is exact rather than a splat.
