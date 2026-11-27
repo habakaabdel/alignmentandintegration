@@ -42,12 +42,12 @@
 
 [[redirects]]
   from = "/videos/holistics/*"
-  to = "/video/"
+  to = "/"
   status = 301
 
 [[redirects]]
   from = "/videos/references/*"
-  to = "/video/"
+  to = "/"
   status = 301
 
 # Service pages, November 2026: one landing page per service. The organizations
@@ -71,12 +71,18 @@
 
 [[redirects]]
   from = "/videos/*"
-  to = "/video/:splat"
+  to = "/"
   status = 301
 
 [[redirects]]
   from = "/demos/therapist-workload/*"
   to = "/demos/"
+  status = 301
+
+# The video service page closed on 27 November 2026.
+[[redirects]]
+  from = "/video/*"
+  to = "/"
   status = 301
 
 [[headers]]
