@@ -1890,6 +1890,92 @@ body.home {
   .brief { grid-template-columns: 1fr 1.3fr; gap: 56px; }
 }
 
+/* ---------- the redrawn inner pages (27 November 2026) ----------
+   The sample diagnosis and Reporting alignment, in the look of the home
+   page: large type, the numbers first, every action a button. Scoped on
+   body.sd and sd- classes so nothing here reaches another page. */
+body.sd { --bar: #141614; --sand: #f3e6d6; font-size: 1.1875rem; }
+.sd .masthead .nav-list a, .sd .masthead .nav-toggle, .sd .masthead .brand-name, .sd .footer a, .sd .footer p, .sd .skip { font-size: 1.125rem; }
+.sd-band { padding: clamp(2.5rem, 6vw, 5.5rem) clamp(1.25rem, 4vw, 3.5rem); }
+.sd-in { max-width: 1240px; margin-inline: auto; }
+.sd h1, .sd h2 { margin: 0; font-weight: 700; line-height: 1.04; letter-spacing: -0.025em; }
+.sd h1 { font-size: clamp(2.375rem, 4.9vw, 4.25rem); max-width: 16ch; }
+.sd h2 { font-size: clamp(1.875rem, 3.4vw, 2.875rem); }
+.sd h3 { margin: 0; font-size: 1.5rem; }
+.sd-tag { display: inline-block; margin: 0 0 28px; padding: 8px 14px; border-radius: 4px; font-size: 1.25rem; font-weight: 700; }
+.sd-say { margin: 24px 0 0; max-width: 34ch; font-size: 1.375rem; }
+.sd-acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+.sd-hero { background: var(--mark-deep); color: var(--paper); }
+.sd-hero .sd-tag { background: var(--tint-sage); color: var(--mark-deep); }
+.sd-hero h1 span { color: var(--tint-sage); }
+.sd-hero .door-btn { border-color: var(--tint-sage); }
+.sd-hero .door-btn-fill { background: var(--paper); border-color: var(--paper); color: var(--mark-deep); }
+.sd-hero :focus-visible { outline-color: #fff; }
+
+.sd-three { display: grid; gap: 40px; margin-top: 40px; }
+.sd-measure { padding-top: 18px; border-top: 2px solid var(--ink); }
+.sd-measure p { margin: 0; }
+.sd-was { margin-top: 14px !important; font-size: 1.375rem; text-decoration: line-through; text-decoration-thickness: 2px; }
+.sd-now { font-size: clamp(3.25rem, 6.4vw, 5.5rem); font-weight: 800; line-height: 0.95; letter-spacing: -0.045em; color: var(--mark-deep); }
+.sd-unit { margin-top: 8px !important; font-size: 1.25rem; font-weight: 600; }
+
+.sd-map { background: var(--sand); }
+.sd-quote { margin: 0 0 40px; max-width: 22ch; font-size: clamp(1.875rem, 3.6vw, 3.125rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.025em; }
+.sd-cols { display: grid; gap: 40px; }
+.sd-col { padding-top: 18px; border-top: 2px solid var(--ink); }
+.sd-count { margin: 10px 0 4px; font-size: clamp(3.25rem, 6.4vw, 5.5rem); font-weight: 800; line-height: 0.95; letter-spacing: -0.045em; }
+.sd-facts { margin: 0 0 20px; font-size: 1.25rem; font-weight: 600; }
+.sd-steps { margin: 0; padding-left: 1.6em; list-style: decimal; }
+.sd-steps li { padding: 5px 0; }
+.sd-steps li.sd-cut { text-decoration: line-through; text-decoration-thickness: 2px; }
+.sd-after .sd-count { color: var(--mark-deep); }
+.sd-note { margin: 18px 0 0; font-weight: 600; }
+
+.sd-pay { background: var(--tint-sage); }
+.sd-pay-grid { display: grid; gap: 40px; align-items: end; }
+.sd-pay .sd-now { font-size: clamp(4.5rem, 10vw, 9rem); }
+.sd-sums { list-style: none; margin: 0; padding: 0; }
+.sd-sums li { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 2px solid var(--mark-deep); font-size: 1.25rem; }
+.sd-sums b { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.sd-get { display: grid; gap: 32px; margin-top: 36px; }
+.sd-get div { padding-top: 14px; border-top: 2px solid var(--ink); }
+.sd-get p { margin: 6px 0 0; }
+.sd-weeks { margin: 36px 0 0; padding-left: 1.6em; font-size: 1.25rem; list-style: decimal; }
+.sd-weeks li { padding: 6px 0; }
+.sd-weeks b { font-weight: 700; }
+.sd-fine { margin: 40px 0 0; max-width: 60ch; }
+
+@media (max-width: 51.1875rem) { .sd .door-btn { width: 100%; } }
+@media (min-width: 51.25rem) {
+  .sd-three, .sd-get { grid-template-columns: repeat(3, 1fr); }
+  .sd-cols { grid-template-columns: 1.25fr 1fr; gap: 56px; }
+  .sd-pay-grid { grid-template-columns: 1fr 1.1fr; gap: 56px; }
+}
+
+/* Reporting alignment only */
+.sd-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; margin: 44px 0 0; }
+.sd-price b { font-size: clamp(4rem, 8vw, 7.25rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.05em; }
+.sd-price span { max-width: 12ch; font-size: 1.375rem; font-weight: 600; line-height: 1.2; }
+.sd-sand { background: var(--sand); }
+.sd-sage { background: var(--tint-sage); }
+.sd-four { display: grid; gap: 32px 56px; margin-top: 36px; }
+.sd-four div, .sd-ways div { padding-top: 14px; border-top: 2px solid var(--ink); }
+.sd-four p, .sd-ways p { margin: 6px 0 0; }
+.sd-ways { display: grid; gap: 32px; margin-top: 36px; }
+.sd-ways .sd-cost { margin-top: 14px; font-size: 1.375rem; font-weight: 700; color: var(--mark-deep); }
+.sd-lede { margin: 16px 0 0; max-width: 44ch; font-size: 1.375rem; }
+.sd-partner { display: grid; gap: 32px; align-items: start; }
+.sd-partner p { margin: 16px 0 0; max-width: 48ch; }
+.sd .contact label, .sd .contact .field-help, .sd .contact .contact-note, .sd .contact .form-error, .sd .contact input, .sd .contact textarea { font-size: 1.125rem; }
+.sd .btn { border-radius: 4px; font-size: 1.1875rem; }
+@media (min-width: 51.25rem) {
+  .sd-four { grid-template-columns: 1fr 1fr; }
+  .sd-ways { grid-template-columns: repeat(3, 1fr); }
+  .sd-partner { grid-template-columns: 1fr 1.1fr; gap: 56px; }
+}
+
 /* ---------- visually hidden ----------
    Text for a screen reader that is not drawn: the home cards' heading and the
    sentence each line drawing stands for. */
