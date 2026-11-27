@@ -1735,7 +1735,8 @@ body.home {
 .home .footer p,
 .home .masthead .nav-list a,
 .home .masthead .nav-toggle,
-.home .masthead .brand-name { font-size: 1.125rem; }
+.home .masthead .brand-name,
+.home .skip { font-size: 1.125rem; }
 
 .door-arrow { width: 20px; height: 20px; flex: none; }
 .door-btn {
@@ -1756,7 +1757,7 @@ body.home {
 .door-btn-ink { background: var(--bar); border-color: var(--bar); color: var(--paper); }
 .door-btn-sage { background: var(--mark-deep); border-color: var(--mark-deep); color: var(--paper); }
 
-.doors { display: grid; }
+.home .doors { display: grid; }
 .door {
   position: relative;
   overflow: hidden;
@@ -1765,6 +1766,7 @@ body.home {
   padding: clamp(2rem, 5vw, 4.5rem) clamp(1.25rem, 4vw, 3.5rem);
 }
 .door :focus-visible { outline-color: currentColor; }
+.door .door-btn-fill:focus-visible { outline-color: #fff; }
 .door-rings {
   position: absolute;
   top: -140px;
@@ -1882,7 +1884,7 @@ body.home {
   .door-btn { width: 100%; }
 }
 @media (min-width: 51.25rem) {
-  .doors { grid-template-columns: 1.25fr 1fr; min-height: 760px; }
+  .home .doors { grid-template-columns: 1.25fr 1fr; min-height: 760px; }
   .packs-list { grid-template-columns: repeat(3, 1fr); gap: 32px; }
   .said { grid-template-columns: 1.5fr 1fr; }
   .brief { grid-template-columns: 1fr 1.3fr; gap: 56px; }

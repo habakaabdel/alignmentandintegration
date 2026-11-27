@@ -195,7 +195,7 @@ His words that day: "do we need to have like a simple 2 doors on the homepage ?"
 - **Nav on every site page:** Organizations (`/reporting/`), Small business (`/#small-business`), About, Contact. Find your fit and Work are gone.
 - **Home, in order:** the two doors, the three packages (`#small-business`), a customer's words with who does the work, The Alignment Brief, contact.
 - **Type and actions on home.** Nothing under 18px. Every action is a button (`.door-btn`, squared at 4px, with an arrow). His words: "no words that small .. there should be buttons".
-- **Clay is new.** `--clay` `#a8502a`, `--clay-deep` `#7c3716`, `--sand` `#f3e6d6` and `--bar` `#141614` are set on `body.home` only. White on clay reads 5.0:1.
+- **Clay is new.** `--clay` `#a8502a`, `--clay-deep` `#7c3716`, `--sand` `#f3e6d6` and `--bar` `#141614` are set on `body.home` only. White on clay reads 5.46:1.
 - **Only real proof on home.** The Fahad Fadez quote with the logo and the two named people. The five demos left the home page, the nav and the proof lists; their addresses still work and `/demos/` is still reachable by address. The sample diagnosis stays, as a sample of what the client receives.
 - **Removed.** The Wolfe Retreat video and the whole `/video/` page (his words: "skip wolfretreat and remove"); `/video/*` answers 301 to the home page. "Hosted on Canadian servers" came off because no Canadian host account exists yet; it returns when one does.
 - **The Brief on home** shows the sign-up and the date issue one goes out. The issue gets its own page after it is sent. Read and Watch sections are not built yet.
