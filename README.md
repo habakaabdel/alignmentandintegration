@@ -16,6 +16,7 @@ Since 27 November 2026 the home page is two doors: organizations and agencies, a
 | `/events/` | Events. The six things we do at an event, what it looks like (four scenarios), how it works, a proof slot (still a placeholder), contact. |
 | `/demos/` | Software builds. The five demonstrations, the barbershop quote, the bounds line, what we build (five scenarios), how a build runs, Parts of systems (`#parts-of-systems`), contact. |
 | `/about/` | About, for a visitor from any door: who we are, the four doors, how we work, Work with us as a partner (`#partners`, linked from every footer), why trust the quality, contact. Ends at the same contact form as the service pages. |
+| `/anchor/` | Anchor, the between-session exercise app, for a therapist. The opening line, the three steps of how it works, what Anchor never does, and two buttons out to the Anchor page at anchor-trial.netlify.app. Every line except "Licences are not on sale yet." and the button label is copied from the Anchor repo's `LANDING-WORDS.md`. Linked from every footer. No contact form. |
 | `/privacy/` | Privacy notice. Linked from the footer and the form. |
 | `/community-social-services/`, `/ai-readiness/`, `/ai-readiness/start/` | Retired 2 November 2026 on Abdel's word; 301 to `/reporting/` and the home page in `netlify.toml`. |
 | `/brand/` | Logo system preview. Not linked from the site. |
