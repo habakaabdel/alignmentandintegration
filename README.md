@@ -4,15 +4,15 @@ Marketing and demo site for Alignment Integration, a consultation and software d
 
 ## Pages
 
-Since 11 November 2026 the home page is organized by the visitor and their problem: four doors, with the method under every door. One landing page per service sits under the doors (Brief 109). Every service page ends at its own contact section. The structure and its rules are in `design.md` under "Structure, ruled 11 November 2026".
+Since 27 November 2026 the home page is two doors: organizations and agencies, and small businesses. One landing page per service sits under the doors (Brief 109). Every service page ends at its own contact section. The structure and its rules are in `design.md` under "Structure, ruled 11 November 2026".
 
 | Path | What it is |
 |---|---|
-| `/` | Home. The public line and the two build paths on a deep sage band, the four doors (`#fit`: agency `#agency`, small business `#small-business` with the three packages and their prices, team `#team`, a system of our own `#system`), How we work (`#how-we-work`, the three routes), the proof strip (`#work`), and the contact form. Comp G, picked November 2026, refilled with the doors on 11 November 2026. |
-| `/reporting/` | Reporting alignment, on any platform. Theme `organizations`. What it looks like (four scenarios and the platform partner panel), the process, the three offers (the $3,500 diagnosis is the only priced one), the two weeks, the engine, Data (`#data`) and Strategy (`#strategy`), where we have built, the bounds line, contact. Was `/organizations/`, which now redirects here. |
+| `/` | Home. Two doors on the first screen (organizations on deep sage, small businesses on clay), the three small business packages (`#small-business`), a customer's words and who does the work, The Alignment Brief sign-up, and the contact form. Comp D, picked 27 November 2026. |
+| `/reporting/` | Reporting alignment. Redrawn 27 November 2026 in the home page look (`body.sd`). The diagnosis and its price, four situations, the two weeks, the three ways in (the $3,500 diagnosis is the only priced one), EMHware onboarding at $3,500, Data (`#data`), Strategy (`#strategy`), the tools to open, contact. Was `/organizations/`, which redirects here. |
 | `/reporting/readiness-check/` | The reporting readiness check. Twelve questions in four groups, scored in the browser out of 24 into three levels, with the three lowest-scoring questions shown as gaps. Reached from `/reporting/`. The mental health and addictions question set is the first; another set is another page of markup. |
-| `/organizations/sample-diagnosis/` | The sample diagnosis, on fictional data. Reached from `/reporting/`. |
-| `/video/` | Video. The Wolfe Retreat video (the short and the tour), the Brain to AI reel, what it looks like (five scenarios), how it works, the prices (from $300 one-off, from $800 a month), a marked slot for the case study, contact. Was `/videos/`, which now redirects here. |
+| `/organizations/sample-diagnosis/` | A sample of what the client receives: the three measures, the process before and after as two lists, the payback, what you hold at the end. Redrawn 27 November 2026 in the home page look; its styles are scoped on `body.sd` at the end of `styles.css`. The agency is made up and the page says so once at the top and once at the foot. |
+| `/video/` | Closed 27 November 2026; 301 to the home page in `netlify.toml`. |
 | `/events/` | Events. The six things we do at an event, what it looks like (four scenarios), how it works, a proof slot (still a placeholder), contact. |
 | `/demos/` | Software builds. The five demonstrations, the barbershop quote, the bounds line, what we build (five scenarios), how a build runs, Parts of systems (`#parts-of-systems`), contact. |
 | `/about/` | About, for a visitor from any door: who we are, the four doors, how we work, Work with us as a partner (`#partners`, linked from every footer), why trust the quality, contact. Ends at the same contact form as the service pages. |
@@ -34,7 +34,7 @@ Each demo is a self-contained folder under `demos/` with its own markup, and mos
 
 ## Navigation
 
-Every site page (not the demos or the landing page) carries the same four items: Find your fit, Work, About, Contact. Find your fit opens the four doors (a nested `details` on a phone, a hover panel from 56rem up): the agency door goes to `/reporting/`, the small business and team doors to their cards on the home page, the system door to `/demos/`. Work goes to the proof strip on the home page (`/#work`). Contact goes to the page's own contact section on home, the service pages and the about page, and to `/#contact` elsewhere. Below 56rem the links sit in a `details` disclosure labelled "menu"; no script is needed for it.
+Every site page (not the demos) carries the same four items: Organizations (`/reporting/`), Small business (`/#small-business`), About, Contact. Contact goes to the page's own contact section where it has one, and to `/#contact` elsewhere. Below 56rem the links sit in a `details` disclosure labelled "menu"; no script is needed for it.
 
 ## Stack
 

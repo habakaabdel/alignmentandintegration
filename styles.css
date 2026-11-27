@@ -1667,11 +1667,9 @@ a:hover { color: var(--mark-deep); }
   margin-bottom: var(--s4);
 }
 
-/* ---------- the home page, comp G (picked 2026-11-01) ----------
-   Scoped on body.home. A deep sage band carries the masthead and the brand
-   line; seven cards and a start card overlap its foot by 56px. Tokens only:
-   no new colour, font or script. The comp's 1240px container comes through
-   --measure, so every .wrap on the page lines up with it. */
+/* ---------- the home page ----------
+   Scoped on body.home. The masthead sits on a dark bar; the two doors come
+   after it. The 1240px container comes through --measure. */
 
 body.home { --measure: 1240px; }
 
@@ -1680,7 +1678,7 @@ body.home { --measure: 1240px; }
    phone panel (.nav-list) stays paper with its own ink links, so below 56rem
    only the brand and the toggle change. */
 .home .masthead {
-  background: var(--mark-deep);
+  background: var(--bar);
   border-bottom-color: transparent;
 }
 .home .masthead .brand,
@@ -1695,8 +1693,7 @@ body.home { --measure: 1240px; }
 
 /* focus on the band is paper; inside the paper panel it stays ink */
 .home .skip { background: var(--paper); color: var(--ink); }
-.home .masthead :focus-visible,
-.home-hero :focus-visible { outline-color: var(--paper); }
+.home .masthead :focus-visible { outline-color: var(--paper); }
 .home .masthead .nav-list :focus-visible { outline-color: var(--ink); }
 
 @media (min-width: 56rem) {
@@ -1717,242 +1714,282 @@ body.home { --measure: 1240px; }
   .home .masthead .nav-sub :focus-visible { outline-color: var(--ink); }
 }
 
-/* the band */
-.home-hero {
-  position: relative;
-  overflow: hidden;
-  background: var(--mark-deep);
-  color: var(--paper);
-  border-radius: 0 0 28px 28px;
-  padding-bottom: 88px;
+/* the two doors (picked 27 November 2026, comp D). Scoped on the home page.
+   Nothing here is under 18px, every action is a button, and the two doors
+   share one type system on two grounds: deep sage and clay. */
+body.home {
+  --clay: #a8502a;
+  --clay-deep: #7c3716;
+  --sand: #f3e6d6;
+  --bar: #141614;
+  font-size: 1.1875rem;
 }
-.home-hero .wrap { position: relative; z-index: 1; }
+.home .btn { border-radius: 4px; font-size: 1.1875rem; }
+.home .contact label,
+.home .contact .field-help,
+.home .contact .contact-note,
+.home .contact .form-error,
+.home .contact input,
+.home .contact textarea,
+.home .footer a,
+.home .footer p,
+.home .masthead .nav-list a,
+.home .masthead .nav-toggle,
+.home .masthead .brand-name,
+.home .skip { font-size: 1.125rem; }
 
-/* the monogram, very large and faint, partly off the top right corner */
-.home-ghost {
-  position: absolute;
-  right: -90px;
-  top: -70px;
-  width: 600px;
-  height: 600px;
-  color: var(--tint-sage);
-  opacity: 0.09;
-  pointer-events: none;
-}
-.home-ghost svg { display: block; width: 100%; height: 100%; }
-
-
-/* the public line is a thirteen-word sentence, so the size steps down from
-   the two-word brand line it replaced and the measure opens to 17ch */
-.home-title {
-  font-size: clamp(2.1rem, 4.6vw, 4rem);
-  line-height: 1.05;
-  letter-spacing: -0.035em;
-  max-width: 17ch;
-  margin-top: clamp(2rem, 8vh, 6rem);
-}
-.home-title span { font-weight: 300; color: var(--tint-sage); }
-
-.home-hero-foot {
-  display: flex;
+.door-arrow { width: 20px; height: 20px; flex: none; }
+.door-btn {
+  display: inline-flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: end;
-  gap: var(--s6);
-  margin-top: clamp(2rem, 8vh, 6rem);
-}
-.home-claims { display: grid; gap: var(--s3); max-width: 520px; }
-.home-claim {
-  font-size: var(--t-body);
-  line-height: 1.6;
-  color: var(--tint-stone);
-}
-
-/* the outlined button on the band */
-.btn-paper { border-color: var(--tint-sage); color: var(--paper); }
-.btn-paper .btn-well { background: color-mix(in srgb, var(--paper) 12%, transparent); }
-.btn-paper:hover { background: color-mix(in srgb, var(--paper) 8%, transparent); }
-/* the main action on the band: filled paper, so it reads before the outline one */
-.btn-paper-fill { background: var(--paper); color: var(--mark-deep); }
-.btn-paper-fill .btn-well { background: color-mix(in srgb, var(--mark-deep) 10%, transparent); }
-.btn-paper-fill:hover { background: var(--tint-sage); }
-
-/* the cards. One column, then two from 601px, four from 1001px. The grid
-   overlaps the band from two columns up; on a phone it sits under it. */
-.home-cards-section { padding-block: 0; }
-
-.home-cards {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--s4);
-  margin: var(--s5) 0 72px;
-}
-@media (min-width: 37.5625rem) {
-  .home-cards { grid-template-columns: repeat(2, 1fr); margin-top: -56px; }
-}
-@media (min-width: 62.5625rem) {
-  .home-cards { grid-template-columns: repeat(4, 1fr); }
-}
-
-.home-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 22px 22px;
-  background: var(--panel);
-  border: var(--hair) solid var(--line);
-  border-radius: var(--radius-card);
-  transition: border-color var(--fast) var(--ease);
-}
-.home-card:hover { border-color: var(--line-strong); }
-.home-card:focus-within { border-color: var(--ink); }
-
-.home-card-icon {
-  display: inline-flex;
-  flex: none;
-  color: var(--mark-deep);
-}
-.home-card-icon svg { display: block; width: 22px; height: 22px; }
-
-.home-card-name {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 14px 0 16px;
-  font-size: 1.125rem;
-}
-
-.home-card-join {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin: 0 0 16px;
-}
-.home-card-join text { font-family: var(--mono); }
-
-/* the one link in a card; its hit area is the whole card */
-.home-card-go {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s2);
-  align-self: flex-start;
-  margin-top: auto;
-  font-family: var(--mono);
-  font-size: var(--t-label);
-  color: var(--mark);
+  gap: 12px;
+  padding: 18px 24px;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1;
+  color: inherit;
   text-decoration: none;
 }
-.home-card-go svg { width: 12px; height: 12px; flex: none; }
-.home-card-go::after {
+.door-btn:hover { text-decoration: underline; }
+.door-btn-ink { background: var(--bar); border-color: var(--bar); color: var(--paper); }
+.door-btn-sage { background: var(--mark-deep); border-color: var(--mark-deep); color: var(--paper); }
+
+.home .doors { display: grid; }
+.door {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(1.25rem, 4vw, 3.5rem);
+}
+.door :focus-visible { outline-color: currentColor; }
+.door .door-btn-fill:focus-visible { outline-color: #fff; }
+.door-rings {
+  position: absolute;
+  top: -140px;
+  right: -140px;
+  width: 420px;
+  height: 420px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.14;
+}
+.door-rings::after {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 70px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
 }
-.home-card:hover .home-card-go { color: var(--mark-deep); text-decoration: underline; }
-
-/* the start card. The comp sets its label in --sage-deep and its line in
-   --ink-muted; on the full tint those read 3.26:1 and 4.17:1, so the label
-   takes --mark (6.38:1) and the line takes --ink (11.11:1). */
-.home-card-start { background: var(--tint-sage); border-color: var(--tint-sage); }
-.home-card-start-title {
-  margin-top: 10px;
-  font-size: 1.375rem;
-  line-height: 1.2;
+.door-who {
+  align-self: flex-start;
+  margin: 0 0 28px;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 1.25rem;
+  font-weight: 700;
 }
-.home-card-start-line {
-  margin: var(--s2) 0 22px;
-  font-size: var(--t-small);
-  color: var(--ink);
+.door-title {
+  margin: 0;
+  font-size: clamp(2.125rem, 3.9vw, 3.375rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
 }
-.home-card-start .btn { align-self: flex-start; margin-top: auto; }
-.btn-deep { background: var(--mark-deep); }
-.btn-deep:hover { background: var(--mark); }
-
-/* two buttons on the band */
-.home-hero-actions { display: flex; flex-wrap: wrap; gap: var(--s3); }
-
-/* the primary block. Reporting alignment is the wide card, the diagnosis sits
-   beside it, Data and Strategy under the diagnosis. Order in the markup is
-   the order on a phone. */
-.home-card-lead { padding: 28px 30px 30px; border-color: var(--mark); }
-.home-card-lead .home-card-name { margin: 20px 0; font-size: 1.75rem; line-height: 1.15; }
-.home-card-lead .home-card-icon svg { width: 28px; height: 28px; }
-.home-card-lead .home-card-join { margin-bottom: 24px; }
-.home-card-offer { background: var(--tint-sage); border-color: var(--tint-sage); }
-.home-card-tag {
-  font-family: var(--mono);
-  font-size: var(--t-micro);
-  letter-spacing: 0.06em;
-  color: var(--mark);
-}
-.home-card-offer-title { margin-top: 10px; font-size: 1.375rem; line-height: 1.2; }
-.home-card-offer-line { margin: var(--s2) 0 0; font-size: 1rem; color: var(--ink); }
-.home-card-offer-note {
-  margin: var(--s3) 0 22px;
-  font-family: var(--mono);
-  font-size: var(--t-micro);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--mark);
-}
-.home-card-offer .btn { align-self: flex-start; margin-top: auto; }
-@media (min-width: 37.5625rem) {
-  .home-card-lead, .home-card-offer { grid-column: 1 / -1; }
-}
-@media (min-width: 62.5625rem) {
-  .home-cards-primary .home-card-lead { grid-column: 1 / 3; grid-row: 1 / 3; }
-  .home-cards-primary .home-card-offer { grid-column: 3 / 5; grid-row: 1; }
-}
-
-/* the four doors. Each card is a visitor's sentence, then what they get.
-   Door two sits on the tint and takes the same heading as the others. */
-.home-card-line { margin: 0 0 var(--s3); font-size: 1rem; color: var(--ink); }
-.home-card-lead .home-card-line { max-width: 52ch; }
-@media (min-width: 62.5625rem) { .home-card-lead .home-card-line { font-size: var(--t-lead); } }
-.home-card-line + .home-card-go,
-.home-card-line + .home-card-links { margin-top: auto; padding-top: var(--s2); }
-.home-card-offer .home-card-name { margin-top: 0; font-size: 1.375rem; line-height: 1.2; }
-/* door two, the three packages: name on the left, price on the right,
-   stacked on a phone */
-.home-card-prices { list-style: none; margin: 0 0 var(--s4); padding: 0; border-top: 1px solid var(--line-strong); }
-.home-card-prices li {
+.door-org .door-title { font-size: clamp(2.375rem, 4.9vw, 4.25rem); }
+.door-say { margin: 24px 0 0; max-width: 30ch; font-size: 1.375rem; }
+.door-price {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 2px var(--s4);
-  padding: 10px 0;
-  border-bottom: 1px solid var(--line-strong);
-  font-size: 1rem;
-  color: var(--ink);
+  align-items: baseline;
+  gap: 4px 18px;
+  margin: auto 0 0;
+  padding-top: 44px;
 }
-.home-card-price-name { font-weight: 600; }
-.home-card-price { font-variant-numeric: tabular-nums; }
-.home-card-quote { margin: var(--s2) 0 0; }
-.home-card-quote p { font-size: 1.125rem; font-weight: 600; color: var(--ink); }
-.home-card-cite { margin: var(--s1) 0 var(--s3); font-size: var(--t-small); }
-.home-card-cite a { color: var(--mark-deep); }
-.home-card-fine { margin: 0 0 22px; font-size: 1rem; color: var(--ink); }
-/* a door with two ways in: each link is its own target, so neither one
-   stretches over the card */
-.home-card-links { display: flex; flex-wrap: wrap; gap: 0 var(--s5); margin: 0; }
-.home-card-links .home-card-go { margin-top: 0; padding-block: 14px; }
-.home-card-links .home-card-go::after { content: none; }
-.home-card-links .home-card-go:hover { color: var(--mark-deep); text-decoration: underline; }
-.home-card:hover .home-card-links .home-card-go:not(:hover) { color: var(--mark); text-decoration: none; }
-
-/* the other services: smaller, no line drawing, no number */
-.home-other { padding-top: var(--s6); }
-.home-cards-other { margin: var(--s4) 0 72px; }
-.home-card-compact { padding: 14px 18px 16px; }
-.home-card-compact .home-card-icon svg { width: 18px; height: 18px; }
-.home-card-compact .home-card-name { margin: 10px 0 12px; font-size: 1rem; }
-.home-card-compact .home-card-join { display: none; }
-
-@media (max-width: 37.5rem) {
-  .home-hero { border-radius: 0 0 20px 20px; padding-bottom: var(--s8); }
-  .home-ghost { width: 340px; height: 340px; right: -110px; top: -40px; }
-  .home-hero-foot { flex-direction: column; align-items: start; }
+.door-price b {
+  font-size: clamp(4rem, 8vw, 7.25rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
 }
+.door-price span { max-width: 12ch; font-size: 1.375rem; font-weight: 600; line-height: 1.2; }
+.door-acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+.door-org { background: var(--mark-deep); color: var(--paper); }
+.door-org .door-title span { color: var(--tint-sage); }
+.door-org .door-who { background: var(--tint-sage); color: var(--mark-deep); }
+.door-org .door-btn { border-color: var(--tint-sage); }
+.door-org .door-btn-fill { background: var(--paper); border-color: var(--paper); color: var(--mark-deep); }
+.door-sb { background: var(--clay); color: #fff; }
+.door-sb .door-who { background: var(--sand); color: var(--clay-deep); }
+.door-sb .door-btn { border-color: var(--sand); }
+.door-sb .door-btn-fill { background: #fff; border-color: #fff; color: var(--clay-deep); }
+
+.packs, .said, .brief { padding: clamp(2.5rem, 6vw, 5.5rem) clamp(1.25rem, 4vw, 3.5rem); }
+.packs h2, .brief h2 {
+  margin: 0;
+  font-size: clamp(1.875rem, 3.4vw, 2.875rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+}
+.packs-list { list-style: none; display: grid; gap: 0; margin: 32px 0 0; padding: 0; }
+.packs-list li { padding: 20px 0; border-top: 2px solid var(--ink); }
+.packs-list h3 { margin: 0; font-size: 1.5rem; }
+.packs-price { margin: 6px 0 0; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.packs-note { margin: 12px 0 28px; max-width: 60ch; }
+
+.said { display: grid; gap: 48px; align-items: center; background: var(--sand); }
+.said-quote { margin: 0; }
+.said-quote p {
+  margin: 0;
+  font-size: clamp(1.875rem, 3.6vw, 3.125rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+.said-by { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin: 26px 0 0; font-size: 1.25rem; font-weight: 600; }
+.said-by img { width: auto; height: 48px; padding: 10px 14px; border-radius: 4px; background: var(--bar); }
+.said-people { display: grid; gap: 22px; justify-items: start; }
+.said-people div { width: 100%; padding-top: 14px; border-top: 2px solid var(--ink); }
+.said-people h3 { margin: 0; font-size: 1.5rem; }
+.said-people p { margin: 6px 0 0; }
+
+.brief { display: grid; gap: 40px; align-items: end; background: var(--tint-sage); }
+.brief p { max-width: 36ch; margin: 16px 0 24px; font-size: 1.3125rem; }
+.brief .brief-when {
+  display: inline-block;
+  max-width: none;
+  margin: 0 0 20px;
+  padding: 8px 14px;
+  border-radius: 4px;
+  background: var(--mark-deep);
+  color: var(--paper);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.brief .brief-title {
+  max-width: none;
+  margin: 0;
+  font-size: clamp(2.125rem, 4.4vw, 3.875rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+}
+
+@media (max-width: 51.1875rem) {
+  .door-btn { width: 100%; }
+}
+@media (min-width: 51.25rem) {
+  .home .doors { grid-template-columns: 1.25fr 1fr; min-height: 760px; }
+  .packs-list { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .said { grid-template-columns: 1.5fr 1fr; }
+  .brief { grid-template-columns: 1fr 1.3fr; gap: 56px; }
+}
+
+/* ---------- the redrawn inner pages (27 November 2026) ----------
+   The sample diagnosis and Reporting alignment, in the look of the home
+   page: large type, the numbers first, every action a button. Scoped on
+   body.sd and sd- classes so nothing here reaches another page. */
+body.sd { --bar: #141614; --sand: #f3e6d6; font-size: 1.1875rem; }
+.sd .masthead .nav-list a, .sd .masthead .nav-toggle, .sd .masthead .brand-name, .sd .footer a, .sd .footer p, .sd .skip { font-size: 1.125rem; }
+.sd-band { padding: clamp(2.5rem, 6vw, 5.5rem) clamp(1.25rem, 4vw, 3.5rem); }
+.sd-in { max-width: 1240px; margin-inline: auto; }
+.sd h1, .sd h2 { margin: 0; font-weight: 700; line-height: 1.04; letter-spacing: -0.025em; }
+.sd h1 { font-size: clamp(2.375rem, 4.9vw, 4.25rem); max-width: 16ch; }
+.sd h2 { font-size: clamp(1.875rem, 3.4vw, 2.875rem); }
+.sd h3 { margin: 0; font-size: 1.5rem; }
+.sd-tag { display: inline-block; margin: 0 0 28px; padding: 8px 14px; border-radius: 4px; font-size: 1.25rem; font-weight: 700; }
+.sd-say { margin: 24px 0 0; max-width: 34ch; font-size: 1.375rem; }
+.sd-acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+.sd-hero { background: var(--mark-deep); color: var(--paper); }
+.sd-hero .sd-tag { background: var(--tint-sage); color: var(--mark-deep); }
+.sd-hero h1 span { color: var(--tint-sage); }
+.sd-hero .door-btn { border-color: var(--tint-sage); }
+.sd-hero .door-btn-fill { background: var(--paper); border-color: var(--paper); color: var(--mark-deep); }
+.sd-hero :focus-visible { outline-color: #fff; }
+
+.sd-three { display: grid; gap: 40px; margin-top: 40px; }
+.sd-measure { padding-top: 18px; border-top: 2px solid var(--ink); }
+.sd-measure p { margin: 0; }
+.sd-was { margin-top: 14px !important; font-size: 1.375rem; text-decoration: line-through; text-decoration-thickness: 2px; }
+.sd-now { font-size: clamp(3.25rem, 6.4vw, 5.5rem); font-weight: 800; line-height: 0.95; letter-spacing: -0.045em; color: var(--mark-deep); }
+.sd-unit { margin-top: 8px !important; font-size: 1.25rem; font-weight: 600; }
+
+.sd-map { background: var(--sand); }
+.sd-quote { margin: 0 0 40px; max-width: 22ch; font-size: clamp(1.875rem, 3.6vw, 3.125rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.025em; }
+.sd-cols { display: grid; gap: 40px; }
+.sd-col { padding-top: 18px; border-top: 2px solid var(--ink); }
+.sd-count { margin: 10px 0 4px; font-size: clamp(3.25rem, 6.4vw, 5.5rem); font-weight: 800; line-height: 0.95; letter-spacing: -0.045em; }
+.sd-facts { margin: 0 0 20px; font-size: 1.25rem; font-weight: 600; }
+.sd-steps { margin: 0; padding-left: 1.6em; list-style: decimal; }
+.sd-steps li { padding: 5px 0; }
+.sd-steps .sd-cut { text-decoration: line-through; text-decoration-thickness: 2px; }
+.sd-after .sd-count { color: var(--mark-deep); }
+.sd-note { margin: 18px 0 0; font-weight: 600; }
+
+.sd-pay { background: var(--tint-sage); }
+.sd-pay-grid { display: grid; gap: 40px; align-items: end; }
+.sd-pay .sd-now { display: block; font-size: clamp(4.5rem, 10vw, 9rem); }
+.sd-sums { list-style: none; margin: 0; padding: 0; }
+.sd-sums li { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 2px solid var(--mark-deep); font-size: 1.25rem; }
+.sd-sums b { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.sd-get { display: grid; gap: 32px; margin-top: 36px; }
+.sd-get div { padding-top: 14px; border-top: 2px solid var(--ink); }
+.sd-get p { margin: 6px 0 0; }
+.sd-weeks { margin: 36px 0 0; padding-left: 1.6em; font-size: 1.25rem; list-style: decimal; }
+.sd-weeks li { padding: 6px 0; }
+.sd-weeks b { font-weight: 700; }
+.sd-fine { margin: 40px 0 0; max-width: 60ch; }
+
+@media (min-width: 51.25rem) {
+  .sd-three, .sd-get { grid-template-columns: repeat(3, 1fr); }
+  .sd-cols { grid-template-columns: 1.25fr 1fr; gap: 56px; }
+  .sd-pay-grid { grid-template-columns: 1fr 1.1fr; gap: 56px; }
+}
+
+/* Reporting alignment only */
+.sd-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; margin: 44px 0 0; }
+.sd-price b { font-size: clamp(4rem, 8vw, 7.25rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.05em; }
+.sd-price span { max-width: 12ch; font-size: 1.375rem; font-weight: 600; line-height: 1.2; }
+.sd-sand { background: var(--sand); }
+.sd-sage { background: var(--tint-sage); }
+.sd-four { display: grid; gap: 32px 56px; margin-top: 36px; }
+.sd-four div, .sd-ways div { padding-top: 14px; border-top: 2px solid var(--ink); }
+.sd-four p, .sd-ways p { margin: 6px 0 0; }
+.sd-ways { display: grid; gap: 32px; margin-top: 36px; }
+.sd-ways .sd-cost { margin-top: 14px; font-size: 1.375rem; font-weight: 700; color: var(--mark-deep); }
+.sd-lede { margin: 16px 0 0; max-width: 44ch; font-size: 1.375rem; }
+.sd-partner { display: grid; gap: 32px; align-items: start; }
+.sd-partner p { margin: 16px 0 0; max-width: 48ch; }
+.sd .contact label, .sd .contact .field-help, .sd .contact .contact-note, .sd .contact .form-error, .sd .contact input, .sd .contact textarea { font-size: 1.125rem; }
+.sd .btn { border-radius: 4px; font-size: 1.1875rem; }
+.sd .contact .wrap { max-width: 1240px; padding-inline: 0; }
+.sd .contact { padding-inline: clamp(1.25rem, 4vw, 3.5rem); }
+@media (min-width: 51.25rem) {
+  .sd-four { grid-template-columns: 1fr 1fr; }
+  .sd-ways { grid-template-columns: repeat(3, 1fr); }
+  .sd-partner { grid-template-columns: 1fr 1.1fr; gap: 56px; }
+}
+
+/* both redrawn pages read larger than the first draft (his word, 27 November 2026) */
+body.sd { font-size: 1.375rem; }
+.sd h3 { font-size: 1.75rem; }
+.sd .sd-say,
+.sd .sd-lede { font-size: 1.625rem; }
+.sd .sd-was,
+.sd .sd-unit,
+.sd .sd-facts,
+.sd .sd-sums li,
+.sd .sd-weeks,
+.sd .sd-ways .sd-cost { font-size: 1.5rem; }
+.sd .sd-steps li { padding: 8px 0; }
+.sd .sd-fine { max-width: 52ch; }
 
 /* ---------- visually hidden ----------
    Text for a screen reader that is not drawn: the home cards' heading and the
