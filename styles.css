@@ -1976,6 +1976,18 @@ body.sd { --bar: #141614; --sand: #f3e6d6; font-size: 1.1875rem; }
   .sd-partner { grid-template-columns: 1fr 1.1fr; gap: 56px; }
 }
 
+/* the sample diagnosis reads larger than Reporting (his word, 27 November 2026) */
+body.sd-sample { font-size: 1.375rem; }
+.sd-sample h3 { font-size: 1.75rem; }
+.sd-sample .sd-say { font-size: 1.625rem; }
+.sd-sample .sd-was,
+.sd-sample .sd-unit,
+.sd-sample .sd-facts,
+.sd-sample .sd-sums li,
+.sd-sample .sd-weeks { font-size: 1.5rem; }
+.sd-sample .sd-steps li { padding: 8px 0; }
+.sd-sample .sd-fine { max-width: 52ch; }
+
 /* ---------- visually hidden ----------
    Text for a screen reader that is not drawn: the home cards' heading and the
    sentence each line drawing stands for. */
